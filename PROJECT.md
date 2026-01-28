@@ -1,9 +1,3 @@
-
-git config --global user.name "aororn"
-git config --global user.email "aororn@gmail.com"
-
-cd /Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич
-
 # Проект: Проверка аудиокниг через Яндекс SpeechKit
 
 **Версия:** 5.7.0
