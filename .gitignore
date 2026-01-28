@@ -1,0 +1,42 @@
+# API-ключи и секреты
+api_keys.json
+api_key.txt
+
+# Временные файлы
+Темп/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Покрытие тестами
+.coverage
+htmlcov/
+coverage.xml
+
+# pytest
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Дистрибуция
+dist/
+build/
+*.egg-info/
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# Виртуальные окружения
+venv/
+.venv/
+env/

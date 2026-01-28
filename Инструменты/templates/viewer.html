@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка транскрипции - Результаты</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #0f3460;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .audio-player {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .audio-player audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .audio-controls button {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .audio-controls button:hover {
+            background: #ff6b6b;
+        }
+
+        .current-time {
+            font-family: monospace;
+            font-size: 1.2em;
+            color: #e94560;
+            background: #0f3460;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .filters {
+            background: #16213e;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filters label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .filters input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #e94560;
+        }
+
+        .error-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .error-item {
+            background: #16213e;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #e94560;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .error-item:hover {
+            background: #1a2744;
+            transform: translateX(5px);
+        }
+
+        .error-item.playing {
+            background: #0f3460;
+            border-left-color: #4ecca3;
+        }
+
+        .error-item.type-substitution {
+            border-left-color: #ff6b6b;
+        }
+
+        .error-item.type-transposition {
+            border-left-color: #a55eea;
+        }
+
+        .error-item.type-insertion {
+            border-left-color: #feca57;
+        }
+
+        .error-item.type-deletion {
+            border-left-color: #54a0ff;
+        }
+
+        .error-time {
+            font-family: monospace;
+            font-size: 1.1em;
+            color: #4ecca3;
+            background: #0f3460;
+            padding: 8px 12px;
+            border-radius: 6px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .error-content {
+            flex: 1;
+        }
+
+        .error-type {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .error-text {
+            font-size: 1.1em;
+        }
+
+        .error-text .wrong {
+            color: #ff6b6b;
+            text-decoration: line-through;
+            font-style: italic;
+        }
+
+        .error-text .correct {
+            color: #4ecca3;
+            font-weight: bold;
+        }
+
+        .error-context {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 8px;
+            padding: 10px;
+            background: #0f3460;
+            border-radius: 6px;
+        }
+
+        .error-context .missing-marker {
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 0 2px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .no-audio {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .export-buttons button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .export-buttons button:hover {
+            background: #1a4a7a;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .btn-false-positive {
+            background: #ff9500;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-false-positive:hover {
+            background: #ffaa33;
+            transform: scale(1.05);
+        }
+
+        .btn-false-positive.marked {
+            background: #4ecca3;
+            cursor: pointer;
+        }
+
+        .btn-false-positive.marked:hover {
+            background: #3dbb92;
+            transform: scale(1.05);
+        }
+
+        .btn-to-reader {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-to-reader:hover {
+            background: #ff6b8a;
+            transform: scale(1.05);
+        }
+
+        .btn-to-reader.marked {
+            background: #4ecca3;
+            cursor: pointer;
+        }
+
+        .btn-to-reader.marked:hover {
+            background: #3dbb92;
+            transform: scale(1.05);
+        }
+
+        .reader-counter {
+            background: #e94560;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .false-positive-counter {
+            background: #ff9500;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .player-counters {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                justify-content: center;
+            }
+
+            .error-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Результаты проверки транскрипции</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-errors">0</div>
+                    <div class="stat-label">Всего ошибок</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="substitutions">0</div>
+                    <div class="stat-label">Замены</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="transpositions">0</div>
+                    <div class="stat-label">Перестановки</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="insertions">0</div>
+                    <div class="stat-label">Лишние слова</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="deletions">0</div>
+                    <div class="stat-label">Пропуски</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="audio-player" id="audio-section">
+            <audio id="audio" controls>
+                <source src="" type="audio/mpeg">
+                Ваш браузер не поддерживает аудио элемент.
+            </audio>
+            <div class="audio-controls">
+                <button onclick="skipTime(-5)">-5 сек</button>
+                <button onclick="skipTime(-2)">-2 сек</button>
+                <span class="current-time" id="current-time">0:00</span>
+                <button onclick="skipTime(1)">+1 сек</button>
+                <button onclick="skipTime(5)">+5 сек</button>
+                <button onclick="togglePlaybackRate()">Скорость: <span id="playback-rate">1x</span></button>
+                <div class="player-counters">
+                    <div id="fp-counter" class="false-positive-counter">Ложных: 0</div>
+                    <div id="reader-counter" class="reader-counter">Чтецу: 0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <strong>Фильтры:</strong>
+            <label>
+                <input type="checkbox" id="filter-substitution" checked onchange="applyFilters()">
+                Замены
+            </label>
+            <label>
+                <input type="checkbox" id="filter-transposition" checked onchange="applyFilters()">
+                Перестановки
+            </label>
+            <label>
+                <input type="checkbox" id="filter-insertion" checked onchange="applyFilters()">
+                Лишние слова
+            </label>
+            <label>
+                <input type="checkbox" id="filter-deletion" checked onchange="applyFilters()">
+                Пропуски
+            </label>
+        </div>
+
+        <div class="error-list" id="error-list">
+            <!-- Ошибки загружаются динамически -->
+        </div>
+
+        <div class="export-buttons">
+            <button onclick="exportToClipboard()">Копировать ложные в буфер</button>
+            <button onclick="exportToText()">Скачать TXT</button>
+            <button onclick="downloadReaderDocx()" style="background: #e94560; margin-left: auto;">Скачать DOCX для чтеца</button>
+        </div>
+    </div>
+
+    <script>
+        let errors = [];
+        let audioFile = null;
+        let currentPlayingItem = null;
+
+        // Данные ошибок (будут заменены при генерации)
+        const DATA = __ERROR_DATA__;
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            errors = DATA.errors || [];
+            audioFile = DATA.audio || null;
+
+            // Настройка аудио
+            if (audioFile) {
+                document.getElementById('audio').src = audioFile;
+            } else {
+                document.getElementById('audio-section').innerHTML =
+                    '<div class="no-audio">Аудиофайл не указан. Запустите с параметром --audio</div>';
+            }
+
+            // Обновление времени
+            const audio = document.getElementById('audio');
+            if (audio) {
+                audio.addEventListener('timeupdate', updateCurrentTime);
+            }
+
+            // Отрисовка ошибок
+            renderErrors();
+            updateStats();
+        });
+
+        function renderErrors() {
+            const list = document.getElementById('error-list');
+            list.innerHTML = '';
+
+            errors.forEach((error, index) => {
+                const item = document.createElement('div');
+                item.className = 'error-item type-' + error.type;
+                item.dataset.type = error.type;
+                item.dataset.index = index;
+
+                const timeStr = formatTime(error.time);
+
+                let errorText = '';
+                if (error.type === 'substitution') {
+                    errorText = `<span class="wrong">${error.wrong}</span> → <span class="correct">${error.correct}</span>`;
+                } else if (error.type === 'transposition') {
+                    errorText = `<span class="wrong">${error.wrong}</span> → <span class="correct">${error.correct}</span>`;
+                } else if (error.type === 'insertion') {
+                    errorText = `лишнее слово: <span class="wrong">${error.word}</span>`;
+                } else if (error.type === 'deletion') {
+                    errorText = `пропущено: <span class="correct">${error.word}</span>`;
+                }
+
+                // Форматируем контекст с маркером для всех типов ошибок
+                let contextHtml = '';
+                if (error.context) {
+                    if (error.type === 'deletion' && error.word) {
+                        contextHtml = highlightMissingWord(error.context, error.word, error.marker_pos);
+                    } else if (error.type === 'insertion' && error.word) {
+                        contextHtml = highlightInsertionPlace(error.context, error.word, error.marker_pos);
+                    } else if (error.type === 'substitution' && error.correct) {
+                        contextHtml = highlightSubstitution(error.context, error.correct, error.marker_pos);
+                    } else if (error.type === 'transposition' && error.correct) {
+                        contextHtml = highlightTransposition(error.context, error.correct, error.marker_pos);
+                    } else {
+                        contextHtml = '...' + error.context + '...';
+                    }
+                }
+
+                item.innerHTML = `
+                    <button class="btn-false-positive" onclick="markFalsePositive(event, ${index})">Ложная</button>
+                    <div class="error-time" onclick="jumpToError(errors[${index}], this.parentElement)">${timeStr}</div>
+                    <div class="error-content" onclick="jumpToError(errors[${index}], this.parentElement)">
+                        <div class="error-type">${getTypeLabel(error.type)}</div>
+                        <div class="error-text">${errorText}</div>
+                        ${contextHtml ? '<div class="error-context">' + contextHtml + '</div>' : ''}
+                    </div>
+                    <button class="btn-to-reader" onclick="markForReader(event, ${index})">Чтецу</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function getTypeLabel(type) {
+            const labels = {
+                'substitution': 'Замена',
+                'transposition': 'Перестановка',
+                'insertion': 'Лишнее слово',
+                'deletion': 'Пропуск'
+            };
+            return labels[type] || type;
+        }
+
+        // === ЕДИНЫЕ ПРАВИЛА ДЛЯ РАБОТЫ С КОНТЕКСТОМ ===
+        // Нормализация текста для поиска: lowercase + ё→е
+        function normalizeForSearch(text) {
+            return text.toLowerCase().replace(/ё/g, 'е');
+        }
+
+        // Маркеры для разных типов ошибок
+        const ERROR_MARKERS = {
+            deletion: '<span class="missing-marker">▼</span>',
+            insertion: (word) => '<span class="missing-marker">▲[' + word.toUpperCase() + ']</span>',
+            substitution: '<span class="missing-marker">●</span>',
+            transposition: '<span class="missing-marker">⇄</span>'
+        };
+
+        function highlightMissingWord(context, word, markerPos) {
+            // Для deletion: ищем пропущенное слово в контексте (оно там есть из оригинала)
+            // и ставим маркер ▼ перед ним, слово выделяем как correct
+            const marker = ERROR_MARKERS.deletion;
+            const wordNorm = normalizeForSearch(word);
+            const contextNorm = normalizeForSearch(context);
+
+            // Ищем слово в нормализованном контексте
+            const escaped = wordNorm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const pattern = new RegExp('(^|[\\s,.:;!?\\-—«»""()\\n])(' + escaped + ')([\\s,.:;!?\\-—«»""()\\n]|$)', 'i');
+            const match = contextNorm.match(pattern);
+
+            if (match) {
+                const idx = match.index + match[1].length;
+                const before = context.substring(0, idx);
+                const foundWord = context.substring(idx, idx + word.length);
+                const after = context.substring(idx + word.length);
+                return '...' + before + marker + '<span class="correct">' + foundWord + '</span>' + after + '...';
+            }
+
+            // Fallback: если слово не найдено в контексте, показываем маркер + слово
+            return '...' + context + ' ' + marker + '<span class="correct">' + word + '</span>...';
+        }
+
+        function highlightInsertionPlace(context, word, markerPos) {
+            // Для insertion: ставим маркер в позицию между соседними словами
+            const marker = ERROR_MARKERS.insertion(word);
+
+            if (markerPos !== undefined && markerPos >= 0 && markerPos <= context.length) {
+                const before = context.substring(0, markerPos);
+                const after = context.substring(markerPos);
+                return '...' + before + marker + after + '...';
+            }
+
+            // Fallback: маркер в конце
+            return '...' + context + ' ' + marker + '...';
+        }
+
+        function highlightSubstitution(context, correctWord, markerPos) {
+            const marker = ERROR_MARKERS.substitution;
+
+            // Если есть marker_pos — используем его (точная позиция из smart_compare)
+            if (markerPos !== undefined && markerPos >= 0 && markerPos < context.length) {
+                const before = context.substring(0, markerPos);
+                const foundWord = context.substring(markerPos, markerPos + correctWord.length);
+                const after = context.substring(markerPos + correctWord.length);
+                return '...' + before + marker + '<span class="correct">' + foundWord + '</span>' + after + '...';
+            }
+
+            // Fallback: ищем слово через indexOf (может найти не то вхождение)
+            const wordNorm = normalizeForSearch(correctWord);
+            const contextNorm = normalizeForSearch(context);
+            const idx = contextNorm.indexOf(wordNorm);
+
+            if (idx !== -1) {
+                const before = context.substring(0, idx);
+                const foundWord = context.substring(idx, idx + correctWord.length);
+                const after = context.substring(idx + correctWord.length);
+                return '...' + before + marker + '<span class="correct">' + foundWord + '</span>' + after + '...';
+            }
+
+            return '...' + marker + ' ' + context + '...';
+        }
+
+        function highlightTransposition(context, correctPhrase, markerPos) {
+            // Для перестановки: ищем правильную фразу в контексте и выделяем
+            const marker = ERROR_MARKERS.transposition;
+
+            // Если есть marker_pos — используем его (точная позиция из smart_compare)
+            if (markerPos !== undefined && markerPos >= 0 && markerPos < context.length) {
+                const before = context.substring(0, markerPos);
+                const foundPhrase = context.substring(markerPos, markerPos + correctPhrase.length);
+                const after = context.substring(markerPos + correctPhrase.length);
+                return '...' + before + marker + '<span class="correct">' + foundPhrase + '</span>' + after + '...';
+            }
+
+            // Fallback: ищем фразу через indexOf
+            const phraseNorm = normalizeForSearch(correctPhrase);
+            const contextNorm = normalizeForSearch(context);
+            const idx = contextNorm.indexOf(phraseNorm);
+
+            if (idx !== -1) {
+                const before = context.substring(0, idx);
+                const foundPhrase = context.substring(idx, idx + correctPhrase.length);
+                const after = context.substring(idx + correctPhrase.length);
+                return '...' + before + marker + '<span class="correct">' + foundPhrase + '</span>' + after + '...';
+            }
+
+            return '...' + marker + ' ' + context + '...';
+        }
+
+        function formatTime(seconds) {
+            if (typeof seconds === 'string') {
+                return seconds;
+            }
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function parseTime(timeStr) {
+            if (typeof timeStr === 'number') return timeStr;
+            const parts = timeStr.split(':');
+            if (parts.length === 2) {
+                return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+            }
+            return 0;
+        }
+
+        let clickState = 0;
+        let activeErrorElement = null;
+
+        function jumpToError(error, element) {
+            const audio = document.getElementById('audio');
+            if (!audio || !error.time) return;
+
+            if (activeErrorElement === element) {
+                if (clickState === 1) {
+                    audio.pause();
+                    clickState = 2;
+                } else {
+                    const time = parseTime(error.time);
+                    audio.currentTime = Math.max(0, time - 7);
+                    audio.play();
+                    clickState = 1;
+                }
+            } else {
+                const time = parseTime(error.time);
+                audio.currentTime = Math.max(0, time - 7);
+                audio.play();
+                clickState = 1;
+
+                if (currentPlayingItem) {
+                    currentPlayingItem.classList.remove('playing');
+                }
+                element.classList.add('playing');
+                currentPlayingItem = element;
+                activeErrorElement = element;
+            }
+        }
+
+        function skipTime(delta) {
+            const audio = document.getElementById('audio');
+            if (audio) {
+                audio.currentTime = Math.max(0, audio.currentTime + delta);
+            }
+        }
+
+        function updateCurrentTime() {
+            const audio = document.getElementById('audio');
+            const display = document.getElementById('current-time');
+            if (audio && display) {
+                display.textContent = formatTime(audio.currentTime);
+            }
+        }
+
+        let playbackRates = [1, 1.25, 1.5, 0.75];
+        let currentRateIndex = 0;
+
+        function togglePlaybackRate() {
+            currentRateIndex = (currentRateIndex + 1) % playbackRates.length;
+            const rate = playbackRates[currentRateIndex];
+            const audio = document.getElementById('audio');
+            if (audio) {
+                audio.playbackRate = rate;
+            }
+            document.getElementById('playback-rate').textContent = rate + 'x';
+        }
+
+        function applyFilters() {
+            const showSub = document.getElementById('filter-substitution').checked;
+            const showTrans = document.getElementById('filter-transposition').checked;
+            const showIns = document.getElementById('filter-insertion').checked;
+            const showDel = document.getElementById('filter-deletion').checked;
+
+            document.querySelectorAll('.error-item').forEach(item => {
+                const type = item.dataset.type;
+                const show = (type === 'substitution' && showSub) ||
+                            (type === 'transposition' && showTrans) ||
+                            (type === 'insertion' && showIns) ||
+                            (type === 'deletion' && showDel);
+                item.classList.toggle('hidden', !show);
+            });
+        }
+
+        function updateStats() {
+            let subs = 0, trans = 0, ins = 0, dels = 0;
+            errors.forEach(e => {
+                if (e.type === 'substitution') subs++;
+                else if (e.type === 'transposition') trans++;
+                else if (e.type === 'insertion') ins++;
+                else if (e.type === 'deletion') dels++;
+            });
+
+            document.getElementById('total-errors').textContent = errors.length;
+            document.getElementById('substitutions').textContent = subs;
+            document.getElementById('transpositions').textContent = trans;
+            document.getElementById('insertions').textContent = ins;
+            document.getElementById('deletions').textContent = dels;
+        }
+
+        function exportToClipboard() {
+            if (falsePositives.length === 0) {
+                alert('Нет отмеченных ложных ошибок для копирования');
+                return;
+            }
+
+            const text = falsePositives.map(fp => {
+                let result = '--- ЛОЖНАЯ ОШИБКА ---\n';
+                result += `Таймкод: ${fp.time_formatted}\n`;
+
+                if (fp.type === 'substitution') {
+                    result += `Тип: ЗАМЕНА\n`;
+                    result += `Ошибочное: "${fp.wrong}"\n`;
+                    result += `Верное: "${fp.correct}"\n`;
+                } else if (fp.type === 'transposition') {
+                    result += `Тип: ПЕРЕСТАНОВКА\n`;
+                    result += `Неверный порядок: "${fp.wrong}"\n`;
+                    result += `Верный порядок: "${fp.correct}"\n`;
+                } else if (fp.type === 'insertion') {
+                    result += `Тип: ЛИШНЕЕ СЛОВО\n`;
+                    result += `Слово: "${fp.word}"\n`;
+                } else if (fp.type === 'deletion') {
+                    result += `Тип: ПРОПУСК\n`;
+                    result += `Слово: "${fp.word}"\n`;
+                }
+
+                if (fp.context) {
+                    result += `Контекст:\n${fp.context}\n`;
+                }
+
+                return result;
+            }).join('\n');
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Скопировано ${falsePositives.length} ложных ошибок в буфер обмена!`);
+            });
+        }
+
+        function exportToText() {
+            const text = errors.map(e => {
+                const time = formatTime(e.time);
+                if (e.type === 'substitution') {
+                    return `${time} - ${e.wrong} → ${e.correct}`;
+                } else if (e.type === 'transposition') {
+                    return `${time} - перестановка: ${e.wrong} → ${e.correct}`;
+                } else if (e.type === 'insertion') {
+                    return `${time} - лишнее "${e.word}"`;
+                } else {
+                    return `${time} - пропущено "${e.word}"`;
+                }
+            }).join('\n');
+
+            const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'errors.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Отметка ложной ошибки
+        let falsePositives = [];
+
+        // Ошибки для чтеца
+        let readerErrors = [];
+
+        function markForReader(event, index) {
+            event.stopPropagation();
+            const btn = event.target;
+
+            // Toggle: если уже отмечена — снимаем отметку
+            if (btn.classList.contains('marked')) {
+                readerErrors = readerErrors.filter(e => e.index !== index);
+                btn.textContent = 'Чтецу';
+                btn.classList.remove('marked');
+                updateReaderCounter();
+                return;
+            }
+
+            const error = errors[index];
+            const readerEntry = {
+                index: index,
+                time: error.time,
+                time_formatted: formatTime(error.time),
+                type: error.type,
+                context: error.context || '',
+                marked_at: new Date().toISOString()
+            };
+
+            if (error.type === 'substitution' || error.type === 'transposition') {
+                readerEntry.wrong = error.wrong;
+                readerEntry.correct = error.correct;
+            } else {
+                readerEntry.word = error.word;
+            }
+
+            readerErrors.push(readerEntry);
+            btn.textContent = '✓ Чтецу';
+            btn.classList.add('marked');
+            updateReaderCounter();
+        }
+
+        function updateReaderCounter() {
+            const counter = document.getElementById('reader-counter');
+            counter.textContent = `Чтецу: ${readerErrors.length}`;
+        }
+
+        function downloadReaderDocx() {
+            console.log('downloadReaderDocx called, readerErrors:', readerErrors);
+            if (readerErrors.length === 0) {
+                alert('Нет отмеченных ошибок для чтеца');
+                return;
+            }
+
+            // Запрашиваем генерацию DOCX на сервере
+            fetch('/api/download-reader-docx', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({errors: readerErrors})
+            }).then(response => {
+                console.log('Response status:', response.status);
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Ошибка генерации DOCX: ' + response.status);
+            }).then(data => {
+                console.log('Response data:', data);
+                if (data.file) {
+                    // Скачиваем файл через fetch + blob для надёжного скачивания
+                    return fetch('/download/' + encodeURIComponent(data.file))
+                        .then(resp => {
+                            if (!resp.ok) throw new Error('Файл не найден: ' + resp.status);
+                            return resp.blob();
+                        })
+                        .then(blob => {
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = data.file;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                            alert('Файл сохранён: ' + data.file + '\n\nФайл также доступен в папке Чтецу');
+                        });
+                } else if (data.error) {
+                    alert('Ошибка: ' + data.error);
+                }
+            }).catch(err => {
+                console.error('Error:', err);
+                alert('Ошибка: ' + err.message);
+            });
+        }
+
+        function markFalsePositive(event, index) {
+            event.stopPropagation();
+            const btn = event.target;
+
+            // Toggle: если уже отмечена — снимаем отметку
+            if (btn.classList.contains('marked')) {
+                falsePositives = falsePositives.filter(e => e.index !== index);
+                btn.textContent = 'Ложная';
+                btn.classList.remove('marked');
+                updateFalsePositiveCounter();
+                return;
+            }
+
+            const error = errors[index];
+            const fpEntry = {
+                index: index,
+                time: error.time,
+                time_formatted: formatTime(error.time),
+                type: error.type,
+                context: error.context || '',
+                marked_at: new Date().toISOString()
+            };
+
+            if (error.type === 'substitution' || error.type === 'transposition') {
+                fpEntry.wrong = error.wrong;
+                fpEntry.correct = error.correct;
+            } else {
+                fpEntry.word = error.word;
+            }
+
+            falsePositives.push(fpEntry);
+            btn.textContent = '✓ Ложная';
+            btn.classList.add('marked');
+            updateFalsePositiveCounter();
+
+            // Отправляем на сервер для сохранения в файл
+            fetch('/api/false-positive', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(fpEntry)
+            }).then(r => r.json())
+              .then(data => console.log('Ложная сохранена:', fpEntry.time_formatted))
+              .catch(err => console.error('Ошибка сохранения:', err));
+        }
+
+        function updateFalsePositiveCounter() {
+            const counter = document.getElementById('fp-counter');
+            counter.textContent = `Ложных: ${falsePositives.length}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,3175 @@
+{
+  "format_version": "1.0",
+  "metadata": {
+    "created": "2026-01-25T18:53:51.445286",
+    "last_updated": "2026-01-25T19:10:52.083812",
+    "total_entries": 197,
+    "resolved_count": 0,
+    "sources_processed": [
+      "01_16kbps_NEW",
+      "01_32kbps_NEW",
+      "01_48kbps_NEW",
+      "01_96kbps_NEW",
+      "01_yandex_NEW",
+      "02_yandex_NEW",
+      "03_yandex_NEW"
+    ],
+    "total_sources": 0
+  },
+  "false_positives": {
+    "живем→живы": {
+      "wrong": "живем",
+      "correct": "живы",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447309",
+      "last_seen": "2026-01-25T19:10:52.015162",
+      "time_seconds": null,
+      "context": "ордена стал его убийцей буркнул седой громко сказано мы еще живы и у нас новая надежда взгляды всех ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "теряю→теряя": {
+      "wrong": "теряю",
+      "correct": "теряя",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447323",
+      "last_seen": "2026-01-25T19:10:52.015169",
+      "time_seconds": null,
+      "context": "новая надежда взгляды всех орденцев скрестились на мне опять я теряя терпение в который раз напомнил",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "выхода→способа": {
+      "wrong": "выхода",
+      "correct": "способа",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447326",
+      "last_seen": "2026-01-25T19:10:52.015170",
+      "time_seconds": null,
+      "context": "разговор проблема согласен оглашать нельзя ограничить кругом комтуров замена другого способа не вижу",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "побледнея→леденея": {
+      "wrong": "побледнея",
+      "correct": "леденея",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447332",
+      "last_seen": "2026-01-25T19:10:43.447333",
+      "time_seconds": null,
+      "context": "но говорит седой брат шаугат у тебя остались сомнения тот леденея лицом качает головой затем словно ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "сказать→": {
+      "wrong": "сказать",
+      "correct": "",
+      "type": "insertion",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447338",
+      "last_seen": "2026-01-25T19:10:52.015172",
+      "time_seconds": null,
+      "context": "в том же отделении что и брат галум ты хочешь чтобы я притворился дарагалом не спрашивает а лишь утв",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "одеяния→одеяние": {
+      "wrong": "одеяния",
+      "correct": "одеяние",
+      "type": "substitution",
+      "count": 3,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447340",
+      "last_seen": "2026-01-25T19:10:52.015173",
+      "time_seconds": null,
+      "context": "меняться становится чуть выше чуть шире в плечах меняется его одеяние а затем меняется лицо и волосы",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "то→": {
+      "wrong": "то",
+      "correct": "",
+      "type": "insertion",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447343",
+      "last_seen": "2026-01-25T19:10:52.015187",
+      "time_seconds": null,
+      "context": "месяцев можно отсидеться теперь когда ян мертвы вряд ли кто сунется туда в ближайшие годы не уверен ",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "сотни→сотня": {
+      "wrong": "сотни",
+      "correct": "сотня",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447345",
+      "last_seen": "2026-01-25T19:10:52.015195",
+      "time_seconds": null,
+      "context": "не три малых палочки там снаружи дарая и логар там сотня мечей там две сотни тех кто откликнулся на ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "→я": {
+      "wrong": "",
+      "correct": "я",
+      "type": "deletion",
+      "count": 10,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447347",
+      "last_seen": "2026-01-25T19:10:52.015209",
+      "time_seconds": null,
+      "context": "мне нужно будет много рассказать а о еще большем умолчать я обернулся и встретил злой недовольный вз",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "продолжая→продолжал": {
+      "wrong": "продолжая",
+      "correct": "продолжал",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447350",
+      "last_seen": "2026-01-25T19:10:52.015197",
+      "time_seconds": null,
+      "context": "злой недовольный взгляд зеленорукого вздохнул хочешь чтото спросить тот молчал продолжал глядеть на ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "ощущал→ощутил": {
+      "wrong": "ощущал",
+      "correct": "ощутил",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447352",
+      "last_seen": "2026-01-25T19:10:52.015198",
+      "time_seconds": null,
+      "context": "тобой и кому из них мне передать детей я себя ощутил так словно набил полный рот незрелой мушмулы ск",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "я→и": {
+      "wrong": "я",
+      "correct": "и",
+      "type": "substitution",
+      "count": 10,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447354",
+      "last_seen": "2026-01-25T19:10:52.083713",
+      "time_seconds": null,
+      "context": "на себя детей я вообще не видел среди орденцев детей и не уверен что в изгнании и забвении орден сох",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "одним→ним": {
+      "wrong": "одним",
+      "correct": "ним",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447358",
+      "last_seen": "2026-01-25T19:10:43.447358",
+      "time_seconds": null,
+      "context": "останется п ф презрительно фыркнул пересмешник не срослось старик над ним самим в этот миг мигнула п",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→над": {
+      "wrong": "",
+      "correct": "над",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447363",
+      "last_seen": "2026-01-25T19:10:43.447364",
+      "time_seconds": null,
+      "context": "тобой останется п ф презрительно фыркнул пересмешник не срослось старик над ним самим в этот миг миг",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "оболедочные→ублюдочные": {
+      "wrong": "оболедочные",
+      "correct": "ублюдочные",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447365",
+      "last_seen": "2026-01-25T19:10:43.447366",
+      "time_seconds": null,
+      "context": "не первый указ верности в моей жизни таковы правила фракций ублюдочные правила не нравятся напомню ч",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "ты что→что ты": {
+      "wrong": "ты что",
+      "correct": "что ты",
+      "type": "transposition",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447372",
+      "last_seen": "2026-01-25T19:10:52.015201",
+      "time_seconds": null,
+      "context": "у них эти правила не действуют на верхушку клинке старик что ты раз за разом используешь это слово с",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "пеленой→пелены": {
+      "wrong": "пеленой",
+      "correct": "пелены",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447378",
+      "last_seen": "2026-01-25T19:10:43.447378",
+      "time_seconds": null,
+      "context": "орден уничтожат рывком пересек зал замер в половине шага от пелены формации через вдох за спиной сто",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "добавила→добавив": {
+      "wrong": "добавила",
+      "correct": "добавив",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447383",
+      "last_seen": "2026-01-25T19:10:52.015202",
+      "time_seconds": null,
+      "context": "легкостью в который раз нарушая мой приказ с привычным запозданием добавив господин я торопливо отря",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "пинка→пинками": {
+      "wrong": "пинка",
+      "correct": "пинками",
+      "type": "substitution",
+      "count": 3,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_48kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447389",
+      "last_seen": "2026-01-25T19:10:52.015203",
+      "time_seconds": null,
+      "context": "них кстати мечам тоже приходится отвлекаться и чуть ли не пинками мешать перелезть в наш двор безумц",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "а→": {
+      "wrong": "а",
+      "correct": "",
+      "type": "insertion",
+      "count": 6,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447394",
+      "last_seen": "2026-01-25T19:10:52.015205",
+      "time_seconds": null,
+      "context": "обычно мы с братом дарагалом редко сходимся во мнении но сейчас мы с ним красноволосый повел рукой у",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "договаривались→договорились": {
+      "wrong": "договаривались",
+      "correct": "договорились",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447396",
+      "last_seen": "2026-01-25T19:10:52.015207",
+      "time_seconds": null,
+      "context": "все сильно поменялось в сравнении с тем о чем мы договорились перед заключением контрактов я бы сказ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "громко→громче": {
+      "wrong": "громко",
+      "correct": "громче",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447402",
+      "last_seen": "2026-01-25T19:10:52.015208",
+      "time_seconds": null,
+      "context": "слышно даже мне буркнул ох перестарался с красивым жестом уже громче добавил сплошные траты молодой ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "что→": {
+      "wrong": "что",
+      "correct": "",
+      "type": "insertion",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447405",
+      "last_seen": "2026-01-25T19:10:52.015208",
+      "time_seconds": null,
+      "context": "словно этот холод стали мне лишь почудился но я знал не почудился красноволосый все верно понял и пр",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "я→с": {
+      "wrong": "я",
+      "correct": "с",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447408",
+      "last_seen": "2026-01-25T19:10:52.015210",
+      "time_seconds": null,
+      "context": "силу нанести обиду вы правы старший не стал я спорить с ним теперь мне интересно с кем же еще ты дог",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "→ним": {
+      "wrong": "",
+      "correct": "ним",
+      "type": "deletion",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447412",
+      "last_seen": "2026-01-25T19:10:52.015211",
+      "time_seconds": null,
+      "context": "нанести обиду вы правы старший не стал я спорить с ним теперь мне интересно с кем же еще ты договори",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "готовить→готовясь": {
+      "wrong": "готовить",
+      "correct": "готовясь",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447414",
+      "last_seen": "2026-01-25T19:10:43.447415",
+      "time_seconds": null,
+      "context": "ним теперь мне интересно с кем же еще ты договорился готовясь к сегодняшнему дню кого еще мне ждать ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "и→а": {
+      "wrong": "и",
+      "correct": "а",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447416",
+      "last_seen": "2026-01-25T19:10:52.015212",
+      "time_seconds": null,
+      "context": "ты не веришь в это он не опустил взгляда верю а еще верю в наши силы которые будут гораздо больше че",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "предводителя→предводителей": {
+      "wrong": "предводителя",
+      "correct": "предводителей",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447420",
+      "last_seen": "2026-01-25T19:10:52.015213",
+      "time_seconds": null,
+      "context": "то вы можете со всеми заключить контракт столько свитков для предводителей найдется и у нас самих я ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "шансы→шанс": {
+      "wrong": "шансы",
+      "correct": "шанс",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447426",
+      "last_seen": "2026-01-25T19:10:51.978814",
+      "time_seconds": null,
+      "context": "потому что предатель другой ушел его изображать орден получил новый шанс и вроде как нашел магистра ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "элю→и": {
+      "wrong": "элю",
+      "correct": "и",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447431",
+      "last_seen": "2026-01-25T19:10:43.447431",
+      "time_seconds": null,
+      "context": "а ты кто тот в ответ изумился а ты глухой и не слышал как младший господин назначил меня главой школ",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "а→и": {
+      "wrong": "а",
+      "correct": "и",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447434",
+      "last_seen": "2026-01-25T19:10:52.015217",
+      "time_seconds": null,
+      "context": "всему и будешь их учить или все же наберешь учителей и из кого из орденцев будем честными из моих лю",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "калеты→калек": {
+      "wrong": "калеты",
+      "correct": "калек",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447437",
+      "last_seen": "2026-01-25T19:10:43.447438",
+      "time_seconds": null,
+      "context": "совсем не ожидал эй правая и левая рука господина слуг калек и беглецов бесследно исчезнувшего орден",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "вас→нас": {
+      "wrong": "вас",
+      "correct": "нас",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447444",
+      "last_seen": "2026-01-25T19:10:52.015220",
+      "time_seconds": null,
+      "context": "и ты ткнул по очереди в обоих у кого из нас больше в этом опыта у тебя у тебя или у",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→вам": {
+      "wrong": "",
+      "correct": "вам",
+      "type": "deletion",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447450",
+      "last_seen": "2026-01-25T19:10:52.015221",
+      "time_seconds": null,
+      "context": "господин слуг калек и беглецов снова влез в разговор пересмешник вам тоже нужно беспокоиться о том ч",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "о→но": {
+      "wrong": "о",
+      "correct": "но",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447452",
+      "last_seen": "2026-01-25T19:10:52.015221",
+      "time_seconds": null,
+      "context": "обернулся к нему приложил кулак к ладони прости я цалиш но можно и зеленорукий а ты рут помедлив тот",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "этими→этим": {
+      "wrong": "этими",
+      "correct": "этим",
+      "type": "substitution",
+      "count": 6,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447455",
+      "last_seen": "2026-01-25T19:10:52.083645",
+      "time_seconds": null,
+      "context": "наводя порядок и давая пищу слухам может вы займетесь наконец этим самым порядком вместо болтовни не",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "мыслеречью→мыслью": {
+      "wrong": "мыслеречью",
+      "correct": "мыслью",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447460",
+      "last_seen": "2026-01-25T19:10:52.015223",
+      "time_seconds": null,
+      "context": "я займитесь делом хотя бы отыщите место для ночлега добавил мыслью камни то у тебя остались а то я к",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "по→посвоему": {
+      "wrong": "по",
+      "correct": "посвоему",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447466",
+      "last_seen": "2026-01-25T19:10:52.015224",
+      "time_seconds": null,
+      "context": "мне оставалось лишь вздохнуть про себя каждый норовит называть меня посвоему это уже выглядит смешно",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "→чуть": {
+      "wrong": "",
+      "correct": "чуть",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447469",
+      "last_seen": "2026-01-25T19:10:43.447470",
+      "time_seconds": null,
+      "context": "и тут же спросил снова ты казначей алкай тот выпрямился чуть растерянно протянул м да глава все отре",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "джесси→же": {
+      "wrong": "джесси",
+      "correct": "же",
+      "type": "substitution",
+      "count": 3,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447472",
+      "last_seen": "2026-01-25T19:10:51.978828",
+      "time_seconds": null,
+      "context": "перекован рявкнули в ответ полтора десятка глоток и не надоедает же седому орать каждый раз зато хот",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "талант→таланты": {
+      "wrong": "талант",
+      "correct": "таланты",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447475",
+      "last_seen": "2026-01-25T19:10:52.015229",
+      "time_seconds": null,
+      "context": "феора я надеюсь отыскать среди этих людей скрытые таланты феор таланты глава да они слишком слабы чт",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "и→": {
+      "wrong": "и",
+      "correct": "",
+      "type": "insertion",
+      "count": 17,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW",
+        "02_yandex_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447480",
+      "last_seen": "2026-01-25T19:10:52.083810",
+      "time_seconds": null,
+      "context": "я надеюсь отыскать среди этих людей скрытые таланты феор таланты глава да они слишком слабы чтобы пр",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "сложной→сложные": {
+      "wrong": "сложной",
+      "correct": "сложные",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447482",
+      "last_seen": "2026-01-25T19:10:52.015230",
+      "time_seconds": null,
+      "context": "большую часть мы не сможем проверить здесь и сейчас это сложные формации мы забрали с собой то что с",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "нибудь→то": {
+      "wrong": "нибудь",
+      "correct": "то",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447485",
+      "last_seen": "2026-01-25T19:10:52.015232",
+      "time_seconds": null,
+      "context": "что мы можем проверить сейчас и пристрой их к какому то делу пусть даже дворы подметать и воду таска",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "тоскинешь→раскинешь": {
+      "wrong": "тоскинешь",
+      "correct": "раскинешь",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447489",
+      "last_seen": "2026-01-25T19:10:43.447489",
+      "time_seconds": null,
+      "context": "не нужно прошипел седой чего следить за этими убогими встанешь раскинешь восприятие и следи себе сам",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "что→кто": {
+      "wrong": "что",
+      "correct": "кто",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447494",
+      "last_seen": "2026-01-25T19:10:52.015233",
+      "time_seconds": null,
+      "context": "этот властелин здесь а не ушел с красноволосым и тем кто выдавал себя за морщинистого то да это тот ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "вопроса→слова": {
+      "wrong": "вопроса",
+      "correct": "слова",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447500",
+      "last_seen": "2026-01-25T19:10:52.015234",
+      "time_seconds": null,
+      "context": "себя налилась на миг яркостью удерживая его болью от глупого слова это пришлось добавить всем даже с",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "армагеддон→и": {
+      "wrong": "армагеддон",
+      "correct": "и",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447505",
+      "last_seen": "2026-01-25T19:10:43.447506",
+      "time_seconds": null,
+      "context": "ко мне забывчиво именуя магистром теперь такое не повторяется вот и рагедон через вдох сказал уже ве",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "правду→прямо": {
+      "wrong": "правду",
+      "correct": "прямо",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447510",
+      "last_seen": "2026-01-25T19:10:52.015237",
+      "time_seconds": null,
+      "context": "хотя бы тень улыбки озман хорошо но я буду говорить прямо глава прошу не обижаться на меня я усмехну",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "не→нет": {
+      "wrong": "не",
+      "correct": "нет",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447515",
+      "last_seen": "2026-01-25T19:10:43.447516",
+      "time_seconds": null,
+      "context": "значит первое что ты хочешь сказать я обидчивый озман прищурился нет глава это была лишь фигура речи",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "было→глава": {
+      "wrong": "было",
+      "correct": "глава",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447519",
+      "last_seen": "2026-01-25T19:10:43.447519",
+      "time_seconds": null,
+      "context": "первое что ты хочешь сказать я обидчивый озман прищурился нет глава это была лишь фигура речи вы не ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "зла→зло": {
+      "wrong": "зла",
+      "correct": "зло",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447524",
+      "last_seen": "2026-01-25T19:10:43.447524",
+      "time_seconds": null,
+      "context": "над вами верх но обязательно отомстите тому кто причинил вам зло вартол крупно ошибся когда решил сл",
+      "pattern_suggestion": "phonetic",
+      "notes": ""
+    },
+    "я→": {
+      "wrong": "я",
+      "correct": "",
+      "type": "insertion",
+      "count": 2,
+      "sources": [
+        "01_16kbps_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447528",
+      "last_seen": "2026-01-25T19:10:52.083761",
+      "time_seconds": null,
+      "context": "что едва я склонюсь он будет доволен не буду отрицать лишь напомню что я советовал вам продержаться ",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "совершила→совершу": {
+      "wrong": "совершила",
+      "correct": "совершу",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447530",
+      "last_seen": "2026-01-25T19:10:52.015238",
+      "time_seconds": null,
+      "context": "один раз я уже недооценил вас теперь такой ошибки не совершу вартол решил что в толпе зевак скрывало",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "зверемражи→зверином": {
+      "wrong": "зверемражи",
+      "correct": "зверином",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447539",
+      "last_seen": "2026-01-25T19:10:43.447539",
+      "time_seconds": null,
+      "context": "побочный эффект на ваш разум мелькнула мысль и о ярости зверином раже который действуют на вас изза ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→раже": {
+      "wrong": "",
+      "correct": "раже",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "01_16kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447544",
+      "last_seen": "2026-01-25T19:10:43.447544",
+      "time_seconds": null,
+      "context": "эффект на ваш разум мелькнула мысль и о ярости зверином раже который действуют на вас изза вашей род",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "услышал→услышав": {
+      "wrong": "услышал",
+      "correct": "услышав",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447546",
+      "last_seen": "2026-01-25T19:10:52.015240",
+      "time_seconds": null,
+      "context": "увидев пещеру черной горы того самого мада себя раненого и услышав свои вопли которыми я праздновал ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "нет→нельзя": {
+      "wrong": "нет",
+      "correct": "нельзя",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447548",
+      "last_seen": "2026-01-25T19:10:52.015241",
+      "time_seconds": null,
+      "context": "руках отчетливо понимая когда можно дать себе волю а когда нельзя вы знаете когда можно рискнуть жиз",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→он": {
+      "wrong": "",
+      "correct": "он",
+      "type": "deletion",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447553",
+      "last_seen": "2026-01-25T19:10:52.015242",
+      "time_seconds": null,
+      "context": "выдохнул вы забрали их всех вы забрали их всех глава он снова подался вперед на этот раз с каким то ",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "эти→это": {
+      "wrong": "эти",
+      "correct": "это",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_16kbps_NEW",
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:43.447555",
+      "last_seen": "2026-01-25T19:10:52.015243",
+      "time_seconds": null,
+      "context": "прочего это не просто недопонимание или выражение недовольства как выставили это олухи из рабочих вы",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "заян→за": {
+      "wrong": "заян",
+      "correct": "за",
+      "type": "substitution",
+      "count": 3,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905279",
+      "last_seen": "2026-01-25T19:10:52.015188",
+      "time_seconds": null,
+      "context": "начнут обшаривать то куда не доходили руки у прежних что за ян что за зал стражей что там с эрзум и",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "→ян": {
+      "wrong": "",
+      "correct": "ян",
+      "type": "deletion",
+      "count": 3,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905284",
+      "last_seen": "2026-01-25T19:10:52.015189",
+      "time_seconds": null,
+      "context": "обшаривать то куда не доходили руки у прежних что за ян что за зал стражей что там с эрзум и что",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "расцвело→аж": {
+      "wrong": "расцвело",
+      "correct": "аж",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905293",
+      "last_seen": "2026-01-25T19:10:51.978774",
+      "time_seconds": null,
+      "context": "себя ощутил так словно набил полный рот незрелой мушмулы скулы аж свело вот только этим мне сейчас н",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "→свело": {
+      "wrong": "",
+      "correct": "свело",
+      "type": "deletion",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905297",
+      "last_seen": "2026-01-25T19:10:51.978776",
+      "time_seconds": null,
+      "context": "ощутил так словно набил полный рот незрелой мушмулы скулы аж свело вот только этим мне сейчас не хва",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "облеточное→ублюдочные": {
+      "wrong": "облеточное",
+      "correct": "ублюдочные",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905301",
+      "last_seen": "2026-01-25T19:10:51.905301",
+      "time_seconds": null,
+      "context": "не первый указ верности в моей жизни таковы правила фракций ублюдочные правила не нравятся напомню ч",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "добавил→добавив": {
+      "wrong": "добавил",
+      "correct": "добавив",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905310",
+      "last_seen": "2026-01-25T19:10:51.905310",
+      "time_seconds": null,
+      "context": "легкостью в который раз нарушая мой приказ с привычным запозданием добавив господин я торопливо отря",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "эли→и": {
+      "wrong": "эли",
+      "correct": "и",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905324",
+      "last_seen": "2026-01-25T19:10:52.015216",
+      "time_seconds": null,
+      "context": "а ты кто тот в ответ изумился а ты глухой и не слышал как младший господин назначил меня главой школ",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "спецся→спеться": {
+      "wrong": "спецся",
+      "correct": "спеться",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905329",
+      "last_seen": "2026-01-25T19:10:52.015219",
+      "time_seconds": null,
+      "context": "по стаду баранов зеленорукий добавил показав как с ходу может спеться с седым и стада эти без хозяин",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "и→вино": {
+      "wrong": "и",
+      "correct": "вино",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905342",
+      "last_seen": "2026-01-25T19:10:51.905343",
+      "time_seconds": null,
+      "context": "приободрить а не закончить на этом странном разговоре про деньги вино и самостоятельность чуть подум",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "но→": {
+      "wrong": "но",
+      "correct": "",
+      "type": "insertion",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905346",
+      "last_seen": "2026-01-25T19:10:52.083721",
+      "time_seconds": null,
+      "context": "а не закончить на этом странном разговоре про деньги вино и самостоятельность чуть подумав я громко ",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "начертание→начертания": {
+      "wrong": "начертание",
+      "correct": "начертания",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905352",
+      "last_seen": "2026-01-25T19:10:51.905353",
+      "time_seconds": null,
+      "context": "возможности я хочу проверить их в формациях которые ищут таланты начертания массивы указы поиск лову",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "устала→устало": {
+      "wrong": "устала",
+      "correct": "устало",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905360",
+      "last_seen": "2026-01-25T19:10:51.978839",
+      "time_seconds": null,
+      "context": "там протру невзирая ни на какую крепость тела предводителя воинов устало понимая что за окном зала н",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "борт→ворот": {
+      "wrong": "борт",
+      "correct": "ворот",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905362",
+      "last_seen": "2026-01-25T19:10:51.905363",
+      "time_seconds": null,
+      "context": "кисет с флагами и ушел я же просунул руку за ворот халата нащупал нужный артефакт и толкнул в него н",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "верю→верен": {
+      "wrong": "верю",
+      "correct": "верен",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905368",
+      "last_seen": "2026-01-25T19:10:52.015235",
+      "time_seconds": null,
+      "context": "все понял невозмутимо спросил глава не доверяет моей верности я верен вам моему главе иралу я верен ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "переливаясь→впиваясь": {
+      "wrong": "переливаясь",
+      "correct": "впиваясь",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905374",
+      "last_seen": "2026-01-25T19:10:51.905375",
+      "time_seconds": null,
+      "context": "я хочу еще раз испытать твой ум я подался вперед впиваясь в него взглядом спросил что ты еще понял о",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "баба→глава": {
+      "wrong": "баба",
+      "correct": "глава",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905382",
+      "last_seen": "2026-01-25T19:10:51.978842",
+      "time_seconds": null,
+      "context": "первое что ты хочешь сказать я обидчивый озман прищурился нет глава это была лишь фигура речи вы не ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "главарь→глава": {
+      "wrong": "главарь",
+      "correct": "глава",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_32kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905388",
+      "last_seen": "2026-01-25T19:10:51.905388",
+      "time_seconds": null,
+      "context": "ему его слова тот момент на многое открыл мне глаза глава тот ваш взгляд озман покачал головой я реш",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "телохранителя→телохранителей": {
+      "wrong": "телохранителя",
+      "correct": "телохранителей",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905395",
+      "last_seen": "2026-01-25T19:10:52.015239",
+      "time_seconds": null,
+      "context": "и прозрение старейшин и стражи а что скажешь ты сколько телохранителей скрывалось в толпе озман поме",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "слова→словах": {
+      "wrong": "слова",
+      "correct": "словах",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "01_32kbps_NEW",
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.905403",
+      "last_seen": "2026-01-25T19:10:52.015242",
+      "time_seconds": null,
+      "context": "мне нужно было забирать их всех я советник лишь на словах глава я тот кто приносит вам слухи новости",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "взгляд→взгляда": {
+      "wrong": "взгляд",
+      "correct": "взгляда",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_48kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.942969",
+      "last_seen": "2026-01-25T19:10:51.942970",
+      "time_seconds": null,
+      "context": "спросил аранви это что шутка тот не отводя от меня взгляда качнул головой из стороны в сторону я сам",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "правило→не": {
+      "wrong": "правило",
+      "correct": "не",
+      "type": "substitution",
+      "count": 3,
+      "sources": [
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.942983",
+      "last_seen": "2026-01-25T19:10:52.015200",
+      "time_seconds": null,
+      "context": "указ верности в моей жизни таковы правила фракций ублюдочные правила не нравятся напомню что мы тепе",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "орденца→орденцы": {
+      "wrong": "орденца",
+      "correct": "орденцы",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_48kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.942990",
+      "last_seen": "2026-01-25T19:10:52.015204",
+      "time_seconds": null,
+      "context": "перелезть в наш двор безумцы какието а в самом дворе орденцы небесного меча явно готовятся неясно то",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "орденов→орденцев": {
+      "wrong": "орденов",
+      "correct": "орденцев",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_48kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.942996",
+      "last_seen": "2026-01-25T19:10:51.942996",
+      "time_seconds": null,
+      "context": "закончил в двадцати шагах от меня оказавшись между двух частей орденцев он остановился и рявкнул пок",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "идет→жетон": {
+      "wrong": "идет",
+      "correct": "жетон",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_48kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.943005",
+      "last_seen": "2026-01-25T19:10:52.015214",
+      "time_seconds": null,
+      "context": "седого и обращение ко мне как к молодому магистру ордена жетон магистра проверка печатей над орденца",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "трофеи→трофей": {
+      "wrong": "трофеи",
+      "correct": "трофей",
+      "type": "substitution",
+      "count": 3,
+      "sources": [
+        "01_48kbps_NEW",
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.943013",
+      "last_seen": "2026-01-25T19:10:52.015218",
+      "time_seconds": null,
+      "context": "я едва не закашлялся услышав от седого эти знакомые слова трофей от одного врага хм зеленорукий огла",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "толкать→замолкать": {
+      "wrong": "толкать",
+      "correct": "замолкать",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_48kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.943020",
+      "last_seen": "2026-01-25T19:10:51.943021",
+      "time_seconds": null,
+      "context": "двум если быть точным ирал леград алкай и не думал замолкать и должен заметить глава расходовать дух",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "мол→мы": {
+      "wrong": "мол",
+      "correct": "мы",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978737",
+      "last_seen": "2026-01-25T19:10:51.978754",
+      "time_seconds": null,
+      "context": "из надежды ордена стал его убийцей буркнул седой громко сказано мы еще живы и у нас новая надежда вз",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "стихий→стихии": {
+      "wrong": "стихий",
+      "correct": "стихии",
+      "type": "substitution",
+      "count": 5,
+      "sources": [
+        "01_96kbps_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978764",
+      "last_seen": "2026-01-25T19:10:52.083747",
+      "time_seconds": null,
+      "context": "не спрашивает а лишь утверждает шаугат изза моих навыков и стихии это тот кого звал на помощь дарага",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "то→ублюдочные": {
+      "wrong": "то",
+      "correct": "ублюдочные",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978776",
+      "last_seen": "2026-01-25T19:10:51.978777",
+      "time_seconds": null,
+      "context": "не первый указ верности в моей жизни таковы правила фракций ублюдочные правила не нравятся напомню ч",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "блюдочное→правила": {
+      "wrong": "блюдочное",
+      "correct": "правила",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978780",
+      "last_seen": "2026-01-25T19:10:51.978780",
+      "time_seconds": null,
+      "context": "первый указ верности в моей жизни таковы правила фракций ублюдочные правила не нравятся напомню что ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "снимая→снимаем": {
+      "wrong": "снимая",
+      "correct": "снимаем",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978789",
+      "last_seen": "2026-01-25T19:10:51.978789",
+      "time_seconds": null,
+      "context": "и тебя тоже молодой магистр окликнул меня седой мы закончили снимаем формации держите я принял медал",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "безусловно→словно": {
+      "wrong": "безусловно",
+      "correct": "словно",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978798",
+      "last_seen": "2026-01-25T19:10:51.978798",
+      "time_seconds": null,
+      "context": "побил красноволосый нахмурился а спину мне кольнуло прозрением на миг словно этот холод стали мне ли",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "тут→жетон": {
+      "wrong": "тут",
+      "correct": "жетон",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978808",
+      "last_seen": "2026-01-25T19:10:51.978809",
+      "time_seconds": null,
+      "context": "седого и обращение ко мне как к молодому магистру ордена жетон магистра проверка печатей над орденца",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "он→": {
+      "wrong": "он",
+      "correct": "",
+      "type": "insertion",
+      "count": 3,
+      "sources": [
+        "01_96kbps_NEW",
+        "01_yandex_NEW",
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978812",
+      "last_seen": "2026-01-25T19:10:52.083722",
+      "time_seconds": null,
+      "context": "и обращение ко мне как к молодому магистру ордена жетон магистра проверка печатей над орденцами боль",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "есть→месть": {
+      "wrong": "есть",
+      "correct": "месть",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_96kbps_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978815",
+      "last_seen": "2026-01-25T19:10:51.978816",
+      "time_seconds": null,
+      "context": "приходить в темницу и сообщать ему об успехах возрождения ордена месть это здорово но вам бы уже нач",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "форматы→формации": {
+      "wrong": "форматы",
+      "correct": "формации",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "01_96kbps_NEW",
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:51.978831",
+      "last_seen": "2026-01-25T19:10:52.015231",
+      "time_seconds": null,
+      "context": "с ним я подозревал это поэтому думал создать такие проверочные формации уже в нашем городе после осн",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "выдела→выглядела": {
+      "wrong": "выдела",
+      "correct": "выглядела",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.015174",
+      "last_seen": "2026-01-25T19:10:52.015174",
+      "time_seconds": null,
+      "context": "сторонних людей чтобы для наблюдающего со стороны новая семья не выглядела прошу прощения что переби",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "идти→прийти": {
+      "wrong": "идти",
+      "correct": "прийти",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.015181",
+      "last_seen": "2026-01-25T19:10:52.015182",
+      "time_seconds": null,
+      "context": "предложил я спохватился или это опасно потому что туда могут прийти эрзум тогда пусть свернут в друг",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "фигуркой→фигурками": {
+      "wrong": "фигуркой",
+      "correct": "фигурками",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.015190",
+      "last_seen": "2026-01-25T19:10:52.015190",
+      "time_seconds": null,
+      "context": "и штука каменный прямоугольник на котором какойто древний забавлялся с фигурками големов и построил ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "сюда→э": {
+      "wrong": "сюда",
+      "correct": "э",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "01_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.015225",
+      "last_seen": "2026-01-25T19:10:52.015226",
+      "time_seconds": null,
+      "context": "жадного продавца но мои люди не должны ночевать на улице э седой с алкаем переглянулись но раньше че",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "поместье→поместья": {
+      "wrong": "поместье",
+      "correct": "поместья",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049835",
+      "last_seen": "2026-01-25T19:10:52.049839",
+      "time_seconds": null,
+      "context": "они плакали все те у кого мы снимали или купили поместья на той улице первые пустили слезу оттого чт",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "продажа→продаже": {
+      "wrong": "продажа",
+      "correct": "продаже",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049842",
+      "last_seen": "2026-01-25T19:10:52.049843",
+      "time_seconds": null,
+      "context": "уже подумывает о торговых лавках в соседней фракции второй о продаже добычи с поля битвы на одном ау",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "→глава": {
+      "wrong": "",
+      "correct": "глава",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049845",
+      "last_seen": "2026-01-25T19:10:52.049845",
+      "time_seconds": null,
+      "context": "правду потому что вы слишком радостные он сразу перестал улыбаться глава мы долгие годы жили под гне",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "которые→которой": {
+      "wrong": "которые",
+      "correct": "которой",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049846",
+      "last_seen": "2026-01-25T19:10:52.049847",
+      "time_seconds": null,
+      "context": "я услышал насмешку над своим возрастом то сейчас пустую лесть которой я не заслуживал поэтому лишь с",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "старейший→старший": {
+      "wrong": "старейший",
+      "correct": "старший",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049848",
+      "last_seen": "2026-01-25T19:10:52.049849",
+      "time_seconds": null,
+      "context": "такое может быть учителя в академии может быть один мудрый старший которого я както встретил на пути",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "мечтательны→мечтатели": {
+      "wrong": "мечтательны",
+      "correct": "мечтатели",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049855",
+      "last_seen": "2026-01-25T19:10:52.049855",
+      "time_seconds": null,
+      "context": "не знаю то ли они настолько бесстрашны то ли настолько мечтатели то ли настолько отчаявшиеся жаль ко",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "возможность→возможности": {
+      "wrong": "возможность",
+      "correct": "возможности",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049860",
+      "last_seen": "2026-01-25T19:10:52.049861",
+      "time_seconds": null,
+      "context": "ли не понимать что может найтись тот кто не упустит возможности вцепиться в неосторожно прозвучавшее",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "десятках→десятки": {
+      "wrong": "десятках",
+      "correct": "десятки",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049862",
+      "last_seen": "2026-01-25T19:10:52.049863",
+      "time_seconds": null,
+      "context": "им не чуждо рагедон который следил восприятием за пространством в десятки ли просто и незатейливо по",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→их": {
+      "wrong": "",
+      "correct": "их",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049867",
+      "last_seen": "2026-01-25T19:10:52.049867",
+      "time_seconds": null,
+      "context": "тренировками седой возмутился нет нет нет нет молодой глава сам их займет пойду ка я пущу слух что м",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "соглядатаи→соглядатаев": {
+      "wrong": "соглядатаи",
+      "correct": "соглядатаев",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049868",
+      "last_seen": "2026-01-25T19:10:52.049869",
+      "time_seconds": null,
+      "context": "с предводителей каждый вечер схватки рагедон поморщился один из властелинов соглядатаев остался в го",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "возможности→возможностей": {
+      "wrong": "возможности",
+      "correct": "возможностей",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049874",
+      "last_seen": "2026-01-25T19:10:52.049874",
+      "time_seconds": null,
+      "context": "с сотнями выбравших семью сломанного клинка от него и его возможностей мало пользы хотя он и сам это",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "опасный→опасной": {
+      "wrong": "опасный",
+      "correct": "опасной",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049879",
+      "last_seen": "2026-01-25T19:10:52.049879",
+      "time_seconds": null,
+      "context": "лагеря ну и еще мои старейшины убедили меня что самой опасной будет середина пути а вблизи города на",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "среди→середина": {
+      "wrong": "среди",
+      "correct": "середина",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049881",
+      "last_seen": "2026-01-25T19:10:52.049881",
+      "time_seconds": null,
+      "context": "и еще мои старейшины убедили меня что самой опасной будет середина пути а вблизи города на нас вряд ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "клинка→меча": {
+      "wrong": "клинка",
+      "correct": "меча",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049885",
+      "last_seen": "2026-01-25T19:10:52.049886",
+      "time_seconds": null,
+      "context": "справедливо заметил пересмешник выдают себя называя нашу семью семьей сломанного меча я вот как бывш",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "справляются→справляется": {
+      "wrong": "справляются",
+      "correct": "справляется",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049891",
+      "last_seen": "2026-01-25T19:10:52.049892",
+      "time_seconds": null,
+      "context": "поймав себя на столь большой наглости помочь там где не справляется зелье древних то ли расту над со",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "ты→": {
+      "wrong": "ты",
+      "correct": "",
+      "type": "insertion",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049897",
+      "last_seen": "2026-01-25T19:10:52.049897",
+      "time_seconds": null,
+      "context": "я я ухмыльнулся зря седой ответил мне такой же ухмылкой уже понял сейчас я хочу провести тренировку ",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "→мне": {
+      "wrong": "",
+      "correct": "мне",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049898",
+      "last_seen": "2026-01-25T19:10:52.049899",
+      "time_seconds": null,
+      "context": "прахом нельзя починить значит я верну ее на стену памятных мне вещей глава ну конечно я не посмею ун",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "неуместно→невместно": {
+      "wrong": "неуместно",
+      "correct": "невместно",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049900",
+      "last_seen": "2026-01-25T19:10:52.049901",
+      "time_seconds": null,
+      "context": "я к нему привык затем что молодому главе сломанного клинка невместно ходить в таком старье келлер пр",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "собиратели→собиратель": {
+      "wrong": "собиратели",
+      "correct": "собиратель",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049905",
+      "last_seen": "2026-01-25T19:10:52.049906",
+      "time_seconds": null,
+      "context": "и собиратель камней и дерьма но умный сам хочет учиться собиратель чего выпучил глаза келлер ой скри",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "штука→шутка": {
+      "wrong": "штука",
+      "correct": "шутка",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049907",
+      "last_seen": "2026-01-25T19:10:52.049908",
+      "time_seconds": null,
+      "context": "ищет что же сказать в ответ на самом деле отличная шутка не согласился я да еще и подначил а главное",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "жетоном→жетон": {
+      "wrong": "жетоном",
+      "correct": "жетон",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049913",
+      "last_seen": "2026-01-25T19:10:52.049914",
+      "time_seconds": null,
+      "context": "келлера распахнулись еще сильней ну да я показал им всем жетон рассказал что пришел из второго пояса",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "было→бы": {
+      "wrong": "было",
+      "correct": "бы",
+      "type": "substitution",
+      "count": 2,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049918",
+      "last_seen": "2026-01-25T19:10:52.049949",
+      "time_seconds": null,
+      "context": "нулевом рассказать руки так и не дошли и это нужно бы исправить в один из дней нашего перехода или в",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "после→возле": {
+      "wrong": "после",
+      "correct": "возле",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049921",
+      "last_seen": "2026-01-25T19:10:52.049921",
+      "time_seconds": null,
+      "context": "есть пусть горели костры артефакты тепла и прочее готовое принять возле себя свою часть моей семьи е",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "пришел→прошагал": {
+      "wrong": "пришел",
+      "correct": "прошагал",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049926",
+      "last_seen": "2026-01-25T19:10:52.049926",
+      "time_seconds": null,
+      "context": "как стражники прервали схватки и развернулись поворачиваясь ко мне я прошагал к центру круга останов",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "глядя→глядели": {
+      "wrong": "глядя",
+      "correct": "глядели",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049930",
+      "last_seen": "2026-01-25T19:10:52.049931",
+      "time_seconds": null,
+      "context": "будущие орденцы которые сейчас назывались стражей семьи сломанного клинка молча глядели на меня они ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "мыслечью→мыслеречью": {
+      "wrong": "мыслечью",
+      "correct": "мыслеречью",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049935",
+      "last_seen": "2026-01-25T19:10:52.049935",
+      "time_seconds": null,
+      "context": "сломанного клинка молча глядели на меня они даже не обменивались мыслеречью а вот круг зрителей пере",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "поднял→понял": {
+      "wrong": "поднял",
+      "correct": "понял",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049939",
+      "last_seen": "2026-01-25T19:10:52.049940",
+      "time_seconds": null,
+      "context": "и сумел отыскать только одного спасшегося из долговых тогда я понял две вещи первая из них сопротивл",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "выгрызать→выгрызть": {
+      "wrong": "выгрызать",
+      "correct": "выгрызть",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049944",
+      "last_seen": "2026-01-25T19:10:52.049944",
+      "time_seconds": null,
+      "context": "ты ни был слаб и беспомощен можно закалкой буквально зубами выгрызть себе жизнь у зверей этапа масте",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→же": {
+      "wrong": "",
+      "correct": "же",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049950",
+      "last_seen": "2026-01-25T19:10:52.049950",
+      "time_seconds": null,
+      "context": "сейчас уговаривать их идти на поле битвы за плату конечно же и обсуждают свою цену стоило десяткам г",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "снова→вновь": {
+      "wrong": "снова",
+      "correct": "вновь",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049952",
+      "last_seen": "2026-01-25T19:10:52.049952",
+      "time_seconds": null,
+      "context": "десяткам голосов и мыслеречи снова слиться в трудноразборчивый гул я вновь заговорил те кто пойдут т",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "доказывай→доказывая": {
+      "wrong": "доказывай",
+      "correct": "доказывая",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049956",
+      "last_seen": "2026-01-25T19:10:52.049957",
+      "time_seconds": null,
+      "context": "а я с наслаждением продолжил говорить помнится на одном турнире доказывая это я сначала бился голыми",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "один→одним": {
+      "wrong": "один",
+      "correct": "одним",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049958",
+      "last_seen": "2026-01-25T19:10:52.049959",
+      "time_seconds": null,
+      "context": "руками затем только сталью затем сталью и техниками выбивая противников одним за другим но сегодня у",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "одной→одно": {
+      "wrong": "одной",
+      "correct": "одно",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049963",
+      "last_seen": "2026-01-25T19:10:52.049963",
+      "time_seconds": null,
+      "context": "стали техникам и нескольким противникам в моей руке появилось копье одно из тех купленных давно с на",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "одинаковых→одинаковые": {
+      "wrong": "одинаковых",
+      "correct": "одинаковые",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049967",
+      "last_seen": "2026-01-25T19:10:52.049967",
+      "time_seconds": null,
+      "context": "человек со спокойными лицами в одинаковых серых халатах замершие в одинаковые позах они больше поход",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "выбивают→вбивают": {
+      "wrong": "выбивают",
+      "correct": "вбивают",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049969",
+      "last_seen": "2026-01-25T19:10:52.049969",
+      "time_seconds": null,
+      "context": "щеке делает шаг назад все трое убирают оружие и поклонившись вбивают кулак в ладонь я возвращаю им п",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "не→мне": {
+      "wrong": "не",
+      "correct": "мне",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049973",
+      "last_seen": "2026-01-25T19:10:52.049974",
+      "time_seconds": null,
+      "context": "зрителей не сумеет упрекнуть нас в том что в схватке мне поддались что за глупое представление да яр",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "наезжало→набежало": {
+      "wrong": "наезжало",
+      "correct": "набежало",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049978",
+      "last_seen": "2026-01-25T19:10:52.049978",
+      "time_seconds": null,
+      "context": "не стал молчать один из пришедших недавно властелинов их много набежало в город пяти ветров после от",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "лишились→решилась": {
+      "wrong": "лишились",
+      "correct": "решилась",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "02_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.049983",
+      "last_seen": "2026-01-25T19:10:52.049983",
+      "time_seconds": null,
+      "context": "чтобы парочка самых безрассудных и не видящих себя в семье решилась и один из властелинов не удержал",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "верному→верный": {
+      "wrong": "верному",
+      "correct": "верный",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083587",
+      "last_seen": "2026-01-25T19:10:52.083591",
+      "time_seconds": null,
+      "context": "цвета но для всех рядовых орденцев верный новой семье и верный ордену бывший и будущий комтур надеюс",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "признания→признаний": {
+      "wrong": "признания",
+      "correct": "признаний",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083598",
+      "last_seen": "2026-01-25T19:10:52.083598",
+      "time_seconds": null,
+      "context": "кто был ниже рангом чем попечитель неидеальное решение но время признаний еще не пришло с каждым из ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "задавшие→задавший": {
+      "wrong": "задавшие",
+      "correct": "задавший",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083600",
+      "last_seen": "2026-01-25T19:10:52.083601",
+      "time_seconds": null,
+      "context": "с каждым из обоих невольных предателей ордена долго беседовал озман задавший им кучу вопросов под тр",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "императора→империи": {
+      "wrong": "императора",
+      "correct": "империи",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083602",
+      "last_seen": "2026-01-25T19:10:52.083603",
+      "time_seconds": null,
+      "context": "их руках я все равно не знаю многих тонкостей жизни империи как по мне все выходило вполне правдопод",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "прочие→прочее": {
+      "wrong": "прочие",
+      "correct": "прочее",
+      "type": "substitution",
+      "count": 4,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083609",
+      "last_seen": "2026-01-25T19:10:52.083687",
+      "time_seconds": null,
+      "context": "что рам вилор мог разорить соседей убить главных виновников и прочее но гадить так мелко посылать ко",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "→тех": {
+      "wrong": "",
+      "correct": "тех",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083611",
+      "last_seen": "2026-01-25T19:10:52.083611",
+      "time_seconds": null,
+      "context": "проще всего заподозрить в предательстве ралера его братьев и сестер тех кто тоже на самом деле вилор",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "ду→": {
+      "wrong": "ду",
+      "correct": "",
+      "type": "insertion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083612",
+      "last_seen": "2026-01-25T19:10:52.083613",
+      "time_seconds": null,
+      "context": "взрослых которые боялись главу деревни рад ли был сам кардо моим страданиям да ему плевать было на н",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "получится→получилось": {
+      "wrong": "получится",
+      "correct": "получилось",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083615",
+      "last_seen": "2026-01-25T19:10:52.083616",
+      "time_seconds": null,
+      "context": "битвы а мы живы и целы значит у нас все получилось мы достоверно разыграли очередной раскол озман на",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "извива→извивы": {
+      "wrong": "извива",
+      "correct": "извивы",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083621",
+      "last_seen": "2026-01-25T19:10:52.083621",
+      "time_seconds": null,
+      "context": "на песок в котором просто и незамысловато принялся чертить палочкой извивы каменного лабиринта да зе",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "расщелины→расщелин": {
+      "wrong": "расщелины",
+      "correct": "расщелин",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083622",
+      "last_seen": "2026-01-25T19:10:52.083623",
+      "time_seconds": null,
+      "context": "горизонта до горизонта в нашем случае от нашего лагеря до расщелин в невысоком каменистом плато и да",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "хранившихся→сохранившихся": {
+      "wrong": "хранившихся",
+      "correct": "сохранившихся",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083627",
+      "last_seen": "2026-01-25T19:10:52.083628",
+      "time_seconds": null,
+      "context": "лагерем люди морлан неплохое место с водой укрытиями в виде сохранившихся поместий зелени и прочего ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "открыта→открыто": {
+      "wrong": "открыта",
+      "correct": "открыто",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083632",
+      "last_seen": "2026-01-25T19:10:52.083632",
+      "time_seconds": null,
+      "context": "но нам оно не подходит рагедон пояснил слишком легкодоступно слишком открыто слишком трудно защищать",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "всей→все": {
+      "wrong": "всей",
+      "correct": "все",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083634",
+      "last_seen": "2026-01-25T19:10:52.083634",
+      "time_seconds": null,
+      "context": "меня взгляд уже сейчас ясно что глупцы морлан должны были все силы кинуть на штурм каменного лабирин",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "кратчайше→кратчайший": {
+      "wrong": "кратчайше",
+      "correct": "кратчайший",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083639",
+      "last_seen": "2026-01-25T19:10:52.083640",
+      "time_seconds": null,
+      "context": "не понимали истинного размера лабиринта пытаясь пройти его кратчайшим путем кратчайший на поле битвы",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "пальцев→пальца": {
+      "wrong": "пальцев",
+      "correct": "пальца",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083646",
+      "last_seen": "2026-01-25T19:10:52.083647",
+      "time_seconds": null,
+      "context": "прорастает дымкой в средоточиях а глядел на грудь кровавый отпечаток пальца впитался в сталь а навст",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "проводит→проходит": {
+      "wrong": "проводит",
+      "correct": "проходит",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083651",
+      "last_seen": "2026-01-25T19:10:52.083651",
+      "time_seconds": null,
+      "context": "сравнится в таланте с молодым главой отрезал седой он одновременно проходит два этапа возвышения про",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "проводить→проходить": {
+      "wrong": "проводить",
+      "correct": "проходить",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083655",
+      "last_seen": "2026-01-25T19:10:52.083656",
+      "time_seconds": null,
+      "context": "молодым главой отрезал седой он одновременно проходит два этапа возвышения проходить он может скольк",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "на→но": {
+      "wrong": "на",
+      "correct": "но",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083660",
+      "last_seen": "2026-01-25T19:10:52.083661",
+      "time_seconds": null,
+      "context": "проходит два этапа возвышения проходить он может сколько угодно этапов но броне нужно третье средото",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "криву→криво": {
+      "wrong": "криву",
+      "correct": "криво",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083663",
+      "last_seen": "2026-01-25T19:10:52.083664",
+      "time_seconds": null,
+      "context": "морщился о своем о своих мыслях и будущем и возвышении криво усмехнулся нет келлер потер переносицу ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "давайте→дайте": {
+      "wrong": "давайте",
+      "correct": "дайте",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083665",
+      "last_seen": "2026-01-25T19:10:52.083665",
+      "time_seconds": null,
+      "context": "криво усмехнулся нет келлер потер переносицу и попросил молодой глава дайте я сброшу привязку это ни",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→той": {
+      "wrong": "",
+      "correct": "той",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083669",
+      "last_seen": "2026-01-25T19:10:52.083670",
+      "time_seconds": null,
+      "context": "качества эссенции и прочем что назвал келлер хотя бы по той простой причине что врата силы это допол",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "это→": {
+      "wrong": "это",
+      "correct": "",
+      "type": "insertion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083671",
+      "last_seen": "2026-01-25T19:10:52.083671",
+      "time_seconds": null,
+      "context": "станет легче после появления седого и старейшин ха ха ха как бы не так не прошло и трех дней как ко",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "заявили→заявились": {
+      "wrong": "заявили",
+      "correct": "заявились",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083673",
+      "last_seen": "2026-01-25T19:10:52.083673",
+      "time_seconds": null,
+      "context": "это такой ирал глава сломанного клинка к которому бывшие орденцы заявились всей толпой что это за го",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→встречу": {
+      "wrong": "",
+      "correct": "встречу",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083677",
+      "last_seen": "2026-01-25T19:10:52.083678",
+      "time_seconds": null,
+      "context": "сброд и детей сирот с улиц просто глазели набивались на встречу мучали вопросами наглели завуалирова",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "завуалированно→завуалировано": {
+      "wrong": "завуалированно",
+      "correct": "завуалировано",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083680",
+      "last_seen": "2026-01-25T19:10:52.083681",
+      "time_seconds": null,
+      "context": "с улиц просто глазели набивались на встречу мучали вопросами наглели завуалировано оскорбляли и нащу",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "шанса→шансов": {
+      "wrong": "шанса",
+      "correct": "шансов",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083688",
+      "last_seen": "2026-01-25T19:10:52.083688",
+      "time_seconds": null,
+      "context": "попробовали заполучить двойную оплату надеюсь эти дополнительные силы тоже добавят шансов семье слом",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "сил→силы": {
+      "wrong": "сил",
+      "correct": "силы",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083694",
+      "last_seen": "2026-01-25T19:10:52.083694",
+      "time_seconds": null,
+      "context": "с моими расширенными меридианами по которым я проведу циркуляции сколько силы я смогу влить в барьер",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "она→они": {
+      "wrong": "она",
+      "correct": "они",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083698",
+      "last_seen": "2026-01-25T19:10:52.083698",
+      "time_seconds": null,
+      "context": "тренировки помогут ли мне орденские методики закалки души действуют ли они на истинных мастеров указ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "пройдя→пройди": {
+      "wrong": "пройдя",
+      "correct": "пройди",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083702",
+      "last_seen": "2026-01-25T19:10:52.083703",
+      "time_seconds": null,
+      "context": "пространства поясов в сотни лабиринтов набитых големами и прочими опасностями пройди один такой до к",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "не→к": {
+      "wrong": "не",
+      "correct": "к",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083705",
+      "last_seen": "2026-01-25T19:10:52.083706",
+      "time_seconds": null,
+      "context": "случайно проговорившись о чем то я поднял голову еще выше к небу растянул непослушные губы в кривой ",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "было→небу": {
+      "wrong": "было",
+      "correct": "небу",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083708",
+      "last_seen": "2026-01-25T19:10:52.083709",
+      "time_seconds": null,
+      "context": "проговорившись о чем то я поднял голову еще выше к небу растянул непослушные губы в кривой ухмылке н",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→готово": {
+      "wrong": "",
+      "correct": "готово",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083714",
+      "last_seen": "2026-01-25T19:10:52.083714",
+      "time_seconds": null,
+      "context": "я обернулся к рагедону тот резко кивнул и отрывисто сообщил готово я оглядел всех кто пошел со мной ",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "властелю→властелину": {
+      "wrong": "властелю",
+      "correct": "властелину",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083716",
+      "last_seen": "2026-01-25T19:10:52.083716",
+      "time_seconds": null,
+      "context": "резанул седого злым взглядом но тут же согнул спину не властелину второй звезды оспаривать приказ ст",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "окраина→окраины": {
+      "wrong": "окраина",
+      "correct": "окраины",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083723",
+      "last_seen": "2026-01-25T19:10:52.083724",
+      "time_seconds": null,
+      "context": "могли бы перекидываться словами я бы убеждал что одно дело окраины лабиринта где все точно так же ис",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "мира→": {
+      "wrong": "мира",
+      "correct": "",
+      "type": "insertion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083725",
+      "last_seen": "2026-01-25T19:10:52.083725",
+      "time_seconds": null,
+      "context": "как никогда остро ощущая что мы все части единого целого негромко сказал двинули рагедон тут же повт",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "уязвимым→извивам": {
+      "wrong": "уязвимым",
+      "correct": "извивам",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083727",
+      "last_seen": "2026-01-25T19:10:52.083727",
+      "time_seconds": null,
+      "context": "из входов в каменный лабиринт несколько десятков тысяч шагов по извивам этой гигантской трещины кото",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "кто→что": {
+      "wrong": "кто",
+      "correct": "что",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083731",
+      "last_seen": "2026-01-25T19:10:52.083732",
+      "time_seconds": null,
+      "context": "храбрость и выскочить за кольцо охраны мечей идущие из тех что послабей и кто даже не пытался выходи",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "красотой→высотой": {
+      "wrong": "красотой",
+      "correct": "высотой",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083736",
+      "last_seen": "2026-01-25T19:10:52.083736",
+      "time_seconds": null,
+      "context": "разговоры но впереди вдруг внезапно резко показывается вторая вешка древко высотой с человека с зеле",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "солнце→солнца": {
+      "wrong": "солнце",
+      "correct": "солнца",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083740",
+      "last_seen": "2026-01-25T19:10:52.083741",
+      "time_seconds": null,
+      "context": "справа словно расщелина прыгнула на нас заглатывая и закрывая от солнца обдавая холодным дыханием из",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "закрывающих→закрывают": {
+      "wrong": "закрывающих",
+      "correct": "закрывают",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083742",
+      "last_seen": "2026-01-25T19:10:52.083742",
+      "time_seconds": null,
+      "context": "шагов и они высотой уже выше любого из небесных исполинов закрывают небо и солнце нависают над нами ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "ключ→ключа": {
+      "wrong": "ключ",
+      "correct": "ключа",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083748",
+      "last_seen": "2026-01-25T19:10:52.083749",
+      "time_seconds": null,
+      "context": "крохотного поля битвы внутри большого поля битвы и своего подобия ключа без портала но и без него эт",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "этого→него": {
+      "wrong": "этого",
+      "correct": "него",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083753",
+      "last_seen": "2026-01-25T19:10:52.083753",
+      "time_seconds": null,
+      "context": "битвы и своего подобия ключа без портала но и без него это был очень жирный куш за который на аукцио",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "→сами": {
+      "wrong": "",
+      "correct": "сами",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083757",
+      "last_seen": "2026-01-25T19:10:52.083758",
+      "time_seconds": null,
+      "context": "разумеется передрались бы только за полный набор управление формациями и сами формации которые и соз",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "→ли": {
+      "wrong": "",
+      "correct": "ли",
+      "type": "deletion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083759",
+      "last_seen": "2026-01-25T19:10:52.083759",
+      "time_seconds": null,
+      "context": "почему нельзя использовать их вместо духовных камней и не такие ли формации только огромные и чуть д",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "прокручиваю→прокручивая": {
+      "wrong": "прокручиваю",
+      "correct": "прокручивая",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083761",
+      "last_seen": "2026-01-25T19:10:52.083762",
+      "time_seconds": null,
+      "context": "наваливаюсь превращая его прыжок в падение рву древко на себя прокручивая его обрушиваю на голема ещ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "напоминаю→напоминая": {
+      "wrong": "напоминаю",
+      "correct": "напоминая",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083763",
+      "last_seen": "2026-01-25T19:10:52.083764",
+      "time_seconds": null,
+      "context": "голема откинуло в разные стороны проволокло по песку силой удара напоминая что у нас нет опоры а чер",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "скола→раскола": {
+      "wrong": "скола",
+      "correct": "раскола",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083765",
+      "last_seen": "2026-01-25T19:10:52.083766",
+      "time_seconds": null,
+      "context": "наполнить меридианы силой используя если не звездное лезвие то технику раскола нельзя зона запрета т",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "какого→когдато": {
+      "wrong": "какого",
+      "correct": "когдато",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083770",
+      "last_seen": "2026-01-25T19:10:52.083770",
+      "time_seconds": null,
+      "context": "оружейных техник уловив справа от себя облегченный вздох стражника семьи когдато орденца мельком ско",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "големон→големом": {
+      "wrong": "големон",
+      "correct": "големом",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083775",
+      "last_seen": "2026-01-25T19:10:52.083776",
+      "time_seconds": null,
+      "context": "себе и своей памяти слабость возникшая надо рвущимся ко мне големом печать подействовала безотказно ",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "голема→големы": {
+      "wrong": "голема",
+      "correct": "големы",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083777",
+      "last_seen": "2026-01-25T19:10:52.083777",
+      "time_seconds": null,
+      "context": "действовали на них раньше вернее ответов у меня два либо големы простых полей битв в тюремных поясах",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "своих→": {
+      "wrong": "своих",
+      "correct": "",
+      "type": "insertion",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083779",
+      "last_seen": "2026-01-25T19:10:52.083779",
+      "time_seconds": null,
+      "context": "сектантами все понятно они убивают идущих используя их тела для пилюль их средоточия для своего возв",
+      "pattern_suggestion": "alignment_artifact",
+      "notes": ""
+    },
+    "костью→кости": {
+      "wrong": "костью",
+      "correct": "кости",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083781",
+      "last_seen": "2026-01-25T19:10:52.083782",
+      "time_seconds": null,
+      "context": "их тела для пилюль их средоточия для своего возвышения их кости для артефактов а их души для создани",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "созданы→созданный": {
+      "wrong": "созданы",
+      "correct": "созданный",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083786",
+      "last_seen": "2026-01-25T19:10:52.083786",
+      "time_seconds": null,
+      "context": "и мощь падения пусть в моих руках не молот монстров созданный чтобы слабые идущие могли пробить брон",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "неравные→неравных": {
+      "wrong": "неравные",
+      "correct": "неравных",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083790",
+      "last_seen": "2026-01-25T19:10:52.083791",
+      "time_seconds": null,
+      "context": "а через три вдоха закончил начатое разделив его на две неравных части переднюю и заднюю встревоженны",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    },
+    "печатью→печати": {
+      "wrong": "печатью",
+      "correct": "печати",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083792",
+      "last_seen": "2026-01-25T19:10:52.083793",
+      "time_seconds": null,
+      "context": "моем случае без такого же разрубания обычного зверя и проверки печати уже на двух его половинах но о",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "големой→големы": {
+      "wrong": "големой",
+      "correct": "големы",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083798",
+      "last_seen": "2026-01-25T19:10:52.083798",
+      "time_seconds": null,
+      "context": "идущие следующие к небу такими на самом деле близкими путями големы не говорят так и мой призрак не ",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "древних→древними": {
+      "wrong": "древних",
+      "correct": "древними",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083802",
+      "last_seen": "2026-01-25T19:10:52.083802",
+      "time_seconds": null,
+      "context": "моих вопросов можно ли при этом считать что в големах древними использован какойто заменитель обманк",
+      "pattern_suggestion": "unknown",
+      "notes": ""
+    },
+    "не→недодуша": {
+      "wrong": "не",
+      "correct": "недодуша",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083806",
+      "last_seen": "2026-01-25T19:10:52.083807",
+      "time_seconds": null,
+      "context": "этом считать что в големах древними использован какойто заменитель обманка недодуша которую я смог з",
+      "pattern_suggestion": "short_word",
+      "notes": ""
+    },
+    "сотню→сотни": {
+      "wrong": "сотню",
+      "correct": "сотни",
+      "type": "substitution",
+      "count": 1,
+      "sources": [
+        "03_yandex_NEW"
+      ],
+      "first_seen": "2026-01-25T19:10:52.083810",
+      "last_seen": "2026-01-25T19:10:52.083811",
+      "time_seconds": null,
+      "context": "убийств в момент своей пиковой силы я встретил его спустя сотни лет после тяжелой битвы когда от сам",
+      "pattern_suggestion": "grammar_ending",
+      "notes": ""
+    }
+  },
+  "resolved": {}
+}

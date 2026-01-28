@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-01-25T20:16:08.932275",
+  "processed": 1,
+  "total_errors": 79,
+  "results": [
+    {
+      "transcript": "03_yandex_transcript_NEW_20260125_1842.json",
+      "chapter": "03",
+      "total_before": 330,
+      "total_after": 79,
+      "filtered_path": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Результаты проверки/03/03_yandex_transcript_NEW_20260125_1842_filtered.json",
+      "filter_stats": {
+        "yandex_name_error": 15,
+        "real_error": 79,
+        "homophone": 17,
+        "linked_prefix_error": 30,
+        "prefix_variant": 7,
+        "alignment_artifact": 31,
+        "compound_word": 20,
+        "split_compound": 18,
+        "levenshtein_similar_lemma": 17,
+        "same_lemma": 19,
+        "compound_prefix": 2,
+        "grammar_ending": 28,
+        "levenshtein_same_lemma": 1,
+        "yandex_conjunction_before_gerund": 1,
+        "yandex_typical": 21,
+        "grammar_ending_verb_number": 13,
+        "duplicate_word_insertion": 2,
+        "yandex_truncate_artifact": 1,
+        "split_word_insertion": 1,
+        "yandex_particle_deletion": 1,
+        "verb_gerund_safe": 1,
+        "levenshtein_protected": 1,
+        "case_form": 1,
+        "split_suffix_insertion": 2,
+        "split_word_fragment": 1
+      }
+    }
+  ]
+}
