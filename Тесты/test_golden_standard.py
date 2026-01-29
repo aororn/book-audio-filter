@@ -134,6 +134,12 @@ def find_matching_error(expected, found_errors, time_tolerance=10):
                 # insertion нашла wrong из substitution
                 if words_match(exp_wrong, err_wrong):
                     return err
+            elif err_type == 'transposition':
+                # transposition может содержать слова из substitution
+                # Пример: "и"→"я" найдено как "я и"→"и я"
+                err_all_words = set(err_wrong.split()) | set(err_correct.split())
+                if exp_wrong in err_all_words or exp_correct in err_all_words:
+                    return err
 
     return None
 

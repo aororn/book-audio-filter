@@ -1,10 +1,21 @@
 """
-Движок фильтрации ошибок транскрипции v8.1.
+Движок фильтрации ошибок транскрипции v8.4.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (20+ уровней фильтрации)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v8.4 изменения:
+- alignment_artifact_substring теперь проверяет леммы:
+  если леммы равны (господином/господин) — это грамматика, НЕ артефакт
+
+v8.3 изменения:
+- Исключены частицы составных слов (то/нибудь/либо) из alignment_artifact
+
+v8.2 изменения:
+- Фонетические пары Яндекса: не/ни, ну/но, а/о и т.д.
+- Артефакты выравнивания: короткое vs длинное, подстрока
 
 v8.1 изменения:
 - Интеграция ScoringEngine: HARD_NEGATIVES как защитный уровень
@@ -118,6 +129,51 @@ def should_filter_error(
         morpho_result = get_morpho_rules().check(w1, w2)
         if morpho_result and morpho_result.should_filter:
             return True, f'morpho_{morpho_result.rule_name}'
+
+    # ==== УРОВЕНЬ 0.5: Фонетические пары Яндекса (v8.2) ====
+    YANDEX_PHONETIC_PAIRS = {
+        ('не', 'ни'), ('ни', 'не'),
+        ('ну', 'но'), ('но', 'ну'),
+        ('а', 'о'), ('о', 'а'),
+        ('и', 'э'), ('э', 'и'),
+        ('хм', 'кхм'), ('кхм', 'хм'),
+        ('ах', 'ох'), ('ох', 'ах'),
+        ('он', 'она'), ('она', 'он'),
+        ('я', 'и'), ('и', 'я'),
+    }
+    if error_type == 'substitution' and len(words_norm) >= 2:
+        pair = (words_norm[0], words_norm[1])
+        if pair in YANDEX_PHONETIC_PAIRS:
+            return True, 'yandex_phonetic_pair'
+
+    # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4) ====
+    # Частицы в составных словах — НЕ артефакты
+    COMPOUND_PARTICLES = {'то', 'нибудь', 'либо', 'кое', 'таки'}
+
+    if error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+
+        # v8.3: Исключаем частицы составных слов
+        if w1 in COMPOUND_PARTICLES or w2 in COMPOUND_PARTICLES:
+            pass  # Не фильтруем — это реальные замены
+        else:
+            len1, len2 = len(w1), len(w2)
+            # Паттерн 1: Короткое слово (≤2) vs длинное (≥5)
+            if (len1 <= 2 and len2 >= 5) or (len2 <= 2 and len1 >= 5):
+                return True, 'alignment_artifact_length'
+            # Паттерн 2: Одно слово является подстрокой другого
+            # v8.4: НО если леммы равны — это грамматика, не артефакт!
+            if len1 >= 3 and len2 >= 3:
+                if w1 in w2 or w2 in w1:
+                    if abs(len1 - len2) >= 2:
+                        # v8.4: Проверяем леммы
+                        lemma1 = get_lemma(w1)
+                        lemma2 = get_lemma(w2)
+                        if lemma1 and lemma2 and lemma1 == lemma2:
+                            # Одинаковые леммы = грамматика, НЕ артефакт
+                            pass
+                        else:
+                            return True, 'alignment_artifact_substring'
 
     # ==== ЭТАП 0: Артефакты алгоритма выравнивания ====
 
