@@ -1,10 +1,14 @@
 """
-Движок фильтрации ошибок транскрипции v8.0.
+Движок фильтрации ошибок транскрипции v8.1.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (20+ уровней фильтрации)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v8.1 изменения:
+- Интеграция ScoringEngine: HARD_NEGATIVES как защитный уровень
+- Известные пары путаницы (сотни/сотня, получится/получилось) защищены от фильтрации
 
 v8.0 изменения:
 - Единый модуль morpho_rules.py вместо smart_rules + learned_rules
@@ -51,6 +55,15 @@ from .detectors import (
 )
 from .morpho_rules import get_morpho_rules, is_morpho_false_positive
 
+# v8.1: Импорт ScoringEngine для защиты имён и hard negatives
+try:
+    from .scoring_engine import (
+        should_filter_by_score, is_hard_negative, HARD_NEGATIVES
+    )
+    HAS_SCORING_ENGINE = True
+except ImportError:
+    HAS_SCORING_ENGINE = False
+
 
 def should_filter_error(
     error: Dict[str, Any],
@@ -86,6 +99,15 @@ def should_filter_error(
         word1 = word2 = word
 
     words_norm = [normalize_word(w) for w in words]
+
+    # ==== УРОВЕНЬ -1: ScoringEngine ЗАЩИТА (v8.1) ====
+    # Проверяем HARD_NEGATIVES — известные пары путаницы, которые нельзя фильтровать
+    # Это защитный уровень: если пара в HARD_NEGATIVES — ПРЕКРАЩАЕМ фильтрацию
+    if HAS_SCORING_ENGINE and error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+        if is_hard_negative(w1, w2):
+            # Это известная пара путаницы — НЕ фильтруем, это реальная ошибка
+            return False, 'PROTECTED_hard_negative'
 
     # ==== УРОВЕНЬ 0: Morpho Rules (v8.0) — консервативная фильтрация ====
     # Фильтруем ТОЛЬКО если 100% уверены в ложной ошибке

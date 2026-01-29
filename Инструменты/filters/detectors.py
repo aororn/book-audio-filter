@@ -56,7 +56,7 @@ def load_character_names_dictionary() -> Set[str]:
     with open(dict_path, 'r', encoding='utf-8') as f:
         for line in f:
             name = line.strip()
-            if not name:
+            if not name or name.startswith('#'):
                 continue
 
             names_set.add(name.lower())

@@ -1,5 +1,5 @@
 """
-Пакет фильтрации ошибок транскрипции — Golden Filter v6.0
+Пакет фильтрации ошибок транскрипции — Golden Filter v6.2
 
 Модульная архитектура:
 - base.py — ABC-интерфейс FilterRule для расширяемых правил
@@ -8,20 +8,29 @@
 - detectors.py — специализированные детекторы
 - engine.py — движок фильтрации
 - smart_rules.py — умные правила на основе морфологии (v6.0)
+- morpho_rules.py — консервативные морфологические правила (v1.1)
+- character_guard.py — защита имён персонажей (v1.0) [NEW v9.0]
+
+v6.3 изменения (2026-01-29):
+- Добавлен scoring_engine.py — система адаптивных штрафов
+- Добавлен window_verifier.py — верификация сегментов
+
+v6.2 изменения (2026-01-29):
+- Добавлен character_guard.py — центральный модуль защиты имён
+- CharacterGuard определяет: имена персонажей, кандидаты на якоря, штрафы
+
+v6.1 изменения:
+- Добавлен morpho_rules.py с консервативной фильтрацией
+- Исправлен _is_proper_name() для составных слов
 
 v6.0 изменения:
 - Добавлен smart_rules.py с алгоритмическими правилами
 - Расширен morphology.py (aspect, voice, tense)
 - Унифицированы пути к БД через config.py
-
-v5.7 изменения:
-- Добавлен ABC-интерфейс FilterRule для расширяемых правил фильтрации
-- Унифицирован импорт normalize_word из morphology.py
-- Миграция false_positives на SQLite
 """
 
-__version__ = '6.1.0'
-__version_date__ = '2026-01-26'
+__version__ = '6.3.0'
+__version_date__ = '2026-01-29'
 
 # Реэкспорт основного API
 from .engine import should_filter_error, filter_errors, filter_report
@@ -58,4 +67,18 @@ from .smart_rules import (
     SmartRules, RuleResult,
     get_smart_rules, is_smart_false_positive, get_false_positive_reason,
     phonetic_normalize,
+)
+from .character_guard import (
+    CharacterGuard, get_character_guard,
+    is_character_name, is_anchor_candidate, get_word_penalty,
+    COMMON_TERMS,
+)
+from .scoring_engine import (
+    ScoringEngine, get_scoring_engine, PenaltyResult,
+    calculate_penalty, should_filter_by_score, is_hard_negative,
+    HARD_NEGATIVES,
+)
+from .window_verifier import (
+    WindowVerifier, get_window_verifier, VerificationStatus, VerificationResult,
+    verify_segment, is_technical_noise, is_word_transposition,
 )

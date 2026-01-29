@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Smart Compare v6.0 - Умное сравнение транскрипции с оригиналом
+Smart Compare v10.0 - Умное сравнение транскрипции с оригиналом
 
 Алгоритм:
-1. ЯКОРЯ: Находим слова с 100% совпадением для синхронизации
-2. СЕРЫЕ ЗОНЫ: Анализируем несовпадения между якорями
-3. КЛАССИФИКАЦИЯ: Отделяем ошибки Яндекса от ошибок чтеца
+1. МАКРО-ВЫРАВНИВАНИЕ: Находим якоря (уникальные слова >6 символов)
+2. СЕГМЕНТАЦИЯ: Делим текст на сегменты по якорям
+3. МИКРО-ВЫРАВНИВАНИЕ: SequenceMatcher на каждый сегмент отдельно
+4. ОБЪЕДИНЕНИЕ: Собираем opcodes с корректировкой индексов
+5. КЛАССИФИКАЦИЯ: Отделяем ошибки Яндекса от ошибок чтеца
 
 Критерий различия:
 - Малое расстояние Левенштейна → фонетическая ошибка Яндекса (игнорируем)
@@ -19,6 +21,27 @@ Smart Compare v6.0 - Умное сравнение транскрипции с �
     python smart_compare.py транскрипция.json оригинал.txt --force
 
 Changelog:
+    v10.1 (2026-01-29): Интеграция WindowVerifier
+        - Добавлен WindowVerifier для контекстной верификации ошибок
+        - Sliding Window: проверка контекста без учёта пробелов
+        - Если контекст ≥95% идентичен — это технический шум
+    v10.0 (2026-01-29): Полное посегментное выравнивание
+        - compare_with_anchors() — посегментное сравнение с явным включением якорей
+        - merge_adjacent_opcodes() — объединение смежных opcodes
+        - Якоря теперь включаются в opcodes как 'equal'
+        - Полный переход от полнотекстового к макро/микро выравниванию
+    v9.1 (2026-01-29): Fix ComparisonStitcher — защита коротких слов
+        - PROTECTED_SHORT_WORDS: частицы, предлоги, союзы не склеиваются
+        - Исправлена регрессия: "кто"+"то" больше не склеивается в "ктото"
+        - Golden тест: восстановлено 93/93 (100%)
+    v9.0 (2026-01-29): Интеграция AlignmentManager и ScoringEngine
+        - Посегментное выравнивание через AlignmentManager
+        - Адаптивные штрафы через ScoringEngine
+        - РЕГРЕССИЯ: потеря 3 golden ошибок из-за Stitcher
+    v7.0 (2026-01-29): ComparisonStitcher — склейка разбитых слов
+        - Добавлен ComparisonStitcher для склейки слов типа "средо"+"точие"
+        - Интеграция с CharacterGuard для увеличенного буфера имён
+        - Нормализация дефисов: "Красно-волосый" → "Красноволосый"
     v6.0 (2026-01-26): Интеграция с smart_rules и улучшенная фонетика
         - Используем phonetic_normalize из filters.smart_rules
         - Улучшенный анализ серых зон
@@ -35,8 +58,8 @@ Changelog:
 """
 
 # Версия модуля
-VERSION = '6.0.0'
-VERSION_DATE = '2026-01-26'
+VERSION = '10.1.0'
+VERSION_DATE = '2026-01-29'
 
 import argparse
 import json
@@ -45,6 +68,7 @@ import os
 from pathlib import Path
 from dataclasses import dataclass, asdict
 from typing import List, Tuple, Optional
+from difflib import SequenceMatcher
 
 
 # =============================================================================
@@ -97,6 +121,397 @@ try:
     HAS_RAPIDFUZZ = True
 except ImportError:
     HAS_RAPIDFUZZ = False
+
+# Импорт CharacterGuard для защиты имён (v9.0)
+try:
+    from filters.character_guard import get_character_guard, is_character_name
+    HAS_CHARACTER_GUARD = True
+except ImportError:
+    HAS_CHARACTER_GUARD = False
+    is_character_name = lambda x: False
+
+# Импорт AlignmentManager для сегментации (v9.0)
+try:
+    from alignment_manager import AlignmentManager, segment_texts, AnchorPoint, Segment
+    HAS_ALIGNMENT_MANAGER = True
+except ImportError:
+    HAS_ALIGNMENT_MANAGER = False
+    AnchorPoint = None
+    Segment = None
+
+# Импорт ScoringEngine для адаптивных штрафов (v9.0)
+try:
+    from filters.scoring_engine import (
+        get_scoring_engine, should_filter_by_score, calculate_penalty
+    )
+    HAS_SCORING_ENGINE = True
+except ImportError:
+    HAS_SCORING_ENGINE = False
+
+# Импорт WindowVerifier для верификации сегментов (v10.1)
+try:
+    from filters.window_verifier import (
+        get_window_verifier, verify_segment, is_technical_noise,
+        VerificationStatus, VerificationResult
+    )
+    HAS_WINDOW_VERIFIER = True
+except ImportError:
+    HAS_WINDOW_VERIFIER = False
+
+
+# =============================================================================
+# ПОСЕГМЕНТНОЕ ВЫРАВНИВАНИЕ v10.0
+# =============================================================================
+
+def merge_adjacent_opcodes(opcodes: list) -> list:
+    """
+    Объединяет соседние opcodes с одинаковым тегом.
+
+    Это необходимо после посегментного сравнения, чтобы
+    объединить 'equal' блоки из разных сегментов.
+
+    Args:
+        opcodes: список кортежей (tag, i1, i2, j1, j2)
+
+    Returns:
+        объединённый список opcodes
+    """
+    if not opcodes:
+        return opcodes
+
+    merged = [list(opcodes[0])]
+    for tag, i1, i2, j1, j2 in opcodes[1:]:
+        prev = merged[-1]
+        # Если тот же тег и позиции смежные
+        if tag == prev[0] and i1 == prev[2] and j1 == prev[4]:
+            merged[-1] = [tag, prev[1], i2, prev[3], j2]
+        else:
+            merged.append([tag, i1, i2, j1, j2])
+
+    return [tuple(op) for op in merged]
+
+
+def compare_with_anchors(
+    orig_norm: list,
+    trans_norm: list,
+    anchors: list,
+    segments: list,
+    original_words: list = None,
+    transcript_words: list = None
+) -> tuple:
+    """
+    Посегментное сравнение с явным включением якорей.
+
+    Алгоритм:
+    1. Для каждого сегмента выполняем SequenceMatcher
+    2. Корректируем индексы opcodes на глобальные позиции
+    3. Добавляем якорь после каждого сегмента как 'equal' opcode
+    4. Объединяем смежные opcodes с одинаковым тегом
+
+    Args:
+        orig_norm: нормализованные слова оригинала
+        trans_norm: нормализованные слова транскрипции
+        anchors: список AnchorPoint
+        segments: список Segment
+        original_words: Word объекты оригинала (для отладки)
+        transcript_words: Word объекты транскрипции (для отладки)
+
+    Returns:
+        (opcodes, ratio) — список opcodes и коэффициент схожести
+    """
+    all_opcodes = []
+    total_matches = 0
+    total_len = len(orig_norm) + len(trans_norm)
+
+    # Создаём словарь якорей по слову для быстрого доступа
+    anchor_dict = {a.word: a for a in anchors}
+
+    for seg in segments:
+        # Извлекаем слова сегмента
+        seg_orig = orig_norm[seg.orig_start:seg.orig_end]
+        seg_trans = trans_norm[seg.trans_start:seg.trans_end]
+
+        if seg_orig or seg_trans:
+            # Сравниваем сегмент
+            matcher = SequenceMatcher(None, seg_orig, seg_trans)
+            seg_opcodes = matcher.get_opcodes()
+
+            # Корректируем индексы на глобальные позиции
+            for tag, i1, i2, j1, j2 in seg_opcodes:
+                global_opcode = (
+                    tag,
+                    i1 + seg.orig_start,
+                    i2 + seg.orig_start,
+                    j1 + seg.trans_start,
+                    j2 + seg.trans_start
+                )
+                all_opcodes.append(global_opcode)
+
+                if tag == 'equal':
+                    total_matches += (i2 - i1) + (j2 - j1)
+
+        # КЛЮЧЕВОЕ: Добавляем якорь ПОСЛЕ сегмента как 'equal'
+        # Это исправляет проблему, когда якоря исключались из сравнения
+        if seg.anchor_after and seg.anchor_after in anchor_dict:
+            anchor = anchor_dict[seg.anchor_after]
+            anchor_opcode = (
+                'equal',
+                anchor.orig_idx,
+                anchor.orig_idx + 1,
+                anchor.trans_idx,
+                anchor.trans_idx + 1
+            )
+            all_opcodes.append(anchor_opcode)
+            total_matches += 2  # Слово в orig + слово в trans
+
+    # Сортируем opcodes по позиции в оригинале (и в транскрипции для равных)
+    all_opcodes.sort(key=lambda x: (x[1], x[3]))
+
+    # Объединяем соседние opcodes с одинаковым тегом
+    all_opcodes = merge_adjacent_opcodes(all_opcodes)
+
+    # Вычисляем ratio
+    ratio = total_matches / total_len if total_len > 0 else 1.0
+
+    return all_opcodes, ratio
+
+
+# =============================================================================
+# COMPARISON STITCHER v1.0 — Склейка разбитых слов (v9.0)
+# =============================================================================
+
+class ComparisonStitcher:
+    """
+    Склеивает слова, которые Яндекс разбил на части.
+
+    Примеры:
+    - "средо" + "точие" → "средоточие"
+    - "Красно" + "волосый" → "Красноволосый"
+    - "Ми" + "ражный" → "Миражный"
+
+    Использует CharacterGuard для увеличения буфера при склейке имён.
+
+    v1.1 (2026-01-29): Добавлена защита коротких служебных слов от склейки
+    """
+
+    # Минимальная длина фрагмента для склейки
+    MIN_FRAGMENT_LEN = 2
+
+    # Максимальный буфер вперёд (сколько слов проверять)
+    DEFAULT_BUFFER = 2
+    NAME_BUFFER = 4  # увеличенный буфер для имён персонажей
+
+    # Порог схожести для склейки (Левенштейн ratio)
+    STITCH_THRESHOLD = 0.85
+
+    # Защищённые короткие слова — НЕ склеивать их с соседними
+    # Это частицы, предлоги, союзы, которые могут быть insertion ошибками
+    PROTECTED_SHORT_WORDS = frozenset({
+        'то', 'по', 'на', 'за', 'от', 'до', 'ни', 'не', 'бы', 'же', 'ли',
+        'и', 'а', 'я', 'у', 'о', 'в', 'к', 'с',
+        'ещё', 'еще', 'уже', 'вот', 'вон', 'тут', 'там',
+    })
+
+    def __init__(self, original_words: list = None):
+        """
+        Args:
+            original_words: список слов из оригинала для поиска целевых слов
+        """
+        self._original_set: set = set()
+        self._original_normalized: set = set()
+        if original_words:
+            for w in original_words:
+                text = w.text if hasattr(w, 'text') else str(w)
+                norm = w.normalized if hasattr(w, 'normalized') else text.lower()
+                self._original_set.add(text.lower())
+                self._original_normalized.add(norm)
+
+    def pre_stitch_audio_words(self, words: list) -> list:
+        """
+        Основной метод: склеивает разбитые слова в списке.
+
+        Args:
+            words: список Word объектов из транскрипции
+
+        Returns:
+            Новый список с склеенными словами
+        """
+        if not words:
+            return words
+
+        result = []
+        i = 0
+
+        while i < len(words):
+            word = words[i]
+            text = word.text if hasattr(word, 'text') else str(word)
+            norm = word.normalized if hasattr(word, 'normalized') else text.lower()
+
+            # Проверяем, не начало ли это разбитого слова
+            buffer = self._get_buffer(text)
+            merged = self._try_merge(words, i, buffer)
+
+            if merged:
+                # Создаём новый Word объект с склеенным текстом
+                merged_word = self._create_merged_word(words, i, merged)
+                result.append(merged_word)
+                i += merged['count']
+            else:
+                result.append(word)
+                i += 1
+
+        return result
+
+    def _get_buffer(self, text: str) -> int:
+        """Определяет размер буфера для проверки склейки."""
+        if HAS_CHARACTER_GUARD and is_character_name(text):
+            return self.NAME_BUFFER
+        return self.DEFAULT_BUFFER
+
+    def _try_merge(self, words: list, start_idx: int, buffer: int) -> dict | None:
+        """
+        Пытается склеить слово с последующими.
+
+        Returns:
+            dict с 'text', 'normalized', 'count' или None
+        """
+        if start_idx >= len(words):
+            return None
+
+        base_word = words[start_idx]
+        base_text = base_word.text if hasattr(base_word, 'text') else str(base_word)
+
+        # Слишком короткий фрагмент — не склеиваем
+        if len(base_text) < self.MIN_FRAGMENT_LEN:
+            return None
+
+        # ЗАЩИТА: Базовое слово тоже может быть защищённым
+        # Например, "кто" не должно склеиваться с "то" в "ктото"
+        if base_text.lower() in self.PROTECTED_SHORT_WORDS:
+            return None
+
+        # Пробуем склеить с 1, 2, ... buffer следующих слов
+        for count in range(1, min(buffer + 1, len(words) - start_idx)):
+            merged_parts = [base_text]
+            should_skip = False
+
+            for j in range(1, count + 1):
+                next_word = words[start_idx + j]
+                next_text = next_word.text if hasattr(next_word, 'text') else str(next_word)
+
+                # ЗАЩИТА: Не склеивать защищённые короткие слова
+                # Они могут быть insertion ошибками (лишние слова)
+                if next_text.lower() in self.PROTECTED_SHORT_WORDS:
+                    should_skip = True
+                    break
+
+                merged_parts.append(next_text)
+
+            # Если встретили защищённое слово — пропускаем эту попытку склейки
+            if should_skip:
+                continue
+
+            merged_text = ''.join(merged_parts)
+            merged_norm = merged_text.lower().replace('ё', 'е')
+
+            # Нормализация дефисов
+            merged_no_hyphen = merged_text.replace('-', '')
+            merged_norm_no_hyphen = merged_no_hyphen.lower().replace('ё', 'е')
+
+            # Проверяем: есть ли такое слово в оригинале?
+            if merged_norm in self._original_normalized:
+                return {
+                    'text': merged_text,
+                    'normalized': merged_norm,
+                    'count': count + 1
+                }
+
+            # Проверяем без дефиса (Красно-волосый → Красноволосый)
+            if merged_norm_no_hyphen in self._original_normalized:
+                return {
+                    'text': merged_no_hyphen,
+                    'normalized': merged_norm_no_hyphen,
+                    'count': count + 1
+                }
+
+            # Проверяем через CharacterGuard (имена могут не быть в оригинале точно)
+            if HAS_CHARACTER_GUARD and is_character_name(merged_text):
+                return {
+                    'text': merged_text,
+                    'normalized': merged_norm,
+                    'count': count + 1
+                }
+
+        return None
+
+    def _create_merged_word(self, words: list, start_idx: int, merged: dict):
+        """Создаёт новый Word объект из склеенных слов."""
+        from dataclasses import replace
+
+        first_word = words[start_idx]
+        last_word = words[start_idx + merged['count'] - 1]
+
+        # Если Word — dataclass, используем replace
+        if hasattr(first_word, '__dataclass_fields__'):
+            return replace(
+                first_word,
+                text=merged['text'],
+                normalized=merged['normalized'],
+                time_end=last_word.time_end if hasattr(last_word, 'time_end') else first_word.time_end
+            )
+        else:
+            # Fallback: создаём новый объект
+            return type(first_word)(
+                text=merged['text'],
+                normalized=merged['normalized'],
+                position=first_word.position,
+                time_start=first_word.time_start,
+                time_end=last_word.time_end if hasattr(last_word, 'time_end') else first_word.time_end,
+                confidence=first_word.confidence
+            )
+
+    def normalize_hyphens(self, words: list) -> list:
+        """
+        Нормализует дефисы в словах.
+
+        "Красно-волосый" → "Красноволосый" (если в оригинале без дефиса)
+        """
+        result = []
+        for word in words:
+            text = word.text if hasattr(word, 'text') else str(word)
+
+            if '-' in text:
+                no_hyphen = text.replace('-', '')
+                no_hyphen_norm = no_hyphen.lower().replace('ё', 'е')
+
+                if no_hyphen_norm in self._original_normalized:
+                    # Заменяем на версию без дефиса
+                    if hasattr(word, '__dataclass_fields__'):
+                        from dataclasses import replace
+                        word = replace(word, text=no_hyphen, normalized=no_hyphen_norm)
+                    else:
+                        word.text = no_hyphen
+                        word.normalized = no_hyphen_norm
+
+            result.append(word)
+        return result
+
+
+# Singleton
+_stitcher_instance = None
+
+def get_stitcher(original_words: list = None) -> ComparisonStitcher:
+    """Возвращает экземпляр Stitcher."""
+    global _stitcher_instance
+    if _stitcher_instance is None or original_words is not None:
+        _stitcher_instance = ComparisonStitcher(original_words)
+    return _stitcher_instance
+
+
+def stitch_audio_words(audio_words: list, original_words: list = None) -> list:
+    """Быстрая функция для склейки слов."""
+    stitcher = get_stitcher(original_words)
+    return stitcher.pre_stitch_audio_words(audio_words)
 
 
 # =============================================================================
@@ -773,6 +1188,98 @@ def fix_misaligned_errors(errors: List[Error]) -> List[Error]:
 
 
 # =============================================================================
+# ПОСЕГМЕНТНОЕ СРАВНЕНИЕ (v9.2)
+# =============================================================================
+
+def compare_segment(
+    orig_segment: List[str],
+    trans_segment: List[str],
+    orig_offset: int,
+    trans_offset: int
+) -> list:
+    """
+    Сравнивает один сегмент и возвращает opcodes с глобальными индексами.
+
+    Args:
+        orig_segment: нормализованные слова оригинала в сегменте
+        trans_segment: нормализованные слова транскрипции в сегменте
+        orig_offset: смещение начала сегмента в оригинале
+        trans_offset: смещение начала сегмента в транскрипции
+
+    Returns:
+        Список opcodes с глобальными индексами
+    """
+    if not orig_segment and not trans_segment:
+        return []
+
+    matcher = SequenceMatcher(None, orig_segment, trans_segment)
+    segment_opcodes = []
+
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        # Корректируем индексы на глобальные
+        global_opcode = (
+            tag,
+            i1 + orig_offset,
+            i2 + orig_offset,
+            j1 + trans_offset,
+            j2 + trans_offset
+        )
+        segment_opcodes.append(global_opcode)
+
+    return segment_opcodes
+
+
+def compare_with_segments(
+    orig_norm: List[str],
+    trans_norm: List[str],
+    segments: list
+) -> Tuple[list, float]:
+    """
+    Выполняет посегментное сравнение текстов.
+
+    При посегментном сравнении SequenceMatcher работает с меньшими
+    фрагментами текста, что даёт более точное выравнивание.
+
+    Args:
+        orig_norm: нормализованные слова оригинала
+        trans_norm: нормализованные слова транскрипции
+        segments: список Segment объектов от AlignmentManager
+
+    Returns:
+        (all_opcodes, average_ratio) — объединённые opcodes и средняя схожесть
+    """
+    all_opcodes = []
+    total_ratio = 0.0
+    segment_count = 0
+
+    for segment in segments:
+        # Извлекаем слова сегмента
+        seg_orig = orig_norm[segment.orig_start:segment.orig_end]
+        seg_trans = trans_norm[segment.trans_start:segment.trans_end]
+
+        if not seg_orig and not seg_trans:
+            continue
+
+        # Сравниваем сегмент
+        segment_opcodes = compare_segment(
+            seg_orig, seg_trans,
+            segment.orig_start, segment.trans_start
+        )
+        all_opcodes.extend(segment_opcodes)
+
+        # Считаем схожесть сегмента
+        if seg_orig or seg_trans:
+            matcher = SequenceMatcher(None, seg_orig, seg_trans)
+            total_ratio += matcher.ratio()
+            segment_count += 1
+
+    # Средняя схожесть по сегментам
+    avg_ratio = total_ratio / segment_count if segment_count > 0 else 0.0
+
+    return all_opcodes, avg_ratio
+
+
+# =============================================================================
 # ДЕТЕКТОР ТРАНСПОЗИЦИЙ (ПЕРЕСТАНОВОК СЛОВ)
 # =============================================================================
 
@@ -944,18 +1451,58 @@ def smart_compare(transcript_path: str, original_path: str,
     original = parse_original_text(original_path)
     print(f"    Слов: {len(original)}")
 
+    # v7.0: Склейка разбитых слов в транскрипции
+    stitcher = ComparisonStitcher(original)
+    transcript_before = len(transcript)
+    transcript = stitcher.pre_stitch_audio_words(transcript)
+    transcript = stitcher.normalize_hyphens(transcript)
+    stitched_count = transcript_before - len(transcript)
+    if stitched_count > 0:
+        print(f"    Склеено слов: {stitched_count} (было {transcript_before}, стало {len(transcript)})")
+
     # Нормализуем списки слов для сравнения
     trans_norm = [w.normalized for w in transcript]
     orig_norm = [w.normalized for w in original]
 
-    # Сравниваем с помощью SequenceMatcher
-    print(f"\n  Выравнивание последовательностей...")
-    matcher = SequenceMatcher(None, orig_norm, trans_norm)
-    ratio = matcher.ratio()
-    print(f"    Схожесть: {ratio*100:.1f}%")
+    # v10.0: Поиск якорей для посегментного выравнивания
+    anchors = []
+    segments = []
+    if HAS_ALIGNMENT_MANAGER:
+        print(f"\n  Поиск якорей (AlignmentManager v1.1)...")
+        alignment_mgr = AlignmentManager()
+        anchors = alignment_mgr.find_anchor_points(orig_norm, trans_norm)
+        segments = alignment_mgr.segment_by_anchors(len(orig_norm), len(trans_norm))
+        print(f"    Найдено якорей: {len(anchors)}")
+        print(f"    Сегментов: {len(segments)}")
 
-    # Получаем opcodes и сначала ищем транспозиции
-    opcodes = list(matcher.get_opcodes())
+        # v10.0: Разбиваем большие сегменты суб-якорями
+        if segments:
+            sizes = [s.orig_end - s.orig_start for s in segments]
+            max_size = max(sizes)
+            if max_size > 100:
+                print(f"    Найден большой сегмент ({max_size} слов), ищем суб-якоря...")
+                anchors, segments = alignment_mgr.refine_large_segments(orig_norm, trans_norm)
+                print(f"    После уточнения: якорей={len(anchors)}, сегментов={len(segments)}")
+
+            sizes = [s.orig_end - s.orig_start for s in segments]
+            print(f"    Размер сегментов: avg={sum(sizes)/len(sizes):.1f}, max={max(sizes)}")
+
+    # v10.0: Посегментное выравнивание через якоря
+    print(f"\n  Выравнивание последовательностей...")
+    if HAS_ALIGNMENT_MANAGER and anchors and segments:
+        # Используем посегментное сравнение
+        opcodes, ratio = compare_with_anchors(
+            orig_norm, trans_norm, anchors, segments,
+            original_words=original, transcript_words=transcript
+        )
+        print(f"    Режим: ПОСЕГМЕНТНЫЙ (якорей: {len(anchors)}, сегментов: {len(segments)})")
+    else:
+        # Fallback: полнотекстовое сравнение (если нет якорей)
+        matcher = SequenceMatcher(None, orig_norm, trans_norm)
+        ratio = matcher.ratio()
+        opcodes = list(matcher.get_opcodes())
+        print(f"    Режим: ПОЛНОТЕКСТОВЫЙ (нет якорей)")
+    print(f"    Схожесть: {ratio*100:.1f}%")
 
     # Детектируем транспозиции
     transposition_errors, processed_indices = detect_transpositions_in_opcodes(
@@ -999,6 +1546,37 @@ def smart_compare(transcript_path: str, original_path: str,
                         smart_result = get_smart_rules().is_false_positive(trans_word.text, orig_word.text)
                         if smart_result and smart_result.is_match and smart_result.confidence >= 0.9:
                             is_yandex = True  # Высокая уверенность — помечаем как ошибку Яндекса
+
+                    # v8.0: Проверяем ScoringEngine для защиты имён и hard negatives
+                    penalty_info = ""
+                    if HAS_SCORING_ENGINE and not is_yandex:
+                        confidence = trans_word.confidence if hasattr(trans_word, 'confidence') else 0.8
+                        should_filter, reason = should_filter_by_score(
+                            orig_word.text, trans_word.text,
+                            sim, phon_sim, confidence
+                        )
+                        # Если ScoringEngine говорит НЕ фильтровать — это вероятно реальная ошибка
+                        # Сохраняем информацию для отладки
+                        penalty_info = reason
+
+                    # v10.1: Проверяем WindowVerifier для контекстной верификации
+                    # Если контекст вокруг ошибки идентичен (без учёта пробелов) — это технический шум
+                    window_verified = False
+                    if HAS_WINDOW_VERIFIER and not is_yandex:
+                        # Берём контекст: 3 слова до + слово + 3 слова после
+                        ctx_start = max(0, orig_idx - 3)
+                        ctx_end = min(len(original), orig_idx + 4)
+                        trans_ctx_start = max(0, trans_idx - 3)
+                        trans_ctx_end = min(len(transcript), trans_idx + 4)
+
+                        orig_context_words = ' '.join(w.text for w in original[ctx_start:ctx_end])
+                        trans_context_words = ' '.join(w.text for w in transcript[trans_ctx_start:trans_ctx_end])
+
+                        verification = verify_segment(orig_context_words, trans_context_words)
+                        if verification.status == VerificationStatus.TECHNICAL_OK:
+                            # Контекст почти идентичен — это технический шум
+                            is_yandex = True
+                            window_verified = True
 
                     # ВСЕ substitution ошибки по умолчанию — это ошибки чтеца
                     # Яндекс распознал то, что услышал. Если результат отличается от оригинала,

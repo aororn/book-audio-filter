@@ -1,50 +1,47 @@
 #!/usr/bin/env python3
 """
-Полный тест золотого стандарта v5.1
+Полный тест золотого стандарта v6.1
 
-Прогоняет пайплайн проверки для глав 1, 2 и 3, затем сверяет результаты
+Прогоняет пайплайн проверки для глав 1-4, затем сверяет результаты
 с эталонными наборами ошибок (золотыми стандартами).
 
 Использует актуальный pipeline.py + config.py.
 
-Новое в v5.2:
-- Сравнение с историей: показывает количество ошибок в последних 4 итерациях
-- Таблица итогов с трендом изменений
+Новое в v6.1:
+- Динамический автопоиск файлов транскрипций и оригиналов
+- Больше никаких захардкоженных путей с датами
+- Функции find_transcript_file(), find_original_file()
 
-Новое в v5.1:
-- Вывод общего количества ошибок (не только золотых)
-- Логирование результатов в файл истории
-- Поддержка главы 3
+Новое в v6.0:
+- Автоматическое определение версии фильтров из engine.py
+- Сохранение каждого прогона в отдельный файл в папке История/
+- Поддержка главы 4
+- Сводная таблица по версиям
 
 Использование:
     python Тесты/run_full_test.py              # все главы
     python Тесты/run_full_test.py --chapter 1   # только глава 1
-    python Тесты/run_full_test.py --chapter 3   # только глава 3
     python Тесты/run_full_test.py --skip-pipeline  # только золотой тест (без пайплайна)
     python Тесты/run_full_test.py --verbose      # подробный вывод
     python Тесты/run_full_test.py --no-log       # без записи в историю
+    python Тесты/run_full_test.py --versions     # сводка по версиям
 
 Changelog:
+    v6.1 (2026-01-29): Динамический автопоиск файлов
+        - find_transcript_file() — поиск транскрипции
+        - find_original_file() — поиск оригинала
+        - Удалены захардкоженные пути с датами
+    v6.0 (2026-01-29): Архивирование прогонов
     v5.2 (2026-01-25): Сравнение с историей
-        - Таблица итогов показывает количество ошибок за последние 4 итерации
-        - Визуальный тренд (↓ уменьшение, ↑ увеличение, = без изменений)
     v5.1 (2026-01-25): Логирование и статистика
-        - Вывод общего количества ошибок по каждой главе
-        - Логирование результатов в golden_test_history.json
-        - Поддержка главы 3
-    v2.0 (2026-01-25): Полная переработка
-        - Убран устаревший check_transcription.py
-        - Интеграция с pipeline.py и config.py
-        - Поддержка двух глав (золотой стандарт 1 и 2)
-        - Автоматический поиск транскрипций через FileNaming
-    v1.0: Базовая версия (check_transcription + golden_filter)
 """
 
-VERSION = '5.2.0'
-VERSION_DATE = '2026-01-25'
+VERSION = '6.1.0'
+VERSION_DATE = '2026-01-29'
 
 import argparse
 import json
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -65,33 +62,132 @@ from test_golden_standard import test_golden_standard
 # =============================================================================
 
 HISTORY_FILE = TESTS_DIR / 'golden_test_history.json'
+HISTORY_DIR = TESTS_DIR / 'История'
 
-CHAPTERS = {
-    '1': {
-        'chapter_id': '01',
-        'audio': AUDIO_DIR / '01.mp3',
-        'original': CHAPTERS_DIR / 'Глава 1.docx',
-        'transcript': TRANSCRIPTIONS_DIR / 'Глава1' / '01_yandex_transcript_NEW_20260125_1833.json',
-        'golden_standard': TESTS_DIR / 'золотой_стандарт_глава1.json',
-        'results_dir': RESULTS_DIR / '01',
-    },
-    '2': {
-        'chapter_id': '02',
-        'audio': AUDIO_DIR / '02.mp3',
-        'original': CHAPTERS_DIR / 'Глава2.docx',
-        'transcript': TRANSCRIPTIONS_DIR / 'Глава2' / '02_yandex_transcript_NEW_20260125_1838.json',
-        'golden_standard': TESTS_DIR / 'золотой_стандарт_глава2.json',
-        'results_dir': RESULTS_DIR / '02',
-    },
-    '3': {
-        'chapter_id': '03',
-        'audio': AUDIO_DIR / '03.mp3',
-        'original': CHAPTERS_DIR / 'Глава3.docx',
-        'transcript': TRANSCRIPTIONS_DIR / 'Глава3' / '03_yandex_transcript_NEW_20260125_1842.json',
-        'golden_standard': TESTS_DIR / 'золотой_стандарт_глава3.json',
-        'results_dir': RESULTS_DIR / '03',
-    },
-}
+
+def find_transcript_file(chapter_id: str) -> Path | None:
+    """
+    Автоматический поиск файла транскрипции для главы.
+
+    Приоритет:
+    1. {chapter_id}_transcript.json (стандартное имя)
+    2. {chapter_id}_yandex_transcript*.json (старое имя)
+    3. Файл с "transcript" и самой поздней датой (NEW_YYYYMMDD)
+    4. Любой JSON без _compared/_filtered
+
+    Исключаем файлы с битрейтом (16kbps, 32kbps и т.д.) — это тестовые.
+    """
+    chapter_num = chapter_id.lstrip('0') or '0'
+    trans_dir = TRANSCRIPTIONS_DIR / f'Глава{chapter_num}'
+
+    if not trans_dir.exists():
+        return None
+
+    # 1. Стандартное имя
+    standard = trans_dir / f'{chapter_id}_transcript.json'
+    if standard.exists():
+        return standard
+
+    # 2. Старое имя yandex_transcript
+    yandex_files = list(trans_dir.glob(f'{chapter_id}_yandex_transcript*.json'))
+    if yandex_files:
+        # Берём самый новый по дате в имени
+        return sorted(yandex_files, reverse=True)[0]
+
+    # 3. Любой файл с "transcript", но без битрейта
+    candidates = list(trans_dir.glob(f'*transcript*.json'))
+    # Исключаем файлы с битрейтом (16kbps, 32kbps, etc.)
+    candidates = [f for f in candidates if 'kbps' not in f.name.lower()]
+    if candidates:
+        # Сортируем по дате в имени (NEW_YYYYMMDD) — новые первые
+        return sorted(candidates, reverse=True)[0]
+
+    # 4. Первый JSON в папке (кроме служебных)
+    all_json = list(trans_dir.glob('*.json'))
+    all_json = [f for f in all_json
+                if '_compared' not in f.name
+                and '_filtered' not in f.name
+                and 'kbps' not in f.name.lower()]
+    if all_json:
+        return sorted(all_json, reverse=True)[0]
+
+    return None
+
+
+def find_original_file(chapter_id: str) -> Path | None:
+    """
+    Автоматический поиск файла оригинала для главы.
+
+    Поиск: Глава{N}.docx, Глава {N}.docx, Глава_{N}.docx
+    """
+    chapter_num = chapter_id.lstrip('0') or '0'
+
+    # Варианты именования
+    variants = [
+        f'Глава{chapter_num}.docx',
+        f'Глава {chapter_num}.docx',
+        f'Глава_{chapter_num}.docx',
+    ]
+
+    for variant in variants:
+        path = CHAPTERS_DIR / variant
+        if path.exists():
+            return path
+
+    return None
+
+
+def get_chapter_config(chapter_num: str) -> dict:
+    """
+    Динамическая генерация конфигурации главы.
+
+    Использует автопоиск файлов вместо захардкоженных путей.
+    """
+    chapter_id = chapter_num.zfill(2)  # '1' -> '01'
+
+    return {
+        'chapter_id': chapter_id,
+        'audio': AUDIO_DIR / f'{chapter_id}.mp3',
+        'original': find_original_file(chapter_id),
+        'transcript': find_transcript_file(chapter_id),
+        'golden_standard': TESTS_DIR / f'золотой_стандарт_глава{chapter_num}.json',
+        'results_dir': RESULTS_DIR / chapter_id,
+    }
+
+
+# Динамическая конфигурация глав (автопоиск файлов)
+CHAPTERS = {str(i): get_chapter_config(str(i)) for i in range(1, 10)}
+
+
+def get_filter_version():
+    """Извлекает версию фильтров из engine.py"""
+    engine_path = PROJECT_DIR / 'Инструменты' / 'filters' / 'engine.py'
+    try:
+        content = engine_path.read_text(encoding='utf-8')
+        # Ищем "Движок фильтрации ошибок транскрипции vX.Y"
+        match = re.search(r'Движок фильтрации.*?v(\d+\.\d+)', content)
+        if match:
+            return match.group(1)
+        # Или ищем VERSION = 'X.Y.Z'
+        match = re.search(r"VERSION\s*=\s*['\"](\d+\.\d+\.?\d*)['\"]", content)
+        if match:
+            return match.group(1)
+    except Exception:
+        pass
+    return 'unknown'
+
+
+def get_smart_compare_version():
+    """Извлекает версию smart_compare.py"""
+    sc_path = PROJECT_DIR / 'Инструменты' / 'smart_compare.py'
+    try:
+        content = sc_path.read_text(encoding='utf-8')
+        match = re.search(r"VERSION\s*=\s*['\"](\d+\.\d+\.?\d*)['\"]", content)
+        if match:
+            return match.group(1)
+    except Exception:
+        pass
+    return 'unknown'
 
 
 def check_chapter_files(chapter_cfg):
@@ -183,14 +279,10 @@ def load_history():
 def get_chapter_history(chapter_num, num_runs=4):
     """
     Получает историю количества ошибок для главы за последние N запусков.
-
-    Returns:
-        list: список количества ошибок (от новых к старым), пустые места = '-'
     """
     history = load_history()
     runs = history.get('runs', [])
 
-    # Ищем запуски, где была эта глава (в обратном порядке — от новых к старым)
     chapter_key = f'chapter_{chapter_num}'
     errors_history = []
 
@@ -201,7 +293,6 @@ def get_chapter_history(chapter_num, num_runs=4):
             if len(errors_history) >= num_runs:
                 break
 
-    # Дополняем до num_runs элементов
     while len(errors_history) < num_runs:
         errors_history.append(None)
 
@@ -209,12 +300,7 @@ def get_chapter_history(chapter_num, num_runs=4):
 
 
 def get_total_history(num_runs=4):
-    """
-    Получает историю общего количества ошибок за последние N запусков.
-
-    Returns:
-        list: список общего количества ошибок (от новых к старым)
-    """
+    """Получает историю общего количества ошибок за последние N запусков."""
     history = load_history()
     runs = history.get('runs', [])
 
@@ -252,18 +338,43 @@ def format_history_cell(value):
 
 
 def save_history(history):
-    """Сохраняет историю тестов."""
+    """Сохраняет историю тестов в главный файл."""
     with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
         json.dump(history, f, ensure_ascii=False, indent=2)
+
+
+def save_run_to_archive(run_entry):
+    """
+    Сохраняет прогон в отдельный файл в папке История/.
+    Формат имени: YYYY-MM-DD_HH-MM_vX.Y_golden.json
+    """
+    HISTORY_DIR.mkdir(exist_ok=True)
+
+    ts = datetime.now()
+    date_str = ts.strftime('%Y-%m-%d_%H-%M')
+    filter_ver = run_entry.get('filter_version', 'unknown')
+
+    filename = f"{date_str}_v{filter_ver}_golden.json"
+    filepath = HISTORY_DIR / filename
+
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(run_entry, f, ensure_ascii=False, indent=2)
+
+    return filepath
 
 
 def log_test_run(results, chapters_tested, comment=None):
     """Записывает результат теста в историю."""
     history = load_history()
 
+    filter_version = get_filter_version()
+    smart_compare_version = get_smart_compare_version()
+
     run_entry = {
         'timestamp': datetime.now().isoformat(),
-        'version': VERSION,
+        'test_version': VERSION,
+        'filter_version': filter_version,
+        'smart_compare_version': smart_compare_version,
         'chapters_tested': chapters_tested,
         'results': {},
         'summary': {
@@ -297,10 +408,100 @@ def log_test_run(results, chapters_tested, comment=None):
             run_entry['summary']['total_golden_expected'], 1
         )
 
+    # Сохраняем в главный файл истории
     history['runs'].append(run_entry)
     save_history(history)
 
-    return run_entry
+    # Сохраняем в отдельный файл архива
+    archive_path = save_run_to_archive(run_entry)
+
+    return run_entry, archive_path
+
+
+def show_versions_summary():
+    """Показывает сводку результатов по версиям фильтров."""
+    history = load_history()
+    runs = history.get('runs', [])
+
+    if not runs:
+        print("История пуста.")
+        return
+
+    # Группируем по версии фильтров
+    by_version = {}
+    for run in runs:
+        ver = run.get('filter_version', run.get('version', 'unknown'))
+        if ver not in by_version:
+            by_version[ver] = []
+        by_version[ver].append(run)
+
+    print(f"\n{'='*80}")
+    print(f"  СВОДКА ПО ВЕРСИЯМ ФИЛЬТРОВ")
+    print(f"{'='*80}")
+
+    # Заголовок
+    print(f"\n  {'Версия':<12} {'Прогонов':<10} {'Golden':<12} {'FP (мин)':<10} {'FP (макс)':<10} {'Последний'}")
+    print(f"  {'-'*72}")
+
+    for ver in sorted(by_version.keys(), key=lambda x: x if x != 'unknown' else 'zzz'):
+        ver_runs = by_version[ver]
+
+        # Статистика
+        num_runs = len(ver_runs)
+        golden_results = []
+        fp_results = []
+
+        for r in ver_runs:
+            s = r.get('summary', {})
+            golden_str = f"{s.get('total_golden_found', 0)}/{s.get('total_golden_expected', 0)}"
+            golden_results.append(golden_str)
+            fp_results.append(s.get('total_errors', 0))
+
+        # Последний прогон
+        last_run = ver_runs[-1]
+        last_ts = last_run['timestamp'][:16].replace('T', ' ')
+        last_golden = f"{last_run['summary'].get('total_golden_found', 0)}/{last_run['summary'].get('total_golden_expected', 0)}"
+
+        fp_min = min(fp_results) if fp_results else '-'
+        fp_max = max(fp_results) if fp_results else '-'
+
+        print(f"  v{ver:<11} {num_runs:<10} {last_golden:<12} {fp_min:<10} {fp_max:<10} {last_ts}")
+
+    print(f"\n{'='*80}\n")
+
+
+def show_archive_files():
+    """Показывает список файлов в архиве."""
+    if not HISTORY_DIR.exists():
+        print("Папка История/ не существует.")
+        return
+
+    files = sorted(HISTORY_DIR.glob('*.json'), reverse=True)
+
+    if not files:
+        print("Архив пуст.")
+        return
+
+    print(f"\n{'='*70}")
+    print(f"  АРХИВ ПРОГОНОВ ({len(files)} файлов)")
+    print(f"{'='*70}")
+
+    for f in files[:20]:  # Показываем последние 20
+        try:
+            data = json.loads(f.read_text(encoding='utf-8'))
+            s = data.get('summary', {})
+            golden = f"{s.get('total_golden_found', 0)}/{s.get('total_golden_expected', 0)}"
+            fp = s.get('total_errors', 0)
+            passed = '✓' if s.get('all_passed', False) else '✗'
+            comment = data.get('comment', '')[:30]
+            print(f"  {passed} {f.name:<45} Golden: {golden:<8} FP: {fp:<4} {comment}")
+        except Exception as e:
+            print(f"  ? {f.name:<45} (ошибка чтения)")
+
+    if len(files) > 20:
+        print(f"\n  ... и ещё {len(files) - 20} файлов")
+
+    print(f"\n{'='*70}\n")
 
 
 # =============================================================================
@@ -315,12 +516,12 @@ def main():
 Примеры:
   python Тесты/run_full_test.py              # все главы
   python Тесты/run_full_test.py --chapter 1   # только глава 1
-  python Тесты/run_full_test.py --chapter 3   # только глава 3
   python Тесты/run_full_test.py --skip-pipeline  # только золотой тест
-  python Тесты/run_full_test.py --no-log       # без записи в историю
+  python Тесты/run_full_test.py --versions     # сводка по версиям
+  python Тесты/run_full_test.py --archive      # список файлов архива
         """
     )
-    parser.add_argument('--chapter', '-c', choices=['1', '2', '3'],
+    parser.add_argument('--chapter', '-c', choices=['1', '2', '3', '4'],
                         help='Номер главы (по умолчанию: все)')
     parser.add_argument('--skip-pipeline', action='store_true',
                         help='Пропустить пайплайн, запустить только золотой тест')
@@ -336,11 +537,25 @@ def main():
                         help='Показать версию')
     parser.add_argument('--history', '-H', action='store_true',
                         help='Показать последние 10 записей истории')
+    parser.add_argument('--versions', action='store_true',
+                        help='Показать сводку по версиям фильтров')
+    parser.add_argument('--archive', action='store_true',
+                        help='Показать список файлов архива')
 
     args = parser.parse_args()
 
     if args.version:
         print(f"run_full_test v{VERSION} ({VERSION_DATE})")
+        print(f"  Filter version: {get_filter_version()}")
+        print(f"  SmartCompare version: {get_smart_compare_version()}")
+        return 0
+
+    if args.versions:
+        show_versions_summary()
+        return 0
+
+    if args.archive:
+        show_archive_files()
         return 0
 
     if args.history:
@@ -361,9 +576,10 @@ def main():
             golden = f"{summary['total_golden_found']}/{summary['total_golden_expected']}"
             total_err = summary.get('total_errors', '?')
             pct = summary.get('golden_percentage', 0)
+            filter_ver = run.get('filter_version', run.get('version', '?'))
             comment = run.get('comment', '')
 
-            print(f"\n  {ts}  {status}  Золотые: {golden} ({pct}%)  Всего ошибок: {total_err}")
+            print(f"\n  {ts}  {status}  v{filter_ver}  Golden: {golden} ({pct}%)  FP: {total_err}")
             if comment:
                 print(f"    Комментарий: {comment}")
 
@@ -374,13 +590,18 @@ def main():
     if args.chapter:
         chapters_to_test = [args.chapter]
     else:
-        chapters_to_test = ['1', '2', '3']
+        chapters_to_test = ['1', '2', '3', '4']
+
+    filter_ver = get_filter_version()
+    sc_ver = get_smart_compare_version()
 
     print(f"\n{'#'*70}")
     print(f"  ПОЛНЫЙ ТЕСТ ЗОЛОТОГО СТАНДАРТА v{VERSION}")
     print(f"{'#'*70}")
     print(f"  Главы: {', '.join(chapters_to_test)}")
     print(f"  Пайплайн: {'пропуск' if args.skip_pipeline else 'запуск'}")
+    print(f"  Версия фильтров: {filter_ver}")
+    print(f"  Версия SmartCompare: {sc_ver}")
     print(f"  Логирование: {'отключено' if args.no_log else 'включено'}")
     print(f"{'#'*70}")
 
@@ -446,11 +667,11 @@ def main():
 
     # Итоговый результат с историей
     print(f"\n{'#'*70}")
-    print(f"  ИТОГИ (с историей последних 4 итераций)")
+    print(f"  ИТОГИ v{filter_ver} (с историей последних 4 итераций)")
     print(f"{'#'*70}")
 
     # Заголовок таблицы
-    print(f"\n  {'Глава':<8} {'Золотые':<12} {'Сейчас':<8} {'Пред.':<8} {'-2':<8} {'-3':<8} {'Тренд':<8}")
+    print(f"\n  {'Глава':<8} {'Golden':<12} {'Сейчас':<8} {'Пред.':<8} {'-2':<8} {'-3':<8} {'Тренд':<8}")
     print(f"  {'-'*60}")
 
     total_found = 0
@@ -463,9 +684,8 @@ def main():
         err_count = res.get('total_errors', 0)
         total_all_errors += err_count
 
-        # Получаем историю для главы (без текущего запуска — он ещё не записан)
+        # Получаем историю для главы
         hist = get_chapter_history(ch_num, num_runs=4)
-        # hist[0] = последний записанный (предыдущий), hist[1] = -2, и т.д.
 
         golden_str = f"{res['found']}/{res['total']}"
         current_str = str(err_count)
@@ -506,8 +726,9 @@ def main():
 
     # Логирование
     if not args.no_log:
-        log_test_run(results, valid_chapters, comment=args.comment)
+        run_entry, archive_path = log_test_run(results, valid_chapters, comment=args.comment)
         print(f"  Результат записан в {HISTORY_FILE.name}")
+        print(f"  Архив: {archive_path.name}")
         print()
 
     return 0 if all_passed else 1
