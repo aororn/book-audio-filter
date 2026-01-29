@@ -533,6 +533,158 @@ class FalsePositivesDB:
         )
         return [dict(row) for row in cursor.fetchall()]
 
+    def get_all_patterns(self) -> List[Dict[str, Any]]:
+        """Получает все паттерны из БД."""
+        cursor = self.conn.execute('SELECT * FROM patterns ORDER BY id')
+        return [dict(row) for row in cursor.fetchall()]
+
+    def update_smart_data(self, pattern_id: int, data: Dict[str, Any]) -> bool:
+        """
+        Обновляет SmartFilter данные для паттерна.
+
+        Args:
+            pattern_id: ID паттерна
+            data: Словарь с полями для обновления
+
+        Returns:
+            True если успешно обновлено
+        """
+        # Формируем SQL динамически
+        fields = []
+        values = []
+        for key, value in data.items():
+            fields.append(f'{key} = ?')
+            values.append(value)
+
+        if not fields:
+            return False
+
+        values.append(pattern_id)
+        query = f"UPDATE patterns SET {', '.join(fields)} WHERE id = ?"
+
+        cursor = self.conn.execute(query, values)
+        self.conn.commit()
+        return cursor.rowcount > 0
+
+    def get_score_distribution(self) -> Dict[str, Any]:
+        """Получает распределение smart_score."""
+        result = {
+            'golden': {'total': 0, 'min': 0, 'max': 0, 'avg': 0},
+            'fp': {'total': 0, 'min': 0, 'max': 0, 'avg': 0},
+            'golden_below_threshold': 0,
+            'fp_above_threshold': 0,
+        }
+
+        # Golden
+        cursor = self.conn.execute('''
+            SELECT COUNT(*), MIN(smart_score), MAX(smart_score), AVG(smart_score)
+            FROM patterns WHERE is_golden = 1 AND smart_score IS NOT NULL
+        ''')
+        row = cursor.fetchone()
+        if row and row[0]:
+            result['golden'] = {
+                'total': row[0],
+                'min': row[1] or 0,
+                'max': row[2] or 0,
+                'avg': round(row[3] or 0, 1),
+            }
+
+        # Golden ниже порога
+        cursor = self.conn.execute('''
+            SELECT COUNT(*) FROM patterns
+            WHERE is_golden = 1 AND smart_score IS NOT NULL AND smart_score < 60
+        ''')
+        result['golden_below_threshold'] = cursor.fetchone()[0]
+
+        # FP
+        cursor = self.conn.execute('''
+            SELECT COUNT(*), MIN(smart_score), MAX(smart_score), AVG(smart_score)
+            FROM patterns WHERE is_golden = 0 AND smart_score IS NOT NULL
+        ''')
+        row = cursor.fetchone()
+        if row and row[0]:
+            result['fp'] = {
+                'total': row[0],
+                'min': row[1] or 0,
+                'max': row[2] or 0,
+                'avg': round(row[3] or 0, 1),
+            }
+
+        # FP выше порога
+        cursor = self.conn.execute('''
+            SELECT COUNT(*) FROM patterns
+            WHERE is_golden = 0 AND smart_score IS NOT NULL AND smart_score >= 60
+        ''')
+        result['fp_above_threshold'] = cursor.fetchone()[0]
+
+        return result
+
+    def get_smart_stats(self) -> Dict[str, Any]:
+        """Получает статистику SmartFilter."""
+        result = {
+            'with_smart_score': 0,
+            'score_correct': 0,
+            'score_incorrect': 0,
+            'by_frequency_category': {},
+        }
+
+        # Паттерны со smart_score
+        cursor = self.conn.execute('''
+            SELECT COUNT(*) FROM patterns WHERE smart_score IS NOT NULL
+        ''')
+        result['with_smart_score'] = cursor.fetchone()[0]
+
+        # Корректность
+        cursor = self.conn.execute('''
+            SELECT COUNT(*) FROM patterns
+            WHERE smart_score IS NOT NULL AND score_correct = 1
+        ''')
+        result['score_correct'] = cursor.fetchone()[0]
+
+        cursor = self.conn.execute('''
+            SELECT COUNT(*) FROM patterns
+            WHERE smart_score IS NOT NULL AND score_correct = 0
+        ''')
+        result['score_incorrect'] = cursor.fetchone()[0]
+
+        # По категориям частотности
+        cursor = self.conn.execute('''
+            SELECT freq_category, COUNT(*) FROM patterns
+            WHERE freq_category IS NOT NULL
+            GROUP BY freq_category
+        ''')
+        for row in cursor.fetchall():
+            result['by_frequency_category'][row[0]] = row[1]
+
+        return result
+
+    def get_calibration_data(self) -> Dict[str, Any]:
+        """Получает данные для калибровки весов."""
+        result = {
+            'golden_filtered': [],
+            'fp_not_filtered': [],
+        }
+
+        # Golden со score < 60
+        cursor = self.conn.execute('''
+            SELECT pattern_key, smart_score, smart_rules, category
+            FROM patterns
+            WHERE is_golden = 1 AND smart_score IS NOT NULL AND smart_score < 60
+            ORDER BY smart_score ASC
+        ''')
+        result['golden_filtered'] = [dict(row) for row in cursor.fetchall()]
+
+        # FP со score >= 60
+        cursor = self.conn.execute('''
+            SELECT pattern_key, smart_score, smart_rules, category
+            FROM patterns
+            WHERE is_golden = 0 AND smart_score IS NOT NULL AND smart_score >= 60
+            ORDER BY smart_score DESC
+        ''')
+        result['fp_not_filtered'] = [dict(row) for row in cursor.fetchall()]
+
+        return result
+
     # =========================================================================
     # УПРАВЛЕНИЕ СТАТУСОМ
     # =========================================================================

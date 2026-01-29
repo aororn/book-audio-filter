@@ -20,6 +20,7 @@
 
 v5.7.0: Унификация — normalize_word импортируется из morphology.py
 v6.0.0: Убрано дублирование pymorphy, добавлены aspect/phonetic функции
+v6.0.1: is_yandex_typical_error проверяет леммы для слов >= 5 символов
 """
 
 from functools import lru_cache
@@ -451,10 +452,32 @@ def is_similar_by_levenshtein(word1: str, word2: str, threshold: int = 2) -> boo
 
 
 def is_yandex_typical_error(word1: str, word2: str) -> bool:
-    """Типичная ошибка Яндекса."""
+    """
+    Типичная ошибка Яндекса.
+
+    v8.6.1: Проверяет как точные формы, так и леммы.
+    Это позволяет матчить 'контуру/комтуру' со словарной парой 'контур/комтур'.
+
+    ОГРАНИЧЕНИЕ: Сравнение по леммам только для слов длиной >= 5,
+    чтобы не затронуть местоимения типа 'этот/это/эти' (Golden ошибки).
+    """
     w1 = normalize_word(word1)
     w2 = normalize_word(word2)
-    return (w1, w2) in YANDEX_TYPICAL_ERRORS or (w2, w1) in YANDEX_TYPICAL_ERRORS
+
+    # Проверка 1: Точные формы
+    if (w1, w2) in YANDEX_TYPICAL_ERRORS or (w2, w1) in YANDEX_TYPICAL_ERRORS:
+        return True
+
+    # Проверка 2: По леммам (v8.6.1)
+    # Только для длинных слов (>= 5 символов), чтобы не затронуть местоимения
+    if HAS_PYMORPHY and len(w1) >= 5 and len(w2) >= 5:
+        lemma1 = get_lemma(w1)
+        lemma2 = get_lemma(w2)
+        if lemma1 and lemma2 and len(lemma1) >= 4 and len(lemma2) >= 4:
+            if (lemma1, lemma2) in YANDEX_TYPICAL_ERRORS or (lemma2, lemma1) in YANDEX_TYPICAL_ERRORS:
+                return True
+
+    return False
 
 
 def is_prefix_variant(word1: str, word2: str) -> bool:

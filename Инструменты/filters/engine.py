@@ -67,8 +67,8 @@ from .detectors import (
 from .morpho_rules import get_morpho_rules, is_morpho_false_positive
 
 # Версия модуля
-VERSION = '8.6.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '8.6.1'
+VERSION_DATE = '2026-01-30'
 
 # Минимальная совместимая версия smart_compare для валидации
 MIN_SMART_COMPARE_VERSION = '10.5.0'
@@ -575,7 +575,8 @@ def should_filter_error(
         # Паттерн 3: итак←и (Яндекс расширил однобуквенное)
         # оригинал "И так" → транскрипт "итак"
         # w1="итак", w2="и"
-        if w2 in {'и', 'а'} and len(w1) > 2 and w1.startswith(w2):
+        # v8.6.1: ИСКЛЮЧЕНИЕ для 'или' — это реальная ошибка чтеца (Golden)
+        if w2 in {'и', 'а'} and len(w1) > 2 and w1.startswith(w2) and w1 not in {'или'}:
             return True, 'yandex_expand_artifact'
 
         # v5.6: Расширенный паттерн и↔я
