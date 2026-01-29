@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-False Positives Database v2.0 - SQLite-based storage for false positives tracking
+False Positives Database v3.0 - SQLite-based storage for false positives tracking
 
 Замена JSON-хранилища на SQLite для:
 - Быстрого поиска и фильтрации
 - Сложной аналитики (GROUP BY, ORDER BY)
 - Масштабируемости при росте данных
 - ML-подготовки (морфологические признаки)
+- Тестирования точности фильтров (v3.0)
 
 Использование:
     from false_positives_db import FalsePositivesDB
@@ -23,8 +24,18 @@ CLI:
     python false_positives_db.py export --csv    # Экспорт в CSV
     python false_positives_db.py update-morph    # Обновить морф-признаки
     python false_positives_db.py mark-golden     # Разметить golden standard
+    python false_positives_db.py filter-stats    # Статистика по фильтрам (v3.0)
+    python false_positives_db.py unfiltered      # Показать неотфильтрованные FP (v3.0)
 
 Changelog:
+    v3.0 (2026-01-29): Тестирование точности фильтров
+        - Версионирование схемы (SCHEMA_VERSION = 3)
+        - Новые колонки: actual_filter, expected_filter, filter_correct,
+          transcript_count, is_stable, source_versions, chapter
+        - add_error_with_filter() — добавление с filter_reason
+        - get_unfiltered_fps() — FP без actual_filter
+        - get_filter_accuracy() — точность фильтров
+        - rebuild_from_reports() — пересборка БД из отчётов
     v2.0 (2026-01-26): Расширение для ML
         - Версионирование схемы (SCHEMA_VERSION = 2)
         - Новые колонки: is_golden, lemma1/2, pos1/2, aspect1/2, levenshtein, same_lemma, ml_score
@@ -38,9 +49,9 @@ Changelog:
         - CLI интерфейс
 """
 
-VERSION = '2.0.0'
-VERSION_DATE = '2026-01-26'
-SCHEMA_VERSION = 2
+VERSION = '3.0.0'
+VERSION_DATE = '2026-01-29'
+SCHEMA_VERSION = 3
 
 import sqlite3
 import json
@@ -306,6 +317,32 @@ class FalsePositivesDB:
             # Создаём индекс для is_golden
             try:
                 self.conn.execute('CREATE INDEX IF NOT EXISTS idx_patterns_golden ON patterns(is_golden)')
+            except sqlite3.OperationalError:
+                pass
+
+        # Миграция v2 → v3: добавляем колонки для тестирования фильтров
+        if current_version < 3:
+            new_columns_v3 = [
+                ('actual_filter', 'TEXT'),           # какой фильтр РЕАЛЬНО сработал
+                ('expected_filter', 'TEXT'),         # какой фильтр ДОЛЖЕН сработать
+                ('filter_correct', 'INTEGER'),       # 1 если actual == expected
+                ('transcript_count', 'INTEGER DEFAULT 1'),  # в скольких транскрипциях
+                ('is_stable', 'INTEGER DEFAULT 0'),  # 1 если во всех транскрипциях
+                ('source_versions', 'TEXT'),         # JSON: {"smart_compare": "10.5", ...}
+                ('chapter', 'TEXT'),                 # номер главы (01, 02, 03, 04)
+            ]
+
+            for col_name, col_type in new_columns_v3:
+                try:
+                    self.conn.execute(f'ALTER TABLE patterns ADD COLUMN {col_name} {col_type}')
+                except sqlite3.OperationalError:
+                    pass  # Колонка уже существует
+
+            # Создаём индексы для v3
+            try:
+                self.conn.execute('CREATE INDEX IF NOT EXISTS idx_patterns_actual_filter ON patterns(actual_filter)')
+                self.conn.execute('CREATE INDEX IF NOT EXISTS idx_patterns_chapter ON patterns(chapter)')
+                self.conn.execute('CREATE INDEX IF NOT EXISTS idx_patterns_stable ON patterns(is_stable)')
             except sqlite3.OperationalError:
                 pass
 
@@ -708,7 +745,8 @@ class FalsePositivesDB:
                 for err in data.get('errors', []):
                     wrong = err.get('wrong', '')
                     correct = err.get('correct', '')
-                    key = f"{wrong}→{correct}"
+                    # v3.1: Нормализуем регистр для сравнения (в БД слова в нижнем регистре)
+                    key = f"{wrong.lower()}→{correct.lower()}"
                     golden_keys.add(key)
 
         stats['total_golden'] = len(golden_keys)
@@ -849,6 +887,222 @@ class FalsePositivesDB:
             'same_lemma_count': row['same_lemma_count'] or 0,
             'class_balance': f"{row['golden'] or 0}:{row['non_golden'] or 0}"
         }
+
+    # =========================================================================
+    # ТЕСТИРОВАНИЕ ФИЛЬТРОВ (v3.0)
+    # =========================================================================
+
+    def add_error_with_filter(
+        self,
+        wrong: str,
+        correct: str,
+        error_type: str,
+        source: str,
+        actual_filter: Optional[str],
+        chapter: str,
+        context: str = "",
+        time_seconds: Optional[int] = None,
+        source_versions: Optional[Dict[str, str]] = None
+    ) -> int:
+        """
+        Добавляет ошибку с информацией о фильтре (v3.0).
+
+        Args:
+            wrong: Что услышал Яндекс
+            correct: Что должно быть
+            error_type: substitution, insertion, deletion
+            source: Источник (01_yandex, 02_48kbps)
+            actual_filter: Какой фильтр сработал (None = не отфильтровано)
+            chapter: Номер главы (01, 02, 03, 04)
+            context: Контекст из текста
+            time_seconds: Время в секундах
+            source_versions: {"smart_compare": "10.5", "engine": "8.5"}
+
+        Returns:
+            ID паттерна
+        """
+        pattern_key = f"{wrong}→{correct}"
+        now = datetime.now().isoformat()
+        versions_json = json.dumps(source_versions) if source_versions else None
+
+        # Проверяем существующий паттерн
+        cursor = self.conn.execute(
+            'SELECT id, count, transcript_count FROM patterns WHERE pattern_key = ?',
+            (pattern_key,)
+        )
+        row = cursor.fetchone()
+
+        if row:
+            # Обновляем существующий
+            pattern_id = row['id']
+            new_count = (row['transcript_count'] or 1) + 1
+            self.conn.execute(
+                '''UPDATE patterns SET
+                   count = count + 1,
+                   transcript_count = ?,
+                   last_seen = ?,
+                   actual_filter = COALESCE(actual_filter, ?),
+                   source_versions = COALESCE(source_versions, ?)
+                   WHERE id = ?''',
+                (new_count, now, actual_filter, versions_json, pattern_id)
+            )
+        else:
+            # Создаём новый
+            category = classify_pattern(wrong, correct, error_type)
+            cursor = self.conn.execute(
+                '''INSERT INTO patterns
+                   (wrong, correct, error_type, pattern_key, count, category, status,
+                    first_seen, last_seen, actual_filter, chapter, transcript_count, source_versions)
+                   VALUES (?, ?, ?, ?, 1, ?, 'active', ?, ?, ?, ?, 1, ?)''',
+                (wrong, correct, error_type, pattern_key, category, now, now,
+                 actual_filter, chapter, versions_json)
+            )
+            pattern_id = cursor.lastrowid
+
+        # Добавляем вхождение
+        self.conn.execute(
+            '''INSERT INTO occurrences (pattern_id, source, time_seconds, context, created_at)
+               VALUES (?, ?, ?, ?, ?)''',
+            (pattern_id, source, time_seconds, context, now)
+        )
+
+        self.conn.commit()
+        return pattern_id
+
+    def get_unfiltered_fps(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """
+        Возвращает FP паттерны без actual_filter (не были отфильтрованы).
+
+        Args:
+            limit: Максимальное количество
+
+        Returns:
+            Список паттернов, которые пропущены фильтрами
+        """
+        cursor = self.conn.execute('''
+            SELECT * FROM patterns
+            WHERE is_golden = 0
+              AND (actual_filter IS NULL OR actual_filter = '')
+            ORDER BY count DESC
+            LIMIT ?
+        ''', (limit,))
+        return [dict(row) for row in cursor.fetchall()]
+
+    def get_filter_accuracy(self) -> Dict[str, Any]:
+        """
+        Возвращает статистику точности фильтров.
+
+        Returns:
+            {
+                'total_fp': int,           # всего FP паттернов
+                'filtered_fp': int,        # отфильтровано
+                'unfiltered_fp': int,      # пропущено
+                'recall': float,           # filtered / total
+                'by_filter': {...},        # по каждому фильтру
+                'by_category': {...},      # по категориям
+            }
+        """
+        # Общая статистика
+        cursor = self.conn.execute('''
+            SELECT
+                COUNT(*) as total,
+                SUM(CASE WHEN actual_filter IS NOT NULL AND actual_filter != '' THEN 1 ELSE 0 END) as filtered,
+                SUM(CASE WHEN actual_filter IS NULL OR actual_filter = '' THEN 1 ELSE 0 END) as unfiltered
+            FROM patterns
+            WHERE is_golden = 0
+        ''')
+        row = cursor.fetchone()
+        total = row['total'] or 0
+        filtered = row['filtered'] or 0
+        unfiltered = row['unfiltered'] or 0
+
+        # По фильтрам
+        cursor = self.conn.execute('''
+            SELECT actual_filter, COUNT(*) as count
+            FROM patterns
+            WHERE is_golden = 0 AND actual_filter IS NOT NULL AND actual_filter != ''
+            GROUP BY actual_filter
+            ORDER BY count DESC
+        ''')
+        by_filter = {r['actual_filter']: r['count'] for r in cursor.fetchall()}
+
+        # По категориям (неотфильтрованные)
+        cursor = self.conn.execute('''
+            SELECT category, COUNT(*) as count
+            FROM patterns
+            WHERE is_golden = 0 AND (actual_filter IS NULL OR actual_filter = '')
+            GROUP BY category
+            ORDER BY count DESC
+        ''')
+        unfiltered_by_category = {r['category']: r['count'] for r in cursor.fetchall()}
+
+        return {
+            'total_fp': total,
+            'filtered_fp': filtered,
+            'unfiltered_fp': unfiltered,
+            'recall': filtered / total if total > 0 else 0,
+            'by_filter': by_filter,
+            'unfiltered_by_category': unfiltered_by_category,
+        }
+
+    def clear_all(self) -> int:
+        """
+        Очищает ВСЕ данные из БД (для пересборки).
+
+        Returns:
+            Количество удалённых паттернов
+        """
+        cursor = self.conn.execute('SELECT COUNT(*) FROM patterns')
+        count = cursor.fetchone()[0]
+
+        self.conn.execute('DELETE FROM occurrences')
+        self.conn.execute('DELETE FROM patterns')
+        self.conn.commit()
+
+        return count
+
+    def update_stability(self, chapter: str, total_transcripts: int) -> int:
+        """
+        Обновляет флаг is_stable для паттернов главы.
+
+        Паттерн стабильный, если встречается во всех транскрипциях главы.
+
+        Args:
+            chapter: Номер главы (01, 02, 03, 04)
+            total_transcripts: Сколько транскрипций для этой главы
+
+        Returns:
+            Количество обновлённых паттернов
+        """
+        cursor = self.conn.execute('''
+            UPDATE patterns
+            SET is_stable = CASE
+                WHEN transcript_count >= ? THEN 1
+                ELSE 0
+            END
+            WHERE chapter = ?
+        ''', (total_transcripts, chapter))
+        self.conn.commit()
+        return cursor.rowcount
+
+    def set_expected_filter(self, category: str, expected_filter: str) -> int:
+        """
+        Устанавливает expected_filter для всех паттернов категории.
+
+        Args:
+            category: Категория (grammar_ending, short_word, etc.)
+            expected_filter: Ожидаемый фильтр
+
+        Returns:
+            Количество обновлённых паттернов
+        """
+        cursor = self.conn.execute('''
+            UPDATE patterns
+            SET expected_filter = ?
+            WHERE category = ? AND is_golden = 0
+        ''', (expected_filter, category))
+        self.conn.commit()
+        return cursor.rowcount
 
     def migrate_from_json(self, json_path: Path) -> Dict[str, int]:
         """
@@ -992,6 +1246,22 @@ def main():
     features_parser = subparsers.add_parser('export-features', help='Экспорт признаков для ML')
     features_parser.add_argument('output', help='Путь к выходному CSV файлу')
 
+    # filter-stats (v3.0)
+    subparsers.add_parser('filter-stats', help='Статистика точности фильтров')
+
+    # unfiltered (v3.0)
+    unfiltered_parser = subparsers.add_parser('unfiltered', help='Показать неотфильтрованные FP')
+    unfiltered_parser.add_argument('--limit', '-l', type=int, default=50, help='Количество')
+
+    # clear (v3.0)
+    clear_parser = subparsers.add_parser('clear', help='Очистить ВСЮ базу (для пересборки)')
+    clear_parser.add_argument('--confirm', action='store_true', help='Подтверждение (обязательно)')
+
+    # set-expected (v3.0)
+    expected_parser = subparsers.add_parser('set-expected', help='Установить expected_filter для категории')
+    expected_parser.add_argument('category', help='Категория (grammar_ending, short_word, etc.)')
+    expected_parser.add_argument('filter', help='Ожидаемый фильтр')
+
     args = parser.parse_args()
 
     if args.version:
@@ -1105,6 +1375,43 @@ def main():
         elif args.command == 'export-features':
             count = db.export_features_csv(Path(args.output))
             print(f"✓ Экспортировано {count} записей в {args.output}")
+
+        elif args.command == 'filter-stats':
+            stats = db.get_filter_accuracy()
+            print("\n=== Статистика точности фильтров (v3.0) ===")
+            print(f"Всего FP паттернов: {stats['total_fp']}")
+            print(f"  Отфильтровано: {stats['filtered_fp']}")
+            print(f"  Пропущено: {stats['unfiltered_fp']}")
+            print(f"  Recall: {stats['recall']:.1%}")
+            if stats['by_filter']:
+                print(f"\nПо фильтрам (какие фильтры сработали):")
+                for flt, count in stats['by_filter'].items():
+                    print(f"  {flt}: {count}")
+            if stats['unfiltered_by_category']:
+                print(f"\nПропущенные по категориям (приоритеты улучшений):")
+                for cat, count in stats['unfiltered_by_category'].items():
+                    print(f"  {cat}: {count}")
+
+        elif args.command == 'unfiltered':
+            patterns = db.get_unfiltered_fps(args.limit)
+            print(f"\n=== Неотфильтрованные FP ({len(patterns)} шт) ===\n")
+            for i, p in enumerate(patterns, 1):
+                print(f"{i:2}. [{p['count']:3}] {p['pattern_key']}")
+                print(f"      Категория: {p['category']}, Глава: {p.get('chapter', '?')}")
+                if p.get('expected_filter'):
+                    print(f"      Ожидаемый фильтр: {p['expected_filter']}")
+
+        elif args.command == 'clear':
+            if not args.confirm:
+                print("⚠ Эта команда удалит ВСЕ данные из БД!")
+                print("  Для подтверждения используйте: --confirm")
+                return
+            count = db.clear_all()
+            print(f"✓ Удалено {count} паттернов. БД пуста.")
+
+        elif args.command == 'set-expected':
+            count = db.set_expected_filter(args.category, args.filter)
+            print(f"✓ Установлен expected_filter='{args.filter}' для {count} паттернов категории '{args.category}'")
 
         else:
             parser.print_help()

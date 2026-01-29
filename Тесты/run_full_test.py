@@ -22,11 +22,16 @@
     python Тесты/run_full_test.py              # все главы
     python Тесты/run_full_test.py --chapter 1   # только глава 1
     python Тесты/run_full_test.py --skip-pipeline  # только золотой тест (без пайплайна)
+    python Тесты/run_full_test.py --clean        # чистое тестирование (удалить старые файлы)
     python Тесты/run_full_test.py --verbose      # подробный вывод
     python Тесты/run_full_test.py --no-log       # без записи в историю
     python Тесты/run_full_test.py --versions     # сводка по версиям
 
 Changelog:
+    v6.2 (2026-01-29): Флаг --clean для чистого тестирования
+        - Добавлен флаг --clean — удаляет старые compared/filtered перед пайплайном
+        - Это гарантирует тестирование на свежих файлах, а не на кэшированных
+        - clean_chapter_results() — функция очистки результатов главы
     v6.1 (2026-01-29): Динамический автопоиск файлов
         - find_transcript_file() — поиск транскрипции
         - find_original_file() — поиск оригинала
@@ -36,7 +41,7 @@ Changelog:
     v5.1 (2026-01-25): Логирование и статистика
 """
 
-VERSION = '6.1.0'
+VERSION = '6.2.0'
 VERSION_DATE = '2026-01-29'
 
 import argparse
@@ -63,6 +68,41 @@ from test_golden_standard import test_golden_standard
 
 HISTORY_FILE = TESTS_DIR / 'golden_test_history.json'
 HISTORY_DIR = TESTS_DIR / 'История'
+
+
+def clean_chapter_results(chapter_cfg) -> int:
+    """
+    Удаляет все compared и filtered файлы для главы.
+
+    Возвращает количество удалённых файлов.
+
+    Это нужно для чистого тестирования — чтобы пайплайн создавал
+    новые файлы текущей версией smart_compare.py, а не использовал
+    закэшированные файлы от старых версий.
+    """
+    results_dir = chapter_cfg['results_dir']
+    chapter_id = chapter_cfg['chapter_id']
+    deleted = 0
+
+    if not results_dir.exists():
+        return 0
+
+    # Паттерны файлов для удаления
+    patterns = [
+        f'{chapter_id}*_compared.json',
+        f'{chapter_id}*_filtered.json',
+    ]
+
+    for pattern in patterns:
+        for filepath in results_dir.glob(pattern):
+            try:
+                filepath.unlink()
+                deleted += 1
+                print(f"    Удалён: {filepath.name}")
+            except Exception as e:
+                print(f"    Ошибка удаления {filepath.name}: {e}")
+
+    return deleted
 
 
 def find_transcript_file(chapter_id: str) -> Path | None:
@@ -517,6 +557,7 @@ def main():
   python Тесты/run_full_test.py              # все главы
   python Тесты/run_full_test.py --chapter 1   # только глава 1
   python Тесты/run_full_test.py --skip-pipeline  # только золотой тест
+  python Тесты/run_full_test.py --clean        # чистое тестирование
   python Тесты/run_full_test.py --versions     # сводка по версиям
   python Тесты/run_full_test.py --archive      # список файлов архива
         """
@@ -527,6 +568,8 @@ def main():
                         help='Пропустить пайплайн, запустить только золотой тест')
     parser.add_argument('--force', '-f', action='store_true',
                         help='Перезаписать существующие результаты')
+    parser.add_argument('--clean', action='store_true',
+                        help='Удалить старые compared/filtered файлы перед запуском (чистое тестирование)')
     parser.add_argument('--verbose', '-v', action='store_true',
                         help='Подробный вывод')
     parser.add_argument('--no-log', action='store_true',
@@ -600,6 +643,7 @@ def main():
     print(f"{'#'*70}")
     print(f"  Главы: {', '.join(chapters_to_test)}")
     print(f"  Пайплайн: {'пропуск' if args.skip_pipeline else 'запуск'}")
+    print(f"  Чистое тестирование: {'ДА (--clean)' if args.clean else 'нет'}")
     print(f"  Версия фильтров: {filter_ver}")
     print(f"  Версия SmartCompare: {sc_ver}")
     print(f"  Логирование: {'отключено' if args.no_log else 'включено'}")
@@ -621,6 +665,21 @@ def main():
     if not valid_chapters:
         print("\n  Нет глав для тестирования.")
         return 1
+
+    # Чистка старых файлов (если --clean)
+    if args.clean and not args.skip_pipeline:
+        print(f"\n{'='*70}")
+        print(f"  ОЧИСТКА СТАРЫХ ФАЙЛОВ (--clean)")
+        print(f"{'='*70}")
+        total_deleted = 0
+        for ch_num in valid_chapters:
+            cfg = CHAPTERS[ch_num]
+            print(f"\n  Глава {ch_num}:")
+            deleted = clean_chapter_results(cfg)
+            total_deleted += deleted
+            if deleted == 0:
+                print(f"    (нет файлов для удаления)")
+        print(f"\n  Итого удалено: {total_deleted} файлов")
 
     # Запуск пайплайна
     if not args.skip_pipeline:

@@ -1,5 +1,5 @@
 """
-Движок фильтрации ошибок транскрипции v8.4.
+Движок фильтрации ошибок транскрипции v8.5.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (20+ уровней фильтрации)
@@ -66,6 +66,13 @@ from .detectors import (
 )
 from .morpho_rules import get_morpho_rules, is_morpho_false_positive
 
+# Версия модуля
+VERSION = '8.6.0'
+VERSION_DATE = '2026-01-29'
+
+# Минимальная совместимая версия smart_compare для валидации
+MIN_SMART_COMPARE_VERSION = '10.5.0'
+
 # v8.1: Импорт ScoringEngine для защиты имён и hard negatives
 try:
     from .scoring_engine import (
@@ -129,6 +136,38 @@ def should_filter_error(
         morpho_result = get_morpho_rules().check(w1, w2)
         if morpho_result and morpho_result.should_filter:
             return True, f'morpho_{morpho_result.rule_name}'
+
+    # ==== УРОВЕНЬ 0.3: Безопасные окончания (v8.6) ====
+    # Переходы окончаний, которые встречаются ТОЛЬКО в FP, НИКОГДА в Golden
+    # Выявлены анализом БД: 79 уникальных переходов только в FP
+    SAFE_ENDING_TRANSITIONS = {
+        # Существительные на -ие/-ия (падежи): 14 FP, 0 Golden
+        ('ие', 'ия'), ('ия', 'ие'),
+        # Прилагательные число/род: 11 FP, 0 Golden
+        ('ые', 'ое'), ('ая', 'ые'), ('ое', 'ые'), ('ые', 'ый'), ('ый', 'ой'),
+        # Глаголы 3л. ед/мн: 11 FP, 0 Golden
+        ('ит', 'ят'), ('ят', 'ит'), ('ют', 'ет'), ('ет', 'ют'),
+        # Существительные число: 8 FP, 0 Golden
+        ('на', 'ны'), ('ну', 'ны'), ('ма', 'мы'),
+        # Прилагательные падежи: 4 FP, 0 Golden
+        ('ий', 'ии'), ('ии', 'ия'), ('ой', 'ны'),
+    }
+
+    if error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+        # Проверяем только если same_lemma=1 и same_POS (безопасные условия)
+        if len(w1) >= 3 and len(w2) >= 3:
+            end1 = w1[-2:]
+            end2 = w2[-2:]
+            if (end1, end2) in SAFE_ENDING_TRANSITIONS:
+                # Дополнительная проверка: same_lemma и same_POS
+                if HAS_PYMORPHY:
+                    lemma1 = get_lemma(w1)
+                    lemma2 = get_lemma(w2)
+                    pos1 = get_pos(w1)
+                    pos2 = get_pos(w2)
+                    if lemma1 and lemma2 and lemma1 == lemma2 and pos1 == pos2:
+                        return True, 'safe_ending_transition'
 
     # ==== УРОВЕНЬ 0.5: Фонетические пары Яндекса (v8.2) ====
     YANDEX_PHONETIC_PAIRS = {
@@ -253,10 +292,11 @@ def should_filter_error(
         if is_split_name_insertion(words_norm[0], transcript_context):
             return True, 'split_name'
 
-    if error_type == 'insertion':
-        transcript_context = error.get('transcript_context', '')
-        if is_compound_prefix_insertion(words_norm[0], transcript_context):
-            return True, 'compound_prefix'
+    # ОТКЛЮЧЕНО v8.5.1: compound_prefix удаляет 51 golden и 17 FP — плохое соотношение
+    # if error_type == 'insertion':
+    #     transcript_context = error.get('transcript_context', '')
+    #     if is_compound_prefix_insertion(words_norm[0], transcript_context):
+    #         return True, 'compound_prefix'
 
     if error_type == 'insertion':
         transcript_context = error.get('transcript_context', '')
@@ -272,14 +312,15 @@ def should_filter_error(
             return True, 'split_word_yandex'
 
     # INS из разбитых пар слов (жетон → "вот он", выторговали → "это говори")
-    if error_type == 'insertion' and words_norm[0]:
-        transcript_ctx = error.get('transcript_context', '').lower()
-        inserted = words_norm[0]
-        for (prev_word, ins_word), original_word in YANDEX_SPLIT_PAIRS.items():
-            if inserted == ins_word:
-                pattern = f'{prev_word} {ins_word}'
-                if pattern in transcript_ctx:
-                    return True, 'split_pair_yandex'
+    # ОТКЛЮЧЕНО v8.5.1: Фильтр имеет 50% accuracy (11 golden, 11 FP) — слишком низкая точность
+    # if error_type == 'insertion' and words_norm[0]:
+    #     transcript_ctx = error.get('transcript_context', '').lower()
+    #     inserted = words_norm[0]
+    #     for (prev_word, ins_word), original_word in YANDEX_SPLIT_PAIRS.items():
+    #         if inserted == ins_word:
+    #             pattern = f'{prev_word} {ins_word}'
+    #             if pattern in transcript_ctx:
+    #                 return True, 'split_pair_yandex'
 
     # INS как суффикс разбитого слова (говори от выторговали)
     if error_type == 'insertion' and len(words_norm[0]) >= 4:
@@ -293,15 +334,15 @@ def should_filter_error(
                 return True, 'split_suffix_insertion'
 
     # v5.3: INS дублирующиеся слова (где где, там там)
-    # v5.5: Исправление — проверяем по отдельным словам, а не подстрокой
-    if error_type == 'insertion' and words_norm[0]:
-        inserted = words_norm[0]
-        transcript_ctx = error.get('transcript_context', '').lower()
-        trans_words = transcript_ctx.split()
-        # Ищем два подряд идущих одинаковых слова (именно слова, не подстроки)
-        for i in range(len(trans_words) - 1):
-            if trans_words[i] == inserted and trans_words[i + 1] == inserted:
-                return True, 'duplicate_word_insertion'
+    # ОТКЛЮЧЕНО v8.5.1: Фильтр удаляет 51 golden и только 3 FP — полностью вреден
+    # Дублирование слова может быть реальной ошибкой чтеца
+    # if error_type == 'insertion' and words_norm[0]:
+    #     inserted = words_norm[0]
+    #     transcript_ctx = error.get('transcript_context', '').lower()
+    #     trans_words = transcript_ctx.split()
+    #     for i in range(len(trans_words) - 1):
+    #         if trans_words[i] == inserted and trans_words[i + 1] == inserted:
+    #             return True, 'duplicate_word_insertion'
 
     # v5.3: INS коротких слов от разбиения длинных (мы от "големы", ли от "или")
     # v5.4: НЕ применяем к однобуквенным союзам/частицам — это настоящие ошибки чтеца
@@ -352,27 +393,24 @@ def should_filter_error(
             return True, 'hyphenated_part'
 
     # v5.5: DEL частиц "же"/"ли" в середине предложения
+    # ОТКЛЮЧЕНО v8.5.1: Фильтр слишком агрессивен — удаляет 20 golden, 0 FP
     # Яндекс часто пропускает эти частицы: "Я же просунул" → "Я просунул"
-    # Но только если НЕ в начале предложения (там это может быть реальная ошибка)
-    if error_type == 'deletion' and words_norm[0] in {'же', 'ли', 'ль'}:
-        context = error.get('context', '')
-        marker_pos = error.get('marker_pos', -1)
-        if marker_pos > 0:
-            before = context[:marker_pos].rstrip()
-            # Проверяем: не в начале предложения (нет точки/вопроса/восклицания перед)
-            if before and before[-1] not in '.!?':
-                # Дополнительно: "же" после местоимения/существительного — частая ошибка Яндекса
-                before_words = before.split()
-                if before_words:
-                    last_word = before_words[-1].lower().rstrip('.,!?')
-                    # После местоимений: я же, он же, она же, они же, мы же, вы же, кто же
-                    # После указательных: так же, тут же, то же
-                    pronouns_and_adverbs = {
-                        'я', 'ты', 'он', 'она', 'оно', 'мы', 'вы', 'они',
-                        'кто', 'что', 'это', 'то', 'так', 'тут', 'там', 'ещё', 'еще'
-                    }
-                    if last_word in pronouns_and_adverbs:
-                        return True, 'yandex_particle_deletion'
+    # Но чтец тоже может пропустить "же" — нельзя автоматически фильтровать
+    # if error_type == 'deletion' and words_norm[0] in {'же', 'ли', 'ль'}:
+    #     context = error.get('context', '')
+    #     marker_pos = error.get('marker_pos', -1)
+    #     if marker_pos > 0:
+    #         before = context[:marker_pos].rstrip()
+    #         if before and before[-1] not in '.!?':
+    #             before_words = before.split()
+    #             if before_words:
+    #                 last_word = before_words[-1].lower().rstrip('.,!?')
+    #                 pronouns_and_adverbs = {
+    #                     'я', 'ты', 'он', 'она', 'оно', 'мы', 'вы', 'они',
+    #                     'кто', 'что', 'это', 'то', 'так', 'тут', 'там', 'ещё', 'еще'
+    #                 }
+    #                 if last_word in pronouns_and_adverbs:
+    #                     return True, 'yandex_particle_deletion'
 
     # v5.3: DEL частей составных слов (возвышение от само+возвышение, звёздной от шести+звёздной)
     if error_type == 'deletion' and len(words_norm[0]) >= 4:
@@ -485,23 +523,23 @@ def should_filter_error(
                     return True, 'sentence_start_conjunction'
 
         # v5.5: INS "и"/"а" перед деепричастием — Яндекс вставляет союз
+        # v5.5: INS "и"/"а" перед деепричастием — Яндекс вставляет союз
+        # ОТКЛЮЧЕНО v8.5.1: Фильтр слишком агрессивен — удаляет 51 golden, 0 FP
         # Пример: "быстро, короткими фразами ведя" → "короткими фразами и ведя"
-        # Паттерн: "и" перед словом на -я/-в/-ши/-вши (деепричастие)
-        if word in {'и', 'а'} and HAS_PYMORPHY:
-            transcript_ctx = error.get('transcript_context', '').lower()
-            if transcript_ctx:
-                trans_words = transcript_ctx.split()
-                for i, tw in enumerate(trans_words):
-                    if tw == word and i + 1 < len(trans_words):
-                        next_word = trans_words[i + 1]
-                        # Проверяем: следующее слово — деепричастие
-                        parsed = morph.parse(next_word)
-                        if parsed and parsed[0].tag.POS == 'GRND':
-                            return True, 'yandex_conjunction_before_gerund'
-                        # Резервный паттерн: окончания деепричастий
-                        if next_word.endswith(('ая', 'яя', 'ив', 'ав', 'ши', 'вши')):
-                            return True, 'yandex_conjunction_before_gerund'
-                        break
+        # Но чтец тоже может вставить лишний союз — нельзя автоматически фильтровать
+        # if word in {'и', 'а'} and HAS_PYMORPHY:
+        #     transcript_ctx = error.get('transcript_context', '').lower()
+        #     if transcript_ctx:
+        #         trans_words = transcript_ctx.split()
+        #         for i, tw in enumerate(trans_words):
+        #             if tw == word and i + 1 < len(trans_words):
+        #                 next_word = trans_words[i + 1]
+        #                 parsed = morph.parse(next_word)
+        #                 if parsed and parsed[0].tag.POS == 'GRND':
+        #                     return True, 'yandex_conjunction_before_gerund'
+        #                 if next_word.endswith(('ая', 'яя', 'ив', 'ав', 'ши', 'вши')):
+        #                     return True, 'yandex_conjunction_before_gerund'
+        #                 break
 
         context = error.get('context', '').lower()
         if len(word) >= 3:
@@ -711,16 +749,52 @@ def filter_errors(
     return filtered, removed, dict(stats)
 
 
+def _validate_report_version(report: Dict[str, Any], report_path: str) -> None:
+    """
+    Проверяет версию compared.json на совместимость.
+    Выдаёт предупреждение если файл создан устаревшей версией.
+    """
+    metadata = report.get('metadata', {})
+    sc_version = metadata.get('smart_compare_version', 'unknown')
+
+    if sc_version == 'unknown':
+        print(f"  ⚠ ВНИМАНИЕ: {report_path}")
+        print(f"    Файл не содержит метаданных версий.")
+        print(f"    Рекомендуется пересоздать через smart_compare.py --force")
+        return
+
+    # Простое сравнение версий (формат X.Y.Z)
+    def parse_version(v: str) -> tuple:
+        try:
+            parts = v.split('.')
+            return tuple(int(p) for p in parts[:3])
+        except (ValueError, AttributeError):
+            return (0, 0, 0)
+
+    current = parse_version(sc_version)
+    minimum = parse_version(MIN_SMART_COMPARE_VERSION)
+
+    if current < minimum:
+        print(f"  ⚠ ВНИМАНИЕ: {report_path}")
+        print(f"    Создан smart_compare v{sc_version}, требуется v{MIN_SMART_COMPARE_VERSION}+")
+        print(f"    Рекомендуется пересоздать через smart_compare.py --force")
+
+
 def filter_report(
     report_path: str,
     output_path: Optional[str] = None,
     config_path: Optional[str] = None,
     force: bool = False,
+    skip_version_check: bool = False,
     **kwargs,
 ) -> Dict[str, Any]:
     """Фильтрует отчёт с ошибками."""
     with open(report_path, 'r', encoding='utf-8') as f:
         report = json.load(f)
+
+    # v8.5: Валидация версии входного файла
+    if not skip_version_check:
+        _validate_report_version(report, report_path)
 
     errors = report.get('errors', [])
     original_count = len(errors)
@@ -761,8 +835,12 @@ def filter_report(
     report['filter_stats'] = stats
 
     cache_info = parse_word_cached.cache_info()
+    # Добавляем метаданные фильтрации
+    input_metadata = report.get('metadata', {})
     report['filter_metadata'] = {
-        'version': '8.0.0',
+        'version': VERSION,
+        'input_smart_compare_version': input_metadata.get('smart_compare_version', 'unknown'),
+        'input_alignment_manager_version': input_metadata.get('alignment_manager_version', 'unknown'),
         'timestamp': datetime.now().isoformat(),
         'original_errors': original_count,
         'real_errors': len(filtered),

@@ -1,4 +1,11 @@
 {
+  "metadata": {
+    "created_at": "2026-01-29T22:47:59.285125",
+    "smart_compare_version": "10.5.0",
+    "alignment_manager_version": "1.2.0",
+    "source_transcript": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Транскрибации/Глава3/03_transcript.json",
+    "source_original": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Главы/Глава3.docx"
+  },
   "audio": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Аудио/03.mp3",
   "original": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Главы/Глава3.docx",
   "transcript": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Транскрибации/Глава3/03_transcript.json",
@@ -8,24 +15,10 @@
     "transcript_words": 7430,
     "similarity": 0.9270293900060529,
     "total_differences": 292,
-    "yandex_errors": 76,
-    "reader_errors": 216
+    "yandex_errors": 48,
+    "reader_errors": 244
   },
   "errors": [
-    {
-      "type": "transposition",
-      "time": 1740.38,
-      "time_end": 1740.519,
-      "original": "я и",
-      "transcript": "и я",
-      "context": "дал мне ответ на этот вопрос? Небо молчало, ну так я и не говорящий с Небом. Молчали и облака, плывущие по",
-      "transcript_context": "",
-      "marker_pos": 51,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0
-    },
     {
       "type": "substitution",
       "time": 9.54,
@@ -37,8 +30,8 @@
       "marker_pos": 36,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -51,8 +44,8 @@
       "marker_pos": 57,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5714285714285714
+      "similarity": 0.62,
+      "phonetic_similarity": 0.62
     },
     {
       "type": "substitution",
@@ -65,7 +58,7 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
     },
     {
@@ -79,8 +72,8 @@
       "marker_pos": 57,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -94,7 +87,7 @@
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "phonetic_similarity": 0.5
     },
     {
       "type": "substitution",
@@ -107,15 +100,29 @@
       "marker_pos": 51,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.89,
       "phonetic_similarity": 1.0
     },
     {
-      "type": "insertion",
+      "type": "substitution",
       "time": 48.119,
       "time_end": 0.0,
-      "original": "",
+      "original": "неидеальное",
       "transcript": "идеальное",
+      "context": "части правды от всех, кто был ниже рангом, чем попечитель. Неидеальное решение, но время признаний ещё не пришло. С каждым из",
+      "transcript_context": "",
+      "marker_pos": 59,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.9,
+      "phonetic_similarity": 0.9
+    },
+    {
+      "type": "insertion",
+      "time": 48.0,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "не",
       "context": "правды от всех, кто был ниже рангом, чем попечитель. Неидеальное решение, но время признаний ещё не пришло. С каждым из обоих",
       "transcript_context": "правды от всех кто был ниже рангом чем попечитель не идеальное решение но время признания еще не пришло с каждым из",
       "marker_pos": 65,
@@ -135,8 +142,22 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
+    },
+    {
+      "type": "substitution",
+      "time": 53.479,
+      "time_end": 53.759,
+      "original": "невольных",
+      "transcript": "вольных",
+      "context": "но время признаний ещё не пришло. С каждым из обоих невольных предателей Ордена долго беседовал Озман, задавший им кучу вопросов под",
+      "transcript_context": "",
+      "marker_pos": 52,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -149,8 +170,22 @@
       "marker_pos": 53,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
+      "similarity": 0.59,
+      "phonetic_similarity": 0.59
+    },
+    {
+      "type": "substitution",
+      "time": 121.24,
+      "time_end": 121.559,
+      "original": "с",
+      "transcript": "скунд",
+      "context": "Вернее, сразу к нескольким идущим подряд расколам. Часть орденцев остались с Кунг и решили продолжить битву с сектантами, всё ещё надеясь",
+      "transcript_context": "",
+      "marker_pos": 75,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.33,
+      "phonetic_similarity": 0.33
     },
     {
       "type": "deletion",
@@ -191,7 +226,7 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
     },
     {
@@ -219,8 +254,8 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -233,8 +268,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
+      "similarity": 0.6,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "deletion",
@@ -261,15 +296,43 @@
       "marker_pos": 53,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
+      "similarity": 0.91,
+      "phonetic_similarity": 0.91
+    },
+    {
+      "type": "substitution",
+      "time": 271.049,
+      "time_end": 271.409,
+      "original": "шакалов",
+      "transcript": "калов",
+      "context": "Рам Вилор? Как по мне виновники всех этих убийств куча шакалов, которые все эти годы вымещали свои личные мелкие обиды на",
+      "transcript_context": "",
+      "marker_pos": 55,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
+    },
+    {
+      "type": "substitution",
+      "time": 276.24,
+      "time_end": 0.0,
+      "original": "эрзум",
+      "transcript": "урзум",
+      "context": "эти годы вымещали свои личные мелкие обиды на ослабевшем Ордене. Эрзум и прочие, кого Орден задел, когда был силён, велик и",
+      "transcript_context": "",
+      "marker_pos": 65,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "insertion",
-      "time": 276.24,
+      "time": 276.179,
       "time_end": 0.0,
       "original": "",
-      "transcript": "урзум",
+      "transcript": "и",
       "context": "годы вымещали свои личные мелкие обиды на ослабевшем Ордене. Эрзум и прочие, кого Орден задел, когда был силён, велик и шёл",
       "transcript_context": "годы вымещали свои личные мелкие обиды на ослабевшем ордене и урзум и прочие кого орден задел когда был силен велик и",
       "marker_pos": 67,
@@ -289,8 +352,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2857142857142857
+      "similarity": 0.92,
+      "phonetic_similarity": 0.92
     },
     {
       "type": "deletion",
@@ -317,8 +380,8 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.9090909090909091
+      "similarity": 0.96,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "substitution",
@@ -331,8 +394,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.4,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "substitution",
@@ -345,8 +408,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -359,7 +422,7 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 0.75
     },
     {
@@ -373,8 +436,8 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.73,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "deletion",
@@ -401,7 +464,7 @@
       "marker_pos": 72,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
     },
     {
@@ -415,8 +478,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7777777777777779
+      "similarity": 0.84,
+      "phonetic_similarity": 0.78
     },
     {
       "type": "insertion",
@@ -443,8 +506,8 @@
       "marker_pos": 76,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -457,8 +520,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.9090909090909091
+      "similarity": 0.86,
+      "phonetic_similarity": 0.95
     },
     {
       "type": "substitution",
@@ -471,8 +534,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "deletion",
@@ -499,8 +562,8 @@
       "marker_pos": 44,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6
+      "similarity": 0.74,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -513,8 +576,8 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.91,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "substitution",
@@ -527,8 +590,8 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.67,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -541,8 +604,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -555,8 +618,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.94,
+      "phonetic_similarity": 0.94
     },
     {
       "type": "substitution",
@@ -569,8 +632,8 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -583,8 +646,8 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.78,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -597,8 +660,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -611,8 +674,8 @@
       "marker_pos": 59,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6
+      "similarity": 0.67,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -625,8 +688,22 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.71,
+      "phonetic_similarity": 0.86
+    },
+    {
+      "type": "substitution",
+      "time": 638.12,
+      "time_end": 638.739,
+      "original": "шести",
+      "transcript": "шестизвездной",
+      "context": "этих землях можно будет получить столько ресурсов, что хватит и шести звёздной фракции. Я усомнился: И Небесные Испытания для Повелителя Стихии?",
+      "transcript_context": "",
+      "marker_pos": 64,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.56,
+      "phonetic_similarity": 0.59
     },
     {
       "type": "deletion",
@@ -653,8 +730,8 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -667,8 +744,8 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6
+      "similarity": 0.44,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -681,8 +758,8 @@
       "marker_pos": 65,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6
+      "similarity": 0.44,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -695,8 +772,8 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -709,8 +786,8 @@
       "marker_pos": 78,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.9
+      "similarity": 0.84,
+      "phonetic_similarity": 0.95
     },
     {
       "type": "deletion",
@@ -737,7 +814,7 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
     },
     {
@@ -751,8 +828,8 @@
       "marker_pos": 77,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "insertion",
@@ -779,8 +856,8 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -793,7 +870,7 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.88,
       "phonetic_similarity": 1.0
     },
     {
@@ -807,15 +884,29 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 0.75
     },
     {
-      "type": "insertion",
+      "type": "substitution",
       "time": 815.3,
       "time_end": 0.0,
-      "original": "",
+      "original": "ненамного",
       "transcript": "намного",
+      "context": "Есть, кивнул тот, но тут же с улыбкой добавил, но ненамного лучше. Чуть крепче сталь, чуть больше энергии берёт из средоточий,",
+      "transcript_context": "",
+      "marker_pos": 50,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.875,
+      "phonetic_similarity": 0.875
+    },
+    {
+      "type": "insertion",
+      "time": 815.18,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "не",
       "context": "кивнул тот, но тут же с улыбкой добавил, но ненамного лучше. Чуть крепче сталь, чуть больше энергии берёт из средоточий, чуть",
       "transcript_context": "кивнул тот но тут же с улыбкой добавила но не намного лучше чуть крепче сталь чуть больше энергии берет и средоточий",
       "marker_pos": 54,
@@ -835,8 +926,8 @@
       "marker_pos": 65,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
+      "similarity": 0.67,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "insertion",
@@ -863,8 +954,8 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.73,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "substitution",
@@ -877,8 +968,8 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.15384615384615385
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -891,8 +982,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2857142857142857
+      "similarity": 0.77,
+      "phonetic_similarity": 0.77
     },
     {
       "type": "substitution",
@@ -905,8 +996,22 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
+      "similarity": 0.77,
+      "phonetic_similarity": 0.77
+    },
+    {
+      "type": "substitution",
+      "time": 987.71,
+      "time_end": 987.97,
+      "original": "так",
+      "transcript": "также",
+      "context": "самое важное. Внутри первого незавершённого круга загорается ещё один огонёк, так же изгибается, начиная вырисовывать второй круг. Вот он уже нарисовал",
+      "transcript_context": "",
+      "marker_pos": 78,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.75,
+      "phonetic_similarity": 0.75
     },
     {
       "type": "deletion",
@@ -933,8 +1038,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -947,8 +1052,8 @@
       "marker_pos": 78,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -975,7 +1080,7 @@
       "marker_pos": 57,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
     },
     {
@@ -989,8 +1094,8 @@
       "marker_pos": 74,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2857142857142857
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -1003,8 +1108,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.67,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -1017,8 +1122,8 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -1031,7 +1136,7 @@
       "marker_pos": 81,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 0.75
     },
     {
@@ -1047,6 +1152,20 @@
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.0
+    },
+    {
+      "type": "substitution",
+      "time": 1113.219,
+      "time_end": 1113.68,
+      "original": "властелины",
+      "transcript": "властели",
+      "context": "той простой причине, что Врата Силы это дополнительная мощь, которую Властелины Духа вливают в техники с помощью эссенции духа. Из того,",
+      "transcript_context": "",
+      "marker_pos": 69,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "deletion",
@@ -1078,27 +1197,55 @@
     },
     {
       "type": "substitution",
-      "time": 1264.12,
-      "time_end": 1264.379,
-      "original": "встречу",
-      "transcript": "мучили",
-      "context": "сброд и детей-сирот детей-сирот с улиц. Просто глазели, набивались на встречу, мучали вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного. И",
+      "time": 1250.66,
+      "time_end": 1251.02,
+      "original": "заявились",
+      "transcript": "заявили",
+      "context": "это такой, Ирал, глава Сломанного Клинка, к которому бывшие орденцы заявились всей толпой. Что это за гордый и безумный наглец, который",
       "transcript_context": "",
-      "marker_pos": 70,
+      "marker_pos": 68,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
-      "type": "deletion",
-      "time": 1264.379,
-      "time_end": 0.0,
+      "type": "substitution",
+      "time": 1263.26,
+      "time_end": 1263.84,
+      "original": "на",
+      "transcript": "навстречу",
+      "context": "всякий сброд и детей-сирот детей-сирот с улиц. Просто глазели, набивались на встречу, мучали вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного.",
+      "transcript_context": "",
+      "marker_pos": 74,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.36,
+      "phonetic_similarity": 0.36
+    },
+    {
+      "type": "substitution",
+      "time": 1264.12,
+      "time_end": 1264.379,
       "original": "мучали",
-      "transcript": "",
+      "transcript": "мучили",
       "context": "и детей-сирот детей-сирот с улиц. Просто глазели, набивались на встречу, мучали вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного. И прочее",
       "transcript_context": "",
       "marker_pos": 73,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8333333333333335,
+      "phonetic_similarity": 0.8333333333333335
+    },
+    {
+      "type": "deletion",
+      "time": 1264.12,
+      "time_end": 0.0,
+      "original": "встречу",
+      "transcript": "",
+      "context": "сброд и детей-сирот детей-сирот с улиц. Просто глазели, набивались на встречу, мучали вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного. И",
+      "transcript_context": "",
+      "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
@@ -1115,8 +1262,36 @@
       "marker_pos": 74,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.96,
+      "phonetic_similarity": 0.96
+    },
+    {
+      "type": "substitution",
+      "time": 1270.606,
+      "time_end": 1271.273,
+      "original": "прочее",
+      "transcript": "прочие",
+      "context": "оскорбляли и нащупывали границу дозволенного. И прочее и прочее и прочее. Радует, что, видя рядом со мной хмурого Седого и Пересмешника,",
+      "transcript_context": "",
+      "marker_pos": 66,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8333333333333335,
+      "phonetic_similarity": 0.8333333333333335
+    },
+    {
+      "type": "deletion",
+      "time": 1270.606,
+      "time_end": 0.0,
+      "original": "и",
+      "transcript": "",
+      "context": "вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного. И прочее и прочее и прочее. Радует, что, видя рядом со мной хмурого",
+      "transcript_context": "",
+      "marker_pos": 89,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0
     },
     {
       "type": "deletion",
@@ -1127,20 +1302,6 @@
       "context": "завуалировано оскорбляли и нащупывали границу дозволенного. И прочее и прочее и прочее. Радует, что, видя рядом со мной хмурого Седого и",
       "transcript_context": "",
       "marker_pos": 78,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0
-    },
-    {
-      "type": "deletion",
-      "time": 1271.78,
-      "time_end": 0.0,
-      "original": "прочее",
-      "transcript": "",
-      "context": "оскорбляли и нащупывали границу дозволенного. И прочее и прочее и прочее. Радует, что, видя рядом со мной хмурого Седого и Пересмешника,",
-      "transcript_context": "",
-      "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
@@ -1158,7 +1319,21 @@
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.5,
-      "phonetic_similarity": 0.33333333333333326
+      "phonetic_similarity": 0.5
+    },
+    {
+      "type": "substitution",
+      "time": 1284.829,
+      "time_end": 1285.189,
+      "original": "заполучил",
+      "transcript": "получил",
+      "context": "мучения хотя бы не прошли даром за четыре дня я заполучил ещё почти десяток сильных одиночек и ещё два неплохих отряда,",
+      "transcript_context": "",
+      "marker_pos": 48,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -1171,8 +1346,8 @@
       "marker_pos": 85,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.73,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "insertion",
@@ -1199,8 +1374,8 @@
       "marker_pos": 84,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.82,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "deletion",
@@ -1227,8 +1402,8 @@
       "marker_pos": 49,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "deletion",
@@ -1255,8 +1430,8 @@
       "marker_pos": 55,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -1269,7 +1444,7 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
     },
     {
@@ -1311,8 +1486,8 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "deletion",
@@ -1329,14 +1504,28 @@
       "phonetic_similarity": 0.0
     },
     {
-      "type": "deletion",
-      "time": 1469.639,
-      "time_end": 0.0,
+      "type": "substitution",
+      "time": 1469.0,
+      "time_end": 1469.639,
       "original": "настоящей",
-      "transcript": "",
+      "transcript": "настоящий",
       "context": "бы в схватке. Настоящей, а в не в тренировке, в настоящей, а не в одной из тех, что я провожу в",
       "transcript_context": "",
       "marker_pos": 48,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8888888888888888,
+      "phonetic_similarity": 0.8888888888888888
+    },
+    {
+      "type": "deletion",
+      "time": 1469.0,
+      "time_end": 0.0,
+      "original": "в",
+      "transcript": "",
+      "context": "хотя бы в схватке. Настоящей, а в не в тренировке, в настоящей, а не в одной из тех, что я провожу",
+      "transcript_context": "",
+      "marker_pos": 51,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
@@ -1353,7 +1542,7 @@
       "marker_pos": 48,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 0.75
     },
     {
@@ -1367,7 +1556,7 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -1381,8 +1570,8 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -1395,8 +1584,8 @@
       "marker_pos": 51,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8
+      "similarity": 0.67,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "insertion",
@@ -1423,8 +1612,8 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -1437,8 +1626,8 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
+      "similarity": 0.67,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "deletion",
@@ -1465,7 +1654,7 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 0.75
     },
     {
@@ -1479,8 +1668,22 @@
       "marker_pos": 46,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 0.75
+    },
+    {
+      "type": "substitution",
+      "time": 1595.0,
+      "time_end": 1595.52,
+      "original": "формации",
+      "transcript": "информации",
+      "context": "по ним лично или завести их в зоны запрета жизни формации, где в действие вступал Указ «Смерть». Прообраз того, что обрушил",
+      "transcript_context": "",
+      "marker_pos": 49,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -1494,7 +1697,7 @@
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "phonetic_similarity": 0.5
     },
     {
       "type": "insertion",
@@ -1521,15 +1724,29 @@
       "marker_pos": 78,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.923076923076923
+      "similarity": 0.92,
+      "phonetic_similarity": 0.92
+    },
+    {
+      "type": "substitution",
+      "time": 1640.57,
+      "time_end": 0.0,
+      "original": "вдаль",
+      "transcript": "даль",
+      "context": "предков. Я, прислушиваясь к суете в лагере, поднял голову, вглядываясь вдаль, в границу, где смыкалось небо и земля, где высились далёкие",
+      "transcript_context": "",
+      "marker_pos": 71,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8888888888888888,
+      "phonetic_similarity": 0.8888888888888888
     },
     {
       "type": "insertion",
-      "time": 1640.57,
+      "time": 1640.48,
       "time_end": 0.0,
       "original": "",
-      "transcript": "даль",
+      "transcript": "в",
       "context": "Я, прислушиваясь к суете в лагере, поднял голову, вглядываясь вдаль, в границу, где смыкалось небо и земля, где высились далёкие горы,",
       "transcript_context": "я прислушиваюсь к суете в лагере поднял голову вглядываясь в даль в границу где смыкалось небо и земля где сились далекие",
       "marker_pos": 69,
@@ -1537,6 +1754,20 @@
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.0
+    },
+    {
+      "type": "substitution",
+      "time": 1643.739,
+      "time_end": 1643.95,
+      "original": "высились",
+      "transcript": "сились",
+      "context": "вглядываясь вдаль, в границу, где смыкалось небо и земля, где высились далёкие горы, к подножию которых мы должны пройти. Ложные горы,",
+      "transcript_context": "",
+      "marker_pos": 62,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -1549,7 +1780,7 @@
       "marker_pos": 68,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.0,
       "phonetic_similarity": 0.0
     },
     {
@@ -1563,7 +1794,21 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.25,
+      "phonetic_similarity": 0.25
+    },
+    {
+      "type": "transposition",
+      "time": 1740.38,
+      "time_end": 1740.519,
+      "original": "я и",
+      "transcript": "и я",
+      "context": "дал мне ответ на этот вопрос? Небо молчало, ну так я и не говорящий с Небом. Молчали и облака, плывущие по",
+      "transcript_context": "",
+      "marker_pos": 51,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
       "phonetic_similarity": 0.0
     },
     {
@@ -1577,8 +1822,8 @@
       "marker_pos": 47,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -1591,8 +1836,8 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.57,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -1605,8 +1850,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.75,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -1619,8 +1864,8 @@
       "marker_pos": 76,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.75,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -1633,8 +1878,8 @@
       "marker_pos": 56,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7
+      "similarity": 0.78,
+      "phonetic_similarity": 0.78
     },
     {
       "type": "insertion",
@@ -1675,7 +1920,7 @@
       "marker_pos": 54,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.9,
       "phonetic_similarity": 0.9
     },
     {
@@ -1689,7 +1934,7 @@
       "marker_pos": 63,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.92,
       "phonetic_similarity": 1.0
     },
     {
@@ -1703,8 +1948,8 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -1717,8 +1962,8 @@
       "marker_pos": 63,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -1731,8 +1976,8 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "substitution",
@@ -1745,8 +1990,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.71,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -1759,7 +2004,7 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.6,
       "phonetic_similarity": 0.8
     },
     {
@@ -1773,46 +2018,74 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.9090909090909091
+      "similarity": 0.82,
+      "phonetic_similarity": 0.91
+    },
+    {
+      "type": "substitution",
+      "time": 1994.36,
+      "time_end": 1994.679,
+      "original": "когда",
+      "transcript": "когдато",
+      "context": "И я. Да, мы сейчас собирались повторить то, что я когда-то когда-то проворачивал в городе Тысячи Этажей провести через големов тех,",
+      "transcript_context": "",
+      "marker_pos": 50,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
       "time": 1994.74,
       "time_end": 1995.32,
-      "original": "то",
-      "transcript": "проворачивала",
-      "context": "я. Да, мы сейчас собирались повторить то, что я когда-то когда-то проворачивал в городе Тысячи Этажей провести через големов тех, кто",
-      "transcript_context": "",
-      "marker_pos": 57,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
-    },
-    {
-      "type": "deletion",
-      "time": 1995.32,
-      "time_end": 0.0,
       "original": "проворачивал",
-      "transcript": "",
+      "transcript": "проворачивала",
       "context": "Да, мы сейчас собирались повторить то, что я когда-то когда-то проворачивал в городе Тысячи Этажей провести через големов тех, кто не",
       "transcript_context": "",
       "marker_pos": 63,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.96,
+      "phonetic_similarity": 0.96
+    },
+    {
+      "type": "deletion",
+      "time": 1994.74,
+      "time_end": 0.0,
+      "original": "то",
+      "transcript": "",
+      "context": "я. Да, мы сейчас собирались повторить то, что я когда-то когда-то проворачивал в городе Тысячи Этажей провести через големов тех, кто",
+      "transcript_context": "",
+      "marker_pos": 57,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.0
     },
     {
-      "type": "deletion",
-      "time": 2025.38,
-      "time_end": 0.0,
+      "type": "substitution",
+      "time": 2025.099,
+      "time_end": 2025.38,
       "original": "глубь",
-      "transcript": "",
+      "transcript": "вглубь",
       "context": "Но старейшины хотели большего. Они хотели увести всех людей в глубь зон запретов и при этом не облегчать дорогу тем, кто",
       "transcript_context": "",
       "marker_pos": 62,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.9090909090909091,
+      "phonetic_similarity": 0.9090909090909091
+    },
+    {
+      "type": "deletion",
+      "time": 2025.099,
+      "time_end": 0.0,
+      "original": "в",
+      "transcript": "",
+      "context": "проще. Но старейшины хотели большего. Они хотели увести всех людей в глубь зон запретов и при этом не облегчать дорогу тем,",
+      "transcript_context": "",
+      "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
@@ -1829,8 +2102,8 @@
       "marker_pos": 53,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -1843,8 +2116,8 @@
       "marker_pos": 52,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.75,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -1857,8 +2130,8 @@
       "marker_pos": 82,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.73,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "substitution",
@@ -1871,8 +2144,8 @@
       "marker_pos": 56,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "substitution",
@@ -1885,8 +2158,8 @@
       "marker_pos": 65,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.53,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -1899,8 +2172,8 @@
       "marker_pos": 77,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "substitution",
@@ -1913,8 +2186,8 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
+      "similarity": 0.67,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "deletion",
@@ -1955,18 +2228,32 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
-      "type": "deletion",
-      "time": 2197.92,
-      "time_end": 0.0,
+      "type": "substitution",
+      "time": 2197.34,
+      "time_end": 2197.92,
       "original": "солнца",
-      "transcript": "",
+      "transcript": "солнце",
       "context": "справа, словно расщелина прыгнула на нас, заглатывая и закрывая от солнца, обдавая холодным дыханием из пасти. Словно этого было мало, с",
       "transcript_context": "",
       "marker_pos": 67,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8333333333333335,
+      "phonetic_similarity": 0.8333333333333335
+    },
+    {
+      "type": "deletion",
+      "time": 2197.34,
+      "time_end": 0.0,
+      "original": "от",
+      "transcript": "",
+      "context": "и справа, словно расщелина прыгнула на нас, заглатывая и закрывая от солнца, обдавая холодным дыханием из пасти. Словно этого было мало,",
+      "transcript_context": "",
+      "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
@@ -1983,8 +2270,8 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "substitution",
@@ -1997,8 +2284,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7272727272727273
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "insertion",
@@ -2025,8 +2312,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -2039,8 +2326,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -2053,8 +2340,8 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.8,
+      "phonetic_similarity": 0.93
     },
     {
       "type": "substitution",
@@ -2067,8 +2354,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.93,
+      "phonetic_similarity": 0.93
     },
     {
       "type": "substitution",
@@ -2081,8 +2368,8 @@
       "marker_pos": 59,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -2095,8 +2382,8 @@
       "marker_pos": 68,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.18181818181818182
+      "similarity": 0.64,
+      "phonetic_similarity": 0.64
     },
     {
       "type": "substitution",
@@ -2109,8 +2396,8 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.82,
+      "phonetic_similarity": 0.94
     },
     {
       "type": "substitution",
@@ -2123,8 +2410,22 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6
+      "similarity": 0.75,
+      "phonetic_similarity": 0.75
+    },
+    {
+      "type": "substitution",
+      "time": 2379.37,
+      "time_end": 2379.53,
+      "original": "подтоком",
+      "transcript": "под",
+      "context": "лишается сначала одной, а затем и второй лапы. Шаг вперёд, подтоком по пасти, отводя зубы, и пнуть в грудь, откидывая голема",
+      "transcript_context": "",
+      "marker_pos": 59,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.55,
+      "phonetic_similarity": 0.55
     },
     {
       "type": "insertion",
@@ -2207,7 +2508,7 @@
       "marker_pos": 72,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
     },
     {
@@ -2221,8 +2522,8 @@
       "marker_pos": 74,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
     },
     {
       "type": "deletion",
@@ -2249,8 +2550,8 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -2263,8 +2564,8 @@
       "marker_pos": 52,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.44,
+      "phonetic_similarity": 0.44
     },
     {
       "type": "substitution",
@@ -2277,7 +2578,7 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.9,
       "phonetic_similarity": 1.0
     },
     {
@@ -2319,8 +2620,8 @@
       "marker_pos": 78,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
+      "similarity": 0.62,
+      "phonetic_similarity": 0.77
     },
     {
       "type": "substitution",
@@ -2333,18 +2634,32 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
+      "similarity": 0.55,
+      "phonetic_similarity": 0.73
     },
     {
-      "type": "deletion",
-      "time": 2509.459,
-      "time_end": 0.0,
+      "type": "substitution",
+      "time": 2508.84,
+      "time_end": 2509.459,
       "original": "формации",
-      "transcript": "",
+      "transcript": "деформации",
       "context": "нельзя использовать их вместо духовных камней и не такие ли формации, только огромные и чуть другого вида находятся там, где расположены",
       "transcript_context": "",
       "marker_pos": 60,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8888888888888888,
+      "phonetic_similarity": 0.8888888888888888
+    },
+    {
+      "type": "deletion",
+      "time": 2508.84,
+      "time_end": 0.0,
+      "original": "ли",
+      "transcript": "",
+      "context": "почему нельзя использовать их вместо духовных камней и не такие ли формации, только огромные и чуть другого вида находятся там, где",
+      "transcript_context": "",
+      "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.0,
@@ -2375,15 +2690,29 @@
       "marker_pos": 53,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.88,
       "phonetic_similarity": 1.0
     },
     {
-      "type": "insertion",
+      "type": "substitution",
       "time": 2527.76,
       "time_end": 0.0,
-      "original": "",
+      "original": "считай",
       "transcript": "считаю",
+      "context": "почему я не обратил внимания на эту странность раньше? Ещё, считай, год назад, когда первый раз использовал свои силы против големов",
+      "transcript_context": "",
+      "marker_pos": 60,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8333333333333335,
+      "phonetic_similarity": 0.8333333333333335
+    },
+    {
+      "type": "insertion",
+      "time": 2527.659,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "я",
       "context": "я не обратил внимания на эту странность раньше? Ещё, считай, год назад, когда первый раз использовал свои силы против големов у",
       "transcript_context": "я не обратил внимание на эту странность раньше еще я считаю год назад когда первый раз использовал свои силы против големов",
       "marker_pos": 61,
@@ -2403,8 +2732,22 @@
       "marker_pos": 65,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.9090909090909091
+      "similarity": 0.91,
+      "phonetic_similarity": 0.91
+    },
+    {
+      "type": "substitution",
+      "time": 2560.7,
+      "time_end": 2560.9,
+      "original": "големы",
+      "transcript": "голе",
+      "context": "в разрез, отрубая, наконец, лапу. Причина моей затяжной схватки очевидна: големы повысили ранг силы. Пнуть прямо в морду голему, сбивая попытку",
+      "transcript_context": "",
+      "marker_pos": 74,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
     },
     {
       "type": "insertion",
@@ -2431,8 +2774,8 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.73,
+      "phonetic_similarity": 0.73
     },
     {
       "type": "substitution",
@@ -2445,8 +2788,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -2459,8 +2802,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.09090909090909091
+      "similarity": 0.33,
+      "phonetic_similarity": 0.56
     },
     {
       "type": "deletion",
@@ -2487,8 +2830,8 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.33333333333333326
+      "similarity": 0.55,
+      "phonetic_similarity": 0.73
     },
     {
       "type": "substitution",
@@ -2501,8 +2844,8 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
+      "similarity": 0.55,
+      "phonetic_similarity": 0.73
     },
     {
       "type": "substitution",
@@ -2515,8 +2858,8 @@
       "marker_pos": 63,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.33333333333333326
+      "similarity": 0.0,
+      "phonetic_similarity": 0.5
     },
     {
       "type": "insertion",
@@ -2557,8 +2900,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
+      "similarity": 0.67,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "substitution",
@@ -2571,8 +2914,8 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.78,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -2585,8 +2928,8 @@
       "marker_pos": 62,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -2599,7 +2942,7 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
     },
     {
@@ -2613,8 +2956,22 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
+    },
+    {
+      "type": "substitution",
+      "time": 2762.79,
+      "time_end": 2763.75,
+      "original": "само",
+      "transcript": "самовозвышение",
+      "context": "Моя сила растёт. Скорее всего, главную роль в этом играет само Возвышение. Раньше у меня не было сил на то, чтобы",
+      "transcript_context": "",
+      "marker_pos": 58,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.44,
+      "phonetic_similarity": 0.44
     },
     {
       "type": "deletion",
@@ -2641,7 +2998,7 @@
       "marker_pos": 45,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.88,
       "phonetic_similarity": 1.0
     },
     {
@@ -2655,7 +3012,7 @@
       "marker_pos": 55,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.88,
       "phonetic_similarity": 1.0
     },
     {
@@ -2669,8 +3026,8 @@
       "marker_pos": 46,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "deletion",
@@ -2711,7 +3068,7 @@
       "marker_pos": 62,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.9,
       "phonetic_similarity": 1.0
     },
     {
@@ -2725,8 +3082,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
+      "similarity": 0.73,
+      "phonetic_similarity": 0.73
     },
     {
       "type": "substitution",
@@ -2739,7 +3096,7 @@
       "marker_pos": 56,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -2753,7 +3110,7 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.6,
       "phonetic_similarity": 0.6
     },
     {
@@ -2767,8 +3124,22 @@
       "marker_pos": 62,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
+    },
+    {
+      "type": "substitution",
+      "time": 2847.01,
+      "time_end": 2847.409,
+      "original": "не",
+      "transcript": "немолод",
+      "context": "силе рук ещё и мощь падения. Пусть в моих руках не Молот Монстров, созданный, чтобы слабые идущие могли пробить броню Монстра,",
+      "transcript_context": "",
+      "marker_pos": 48,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.44,
+      "phonetic_similarity": 0.44
     },
     {
       "type": "deletion",
@@ -2795,8 +3166,8 @@
       "marker_pos": 56,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -2809,8 +3180,8 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2222222222222222
+      "similarity": 0.33,
+      "phonetic_similarity": 0.33
     },
     {
       "type": "deletion",
@@ -2837,8 +3208,8 @@
       "marker_pos": 63,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
+      "similarity": 0.77,
+      "phonetic_similarity": 0.77
     },
     {
       "type": "substitution",
@@ -2851,8 +3222,8 @@
       "marker_pos": 59,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.0,
+      "phonetic_similarity": 0.67
     },
     {
       "type": "insertion",
@@ -2879,8 +3250,8 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "insertion",
@@ -2907,8 +3278,8 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
+      "similarity": 0.77,
+      "phonetic_similarity": 0.77
     },
     {
       "type": "deletion",
@@ -2935,8 +3306,8 @@
       "marker_pos": 63,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
+      "similarity": 0.77,
+      "phonetic_similarity": 0.77
     },
     {
       "type": "substitution",
@@ -2949,8 +3320,22 @@
       "marker_pos": 56,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
+    },
+    {
+      "type": "substitution",
+      "time": 3007.86,
+      "time_end": 3007.98,
+      "original": "недодуша",
+      "transcript": "не",
+      "context": "считать, что в големах Древними использован какой-то какой-то заменитель, обманка, недодуша, которую я смог зацепить, став сильней? Да? Нет? А что",
+      "transcript_context": "",
+      "marker_pos": 83,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.4,
+      "phonetic_similarity": 0.4
     },
     {
       "type": "insertion",
@@ -2981,11 +3366,25 @@
       "phonetic_similarity": 0.0
     },
     {
-      "type": "insertion",
+      "type": "substitution",
       "time": 3019.463,
       "time_end": 0.0,
-      "original": "",
+      "original": "изарда",
       "transcript": "зарда",
+      "context": "духами городов и Павильонов? Я невольно поджал губы, вспомнив Маорса-Изарда Маорса-Изарда с его двухцветными глазами и двумя разумами внутри. Двумя душами?",
+      "transcript_context": "",
+      "marker_pos": 76,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.9090909090909091,
+      "phonetic_similarity": 0.9090909090909091
+    },
+    {
+      "type": "insertion",
+      "time": 3019.343,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "и",
       "context": "городов и Павильонов? Я невольно поджал губы, вспомнив Маорса-Изарда Маорса-Изарда с его двухцветными глазами и двумя разумами внутри. Двумя душами? А",
       "transcript_context": "городов и павильонов я невольно поджал губы вспомнив маорса и зарда с его двухцветными глазами и двумя разумами внутри двумя душами",
       "marker_pos": 83,
@@ -3005,8 +3404,8 @@
       "marker_pos": 73,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.71,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3019,7 +3418,7 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.9,
       "phonetic_similarity": 0.9
     },
     {
@@ -3033,39 +3432,11 @@
       "marker_pos": 59,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 0.8
     }
   ],
   "yandex_errors": [
-    {
-      "type": "substitution",
-      "time": 48.0,
-      "time_end": 48.08,
-      "original": "неидеальное",
-      "transcript": "не",
-      "context": "части правды от всех, кто был ниже рангом, чем попечитель. Неидеальное решение, но время признаний ещё не пришло. С каждым из",
-      "transcript_context": "",
-      "marker_pos": 59,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.18181818181818182
-    },
-    {
-      "type": "substitution",
-      "time": 53.479,
-      "time_end": 53.759,
-      "original": "невольных",
-      "transcript": "вольных",
-      "context": "но время признаний ещё не пришло. С каждым из обоих невольных предателей Ордена долго беседовал Озман, задавший им кучу вопросов под",
-      "transcript_context": "",
-      "marker_pos": 52,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
-    },
     {
       "type": "substitution",
       "time": 56.58,
@@ -3077,22 +3448,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
-    },
-    {
-      "type": "substitution",
-      "time": 121.24,
-      "time_end": 121.559,
-      "original": "с",
-      "transcript": "скунд",
-      "context": "Вернее, сразу к нескольким идущим подряд расколам. Часть орденцев остались с Кунг и решили продолжить битву с сектантами, всё ещё надеясь",
-      "transcript_context": "",
-      "marker_pos": 75,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -3105,8 +3462,8 @@
       "marker_pos": 54,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3119,8 +3476,8 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3133,8 +3490,8 @@
       "marker_pos": 51,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3147,7 +3504,7 @@
       "marker_pos": 55,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -3161,7 +3518,7 @@
       "marker_pos": 46,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -3175,7 +3532,7 @@
       "marker_pos": 74,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
     },
     {
@@ -3189,7 +3546,7 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -3203,7 +3560,7 @@
       "marker_pos": 63,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
     },
     {
@@ -3217,36 +3574,8 @@
       "marker_pos": 44,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 271.049,
-      "time_end": 271.409,
-      "original": "шакалов",
-      "transcript": "калов",
-      "context": "Рам Вилор? Как по мне виновники всех этих убийств куча шакалов, которые все эти годы вымещали свои личные мелкие обиды на",
-      "transcript_context": "",
-      "marker_pos": 55,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2857142857142857
-    },
-    {
-      "type": "substitution",
-      "time": 276.179,
-      "time_end": 276.22,
-      "original": "эрзум",
-      "transcript": "и",
-      "context": "эти годы вымещали свои личные мелкие обиды на ослабевшем Ордене. Эрзум и прочие, кого Орден задел, когда был силён, велик и",
-      "transcript_context": "",
-      "marker_pos": 65,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
     },
     {
       "type": "substitution",
@@ -3259,7 +3588,7 @@
       "marker_pos": 53,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -3273,7 +3602,7 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
     },
     {
@@ -3301,7 +3630,7 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
     },
     {
@@ -3315,7 +3644,7 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.92,
       "phonetic_similarity": 1.0
     },
     {
@@ -3329,22 +3658,8 @@
       "marker_pos": 72,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 638.12,
-      "time_end": 638.739,
-      "original": "шести",
-      "transcript": "шестизвездной",
-      "context": "этих землях можно будет получить столько ресурсов, что хватит и шести звёздной фракции. Я усомнился: И Небесные Испытания для Повелителя Стихии?",
-      "transcript_context": "",
-      "marker_pos": 64,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.41666666666666674
     },
     {
       "type": "substitution",
@@ -3357,8 +3672,8 @@
       "marker_pos": 52,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8888888888888888
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -3371,7 +3686,7 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
     },
     {
@@ -3385,7 +3700,7 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.89,
       "phonetic_similarity": 1.0
     },
     {
@@ -3399,7 +3714,7 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
     },
     {
@@ -3413,22 +3728,8 @@
       "marker_pos": 50,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
-    },
-    {
-      "type": "substitution",
-      "time": 815.18,
-      "time_end": 815.26,
-      "original": "ненамного",
-      "transcript": "не",
-      "context": "Есть, кивнул тот, но тут же с улыбкой добавил, но ненамного лучше. Чуть крепче сталь, чуть больше энергии берёт из средоточий,",
-      "transcript_context": "",
-      "marker_pos": 50,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2222222222222222
+      "similarity": 0.93,
+      "phonetic_similarity": 0.93
     },
     {
       "type": "substitution",
@@ -3441,7 +3742,7 @@
       "marker_pos": 53,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
     },
     {
@@ -3455,22 +3756,8 @@
       "marker_pos": 54,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.88,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 987.71,
-      "time_end": 987.97,
-      "original": "так",
-      "transcript": "также",
-      "context": "самое важное. Внутри первого незавершённого круга загорается ещё один огонёк, так же изгибается, начиная вырисовывать второй круг. Вот он уже нарисовал",
-      "transcript_context": "",
-      "marker_pos": 78,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6
     },
     {
       "type": "substitution",
@@ -3483,50 +3770,8 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
-    },
-    {
-      "type": "substitution",
-      "time": 1113.219,
-      "time_end": 1113.68,
-      "original": "властелины",
-      "transcript": "властели",
-      "context": "той простой причине, что Врата Силы это дополнительная мощь, которую Властелины Духа вливают в техники с помощью эссенции духа. Из того,",
-      "transcript_context": "",
-      "marker_pos": 69,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8
-    },
-    {
-      "type": "substitution",
-      "time": 1250.66,
-      "time_end": 1251.02,
-      "original": "заявились",
-      "transcript": "заявили",
-      "context": "это такой, Ирал, глава Сломанного Клинка, к которому бывшие орденцы заявились всей толпой. Что это за гордый и безумный наглец, который",
-      "transcript_context": "",
-      "marker_pos": 68,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7777777777777779
-    },
-    {
-      "type": "substitution",
-      "time": 1263.26,
-      "time_end": 1263.84,
-      "original": "на",
-      "transcript": "навстречу",
-      "context": "всякий сброд и детей-сирот детей-сирот с улиц. Просто глазели, набивались на встречу, мучали вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного.",
-      "transcript_context": "",
-      "marker_pos": 74,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2222222222222222
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -3539,22 +3784,8 @@
       "marker_pos": 89,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 1270.606,
-      "time_end": 1271.273,
-      "original": "и",
-      "transcript": "прочие",
-      "context": "вопросами, наглели, завуалировано оскорбляли и нащупывали границу дозволенного. И прочее и прочее и прочее. Радует, что, видя рядом со мной хмурого",
-      "transcript_context": "",
-      "marker_pos": 89,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
     },
     {
       "type": "substitution",
@@ -3567,22 +3798,8 @@
       "marker_pos": 80,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 1284.829,
-      "time_end": 1285.189,
-      "original": "заполучил",
-      "transcript": "получил",
-      "context": "мучения хотя бы не прошли даром за четыре дня я заполучил ещё почти десяток сильных одиночек и ещё два неплохих отряда,",
-      "transcript_context": "",
-      "marker_pos": 48,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.1111111111111111
     },
     {
       "type": "substitution",
@@ -3595,7 +3812,7 @@
       "marker_pos": 52,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -3609,7 +3826,7 @@
       "marker_pos": 64,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.71,
       "phonetic_similarity": 1.0
     },
     {
@@ -3623,7 +3840,7 @@
       "marker_pos": 75,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
     },
     {
@@ -3637,8 +3854,8 @@
       "marker_pos": 55,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
+      "similarity": 0.93,
+      "phonetic_similarity": 0.93
     },
     {
       "type": "substitution",
@@ -3651,22 +3868,8 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
-    },
-    {
-      "type": "substitution",
-      "time": 1469.0,
-      "time_end": 1469.639,
-      "original": "в",
-      "transcript": "настоящий",
-      "context": "хотя бы в схватке. Настоящей, а в не в тренировке, в настоящей, а не в одной из тех, что я провожу",
-      "transcript_context": "",
-      "marker_pos": 51,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3679,8 +3882,8 @@
       "marker_pos": 58,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8333333333333335
+      "similarity": 0.91,
+      "phonetic_similarity": 0.91
     },
     {
       "type": "substitution",
@@ -3693,50 +3896,8 @@
       "marker_pos": 80,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.83,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 1595.0,
-      "time_end": 1595.52,
-      "original": "формации",
-      "transcript": "информации",
-      "context": "по ним лично или завести их в зоны запрета жизни формации, где в действие вступал Указ «Смерть». Прообраз того, что обрушил",
-      "transcript_context": "",
-      "marker_pos": 49,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
-    },
-    {
-      "type": "substitution",
-      "time": 1640.48,
-      "time_end": 1640.5,
-      "original": "вдаль",
-      "transcript": "в",
-      "context": "предков. Я, прислушиваясь к суете в лагере, поднял голову, вглядываясь вдаль, в границу, где смыкалось небо и земля, где высились далёкие",
-      "transcript_context": "",
-      "marker_pos": 71,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2
-    },
-    {
-      "type": "substitution",
-      "time": 1643.739,
-      "time_end": 1643.95,
-      "original": "высились",
-      "transcript": "сились",
-      "context": "вглядываясь вдаль, в границу, где смыкалось небо и земля, где высились далёкие горы, к подножию которых мы должны пройти. Ложные горы,",
-      "transcript_context": "",
-      "marker_pos": 62,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.125
     },
     {
       "type": "substitution",
@@ -3749,7 +3910,7 @@
       "marker_pos": 52,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.89,
       "phonetic_similarity": 1.0
     },
     {
@@ -3763,8 +3924,8 @@
       "marker_pos": 70,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3777,8 +3938,8 @@
       "marker_pos": 66,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.75
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3791,8 +3952,8 @@
       "marker_pos": 60,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.92,
+      "phonetic_similarity": 0.92
     },
     {
       "type": "substitution",
@@ -3805,7 +3966,7 @@
       "marker_pos": 61,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.89,
       "phonetic_similarity": 1.0
     },
     {
@@ -3819,36 +3980,8 @@
       "marker_pos": 67,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.86,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 1994.36,
-      "time_end": 1994.679,
-      "original": "когда",
-      "transcript": "когдато",
-      "context": "И я. Да, мы сейчас собирались повторить то, что я когда-то когда-то проворачивал в городе Тысячи Этажей провести через големов тех,",
-      "transcript_context": "",
-      "marker_pos": 50,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.7142857142857143
-    },
-    {
-      "type": "substitution",
-      "time": 2025.099,
-      "time_end": 2025.38,
-      "original": "в",
-      "transcript": "вглубь",
-      "context": "проще. Но старейшины хотели большего. Они хотели увести всех людей в глубь зон запретов и при этом не облегчать дорогу тем,",
-      "transcript_context": "",
-      "marker_pos": 67,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.16666666666666663
     },
     {
       "type": "substitution",
@@ -3861,22 +3994,8 @@
       "marker_pos": 55,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.875
-    },
-    {
-      "type": "substitution",
-      "time": 2197.34,
-      "time_end": 2197.92,
-      "original": "от",
-      "transcript": "солнце",
-      "context": "и справа, словно расщелина прыгнула на нас, заглатывая и закрывая от солнца, обдавая холодным дыханием из пасти. Словно этого было мало,",
-      "transcript_context": "",
-      "marker_pos": 66,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -3889,8 +4008,8 @@
       "marker_pos": 65,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3903,22 +4022,8 @@
       "marker_pos": 71,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
-    },
-    {
-      "type": "substitution",
-      "time": 2379.37,
-      "time_end": 2379.53,
-      "original": "подтоком",
-      "transcript": "под",
-      "context": "лишается сначала одной, а затем и второй лапы. Шаг вперёд, подтоком по пасти, отводя зубы, и пнуть в грудь, откидывая голема",
-      "transcript_context": "",
-      "marker_pos": 59,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.375
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3931,8 +4036,8 @@
       "marker_pos": 69,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.8571428571428571
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86
     },
     {
       "type": "substitution",
@@ -3950,48 +4055,6 @@
     },
     {
       "type": "substitution",
-      "time": 2508.84,
-      "time_end": 2509.459,
-      "original": "ли",
-      "transcript": "деформации",
-      "context": "почему нельзя использовать их вместо духовных камней и не такие ли формации, только огромные и чуть другого вида находятся там, где",
-      "transcript_context": "",
-      "marker_pos": 64,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.1
-    },
-    {
-      "type": "substitution",
-      "time": 2527.659,
-      "time_end": 2527.68,
-      "original": "считай",
-      "transcript": "я",
-      "context": "почему я не обратил внимания на эту странность раньше? Ещё, считай, год назад, когда первый раз использовал свои силы против големов",
-      "transcript_context": "",
-      "marker_pos": 60,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.0
-    },
-    {
-      "type": "substitution",
-      "time": 2560.7,
-      "time_end": 2560.9,
-      "original": "големы",
-      "transcript": "голе",
-      "context": "в разрез, отрубая, наконец, лапу. Причина моей затяжной схватки очевидна: големы повысили ранг силы. Пнуть прямо в морду голему, сбивая попытку",
-      "transcript_context": "",
-      "marker_pos": 74,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
-    },
-    {
-      "type": "substitution",
       "time": 2623.17,
       "time_end": 2623.63,
       "original": "мечом",
@@ -4001,36 +4064,8 @@
       "marker_pos": 84,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.8,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 2762.79,
-      "time_end": 2763.75,
-      "original": "само",
-      "transcript": "самовозвышение",
-      "context": "Моя сила растёт. Скорее всего, главную роль в этом играет само Возвышение. Раньше у меня не было сил на то, чтобы",
-      "transcript_context": "",
-      "marker_pos": 58,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2857142857142857
-    },
-    {
-      "type": "substitution",
-      "time": 2847.01,
-      "time_end": 2847.409,
-      "original": "не",
-      "transcript": "немолод",
-      "context": "силе рук ещё и мощь падения. Пусть в моих руках не Молот Монстров, созданный, чтобы слабые идущие могли пробить броню Монстра,",
-      "transcript_context": "",
-      "marker_pos": 48,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.2857142857142857
     },
     {
       "type": "substitution",
@@ -4043,36 +4078,8 @@
       "marker_pos": 54,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.6666666666666665
-    },
-    {
-      "type": "substitution",
-      "time": 3007.86,
-      "time_end": 3007.98,
-      "original": "недодуша",
-      "transcript": "не",
-      "context": "считать, что в големах Древними использован какой-то какой-то заменитель, обманка, недодуша, которую я смог зацепить, став сильней? Да? Нет? А что",
-      "transcript_context": "",
-      "marker_pos": 83,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.25
-    },
-    {
-      "type": "substitution",
-      "time": 3019.343,
-      "time_end": 3019.436,
-      "original": "изарда",
-      "transcript": "и",
-      "context": "духами городов и Павильонов? Я невольно поджал губы, вспомнив Маорса-Изарда Маорса-Изарда с его двухцветными глазами и двумя разумами внутри. Двумя душами?",
-      "transcript_context": "",
-      "marker_pos": 76,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.16666666666666663
+      "similarity": 0.88,
+      "phonetic_similarity": 0.88
     },
     {
       "type": "substitution",
@@ -4085,7 +4092,7 @@
       "marker_pos": 68,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
+      "similarity": 0.75,
       "phonetic_similarity": 1.0
     },
     {
@@ -4099,8 +4106,8 @@
       "marker_pos": 80,
       "confidence": 1.0,
       "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.9090909090909091
+      "similarity": 0.91,
+      "phonetic_similarity": 0.91
     }
   ]
 }

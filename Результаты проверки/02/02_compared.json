@@ -1,15 +1,22 @@
 {
-  "audio": "",
-  "original": "Оригинал/Главы/Глава2.docx",
-  "transcript": "Транскрибации/Глава2/02_transcript.json",
+  "metadata": {
+    "created_at": "2026-01-29T22:47:58.706910",
+    "smart_compare_version": "10.5.0",
+    "alignment_manager_version": "1.2.0",
+    "source_transcript": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Транскрибации/Глава2/02_transcript.json",
+    "source_original": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Главы/Глава2.docx"
+  },
+  "audio": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Аудио/02.mp3",
+  "original": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Главы/Глава2.docx",
+  "transcript": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Транскрибации/Глава2/02_transcript.json",
   "threshold": 0.7,
   "stats": {
     "original_words": 5365,
     "transcript_words": 5319,
     "similarity": 0.9234369150131037,
     "total_differences": 228,
-    "yandex_errors": 34,
-    "reader_errors": 194
+    "yandex_errors": 22,
+    "reader_errors": 206
   },
   "errors": [
     {
@@ -27,6 +34,20 @@
       "phonetic_similarity": 1.0
     },
     {
+      "type": "substitution",
+      "time": 15.759,
+      "time_end": 15.83,
+      "original": "оттого",
+      "transcript": "от",
+      "context": "снимали или купили поместья на той улице. Первые пустили слезу оттого, что закончилось их счастье и больше никто не станет платить",
+      "transcript_context": "",
+      "marker_pos": 63,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.5,
+      "phonetic_similarity": 0.5
+    },
+    {
       "type": "insertion",
       "time": 15.87,
       "time_end": 0.0,
@@ -39,6 +60,20 @@
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.0
+    },
+    {
+      "type": "substitution",
+      "time": 21.25,
+      "time_end": 21.33,
+      "original": "оттого",
+      "transcript": "от",
+      "context": "и больше никто не станет платить им таких денег. Вторые оттого что Алкай, взявший в свои руки духовные камни семьи, давно",
+      "transcript_context": "",
+      "marker_pos": 56,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.5,
+      "phonetic_similarity": 0.5
     },
     {
       "type": "insertion",
@@ -504,6 +539,20 @@
     },
     {
       "type": "substitution",
+      "time": 395.48,
+      "time_end": 395.979,
+      "original": "вилор",
+      "transcript": "лор",
+      "context": "мне, что тот уже не отправил сообщения Эрзум, Кунг или Вилор. Таким он не делился даже с сыновьями, даже с любимыми",
+      "transcript_context": "",
+      "marker_pos": 55,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.75,
+      "phonetic_similarity": 0.75
+    },
+    {
+      "type": "substitution",
       "time": 400.73,
       "time_end": 401.03,
       "original": "которым",
@@ -630,6 +679,34 @@
     },
     {
       "type": "substitution",
+      "time": 468.359,
+      "time_end": 468.539,
+      "original": "аранви",
+      "transcript": "аран",
+      "context": "самом плохом как раз таки Рагедон. Почему вы продолжаете именовать Аранви Седым? Младшие спрашивают меня, не обижены ли вы на него?",
+      "transcript_context": "",
+      "marker_pos": 67,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.8,
+      "phonetic_similarity": 0.8
+    },
+    {
+      "type": "substitution",
+      "time": 468.6,
+      "time_end": 469.38,
+      "original": "седым",
+      "transcript": "виседым",
+      "context": "плохом как раз таки Рагедон. Почему вы продолжаете именовать Аранви Седым? Младшие спрашивают меня, не обижены ли вы на него? И",
+      "transcript_context": "",
+      "marker_pos": 68,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.83,
+      "phonetic_similarity": 0.83
+    },
+    {
+      "type": "substitution",
       "time": 474.64,
       "time_end": 475.0,
       "original": "илдура",
@@ -669,6 +746,20 @@
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.5
+    },
+    {
+      "type": "substitution",
+      "time": 514.719,
+      "time_end": 514.88,
+      "original": "ничто",
+      "transcript": "что",
+      "context": "могущество, огромные возможности, семь десятков лет жизни за спиной, а ничто простое, буквально закалковое им не чуждо: Рагедон, который следил восприятием",
+      "transcript_context": "",
+      "marker_pos": 71,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.75,
+      "phonetic_similarity": 0.75
     },
     {
       "type": "substitution",
@@ -809,6 +900,34 @@
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.0
+    },
+    {
+      "type": "substitution",
+      "time": 625.52,
+      "time_end": 625.54,
+      "original": "занять",
+      "transcript": "о",
+      "context": "меня на глазах. Тренировки? предложил я. Тренировки? нахмурился Рагедон. Мне занять их дополнительными тренировками? Седой возмутился: Нет, нет, нет, нет! Молодой",
+      "transcript_context": "",
+      "marker_pos": 77,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.29
+    },
+    {
+      "type": "substitution",
+      "time": 625.659,
+      "time_end": 626.08,
+      "original": "их",
+      "transcript": "занятиях",
+      "context": "на глазах. Тренировки? предложил я. Тренировки? нахмурился Рагедон. Мне занять их дополнительными тренировками? Седой возмутился: Нет, нет, нет, нет! Молодой глава",
+      "transcript_context": "",
+      "marker_pos": 79,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.4,
+      "phonetic_similarity": 0.4
     },
     {
       "type": "substitution",
@@ -1652,6 +1771,20 @@
     },
     {
       "type": "substitution",
+      "time": 1277.176,
+      "time_end": 1277.73,
+      "original": "ян",
+      "transcript": "ройян",
+      "context": "который я достал. Тот самый, который я получил от Нулара Ян для выхода к поместью, куда сейчас должен вести своих людей",
+      "transcript_context": "",
+      "marker_pos": 57,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.57,
+      "phonetic_similarity": 0.57
+    },
+    {
+      "type": "substitution",
       "time": 1295.559,
       "time_end": 1296.12,
       "original": "невместно",
@@ -1708,6 +1841,20 @@
     },
     {
       "type": "substitution",
+      "time": 1316.51,
+      "time_end": 1316.95,
+      "original": "от",
+      "transcript": "слышен",
+      "context": "взглядом по мне, Седому и кивнул: Понял, глава. Я наслышан от Аранви, что вы можете использовать некоторые техники без обращений, но",
+      "transcript_context": "",
+      "marker_pos": 59,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0
+    },
+    {
+      "type": "substitution",
       "time": 1317.13,
       "time_end": 0.0,
       "original": "аранви",
@@ -1747,6 +1894,20 @@
       "is_yandex_error": false,
       "similarity": 0.9,
       "phonetic_similarity": 1.0
+    },
+    {
+      "type": "substitution",
+      "time": 1343.03,
+      "time_end": 1343.57,
+      "original": "напомнил",
+      "transcript": "напомнился",
+      "context": "туда, где другие старейшины уже начали нетерпеливо обжигать меня взглядами, напомнил Седому. Поговори с ними. Скажи, их глава, пусть и собиратель",
+      "transcript_context": "",
+      "marker_pos": 76,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.89,
+      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -2687,6 +2848,20 @@
       "phonetic_similarity": 0.0
     },
     {
+      "type": "substitution",
+      "time": 2249.76,
+      "time_end": 2250.02,
+      "original": "что",
+      "transcript": "чтобы",
+      "context": "Слово главы семьи Сломанного Клинка. Куш я предложил не то, что бы жирный, но вполне соблазнительный. Ровно столько, чтобы парочка самых",
+      "transcript_context": "",
+      "marker_pos": 60,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.75,
+      "phonetic_similarity": 0.75
+    },
+    {
       "type": "deletion",
       "time": 2250.02,
       "time_end": 0.0,
@@ -2730,34 +2905,6 @@
     }
   ],
   "yandex_errors": [
-    {
-      "type": "substitution",
-      "time": 15.759,
-      "time_end": 15.83,
-      "original": "оттого",
-      "transcript": "от",
-      "context": "снимали или купили поместья на той улице. Первые пустили слезу оттого, что закончилось их счастье и больше никто не станет платить",
-      "transcript_context": "",
-      "marker_pos": 63,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
-    },
-    {
-      "type": "substitution",
-      "time": 21.25,
-      "time_end": 21.33,
-      "original": "оттого",
-      "transcript": "от",
-      "context": "и больше никто не станет платить им таких денег. Вторые оттого что Алкай, взявший в свои руки духовные камни семьи, давно",
-      "transcript_context": "",
-      "marker_pos": 56,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.5,
-      "phonetic_similarity": 0.5
-    },
     {
       "type": "substitution",
       "time": 115.03,
@@ -2816,48 +2963,6 @@
     },
     {
       "type": "substitution",
-      "time": 395.48,
-      "time_end": 395.979,
-      "original": "вилор",
-      "transcript": "лор",
-      "context": "мне, что тот уже не отправил сообщения Эрзум, Кунг или Вилор. Таким он не делился даже с сыновьями, даже с любимыми",
-      "transcript_context": "",
-      "marker_pos": 55,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.75,
-      "phonetic_similarity": 0.75
-    },
-    {
-      "type": "substitution",
-      "time": 468.359,
-      "time_end": 468.539,
-      "original": "аранви",
-      "transcript": "аран",
-      "context": "самом плохом как раз таки Рагедон. Почему вы продолжаете именовать Аранви Седым? Младшие спрашивают меня, не обижены ли вы на него?",
-      "transcript_context": "",
-      "marker_pos": 67,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.8,
-      "phonetic_similarity": 0.8
-    },
-    {
-      "type": "substitution",
-      "time": 468.6,
-      "time_end": 469.38,
-      "original": "седым",
-      "transcript": "виседым",
-      "context": "плохом как раз таки Рагедон. Почему вы продолжаете именовать Аранви Седым? Младшие спрашивают меня, не обижены ли вы на него? И",
-      "transcript_context": "",
-      "marker_pos": 68,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.83,
-      "phonetic_similarity": 0.83
-    },
-    {
-      "type": "substitution",
       "time": 479.209,
       "time_end": 479.85,
       "original": "беспокоятся",
@@ -2886,20 +2991,6 @@
     },
     {
       "type": "substitution",
-      "time": 514.719,
-      "time_end": 514.88,
-      "original": "ничто",
-      "transcript": "что",
-      "context": "могущество, огромные возможности, семь десятков лет жизни за спиной, а ничто простое, буквально закалковое им не чуждо: Рагедон, который следил восприятием",
-      "transcript_context": "",
-      "marker_pos": 71,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.75,
-      "phonetic_similarity": 0.75
-    },
-    {
-      "type": "substitution",
       "time": 518.12,
       "time_end": 518.56,
       "original": "рагедон",
@@ -2925,34 +3016,6 @@
       "is_yandex_error": true,
       "similarity": 0.86,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 625.52,
-      "time_end": 625.54,
-      "original": "занять",
-      "transcript": "о",
-      "context": "меня на глазах. Тренировки? предложил я. Тренировки? нахмурился Рагедон. Мне занять их дополнительными тренировками? Седой возмутился: Нет, нет, нет, нет! Молодой",
-      "transcript_context": "",
-      "marker_pos": 77,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.29
-    },
-    {
-      "type": "substitution",
-      "time": 625.659,
-      "time_end": 626.08,
-      "original": "их",
-      "transcript": "занятиях",
-      "context": "на глазах. Тренировки? предложил я. Тренировки? нахмурился Рагедон. Мне занять их дополнительными тренировками? Седой возмутился: Нет, нет, нет, нет! Молодой глава",
-      "transcript_context": "",
-      "marker_pos": 79,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.4,
-      "phonetic_similarity": 0.4
     },
     {
       "type": "substitution",
@@ -3040,20 +3103,6 @@
     },
     {
       "type": "substitution",
-      "time": 1277.176,
-      "time_end": 1277.73,
-      "original": "ян",
-      "transcript": "ройян",
-      "context": "который я достал. Тот самый, который я получил от Нулара Ян для выхода к поместью, куда сейчас должен вести своих людей",
-      "transcript_context": "",
-      "marker_pos": 57,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.57,
-      "phonetic_similarity": 0.57
-    },
-    {
-      "type": "substitution",
       "time": 1316.11,
       "time_end": 1316.189,
       "original": "я",
@@ -3065,34 +3114,6 @@
       "is_yandex_error": true,
       "similarity": 0.0,
       "phonetic_similarity": 1.0
-    },
-    {
-      "type": "substitution",
-      "time": 1316.51,
-      "time_end": 1316.95,
-      "original": "от",
-      "transcript": "слышен",
-      "context": "взглядом по мне, Седому и кивнул: Понял, глава. Я наслышан от Аранви, что вы можете использовать некоторые техники без обращений, но",
-      "transcript_context": "",
-      "marker_pos": 59,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0
-    },
-    {
-      "type": "substitution",
-      "time": 1343.03,
-      "time_end": 1343.57,
-      "original": "напомнил",
-      "transcript": "напомнился",
-      "context": "туда, где другие старейшины уже начали нетерпеливо обжигать меня взглядами, напомнил Седому. Поговори с ними. Скажи, их глава, пусть и собиратель",
-      "transcript_context": "",
-      "marker_pos": 76,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.89,
-      "phonetic_similarity": 0.89
     },
     {
       "type": "substitution",
@@ -3191,20 +3212,6 @@
       "is_yandex_error": true,
       "similarity": 0.89,
       "phonetic_similarity": 0.89
-    },
-    {
-      "type": "substitution",
-      "time": 2249.76,
-      "time_end": 2250.02,
-      "original": "что",
-      "transcript": "чтобы",
-      "context": "Слово главы семьи Сломанного Клинка. Куш я предложил не то, что бы жирный, но вполне соблазнительный. Ровно столько, чтобы парочка самых",
-      "transcript_context": "",
-      "marker_pos": 60,
-      "confidence": 1.0,
-      "is_yandex_error": true,
-      "similarity": 0.75,
-      "phonetic_similarity": 0.75
     }
   ]
 }
