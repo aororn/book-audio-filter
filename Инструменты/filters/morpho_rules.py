@@ -16,10 +16,11 @@ Morpho Rules v1.0 — Морфологические правила фильтр
 - SAME_LEMMA + DIFF_TENSE: 2 реальных ошибки → НЕ фильтровать
 
 v1.0 (2026-01-26): Начальная версия
+v1.1 (2026-01-29): Исправлен баг с _is_proper_name() — исключены составные слова (когдато и т.п.)
 """
 
-VERSION = '1.0.0'
-VERSION_DATE = '2026-01-26'
+VERSION = '1.1.0'
+VERSION_DATE = '2026-01-29'
 
 from typing import Optional, Tuple
 from dataclasses import dataclass
@@ -213,13 +214,39 @@ class MorphoRules:
                           f'Одинаковая форма: {lemma1}')
 
     def _is_proper_name(self, word: str) -> bool:
-        """Проверяет, является ли слово именем собственным."""
+        """
+        Проверяет, является ли слово именем собственным.
+
+        ВАЖНО: pymorphy3 иногда ошибочно определяет русские слова как имена.
+        Например, "когдато" (слитное "когда-то") определяется как имя Name.
+
+        Поэтому добавляем дополнительные проверки:
+        1. score должен быть достаточно высоким (>0.5)
+        2. Слово не должно быть частью составного слова (то, либо, нибудь)
+        """
         if not HAS_PYMORPHY or not morph:
             return False
 
+        # Исключаем русские составные слова (когда-то → когдато)
+        compound_suffixes = ('то', 'либо', 'нибудь', 'таки', 'ка', 'де', 'мол')
+        word_lower = word.lower()
+        for suffix in compound_suffixes:
+            if word_lower.endswith(suffix) and len(word_lower) > len(suffix) + 2:
+                # Слово вроде "когдато", "кудато", "чтолибо" — не имя
+                return False
+
         parsed = morph.parse(word)
         if parsed:
-            return 'Name' in str(parsed[0].tag) or 'Surn' in str(parsed[0].tag)
+            p = parsed[0]
+            tag_str = str(p.tag)
+            is_name = 'Name' in tag_str or 'Surn' in tag_str
+
+            # Дополнительная проверка: score должен быть высоким
+            # и слово должно быть из словаря (не "угадано")
+            if is_name and p.score < 0.5:
+                return False
+
+            return is_name
         return False
 
     def _get_tense(self, word: str) -> Optional[str]:

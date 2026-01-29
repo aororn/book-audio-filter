@@ -69,11 +69,16 @@ HAS_PYMORPHY = False
 morph = None
 
 try:
-    import pymorphy2
-    morph = pymorphy2.MorphAnalyzer()
+    import pymorphy3
+    morph = pymorphy3.MorphAnalyzer()
     HAS_PYMORPHY = True
 except ImportError:
-    print("⚠ pymorphy2 не установлен. Установите: pip install pymorphy2")
+    try:
+        import pymorphy2
+        morph = pymorphy2.MorphAnalyzer()
+        HAS_PYMORPHY = True
+    except ImportError:
+        print("⚠ pymorphy не установлен. Установите: pip install pymorphy3")
 
 
 # =============================================================================

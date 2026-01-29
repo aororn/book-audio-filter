@@ -70,14 +70,19 @@ except ImportError:
 try:
     from morphology import HAS_PYMORPHY, morph
 except ImportError:
-    # Fallback: прямой импорт pymorphy2
+    # Fallback: прямой импорт pymorphy3/pymorphy2
     try:
-        import pymorphy2
-        morph = pymorphy2.MorphAnalyzer()
+        import pymorphy3
+        morph = pymorphy3.MorphAnalyzer()
         HAS_PYMORPHY = True
     except ImportError:
-        morph = None
-        HAS_PYMORPHY = False
+        try:
+            import pymorphy2
+            morph = pymorphy2.MorphAnalyzer()
+            HAS_PYMORPHY = True
+        except ImportError:
+            morph = None
+            HAS_PYMORPHY = False
 
 # Попытка импортировать python-docx
 try:

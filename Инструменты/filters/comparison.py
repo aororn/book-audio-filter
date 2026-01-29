@@ -82,11 +82,16 @@ except ImportError as e:
     morph = None
 
     try:
-        import pymorphy2
-        morph = pymorphy2.MorphAnalyzer()
+        import pymorphy3
+        morph = pymorphy3.MorphAnalyzer()
         HAS_PYMORPHY = True
     except ImportError:
-        pass
+        try:
+            import pymorphy2
+            morph = pymorphy2.MorphAnalyzer()
+            HAS_PYMORPHY = True
+        except ImportError:
+            pass
 
     @lru_cache(maxsize=10000)
     def parse_word_cached(word: str) -> Tuple[str, Optional[str], Optional[str], Optional[str], Optional[str]]:
