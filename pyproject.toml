@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "yandex-speech-qa"
+version = "5.0.0"
+description = "Автоматизированная проверка качества озвучки аудиокниг через Яндекс SpeechKit"
+readme = "PROJECT.md"
+requires-python = ">=3.8"
+license = {text = "Proprietary"}
+
+dependencies = [
+    "requests>=2.28.0",
+    "python-docx>=0.8.11",
+    "pydub>=0.25.1",
+    "pymorphy2>=0.9.1",
+    "rapidfuzz>=3.0.0",
+    "boto3>=1.26.0",
+]
+
+[project.optional-dependencies]
+web = ["flask>=2.3.0"]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+    "mypy>=1.8.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["Инструменты*"]
+
+[tool.pytest.ini_options]
+testpaths = ["Тесты"]
+pythonpath = ["Инструменты"]
+minversion = "6.0"
+markers = [
+    "slow: медленные тесты (пропуск с -m 'not slow')",
+    "pymorphy: тесты, требующие pymorphy2",
+    "integration: интеграционные тесты",
+]
+
+[tool.coverage.run]
+source = ["Инструменты"]
+omit = [
+    "Инструменты/templates/*",
+    "Инструменты/filter_errors.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+src = ["Инструменты", "Тесты"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B905",  # zip-strict (Python 3.10+)
+    "UP007", # Optional[X] -> X | None (Python 3.10+)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"Тесты/*" = ["B", "UP"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+check_untyped_defs = true
+files = ["Инструменты"]
+exclude = ["Инструменты/templates"]

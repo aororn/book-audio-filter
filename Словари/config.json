@@ -1,0 +1,24 @@
+{
+  "_comment": "Конфигурация алгоритмов проекта Яндекс Спич",
+
+  "smart_compare": {
+    "_comment": "Настройки умного сравнения (smart_compare.py)",
+    "threshold": 0.7,
+    "phantom_seconds": -1,
+    "min_word_len_anchor": 4
+  },
+
+  "golden_filter": {
+    "_comment": "Настройки фильтра отсева (filters/engine.py)",
+    "levenshtein_threshold": 2,
+    "use_lemmatization": true,
+    "use_homophones": true,
+    "use_phonetic": true
+  },
+
+  "files": {
+    "reader_errors": "Словари/ошибки_чтеца.json",
+    "protected_words": "Словари/защищенные_слова.txt",
+    "names_dict": "Словари/Словарь_имён_персонажей.txt"
+  }
+}

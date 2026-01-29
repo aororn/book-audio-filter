@@ -1,0 +1,625 @@
+{
+  "runs": [
+    {
+      "timestamp": "2026-01-25T17:15:27.249743",
+      "version": "5.1.0",
+      "chapters_tested": [
+        "1",
+        "2"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 51
+        }
+      },
+      "summary": {
+        "total_golden_found": 52,
+        "total_golden_expected": 52,
+        "total_errors": 126,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      },
+      "comment": "Базовая версия после добавления 4 паттернов для и/а/я"
+    },
+    {
+      "timestamp": "2026-01-25T17:15:54.750501",
+      "version": "5.1.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 51
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 139
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 265,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      },
+      "comment": "v5.1: Полный тест с 3 главами, 4 паттерна и/а/я"
+    },
+    {
+      "timestamp": "2026-01-25T17:18:43.049234",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 51
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 139
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 265,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      },
+      "comment": "v5.2: Тест с таблицей истории"
+    },
+    {
+      "timestamp": "2026-01-25T17:56:48.131479",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 69
+        }
+      },
+      "summary": {
+        "total_golden_found": 30,
+        "total_golden_expected": 31,
+        "total_errors": 69,
+        "all_passed": false,
+        "golden_percentage": 96.8
+      }
+    },
+    {
+      "timestamp": "2026-01-25T17:58:25.567597",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 69
+        }
+      },
+      "summary": {
+        "total_golden_found": 30,
+        "total_golden_expected": 31,
+        "total_errors": 69,
+        "all_passed": false,
+        "golden_percentage": 96.8
+      }
+    },
+    {
+      "timestamp": "2026-01-25T17:58:33.213516",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 69
+        }
+      },
+      "summary": {
+        "total_golden_found": 30,
+        "total_golden_expected": 31,
+        "total_errors": 69,
+        "all_passed": false,
+        "golden_percentage": 96.8
+      }
+    },
+    {
+      "timestamp": "2026-01-25T18:00:03.675562",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 70
+        }
+      },
+      "summary": {
+        "total_golden_found": 31,
+        "total_golden_expected": 31,
+        "total_errors": 70,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-25T18:00:11.169325",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 70
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 85
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 200,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-25T18:02:39.185450",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 70
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 85
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 200,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-25T20:11:54.147316",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 57
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 44
+        }
+      },
+      "summary": {
+        "total_golden_found": 52,
+        "total_golden_expected": 52,
+        "total_errors": 101,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-25T20:21:34.573096",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 62
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 42
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 79
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 183,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      },
+      "comment": "v5.6.1: Исправлены ложные срабатывания я↔и и наречий"
+    },
+    {
+      "timestamp": "2026-01-25T23:04:19.407922",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 62
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 79
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 191,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      },
+      "comment": "v5.7.1: Исправлены фильтры по Golden Standard главы 4"
+    },
+    {
+      "timestamp": "2026-01-25T23:41:14.137284",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 62
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 46
+        },
+        "chapter_3": {
+          "passed": false,
+          "golden_found": 16,
+          "golden_expected": 20,
+          "total_errors": 82
+        }
+      },
+      "summary": {
+        "total_golden_found": 68,
+        "total_golden_expected": 72,
+        "total_errors": 190,
+        "all_passed": false,
+        "golden_percentage": 94.4
+      },
+      "comment": "v5.7.2: Паттерны из главы 4"
+    },
+    {
+      "timestamp": "2026-01-25T23:52:58.646687",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 62
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 46
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 88
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 196,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      },
+      "comment": "v5.7.2: Паттерны глава 4, откат 'и' в INS"
+    },
+    {
+      "timestamp": "2026-01-26T00:22:27.284747",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 23,
+          "golden_expected": 31,
+          "total_errors": 49
+        },
+        "chapter_2": {
+          "passed": false,
+          "golden_found": 16,
+          "golden_expected": 21,
+          "total_errors": 37
+        },
+        "chapter_3": {
+          "passed": false,
+          "golden_found": 19,
+          "golden_expected": 20,
+          "total_errors": 67
+        }
+      },
+      "summary": {
+        "total_golden_found": 58,
+        "total_golden_expected": 72,
+        "total_errors": 153,
+        "all_passed": false,
+        "golden_percentage": 80.6
+      }
+    },
+    {
+      "timestamp": "2026-01-26T00:24:50.899695",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 23,
+          "golden_expected": 31,
+          "total_errors": 49
+        },
+        "chapter_2": {
+          "passed": false,
+          "golden_found": 16,
+          "golden_expected": 21,
+          "total_errors": 37
+        },
+        "chapter_3": {
+          "passed": false,
+          "golden_found": 19,
+          "golden_expected": 20,
+          "total_errors": 67
+        }
+      },
+      "summary": {
+        "total_golden_found": 58,
+        "total_golden_expected": 72,
+        "total_errors": 153,
+        "all_passed": false,
+        "golden_percentage": 80.6
+      }
+    },
+    {
+      "timestamp": "2026-01-26T00:24:59.784508",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 27,
+          "golden_expected": 31,
+          "total_errors": 61
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 84
+        }
+      },
+      "summary": {
+        "total_golden_found": 68,
+        "total_golden_expected": 72,
+        "total_errors": 193,
+        "all_passed": false,
+        "golden_percentage": 94.4
+      }
+    },
+    {
+      "timestamp": "2026-01-26T00:25:08.824107",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 27,
+          "golden_expected": 31,
+          "total_errors": 61
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 84
+        }
+      },
+      "summary": {
+        "total_golden_found": 68,
+        "total_golden_expected": 72,
+        "total_errors": 193,
+        "all_passed": false,
+        "golden_percentage": 94.4
+      }
+    },
+    {
+      "timestamp": "2026-01-26T00:25:50.770827",
+      "version": "5.2.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 65
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 84
+        }
+      },
+      "summary": {
+        "total_golden_found": 72,
+        "total_golden_expected": 72,
+        "total_errors": 197,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    }
+  ]
+}

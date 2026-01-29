@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__scrivener__batch_read",
+      "mcp__scrivener__get_structure"
+    ]
+  }
+}
