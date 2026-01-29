@@ -1,5 +1,5 @@
 """
-Пакет фильтрации ошибок транскрипции — Golden Filter v6.2
+Пакет фильтрации ошибок транскрипции — Golden Filter v7.0
 
 Модульная архитектура:
 - base.py — ABC-интерфейс FilterRule для расширяемых правил
@@ -9,28 +9,19 @@
 - engine.py — движок фильтрации
 - smart_rules.py — умные правила на основе морфологии (v6.0)
 - morpho_rules.py — консервативные морфологические правила (v1.1)
-- character_guard.py — защита имён персонажей (v1.0) [NEW v9.0]
+- character_guard.py — защита имён персонажей (v1.0)
+- scoring_engine.py — система адаптивных штрафов (v1.2)
+- window_verifier.py — верификация сегментов (v1.1)
 
-v6.3 изменения (2026-01-29):
-- Добавлен scoring_engine.py — система адаптивных штрафов
-- Добавлен window_verifier.py — верификация сегментов
-
-v6.2 изменения (2026-01-29):
-- Добавлен character_guard.py — центральный модуль защиты имён
-- CharacterGuard определяет: имена персонажей, кандидаты на якоря, штрафы
-
-v6.1 изменения:
-- Добавлен morpho_rules.py с консервативной фильтрацией
-- Исправлен _is_proper_name() для составных слов
-
-v6.0 изменения:
-- Добавлен smart_rules.py с алгоритмическими правилами
-- Расширен morphology.py (aspect, voice, tense)
-- Унифицированы пути к БД через config.py
+v7.0 Smart Filter модули (2026-01-30):
+- smart_scorer.py v3.0 — накопительный скоринг с grammar_change
+- frequency_manager.py v1.0 — частотный словарь НКРЯ (103K слов)
+- sliding_window.py v1.0 — фонетическое сравнение без пробелов
+- smart_filter.py v3.0 — интеграция всех Smart модулей
 """
 
-__version__ = '6.3.0'
-__version_date__ = '2026-01-29'
+__version__ = '7.0.0'
+__version_date__ = '2026-01-30'
 
 # Реэкспорт основного API
 from .engine import should_filter_error, filter_errors, filter_report
@@ -81,4 +72,21 @@ from .scoring_engine import (
 from .window_verifier import (
     WindowVerifier, get_window_verifier, VerificationStatus, VerificationResult,
     verify_segment, is_technical_noise, is_word_transposition,
+)
+
+# v7.0: Smart Filter модули
+from .smart_scorer import (
+    SmartScorer, ScoreResult, get_smart_scorer,
+    WEIGHTS, DEFAULT_THRESHOLD,
+)
+from .frequency_manager import (
+    FrequencyManager, get_frequency_manager, get_word_frequency, is_rare_word,
+    RARE_THRESHOLD, BOOKISH_THRESHOLD,
+)
+from .sliding_window import (
+    SlidingWindow, SlidingResult, get_sliding_window,
+    is_alignment_artifact, check_phonetic_match,
+)
+from .smart_filter import (
+    SmartFilter, SmartFilterResult, get_smart_filter, evaluate_error_smart,
 )
