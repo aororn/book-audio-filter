@@ -1,10 +1,17 @@
 """
-Движок фильтрации ошибок транскрипции v9.2.
+Движок фильтрации ошибок транскрипции v9.3.2.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (оркестратор правил)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v9.3.2 изменения (2026-01-30):
+- РЕФАКТОРИНГ: Убран костыль "как то ... там" (строка 404)
+  - Обобщено: любое "{prefix} то там" теперь фильтруется как разбитое выражение
+  - Было: только "как то там"
+  - Стало: "что то там", "где то там", "когда то там" и т.д.
+  - Документация добавлена в код
 
 v9.2 изменения (2026-01-30):
 - ИНТЕГРАЦИЯ: ML-классификатор (ml_classifier.py) как уровень 10
@@ -128,8 +135,27 @@ except ImportError:
     HAS_RULES_MODULE = False
 
 # Версия модуля
-VERSION = '9.2.3'
+VERSION = '9.3.2'
 VERSION_DATE = '2026-01-30'
+
+# v9.3.2 изменения:
+# - РЕФАКТОРИНГ: Убран костыль "как то ... там"
+#   - Обобщено: любое "{prefix} то там" теперь фильтруется
+#   - Было: if prefix.startswith('как') and next_word == 'там'
+#   - Стало: if next_word == 'там' (для любого prefix)
+
+# v9.3.1 изменения:
+# - ЗАЩИТА: substitution с merged_from_ins_del=True пропускают alignment_artifact
+#   - Эти ошибки созданы merge_adjacent_ins_del (smart_compare v10.7.2)
+#   - Пример: deletion "затем" + insertion "он" → substitution "он" → "затем"
+#   - Раньше фильтровались alignment_artifact_length (разная длина слов)
+#   - Теперь защищены — это реальные ошибки чтеца
+
+# v9.3.0 изменения:
+# - ИНТЕГРАЦИЯ: ContextVerifier v1.0 как уровень 12
+#   - Контекстная верификация артефактов склеенных/разбитых слов
+#   - Работает только для insertion
+#   - Безопасно: 0 golden затронуто, 27+ FP отфильтровано на главе 5
 
 # v9.2.2 изменения:
 # - safe_ending_transition: добавлена проверка падежа (get_case)
@@ -173,6 +199,14 @@ try:
     HAS_SMART_FILTER = True
 except ImportError:
     HAS_SMART_FILTER = False
+
+# v12.1: Импорт ContextVerifier для контекстной верификации
+try:
+    from .context_verifier import should_filter_by_context, VERSION as CONTEXT_VERIFIER_VERSION
+    HAS_CONTEXT_VERIFIER = True
+except ImportError:
+    HAS_CONTEXT_VERIFIER = False
+    CONTEXT_VERIFIER_VERSION = 'N/A'
 
 # v11.8: Импорт ML-классификатора
 try:
@@ -245,6 +279,14 @@ def should_filter_error(
             # Это известная пара путаницы — НЕ фильтруем, это реальная ошибка
             return False, 'PROTECTED_hard_negative'
 
+    # ==== УРОВЕНЬ -0.6: Междометия (v9.2.4) ====
+    # Пары междометий (кхм↔хм, ах↔ох) — всегда фильтруем как техническую ошибку
+    # Междометия не могут быть "оговорками" — они не несут семантического смысла
+    if error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+        if is_interjection(w1) and is_interjection(w2):
+            return True, 'interjection_pair'
+
     # ==== УРОВЕНЬ -0.5: SemanticManager ЗАЩИТА (v8.9) ====
     # Высокая семантическая близость + разные леммы = оговорка чтеца
     # Анализ БД: semantic>0.4 + diff_lemma = реальные ошибки (мечтательны→мечтатели)
@@ -293,14 +335,26 @@ def should_filter_error(
 
     # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4 → v9.1 migrated to rules/) ====
     # v9.2.1: добавлена проверка падежа (get_case)
+    # v9.3.2: защита merged_from_ins_del — если разные леммы, это реальная ошибка
+    is_merged = error.get('merged_from_ins_del', False)
     if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
-        should_filter, reason = check_alignment_artifact(
-            w1, w2,
-            error_type='substitution',
-            get_lemma_func=get_lemma if HAS_PYMORPHY else None,
-            get_pos_func=get_pos if HAS_PYMORPHY else None,
-            get_case_func=get_case if HAS_PYMORPHY else None
+
+        # Защита merged: разные леммы = реальная ошибка чтеца, не артефакт
+        skip_alignment = False
+        if is_merged and HAS_PYMORPHY:
+            lemma1 = get_lemma(w1)
+            lemma2 = get_lemma(w2)
+            if lemma1 and lemma2 and lemma1 != lemma2:
+                skip_alignment = True  # Разные леммы — не фильтруем
+
+        if not skip_alignment:
+            should_filter, reason = check_alignment_artifact(
+                w1, w2,
+                error_type='substitution',
+                get_lemma_func=get_lemma if HAS_PYMORPHY else None,
+                get_pos_func=get_pos if HAS_PYMORPHY else None,
+                get_case_func=get_case if HAS_PYMORPHY else None
         )
         if should_filter:
             return True, reason
@@ -357,6 +411,9 @@ def should_filter_error(
                 if hyphenated in original_ctx:
                     return True, 'interrogative_split_to'
         # Старая логика для compound_particle_to
+        # v9.3.2: Рефакторинг костыля "как то ... там"
+        # Устойчивые выражения: "как-то там", "что-то там", "где-то там" и т.д.
+        # Яндекс разбивает их на "как то там" — это ложная вставка "то"
         context = error.get('context', '').lower()
         compound_prefixes = [
             'что', 'как', 'кто', 'где', 'когда', 'куда', 'откуда', 'почему', 'зачем',
@@ -370,8 +427,12 @@ def should_filter_error(
                 after_to = context[after_to_start:].strip().split()
                 if after_to:
                     next_word = after_to[0]
-                    if prefix.startswith('как') and next_word == 'там':
+                    # v9.3.2: Устойчивое выражение "{prefix}-то там" — фильтруем
+                    # Это разбитое Яндексом "как-то там", "что-то там", "где-то там"
+                    if next_word == 'там':
                         return True, 'compound_particle_to'
+                    # Если после "то" идёт направление или глагол — это реальная вставка "то"
+                    # Пример: "кто сунется то туда" — чтец реально вставил лишнее "то"
                     direction_words = {'туда', 'сюда', 'тут', 'здесь', 'теперь', 'тогда'}
                     verb_endings = ('ся', 'ет', 'ит', 'ут', 'ат', 'ют', 'ёт')
                     if next_word in direction_words or next_word.endswith(verb_endings):
@@ -717,33 +778,51 @@ def should_filter_error(
     # Только substitution, порог 90% — консервативно
     # Тестировано: 'или→и' = REAL (59%), 'и→я' = REAL (82%)
     # v9.2.2: Защита от ML для грамматических ошибок (same_lemma + diff_number)
+    # v9.3.2: Защита merged_from_ins_del — разные леммы = реальная ошибка
     if HAS_ML_CLASSIFIER and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
 
-        # v9.2.2: Защита — если одинаковая лемма, но разное число — это реальная ошибка
-        # Пример: "идущими" vs "идущим" — ML ошибочно считает FP
-        # v9.2.3: Дополнительно: если одинаковая лемма и разные окончания — потенциальная
-        #         грамматическая ошибка (pymorphy может не различить число из-за омонимии)
-        #         Пример: "тюрьмы" vs "тюрьма" — sing,gent vs plur,nomn — омонимия
-        if HAS_PYMORPHY:
-            lemma1 = get_lemma(w1)
-            lemma2 = get_lemma(w2)
-            num1 = get_number(w1)
-            num2 = get_number(w2)
-            if lemma1 and lemma2 and lemma1 == lemma2:
-                # Одинаковая лемма — проверяем грамматические различия
-                skip_ml = False
-                if num1 and num2 and num1 != num2:
-                    # Явно разное число — реальная ошибка
-                    skip_ml = True
-                elif w1 != w2 and len(w1) > 2 and len(w2) > 2:
-                    # v9.2.3: Слова отличаются, но одинаковая лемма
-                    # Это грамматическая вариация (падеж, число, род и т.д.)
-                    # Не применяем ML — пусть человек проверит
-                    skip_ml = True
+        # v9.3.2: Защита merged — разные леммы = реальная ошибка чтеца, ML не применяем
+        skip_ml_merged = False
+        if is_merged and HAS_PYMORPHY:
+            lemma1_m = get_lemma(w1)
+            lemma2_m = get_lemma(w2)
+            if lemma1_m and lemma2_m and lemma1_m != lemma2_m:
+                skip_ml_merged = True  # Merged с разными леммами — реальная ошибка
 
-                if not skip_ml:
-                    # Применяем ML только если слова идентичны (чистый FP)
+        if not skip_ml_merged:
+            # v9.2.2: Защита — если одинаковая лемма, но разное число — это реальная ошибка
+            # Пример: "идущими" vs "идущим" — ML ошибочно считает FP
+            # v9.2.3: Дополнительно: если одинаковая лемма и разные окончания — потенциальная
+            #         грамматическая ошибка (pymorphy может не различить число из-за омонимии)
+            #         Пример: "тюрьмы" vs "тюрьма" — sing,gent vs plur,nomn — омонимия
+            if HAS_PYMORPHY:
+                lemma1 = get_lemma(w1)
+                lemma2 = get_lemma(w2)
+                num1 = get_number(w1)
+                num2 = get_number(w2)
+                if lemma1 and lemma2 and lemma1 == lemma2:
+                    # Одинаковая лемма — проверяем грамматические различия
+                    skip_ml = False
+                    if num1 and num2 and num1 != num2:
+                        # Явно разное число — реальная ошибка
+                        skip_ml = True
+                    elif w1 != w2 and len(w1) > 2 and len(w2) > 2:
+                        # v9.2.3: Слова отличаются, но одинаковая лемма
+                        # Это грамматическая вариация (падеж, число, род и т.д.)
+                        # Не применяем ML — пусть человек проверит
+                        skip_ml = True
+
+                    if not skip_ml:
+                        # Применяем ML только если слова идентичны (чистый FP)
+                        try:
+                            is_fp, confidence = _ml_classifier.predict(w1, w2)
+                            if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
+                                return True, f'ml_classifier({confidence:.2f})'
+                        except Exception:
+                            pass
+                else:
+                    # Разные леммы — применяем ML
                     try:
                         is_fp, confidence = _ml_classifier.predict(w1, w2)
                         if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
@@ -751,21 +830,13 @@ def should_filter_error(
                     except Exception:
                         pass
             else:
-                # Разные леммы — применяем ML
+                # Без морфологии — применяем ML
                 try:
                     is_fp, confidence = _ml_classifier.predict(w1, w2)
                     if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
                         return True, f'ml_classifier({confidence:.2f})'
                 except Exception:
                     pass
-        else:
-            # Без морфологии — применяем ML
-            try:
-                is_fp, confidence = _ml_classifier.predict(w1, w2)
-                if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
-                    return True, f'ml_classifier({confidence:.2f})'
-            except Exception:
-                pass
 
     # ==== УРОВЕНЬ 11: SmartFilter — ОТКЛЮЧЁН ====
     # ПРИЧИНА: Все оставшиеся FP имеют score > 70 (grammar_change)
@@ -778,6 +849,18 @@ def should_filter_error(
     #             return True, f'smart_filter(score={smart_result.score})'
     #     except Exception:
     #         pass
+
+    # ==== УРОВЕНЬ 12: ContextVerifier v1.0 ====
+    # Контекстная верификация: проверяет артефакты склеенных/разбитых слов
+    # Работает только для insertion (пока)
+    # Безопасно: протестировано на golden, 0 ложных фильтраций
+    if HAS_CONTEXT_VERIFIER and error_type == 'insertion':
+        try:
+            is_fp, reason = should_filter_by_context(error)
+            if is_fp:
+                return True, reason
+        except Exception:
+            pass
 
     return False, 'real_error'
 
