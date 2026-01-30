@@ -43,7 +43,7 @@ Changelog:
         - Интеграция с CharacterGuard для увеличенного буфера имён
         - Нормализация дефисов: "Красно-волосый" → "Красноволосый"
     v6.0 (2026-01-26): Интеграция с smart_rules и улучшенная фонетика
-        - Используем phonetic_normalize из filters.smart_rules
+        - Используем phonetic_normalize из filters.comparison (v8.0: консолидировано)
         - Улучшенный анализ серых зон
         - Интеграция с morphology.py v6.0
     v3.1 (2026-01-24): Исправление неправильных сопоставлений
@@ -90,15 +90,14 @@ except ImportError:
     morphology_get_lemma = None
     HAS_PYMORPHY = False
 
-# Импорт smart_rules (v6.0)
+# Импорт phonetic_normalize (v8.0 — из comparison)
 try:
-    from filters.smart_rules import (
-        get_smart_rules, is_smart_false_positive, phonetic_normalize as smart_phonetic_normalize
-    )
-    HAS_SMART_RULES = True
+    from filters.comparison import phonetic_normalize as smart_phonetic_normalize
 except ImportError:
-    HAS_SMART_RULES = False
     smart_phonetic_normalize = None
+
+# v11.7.1: smart_rules УДАЛЁН — фильтрация только в engine.py
+HAS_SMART_RULES = False
 
 
 # =============================================================================
@@ -1625,13 +1624,8 @@ def smart_compare(transcript_path: str, original_path: str,
                     phon_sim = phonetic_similarity(orig_word.text, trans_word.text) / 100.0
                     combined = max(sim, phon_sim)
 
-                    # v6.0: Проверяем smart_rules для раннего определения ложных срабатываний
-                    # Это позволяет пометить некоторые ошибки как "yandex" уже на этапе сравнения
+                    # v11.7.2: smart_rules удалён, фильтрация в engine.py
                     is_yandex = False
-                    if HAS_SMART_RULES:
-                        smart_result = get_smart_rules().is_false_positive(trans_word.text, orig_word.text)
-                        if smart_result and smart_result.is_match and smart_result.confidence >= 0.9:
-                            is_yandex = True  # Высокая уверенность — помечаем как ошибку Яндекса
 
                     # v8.0: Проверяем ScoringEngine для защиты имён и hard negatives
                     penalty_info = ""

@@ -1,0 +1,524 @@
+{
+  "yandex_name_error": {
+    "total_filtered": 459,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 459,
+    "status": "effective",
+    "examples": []
+  },
+  "morpho_same_form": {
+    "total_filtered": 184,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 184,
+    "status": "effective",
+    "examples": []
+  },
+  "alignment_artifact": {
+    "total_filtered": 562,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 562,
+    "status": "effective",
+    "examples": []
+  },
+  "morpho_homophone": {
+    "total_filtered": 128,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 128,
+    "status": "effective",
+    "examples": []
+  },
+  "yandex_typical": {
+    "total_filtered": 730,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 730,
+    "status": "effective",
+    "examples": []
+  },
+  "morpho_proper_name": {
+    "total_filtered": 184,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 184,
+    "status": "effective",
+    "examples": []
+  },
+  "split_name": {
+    "total_filtered": 23,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 23,
+    "status": "effective",
+    "examples": []
+  },
+  "sentence_start_weak": {
+    "total_filtered": 70,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 70,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.47)": {
+    "total_filtered": 13,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "safe_ending_transition": {
+    "total_filtered": 217,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 217,
+    "status": "effective",
+    "examples": []
+  },
+  "homophone": {
+    "total_filtered": 85,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 85,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.41)": {
+    "total_filtered": 46,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "misrecognition_artifact": {
+    "total_filtered": 31,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 31,
+    "status": "effective",
+    "examples": []
+  },
+  "linked_prefix_error": {
+    "total_filtered": 94,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 94,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.46)": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.54)": {
+    "total_filtered": 20,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.76)": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "case_form": {
+    "total_filtered": 19,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 19,
+    "status": "effective",
+    "examples": []
+  },
+  "split_word_insertion": {
+    "total_filtered": 17,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 17,
+    "status": "effective",
+    "examples": []
+  },
+  "interjection": {
+    "total_filtered": 186,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 186,
+    "status": "effective",
+    "examples": []
+  },
+  "alignment_artifact_substring": {
+    "total_filtered": 32,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 32,
+    "status": "effective",
+    "examples": []
+  },
+  "ml_classifier(0.94)": {
+    "total_filtered": 10,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 8,
+    "effectiveness": 10,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.67)": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "single_consonant_artifact": {
+    "total_filtered": 90,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 90,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.74)": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "ml_classifier(0.98)": {
+    "total_filtered": 15,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 15,
+    "status": "effective",
+    "examples": []
+  },
+  "verb_gerund_safe": {
+    "total_filtered": 15,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 15,
+    "status": "effective",
+    "examples": []
+  },
+  "character_name_unrecognized": {
+    "total_filtered": 60,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 60,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.58)": {
+    "total_filtered": 23,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "ml_classifier(0.91)": {
+    "total_filtered": 12,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 12,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.65)": {
+    "total_filtered": 21,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.63)": {
+    "total_filtered": 26,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "adverb_adjective": {
+    "total_filtered": 29,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 29,
+    "status": "effective",
+    "examples": []
+  },
+  "weak_words_same_lemma": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 11,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.49)": {
+    "total_filtered": 22,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "ml_classifier(0.97)": {
+    "total_filtered": 2,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 2,
+    "effectiveness": 2,
+    "status": "low_impact",
+    "examples": []
+  },
+  "hyphenated_part": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 11,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.64)": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "ml_classifier(0.96)": {
+    "total_filtered": 9,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 8,
+    "effectiveness": 9,
+    "status": "effective",
+    "examples": []
+  },
+  "ml_classifier(0.93)": {
+    "total_filtered": 12,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 12,
+    "status": "effective",
+    "examples": []
+  },
+  "yandex_truncate_artifact": {
+    "total_filtered": 7,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 7,
+    "effectiveness": 7,
+    "status": "effective",
+    "examples": []
+  },
+  "split_name_insertion": {
+    "total_filtered": 7,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 7,
+    "effectiveness": 7,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.51)": {
+    "total_filtered": 10,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 10,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.61)": {
+    "total_filtered": 23,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "rare_adverb": {
+    "total_filtered": 4,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 4,
+    "effectiveness": 4,
+    "status": "low_impact",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.70)": {
+    "total_filtered": 2,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 2,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.44)": {
+    "total_filtered": 17,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.43)": {
+    "total_filtered": 11,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 11,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "compound_word": {
+    "total_filtered": 3,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 3,
+    "effectiveness": 3,
+    "status": "low_impact",
+    "examples": []
+  },
+  "short_full_adjective": {
+    "total_filtered": 6,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 6,
+    "effectiveness": 6,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.40)": {
+    "total_filtered": 7,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 7,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "ml_classifier(0.92)": {
+    "total_filtered": 9,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 9,
+    "effectiveness": 9,
+    "status": "effective",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.48)": {
+    "total_filtered": 2,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 2,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.42)": {
+    "total_filtered": 1,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 1,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  },
+  "ml_classifier(0.95)": {
+    "total_filtered": 3,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 3,
+    "effectiveness": 3,
+    "status": "low_impact",
+    "examples": []
+  },
+  "ml_classifier(1.00)": {
+    "total_filtered": 1,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 1,
+    "effectiveness": 1,
+    "status": "low_impact",
+    "examples": []
+  },
+  "split_word_yandex": {
+    "total_filtered": 2,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 2,
+    "effectiveness": 2,
+    "status": "low_impact",
+    "examples": []
+  },
+  "PROTECTED_semantic_slip(0.62)": {
+    "total_filtered": 1,
+    "total_golden_hit": 0,
+    "total_golden_protected": 0,
+    "runs": 1,
+    "effectiveness": 0,
+    "status": "protection",
+    "examples": []
+  }
+}

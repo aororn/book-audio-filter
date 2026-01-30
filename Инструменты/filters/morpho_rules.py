@@ -48,55 +48,9 @@ except ImportError:
     get_case = lambda x: None
 
 try:
-    from .comparison import levenshtein_distance
+    from .comparison import levenshtein_distance, phonetic_normalize
 except ImportError:
-    from comparison import levenshtein_distance
-
-
-# =============================================================================
-# ФОНЕТИЧЕСКАЯ НОРМАЛИЗАЦИЯ
-# =============================================================================
-
-def phonetic_normalize(word: str) -> str:
-    """
-    Фонетическая нормализация слова.
-    Приводит слово к фонетическому представлению.
-    """
-    if not word:
-        return ''
-
-    w = word.lower()
-
-    # Оглушение согласных в конце слова
-    w = w.rstrip('б').rstrip('в').rstrip('г').rstrip('д').rstrip('ж').rstrip('з')
-    if word.lower().endswith('б'): w += 'п'
-    elif word.lower().endswith('в'): w += 'ф'
-    elif word.lower().endswith('г'): w += 'к'
-    elif word.lower().endswith('д'): w += 'т'
-    elif word.lower().endswith('ж'): w += 'ш'
-    elif word.lower().endswith('з'): w += 'с'
-    else:
-        w = word.lower()
-
-    # Редукция гласных
-    replacements = [
-        ('ого', 'ова'),
-        ('его', 'ева'),
-        ('тся', 'ца'),
-        ('ться', 'ца'),
-        ('чт', 'шт'),
-        ('сч', 'щ'),
-        ('зч', 'щ'),
-        ('сш', 'ш'),
-        ('зш', 'ш'),
-        ('сж', 'ж'),
-        ('зж', 'ж'),
-    ]
-
-    for old, new in replacements:
-        w = w.replace(old, new)
-
-    return w
+    from comparison import levenshtein_distance, phonetic_normalize
 
 
 @dataclass

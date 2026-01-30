@@ -1,10 +1,34 @@
 """
-Движок фильтрации ошибок транскрипции v8.9.
+Движок фильтрации ошибок транскрипции v9.2.
 
 Содержит:
-- should_filter_error — решение по одной ошибке (20+ уровней фильтрации)
+- should_filter_error — решение по одной ошибке (оркестратор правил)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v9.2 изменения (2026-01-30):
+- ИНТЕГРАЦИЯ: ML-классификатор (ml_classifier.py) как уровень 10
+  - RandomForest на 22 признаках, порог 90%
+  - Фильтрует только с высокой уверенностью
+- ИНТЕГРАЦИЯ: SmartFilter (smart_filter.py) как уровень 11
+  - Полноценная система на накопительном скоринге
+  - Частотный анализ + семантика + скользящее окно
+
+v9.1 изменения (2026-01-30):
+- МИГРАЦИЯ: Inline-код заменён на вызовы rules/ модулей:
+  - SAFE_ENDING_TRANSITIONS → rules.check_safe_ending_transition()
+  - YANDEX_PHONETIC_PAIRS → rules.check_yandex_phonetic_pair()
+  - alignment_artifact → rules.check_alignment_artifact()
+  - single_consonant_artifact → rules.check_single_consonant_artifact()
+  - i_ya_confusion → rules.check_i_ya_confusion()
+- Убраны дублирующие inline-константы
+
+v9.0 изменения (2026-01-30):
+- РЕФАКТОРИНГ: Правила вынесены в модули rules/
+  - rules/protection.py — защитные слои
+  - rules/phonetics.py — фонетические пары
+  - rules/alignment.py — артефакты выравнивания
+- engine.py теперь ОРКЕСТРАТОР, а не монолит
 
 v8.9 изменения (2026-01-30):
 - Интеграция SemanticManager: семантическая близость как ЗАЩИТНЫЙ слой
@@ -64,6 +88,7 @@ from .constants import (
     ALIGNMENT_ARTIFACTS_INS, WEAK_INSERTIONS, FUNCTION_WORDS,
     YANDEX_SPLIT_INSERTIONS, SENTENCE_START_WEAK_WORDS,
     YANDEX_SPLIT_PAIRS, INTERROGATIVE_PRONOUNS, RARE_ADVERBS,
+    SKIP_SPLIT_FRAGMENT,  # v11.8: перемещено из локальной переменной
 )
 from .comparison import (
     normalize_word, get_word_info, get_lemma, get_pos, get_number, get_case,
@@ -84,9 +109,31 @@ from .detectors import (
 )
 from .morpho_rules import get_morpho_rules, is_morpho_false_positive
 
+# v9.0: Импорт модульных правил из rules/
+try:
+    from .rules import (
+        apply_protection_layers,
+        check_yandex_phonetic_pair,
+        check_i_ya_confusion,
+        check_alignment_artifact,
+        check_safe_ending_transition,
+        check_single_consonant_artifact,
+        YANDEX_PHONETIC_PAIRS,
+        SAFE_ENDING_TRANSITIONS,
+        COMPOUND_PARTICLES,
+        SINGLE_CONSONANT_ARTIFACTS,
+    )
+    HAS_RULES_MODULE = True
+except ImportError:
+    HAS_RULES_MODULE = False
+
 # Версия модуля
-VERSION = '8.9.0'
+VERSION = '9.2.1'
 VERSION_DATE = '2026-01-30'
+
+# v9.2.1 изменения:
+# - Эксперимент ML 85% НЕ ПРОШЁЛ: "услышав → услышал" отфильтровано
+# - Порог возвращён на 90%
 
 # Минимальная совместимая версия smart_compare для валидации
 MIN_SMART_COMPARE_VERSION = '10.5.0'
@@ -114,6 +161,33 @@ try:
     HAS_SMART_SCORER = True
 except ImportError:
     HAS_SMART_SCORER = False
+
+# v11.8: Импорт SmartFilter для полноценной фильтрации
+try:
+    from .smart_filter import SmartFilter, get_smart_filter, evaluate_error_smart
+    HAS_SMART_FILTER = True
+except ImportError:
+    HAS_SMART_FILTER = False
+
+# v11.8: Импорт ML-классификатора
+try:
+    import sys
+    from pathlib import Path
+    _parent_dir = Path(__file__).parent.parent
+    if str(_parent_dir) not in sys.path:
+        sys.path.insert(0, str(_parent_dir))
+    from ml_classifier import get_classifier, FalsePositiveClassifier
+    _ml_classifier = get_classifier()
+    HAS_ML_CLASSIFIER = _ml_classifier.model is not None
+except Exception:
+    HAS_ML_CLASSIFIER = False
+    _ml_classifier = None
+
+# Порог уверенности для ML-классификатора
+# v12.1: Эксперимент с 85% — НЕ ПРОШЁЛ (2026-01-30)
+# При 85% отфильтровалась golden ошибка "услышав → услышал" (86.1%)
+# Оставляем консервативный порог 90%
+ML_CONFIDENCE_THRESHOLD = 0.90
 
 # v8.9: Калиброванные пороги на основе анализа БД (941 ошибок)
 # Анализ: high semantic + diff_lemma = 12 golden, 247 FP
@@ -192,89 +266,35 @@ def should_filter_error(
         if morpho_result and morpho_result.should_filter:
             return True, f'morpho_{morpho_result.rule_name}'
 
-    # ==== УРОВЕНЬ 0.3: Безопасные окончания (v8.8) ====
+    # ==== УРОВЕНЬ 0.3: Безопасные окончания (v8.8 → v9.1 migrated to rules/) ====
     # Переходы окончаний, которые встречаются ТОЛЬКО в FP, НИКОГДА в Golden
-    # Выявлены анализом БД: 79 уникальных переходов только в FP
-    SAFE_ENDING_TRANSITIONS = {
-        # Существительные на -ие/-ия (падежи): 14 FP, 0 Golden
-        ('ие', 'ия'), ('ия', 'ие'),
-        # Прилагательные число/род: 11 FP, 0 Golden
-        ('ые', 'ое'), ('ая', 'ые'), ('ое', 'ые'), ('ые', 'ый'), ('ый', 'ой'),
-        # Глаголы 3л. ед/мн: 11 FP, 0 Golden
-        ('ит', 'ят'), ('ят', 'ит'), ('ют', 'ет'), ('ет', 'ют'),
-        # Существительные число: 8 FP, 0 Golden
-        ('на', 'ны'), ('ну', 'ны'), ('ма', 'мы'),
-        # Прилагательные падежи: 4 FP, 0 Golden
-        ('ий', 'ии'), ('ии', 'ия'), ('ой', 'ны'),
-        # v8.8: Дополнительные переходы из анализа БД
-        # Существительные -ье/-ья (зелье/зелья): 4 FP, 0 Golden
-        ('ья', 'ье'), ('ье', 'ья'),
-        # Существительные -ей/-ли (мыслей/мысли): 2 FP, 0 Golden
-        ('ей', 'ли'),
-        # Существительные -ью/-ти (костью/кости): 2 FP, 0 Golden
-        ('ью', 'ти'),
-    }
-
-    if error_type == 'substitution' and len(words_norm) >= 2:
+    if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
-        # Проверяем только если same_lemma=1 и same_POS (безопасные условия)
-        if len(w1) >= 3 and len(w2) >= 3:
-            end1 = w1[-2:]
-            end2 = w2[-2:]
-            if (end1, end2) in SAFE_ENDING_TRANSITIONS:
-                # Дополнительная проверка: same_lemma и same_POS
-                if HAS_PYMORPHY:
-                    lemma1 = get_lemma(w1)
-                    lemma2 = get_lemma(w2)
-                    pos1 = get_pos(w1)
-                    pos2 = get_pos(w2)
-                    if lemma1 and lemma2 and lemma1 == lemma2 and pos1 == pos2:
-                        return True, 'safe_ending_transition'
+        should_filter, reason = check_safe_ending_transition(
+            w1, w2,
+            get_lemma_func=get_lemma if HAS_PYMORPHY else None,
+            get_pos_func=get_pos if HAS_PYMORPHY else None
+        )
+        if should_filter:
+            return True, reason
 
-    # ==== УРОВЕНЬ 0.5: Фонетические пары Яндекса (v8.2) ====
-    YANDEX_PHONETIC_PAIRS = {
-        ('не', 'ни'), ('ни', 'не'),
-        ('ну', 'но'), ('но', 'ну'),
-        ('а', 'о'), ('о', 'а'),
-        ('и', 'э'), ('э', 'и'),
-        ('хм', 'кхм'), ('кхм', 'хм'),
-        ('ах', 'ох'), ('ох', 'ах'),
-        ('он', 'она'), ('она', 'он'),
-        ('я', 'и'), ('и', 'я'),
-    }
-    if error_type == 'substitution' and len(words_norm) >= 2:
-        pair = (words_norm[0], words_norm[1])
-        if pair in YANDEX_PHONETIC_PAIRS:
-            return True, 'yandex_phonetic_pair'
+    # ==== УРОВЕНЬ 0.5: Фонетические пары Яндекса (v8.2 → v9.1 migrated to rules/) ====
+    if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
+        should_filter, reason = check_yandex_phonetic_pair(words_norm[0], words_norm[1])
+        if should_filter:
+            return True, reason
 
-    # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4) ====
-    # Частицы в составных словах — НЕ артефакты
-    COMPOUND_PARTICLES = {'то', 'нибудь', 'либо', 'кое', 'таки'}
-
-    if error_type == 'substitution' and len(words_norm) >= 2:
+    # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4 → v9.1 migrated to rules/) ====
+    if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
-
-        # v8.3: Исключаем частицы составных слов
-        if w1 in COMPOUND_PARTICLES or w2 in COMPOUND_PARTICLES:
-            pass  # Не фильтруем — это реальные замены
-        else:
-            len1, len2 = len(w1), len(w2)
-            # Паттерн 1: Короткое слово (≤2) vs длинное (≥5)
-            if (len1 <= 2 and len2 >= 5) or (len2 <= 2 and len1 >= 5):
-                return True, 'alignment_artifact_length'
-            # Паттерн 2: Одно слово является подстрокой другого
-            # v8.4: НО если леммы равны — это грамматика, не артефакт!
-            if len1 >= 3 and len2 >= 3:
-                if w1 in w2 or w2 in w1:
-                    if abs(len1 - len2) >= 2:
-                        # v8.4: Проверяем леммы
-                        lemma1 = get_lemma(w1)
-                        lemma2 = get_lemma(w2)
-                        if lemma1 and lemma2 and lemma1 == lemma2:
-                            # Одинаковые леммы = грамматика, НЕ артефакт
-                            pass
-                        else:
-                            return True, 'alignment_artifact_substring'
+        should_filter, reason = check_alignment_artifact(
+            w1, w2,
+            error_type='substitution',
+            get_lemma_func=get_lemma if HAS_PYMORPHY else None,
+            get_pos_func=get_pos if HAS_PYMORPHY else None
+        )
+        if should_filter:
+            return True, reason
 
     # ==== ЭТАП 0: Артефакты алгоритма выравнивания ====
 
@@ -354,11 +374,7 @@ def should_filter_error(
         if is_split_name_insertion(words_norm[0], transcript_context):
             return True, 'split_name'
 
-    # ОТКЛЮЧЕНО v8.5.1: compound_prefix удаляет 51 golden и 17 FP — плохое соотношение
-    # if error_type == 'insertion':
-    #     transcript_context = error.get('transcript_context', '')
-    #     if is_compound_prefix_insertion(words_norm[0], transcript_context):
-    #         return True, 'compound_prefix'
+    # ОТКЛЮЧЕНО v8.5.1: compound_prefix — см. deprecated_filters.py
 
     if error_type == 'insertion':
         transcript_context = error.get('transcript_context', '')
@@ -373,16 +389,7 @@ def should_filter_error(
         if pattern in transcript_ctx:
             return True, 'split_word_yandex'
 
-    # INS из разбитых пар слов (жетон → "вот он", выторговали → "это говори")
-    # ОТКЛЮЧЕНО v8.5.1: Фильтр имеет 50% accuracy (11 golden, 11 FP) — слишком низкая точность
-    # if error_type == 'insertion' and words_norm[0]:
-    #     transcript_ctx = error.get('transcript_context', '').lower()
-    #     inserted = words_norm[0]
-    #     for (prev_word, ins_word), original_word in YANDEX_SPLIT_PAIRS.items():
-    #         if inserted == ins_word:
-    #             pattern = f'{prev_word} {ins_word}'
-    #             if pattern in transcript_ctx:
-    #                 return True, 'split_pair_yandex'
+    # ОТКЛЮЧЕНО v8.5.1: yandex_split_pairs — см. deprecated_filters.py
 
     # INS как суффикс разбитого слова (говори от выторговали)
     if error_type == 'insertion' and len(words_norm[0]) >= 4:
@@ -395,20 +402,11 @@ def should_filter_error(
             if len(ctx_clean) >= len(inserted) + 3 and ctx_clean.endswith(inserted):
                 return True, 'split_suffix_insertion'
 
-    # v5.3: INS дублирующиеся слова (где где, там там)
-    # ОТКЛЮЧЕНО v8.5.1: Фильтр удаляет 51 golden и только 3 FP — полностью вреден
-    # Дублирование слова может быть реальной ошибкой чтеца
-    # if error_type == 'insertion' and words_norm[0]:
-    #     inserted = words_norm[0]
-    #     transcript_ctx = error.get('transcript_context', '').lower()
-    #     trans_words = transcript_ctx.split()
-    #     for i in range(len(trans_words) - 1):
-    #         if trans_words[i] == inserted and trans_words[i + 1] == inserted:
-    #             return True, 'duplicate_word_insertion'
+    # ОТКЛЮЧЕНО v8.5.1: duplicate_word_insertion — см. deprecated_filters.py
 
     # v5.3: INS коротких слов от разбиения длинных (мы от "големы", ли от "или")
     # v5.4: НЕ применяем к однобуквенным союзам/частицам — это настоящие ошибки чтеца
-    SKIP_SPLIT_FRAGMENT = {'и', 'а', 'я', 'о', 'у', 'в', 'с', 'к'}
+    # v11.8: SKIP_SPLIT_FRAGMENT перемещено в constants.py
     if error_type == 'insertion' and len(words_norm[0]) == 2 and words_norm[0] not in SKIP_SPLIT_FRAGMENT:
         inserted = words_norm[0]
         transcript_ctx = error.get('transcript_context', '').lower()
@@ -432,14 +430,12 @@ def should_filter_error(
         if is_interjection(words_norm[0]):
             return True, 'interjection'
 
-    # v8.7: Однобуквенные согласные — артефакты выравнивания
-    # Безопасно: проверено на БД — 0 golden среди этих букв
-    # Исключены: я, и (есть golden), а, о, у (могут быть союзами/междометиями)
-    SINGLE_CONSONANT_ARTIFACTS = {'с', 'в', 'м', 'п', 'к', 'ф', 'х', 'э'}
-    if error_type in ('deletion', 'insertion'):
-        word_to_check = words_norm[0] if error_type == 'deletion' else words_norm[0]
-        if len(word_to_check) == 1 and word_to_check in SINGLE_CONSONANT_ARTIFACTS:
-            return True, 'single_consonant_artifact'
+    # v8.7: Однобуквенные согласные — артефакты выравнивания (→ v9.1 migrated to rules/)
+    if HAS_RULES_MODULE and error_type in ('deletion', 'insertion'):
+        word_to_check = words_norm[0]
+        should_filter, reason = check_single_consonant_artifact(word_to_check)
+        if should_filter:
+            return True, reason
 
     # v8.8: Артефакты распознавания — вставленное слово похоже на слово в контексте
     # Примеры: "блядочное"~"ублюдочные", "оголим"~"големах", "смертник"~"пересмешник"
@@ -488,25 +484,7 @@ def should_filter_error(
         if f'-{deleted}' in context.lower() or f'{deleted}-' in context.lower():
             return True, 'hyphenated_part'
 
-    # v5.5: DEL частиц "же"/"ли" в середине предложения
-    # ОТКЛЮЧЕНО v8.5.1: Фильтр слишком агрессивен — удаляет 20 golden, 0 FP
-    # Яндекс часто пропускает эти частицы: "Я же просунул" → "Я просунул"
-    # Но чтец тоже может пропустить "же" — нельзя автоматически фильтровать
-    # if error_type == 'deletion' and words_norm[0] in {'же', 'ли', 'ль'}:
-    #     context = error.get('context', '')
-    #     marker_pos = error.get('marker_pos', -1)
-    #     if marker_pos > 0:
-    #         before = context[:marker_pos].rstrip()
-    #         if before and before[-1] not in '.!?':
-    #             before_words = before.split()
-    #             if before_words:
-    #                 last_word = before_words[-1].lower().rstrip('.,!?')
-    #                 pronouns_and_adverbs = {
-    #                     'я', 'ты', 'он', 'она', 'оно', 'мы', 'вы', 'они',
-    #                     'кто', 'что', 'это', 'то', 'так', 'тут', 'там', 'ещё', 'еще'
-    #                 }
-    #                 if last_word in pronouns_and_adverbs:
-    #                     return True, 'yandex_particle_deletion'
+    # ОТКЛЮЧЕНО v8.5.1: yandex_particle_deletion — см. deprecated_filters.py
 
     # v5.3: DEL частей составных слов (возвышение от само+возвышение, звёздной от шести+звёздной)
     if error_type == 'deletion' and len(words_norm[0]) >= 4:
@@ -618,24 +596,7 @@ def should_filter_error(
                 if before and before[-1] in '.!?':
                     return True, 'sentence_start_conjunction'
 
-        # v5.5: INS "и"/"а" перед деепричастием — Яндекс вставляет союз
-        # v5.5: INS "и"/"а" перед деепричастием — Яндекс вставляет союз
-        # ОТКЛЮЧЕНО v8.5.1: Фильтр слишком агрессивен — удаляет 51 golden, 0 FP
-        # Пример: "быстро, короткими фразами ведя" → "короткими фразами и ведя"
-        # Но чтец тоже может вставить лишний союз — нельзя автоматически фильтровать
-        # if word in {'и', 'а'} and HAS_PYMORPHY:
-        #     transcript_ctx = error.get('transcript_context', '').lower()
-        #     if transcript_ctx:
-        #         trans_words = transcript_ctx.split()
-        #         for i, tw in enumerate(trans_words):
-        #             if tw == word and i + 1 < len(trans_words):
-        #                 next_word = trans_words[i + 1]
-        #                 parsed = morph.parse(next_word)
-        #                 if parsed and parsed[0].tag.POS == 'GRND':
-        #                     return True, 'yandex_conjunction_before_gerund'
-        #                 if next_word.endswith(('ая', 'яя', 'ив', 'ав', 'ши', 'вши')):
-        #                     return True, 'yandex_conjunction_before_gerund'
-        #                 break
+        # ОТКЛЮЧЕНО v8.5.1: yandex_conjunction_before_gerund — см. deprecated_filters.py
 
         context = error.get('context', '').lower()
         if len(word) >= 3:
@@ -675,58 +636,21 @@ def should_filter_error(
         if w2 in {'и', 'а'} and len(w1) > 2 and w1.startswith(w2) and w1 not in {'или'}:
             return True, 'yandex_expand_artifact'
 
-        # v5.6: Расширенный паттерн и↔я
-        # Яндекс ОЧЕНЬ часто путает "и" и "я" в следующих контекстах:
-        # 1. Граница предложений: "сказал. Я" → "сказал и"
-        # 2. После глагола прошедшего времени: "кричал я" → "кричал и"
-        # 3. После возвратного глагола: "справлюсь я" → "справлюсь и"
-        # 4. Перед глаголом 1 лица: "я надеюсь" → "и надеюсь"
-        # 5. В безударной позиции между двумя словами
-        if (w1 == 'и' and w2 == 'я') or (w1 == 'я' and w2 == 'и'):
-            context = error.get('context', '').lower()
+        # v5.6: Расширенный паттерн и↔я (→ v9.1 migrated to rules/)
+        # Яндекс ОЧЕНЬ часто путает "и" и "я" в определённых контекстах
+        if HAS_RULES_MODULE and ((w1 == 'и' and w2 == 'я') or (w1 == 'я' and w2 == 'и')):
+            context = error.get('context', '')
             marker_pos = error.get('marker_pos', -1)
-
-            if marker_pos > 0:
-                before = context[:marker_pos].rstrip()
-                after = context[marker_pos:].lstrip() if marker_pos < len(context) else ''
-                # Убираем само слово из after (оно может быть частью контекста)
-                after_words = after.split()[1:] if after.split() else []
-
-                # Проверяем: заканчивается на глагол + точка или просто глагол
-                before_words = before.replace('.', ' . ').replace('!', ' ! ').replace('?', ' ? ').split()
-                if before_words:
-                    last_word = before_words[-1]
-                    # 1. Если перед и/я стоит точка — граница предложений
-                    if last_word in {'.', '!', '?'}:
-                        return True, 'yandex_i_ya_boundary'
-                    # 2. Если последнее слово — глагол прошедшего времени (-л/-ла/-ло/-ли)
-                    if last_word.endswith(('л', 'ла', 'ло', 'ли', 'лся', 'лась', 'лось', 'лись')):
-                        return True, 'yandex_i_ya_after_verb'
-                    # 3. Возвратный глагол на -сь/-ся
-                    if last_word.endswith(('сь', 'ся', 'шься', 'шись', 'юсь', 'усь')):
-                        return True, 'yandex_i_ya_after_verb'
-                    # 4. Глагол 1 лица на -у/-ю (думаю, верю, иду)
-                    if last_word.endswith(('ю', 'у')) and len(last_word) >= 3:
-                        return True, 'yandex_i_ya_after_verb'
-
-                # 5. Перед глаголом 1 лица в будущем/настоящем времени
-                if after_words:
-                    next_word = after_words[0].rstrip('.,!?')
-                    if next_word.endswith(('ю', 'у', 'юсь', 'усь')) and len(next_word) >= 3:
-                        return True, 'yandex_i_ya_before_verb'
-                    # Местоимения и наречия после я → реальное слово "я"
-                    # Но Яндекс часто слышит "и" вместо "я" перед существительными
-                    if HAS_PYMORPHY:
-                        parsed = morph.parse(next_word)
-                        if parsed and parsed[0].tag.POS in {'VERB', 'INFN'}:
-                            # Если следующее слово — глагол, то я→и частая ошибка
-                            return True, 'yandex_i_ya_before_verb'
+            should_filter, reason = check_i_ya_confusion(w1, w2, context, marker_pos)
+            if should_filter:
+                return True, reason
 
             # 6. Fallback: если pymorphy доступен, проверяем общий контекст
             # Если окружение содержит много глаголов — скорее всего ошибка Яндекса
             # v5.6.1: Увеличен порог с 2 до 3, чтобы избежать ложных срабатываний
             if HAS_PYMORPHY:
-                context_words = context.split()
+                context_lower = context.lower()
+                context_words = context_lower.split()
                 verb_count = 0
                 for cw in context_words[:10]:  # Смотрим первые 10 слов
                     cw_clean = normalize_word(cw.rstrip('.,!?'))
@@ -755,23 +679,7 @@ def should_filter_error(
         if is_merged_word_error(w1, original_context):
             return True, 'merged_word'
 
-        # v6.1: ОТКЛЮЧЕНО — заменено на smart_grammar
-        # if is_grammar_ending_match(w1, w2):
-        #     if HAS_PYMORPHY:
-        #         lemma1 = get_lemma(w1)
-        #         lemma2 = get_lemma(w2)
-        #         if lemma1 == lemma2:
-        #             pos1 = get_pos(w1)
-        #             pos2 = get_pos(w2)
-        #             if (pos1 == 'VERB' and pos2 == 'GRND') or (pos1 == 'GRND' and pos2 == 'VERB'):
-        #                 pass
-        #             else:
-        #                 num1 = get_number(w1)
-        #                 num2 = get_number(w2)
-        #                 if num1 and num2 and num1 != num2:
-        #                     pass
-        #                 else:
-        #                     return True, 'grammar_ending'
+        # v6.1: grammar_ending заменено на morpho_rules.py
 
         if is_case_form_match(w1, w2):
             return True, 'case_form'
@@ -785,19 +693,7 @@ def should_filter_error(
         if is_verb_gerund_safe_match(w1, w2):
             return True, 'verb_gerund_safe'
 
-        # v6.1: ОТКЛЮЧЕНО — заменено на smart_lemma
-        # if use_lemmatization and HAS_PYMORPHY and is_lemma_match(w1, w2):
-        #     is_po_prefix = False
-        #     if w1.startswith('по') and len(w1) > 3 and w1[2:] == w2:
-        #         is_po_prefix = True
-        #     elif w2.startswith('по') and len(w2) > 3 and w2[2:] == w1:
-        #         is_po_prefix = True
-        #     if not is_po_prefix:
-        #         return True, 'same_lemma'
-
-        # v6.1: ОТКЛЮЧЕНО — заменено на smart_levenshtein
-        # if is_similar_by_levenshtein(w1, w2, levenshtein_threshold):
-        #     ... (весь блок levenshtein_same_lemma и levenshtein_similar_lemma)
+        # v6.1: same_lemma и levenshtein заменены на morpho_rules.py
 
         if is_yandex_typical_error(w1, w2):
             return True, 'yandex_typical'
@@ -805,9 +701,32 @@ def should_filter_error(
         if is_yandex_name_error(w1, w2):
             return True, 'yandex_name_error'
 
-        # v6.1: ОТКЛЮЧЕНО — заменено на smart_prefix
-        # if is_prefix_variant(w1, w2):
-        #     return True, 'prefix_variant'
+        # v6.1: prefix_variant заменён на morpho_rules.py
+
+    # ==== УРОВЕНЬ 10: ML-классификатор v1.1 ====
+    # Обучен на 93 golden + 648 FP. CV accuracy: 90%
+    # Только substitution, порог 90% — консервативно
+    # Тестировано: 'или→и' = REAL (59%), 'и→я' = REAL (82%)
+    if HAS_ML_CLASSIFIER and error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+        try:
+            is_fp, confidence = _ml_classifier.predict(w1, w2)
+            if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
+                return True, f'ml_classifier({confidence:.2f})'
+        except Exception:
+            pass
+
+    # ==== УРОВЕНЬ 11: SmartFilter — ОТКЛЮЧЁН ====
+    # ПРИЧИНА: Все оставшиеся FP имеют score > 70 (grammar_change)
+    # SmartFilter консервативен по дизайну — это ЗАЩИТА, не фильтрация
+    # Результат: 0 дополнительных фильтраций — работает правильно
+    # if HAS_SMART_FILTER and error_type == 'substitution' and len(words_norm) >= 2:
+    #     try:
+    #         smart_result = evaluate_error_smart(error, threshold=30)
+    #         if smart_result and not smart_result.should_show:
+    #             return True, f'smart_filter(score={smart_result.score})'
+    #     except Exception:
+    #         pass
 
     return False, 'real_error'
 

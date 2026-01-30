@@ -1,0 +1,260 @@
+{
+  "transcript": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Транскрибации/Глава3/03_yandex_transcript_NEW_20260125_1842.json",
+  "original": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Главы/Глава3.docx",
+  "chapter": "3",
+  "timestamp": "2026-01-30T13:40:21.478099",
+  "golden_count": 20,
+  "total_differences": 273,
+  "total_filtered": 189,
+  "remaining_errors": 84,
+  "golden_hit": 0,
+  "golden_protected": 0,
+  "filter_stats": {
+    "yandex_name_error": {
+      "filtered_count": 21,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "homophone": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "linked_prefix_error": {
+      "filtered_count": 9,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "alignment_artifact_substring": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "alignment_artifact": {
+      "filtered_count": 18,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.59)": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "character_name_unrecognized": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "morpho_same_form": {
+      "filtered_count": 24,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "morpho_proper_name": {
+      "filtered_count": 11,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "morpho_homophone": {
+      "filtered_count": 10,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.52)": {
+      "filtered_count": 4,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "ml_classifier(0.90)": {
+      "filtered_count": 4,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "unknown_word_artifact": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "yandex_typical": {
+      "filtered_count": 21,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "safe_ending_transition": {
+      "filtered_count": 36,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "ml_classifier(0.92)": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "single_consonant_artifact": {
+      "filtered_count": 10,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "ml_classifier(0.91)": {
+      "filtered_count": 3,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "hyphenated_part": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.54)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.75)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "yandex_truncate_artifact": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.44)": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.51)": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.42)": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.66)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "yandex_merge_artifact": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "ml_classifier(0.93)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "verb_gerund_safe": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "ml_classifier(0.98)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.61)": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.85)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "case_form": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "compound_word": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "split_suffix_insertion": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "misrecognition_artifact": {
+      "filtered_count": 2,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.45)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "split_word_fragment": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.58)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "sentence_start_weak": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    },
+    "PROTECTED_semantic_slip(0.63)": {
+      "filtered_count": 1,
+      "golden_hit": 0,
+      "golden_protected": 0,
+      "examples": []
+    }
+  }
+}

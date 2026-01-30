@@ -15,7 +15,7 @@ Populate False Positives Database v1.0
     python populate_db.py --reset          # Сбросить и пересоздать БД
 """
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'  # v1.1: унификация levenshtein из filters.comparison
 
 import sys
 import json
@@ -33,6 +33,7 @@ from morphology import get_lemma, get_pos
 from filters.semantic_manager import SemanticManager, get_similarity
 from filters.frequency_manager import FrequencyManager
 from filters.engine import should_filter_error
+from filters.comparison import levenshtein_distance  # v1.1: унификация
 from config import RESULTS_DIR, TESTS_DIR, DICTIONARIES_DIR
 
 
@@ -103,20 +104,10 @@ CREATE INDEX IF NOT EXISTS idx_errors_semantic ON errors(semantic_similarity);
 '''
 
 
+# v1.1: levenshtein удалён — используется levenshtein_distance из filters.comparison
 def levenshtein(s1: str, s2: str) -> int:
-    """Расстояние Левенштейна"""
-    if len(s1) < len(s2):
-        s1, s2 = s2, s1
-    if len(s2) == 0:
-        return len(s1)
-
-    prev = list(range(len(s2) + 1))
-    for i, c1 in enumerate(s1):
-        curr = [i + 1]
-        for j, c2 in enumerate(s2):
-            curr.append(min(prev[j+1] + 1, curr[j] + 1, prev[j] + (c1 != c2)))
-        prev = curr
-    return prev[-1]
+    """Расстояние Левенштейна (делегирует в filters.comparison)."""
+    return levenshtein_distance(s1, s2)
 
 
 def seconds_to_label(seconds: float) -> str:

@@ -1,0 +1,38 @@
+{
+  "experiment": "filter_order",
+  "chapters": {
+    "1": {
+      "morpho_only": 18,
+      "ml_only": 122,
+      "both": 29,
+      "neither": 99
+    },
+    "2": {
+      "morpho_only": 8,
+      "ml_only": 71,
+      "both": 7,
+      "neither": 56
+    },
+    "3": {
+      "morpho_only": 19,
+      "ml_only": 79,
+      "both": 26,
+      "neither": 79
+    },
+    "4": {
+      "morpho_only": 16,
+      "ml_only": 54,
+      "both": 6,
+      "neither": 62
+    }
+  },
+  "current_order": {
+    "morpho_first": 0,
+    "ml_first": 0
+  },
+  "proposed_order": {
+    "morpho_first": 0,
+    "ml_first": 0
+  },
+  "difference": 0
+}

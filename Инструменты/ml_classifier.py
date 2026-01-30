@@ -26,15 +26,22 @@ CLI:
     python ml_classifier.py evaluate        # Оценить качество
     python ml_classifier.py info            # Информация о модели
 
+СТАТУС: Опциональный инструмент (не интегрирован в основной пайплайн).
+        Требует numpy + scikit-learn. Не влияет на golden тесты.
+
 Changelog:
+    v1.1 (2026-01-30): Унификация и документация
+        - Унификация levenshtein и phonetic_normalize из filters.comparison
+        - Добавлена документация статуса
     v1.0 (2026-01-26): Начальная версия
         - RandomForest/GradientBoosting/LogisticRegression
         - Признаки: Левенштейн, морфология, фонетика
         - Интеграция с false_positives_db.py
 """
 
-VERSION = '1.0.0'
-VERSION_DATE = '2026-01-26'
+VERSION = '1.1.0'
+VERSION_DATE = '2026-01-30'
+# v1.1: Унификация levenshtein и phonetic_normalize из filters.comparison
 
 import os
 import json
@@ -89,14 +96,27 @@ except ImportError:
     HAS_MORPHOLOGY = False
     HAS_PYMORPHY = False
 
-# Импорт фонетики
+# Импорт фонетики и levenshtein (v1.1: унификация из comparison.py)
 try:
-    from filters.smart_rules import phonetic_normalize
+    from filters.comparison import phonetic_normalize, levenshtein_distance as _levenshtein
     HAS_PHONETIC = True
+    HAS_LEVENSHTEIN = True
 except ImportError:
     HAS_PHONETIC = False
+    HAS_LEVENSHTEIN = False
+    # Fallback phonetic_normalize — базовая нормализация
     def phonetic_normalize(w):
-        return w.lower()
+        """Fallback: базовая русская фонетика."""
+        w = w.lower().replace('ё', 'е')
+        # Простые фонетические замены
+        replacements = [
+            ('тся', 'ца'), ('ться', 'ца'),
+            ('чт', 'шт'), ('что', 'што'),
+            ('его', 'ево'), ('ого', 'ово'),
+        ]
+        for old, new in replacements:
+            w = w.replace(old, new)
+        return w
 
 # Импорт БД
 try:
@@ -110,13 +130,17 @@ except ImportError:
 # ФУНКЦИИ ИЗВЛЕЧЕНИЯ ПРИЗНАКОВ
 # =============================================================================
 
+# v1.1: levenshtein_distance унифицирован — используем из filters.comparison
 def levenshtein_distance(s1: str, s2: str) -> int:
-    """Расстояние Левенштейна."""
+    """Расстояние Левенштейна (делегирует в filters.comparison)."""
+    if HAS_LEVENSHTEIN:
+        return _levenshtein(s1, s2)
+    # Fallback — ручная реализация
     if len(s1) < len(s2):
         s1, s2 = s2, s1
     if len(s2) == 0:
         return len(s1)
-    prev = range(len(s2) + 1)
+    prev = list(range(len(s2) + 1))
     for i, c1 in enumerate(s1):
         curr = [i + 1]
         for j, c2 in enumerate(s2):
