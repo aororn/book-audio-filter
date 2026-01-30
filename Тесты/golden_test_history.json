@@ -2455,6 +2455,1356 @@
         "all_passed": true,
         "golden_percentage": 100.0
       }
+    },
+    {
+      "timestamp": "2026-01-30T00:11:48.586593",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 81
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 49
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 52
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 268,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:27:45.918138",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 81
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 49
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 52
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 268,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:29:34.956308",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 27,
+          "golden_expected": 31,
+          "total_errors": 69
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 85
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 89,
+        "total_golden_expected": 93,
+        "total_errors": 252,
+        "all_passed": false,
+        "golden_percentage": 95.7
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:29:42.944221",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 27,
+          "golden_expected": 31,
+          "total_errors": 69
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 85
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 89,
+        "total_golden_expected": 93,
+        "total_errors": 252,
+        "all_passed": false,
+        "golden_percentage": 95.7
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:29:49.388759",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 27,
+          "golden_expected": 31,
+          "total_errors": 69
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 85
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 89,
+        "total_golden_expected": 93,
+        "total_errors": 252,
+        "all_passed": false,
+        "golden_percentage": 95.7
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:30:44.932669",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:30:53.025631",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:31:40.901123",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:31:48.042716",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:32:04.980389",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:32:14.677796",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:32:23.179920",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": false,
+          "golden_found": 30,
+          "golden_expected": 31,
+          "total_errors": 75
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 92,
+        "total_golden_expected": 93,
+        "total_errors": 259,
+        "all_passed": false,
+        "golden_percentage": 98.9
+      }
+    },
+    {
+      "timestamp": "2026-01-30T00:40:58.152956",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 76
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 260,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:01:39.881304",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 76
+        },
+        "chapter_2": {
+          "passed": false,
+          "golden_found": 19,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 19,
+          "golden_expected": 19,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": false,
+          "golden_found": 20,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 89,
+        "total_golden_expected": 92,
+        "total_errors": 260,
+        "all_passed": false,
+        "golden_percentage": 96.7
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:04:12.501898",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 76
+        },
+        "chapter_2": {
+          "passed": false,
+          "golden_found": 19,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 19,
+          "golden_expected": 19,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": false,
+          "golden_found": 20,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 89,
+        "total_golden_expected": 92,
+        "total_errors": 260,
+        "all_passed": false,
+        "golden_percentage": 96.7
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:04:22.758157",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 76
+        },
+        "chapter_2": {
+          "passed": false,
+          "golden_found": 19,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 19,
+          "golden_expected": 19,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": false,
+          "golden_found": 20,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 89,
+        "total_golden_expected": 92,
+        "total_errors": 260,
+        "all_passed": false,
+        "golden_percentage": 96.7
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:07:55.505912",
+      "test_version": "6.2.0",
+      "filter_version": "8.5",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 76
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 260,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:11:26.327590",
+      "test_version": "6.2.0",
+      "filter_version": "8.7",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 76
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 86
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 50
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 260,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:12:30.585461",
+      "test_version": "6.2.0",
+      "filter_version": "8.7",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 341
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 194
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 227
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 188
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 950,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:12:50.291345",
+      "test_version": "6.2.0",
+      "filter_version": "8.7",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:19:40.593299",
+      "test_version": "6.2.0",
+      "filter_version": "8.7",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:20:23.919059",
+      "test_version": "6.2.0",
+      "filter_version": "8.7",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:27:25.301060",
+      "test_version": "6.2.0",
+      "filter_version": "8.7",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:38:23.439674",
+      "test_version": "6.2.0",
+      "filter_version": "8.8",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:38:32.550651",
+      "test_version": "6.2.0",
+      "filter_version": "8.8",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:41:46.108200",
+      "test_version": "6.2.0",
+      "filter_version": "8.8",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:43:32.625796",
+      "test_version": "6.2.0",
+      "filter_version": "8.8",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T09:46:17.930127",
+      "test_version": "6.2.0",
+      "filter_version": "8.8",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T10:00:09.843514",
+      "test_version": "6.2.0",
+      "filter_version": "8.9",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
+    },
+    {
+      "timestamp": "2026-01-30T10:00:17.354497",
+      "test_version": "6.2.0",
+      "filter_version": "8.9",
+      "smart_compare_version": "10.4.0",
+      "chapters_tested": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "results": {
+        "chapter_1": {
+          "passed": true,
+          "golden_found": 31,
+          "golden_expected": 31,
+          "total_errors": 74
+        },
+        "chapter_2": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 45
+        },
+        "chapter_3": {
+          "passed": true,
+          "golden_found": 20,
+          "golden_expected": 20,
+          "total_errors": 80
+        },
+        "chapter_4": {
+          "passed": true,
+          "golden_found": 21,
+          "golden_expected": 21,
+          "total_errors": 48
+        }
+      },
+      "summary": {
+        "total_golden_found": 93,
+        "total_golden_expected": 93,
+        "total_errors": 247,
+        "all_passed": true,
+        "golden_percentage": 100.0
+      }
     }
   ]
 }

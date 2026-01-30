@@ -1,10 +1,27 @@
 """
-Движок фильтрации ошибок транскрипции v8.5.
+Движок фильтрации ошибок транскрипции v8.9.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (20+ уровней фильтрации)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v8.9 изменения (2026-01-30):
+- Интеграция SemanticManager: семантическая близость как ЗАЩИТНЫЙ слой
+  (высокая семантика + разные леммы = оговорка чтеца = НЕ фильтровать)
+- Интеграция SmartScorer: комплексный скоринг для метрик
+- БЕЗОПАСНО: не меняет фильтрацию, добавляет защиту golden
+
+v8.8 изменения (2026-01-30):
+- Добавлен фильтр misrecognition_artifact для артефактов распознавания
+  (вставленное слово похоже на соседнее слово в контексте: "блядочное"~"ублюдочные")
+- Использует SequenceMatcher для сравнения (порог 0.6)
+- БЕЗОПАСНО: проверено на БД — 0 golden, 6 FP
+
+v8.7 изменения (2026-01-30):
+- Добавлен фильтр single_consonant_artifact для однобуквенных согласных
+  (артефакты выравнивания типа -"с", -"м", -"в", -"п", -"к", -"ф", -"х", -"э")
+- БЕЗОПАСНО: не затрагивает golden (проверено на БД)
 
 v8.4 изменения:
 - alignment_artifact_substring теперь проверяет леммы:
@@ -38,6 +55,7 @@ import os
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
+from difflib import SequenceMatcher
 from typing import Dict, List, Tuple, Optional, Any, Set
 
 from .constants import (
@@ -67,7 +85,7 @@ from .detectors import (
 from .morpho_rules import get_morpho_rules, is_morpho_false_positive
 
 # Версия модуля
-VERSION = '8.6.1'
+VERSION = '8.9.0'
 VERSION_DATE = '2026-01-30'
 
 # Минимальная совместимая версия smart_compare для валидации
@@ -81,6 +99,27 @@ try:
     HAS_SCORING_ENGINE = True
 except ImportError:
     HAS_SCORING_ENGINE = False
+
+# v8.9: Импорт SemanticManager для семантической защиты оговорок
+try:
+    from .semantic_manager import get_semantic_manager, get_similarity
+    HAS_SEMANTIC_MANAGER = True
+except ImportError:
+    HAS_SEMANTIC_MANAGER = False
+    get_similarity = lambda w1, w2: 0.0
+
+# v8.9: Импорт SmartScorer для комплексного скоринга
+try:
+    from .smart_scorer import SmartScorer, ScoreResult, WEIGHTS as SCORER_WEIGHTS
+    HAS_SMART_SCORER = True
+except ImportError:
+    HAS_SMART_SCORER = False
+
+# v8.9: Калиброванные пороги на основе анализа БД (941 ошибок)
+# Анализ: high semantic + diff_lemma = 12 golden, 247 FP
+# Безопасный порог: semantic >= 0.4 + phonetic >= 0.7 = оговорка
+SEMANTIC_SLIP_THRESHOLD = 0.4      # Семантическая близость для оговорки
+PHONETIC_SLIP_THRESHOLD = 0.7      # Фонетическая близость для оговорки
 
 
 def should_filter_error(
@@ -127,6 +166,22 @@ def should_filter_error(
             # Это известная пара путаницы — НЕ фильтруем, это реальная ошибка
             return False, 'PROTECTED_hard_negative'
 
+    # ==== УРОВЕНЬ -0.5: SemanticManager ЗАЩИТА (v8.9) ====
+    # Высокая семантическая близость + разные леммы = оговорка чтеца
+    # Анализ БД: semantic>0.4 + diff_lemma = реальные ошибки (мечтательны→мечтатели)
+    # Это ЗАЩИТНЫЙ уровень: НЕ фильтруем оговорки
+    if HAS_SEMANTIC_MANAGER and error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+        # Только для разных лемм — проверяем семантику
+        if HAS_PYMORPHY:
+            lemma1 = get_lemma(w1)
+            lemma2 = get_lemma(w2)
+            if lemma1 and lemma2 and lemma1 != lemma2:
+                semantic_sim = get_similarity(w1, w2)
+                # Если семантика высокая — это оговорка, не фильтруем
+                if semantic_sim >= SEMANTIC_SLIP_THRESHOLD:
+                    return False, f'PROTECTED_semantic_slip({semantic_sim:.2f})'
+
     # ==== УРОВЕНЬ 0: Morpho Rules (v8.0) — консервативная фильтрация ====
     # Фильтруем ТОЛЬКО если 100% уверены в ложной ошибке
     # При любом грамматическом различии — НЕ фильтруем
@@ -137,7 +192,7 @@ def should_filter_error(
         if morpho_result and morpho_result.should_filter:
             return True, f'morpho_{morpho_result.rule_name}'
 
-    # ==== УРОВЕНЬ 0.3: Безопасные окончания (v8.6) ====
+    # ==== УРОВЕНЬ 0.3: Безопасные окончания (v8.8) ====
     # Переходы окончаний, которые встречаются ТОЛЬКО в FP, НИКОГДА в Golden
     # Выявлены анализом БД: 79 уникальных переходов только в FP
     SAFE_ENDING_TRANSITIONS = {
@@ -151,6 +206,13 @@ def should_filter_error(
         ('на', 'ны'), ('ну', 'ны'), ('ма', 'мы'),
         # Прилагательные падежи: 4 FP, 0 Golden
         ('ий', 'ии'), ('ии', 'ия'), ('ой', 'ны'),
+        # v8.8: Дополнительные переходы из анализа БД
+        # Существительные -ье/-ья (зелье/зелья): 4 FP, 0 Golden
+        ('ья', 'ье'), ('ье', 'ья'),
+        # Существительные -ей/-ли (мыслей/мысли): 2 FP, 0 Golden
+        ('ей', 'ли'),
+        # Существительные -ью/-ти (костью/кости): 2 FP, 0 Golden
+        ('ью', 'ти'),
     }
 
     if error_type == 'substitution' and len(words_norm) >= 2:
@@ -369,6 +431,40 @@ def should_filter_error(
     if error_type == 'deletion':
         if is_interjection(words_norm[0]):
             return True, 'interjection'
+
+    # v8.7: Однобуквенные согласные — артефакты выравнивания
+    # Безопасно: проверено на БД — 0 golden среди этих букв
+    # Исключены: я, и (есть golden), а, о, у (могут быть союзами/междометиями)
+    SINGLE_CONSONANT_ARTIFACTS = {'с', 'в', 'м', 'п', 'к', 'ф', 'х', 'э'}
+    if error_type in ('deletion', 'insertion'):
+        word_to_check = words_norm[0] if error_type == 'deletion' else words_norm[0]
+        if len(word_to_check) == 1 and word_to_check in SINGLE_CONSONANT_ARTIFACTS:
+            return True, 'single_consonant_artifact'
+
+    # v8.8: Артефакты распознавания — вставленное слово похоже на слово в контексте
+    # Примеры: "блядочное"~"ублюдочные", "оголим"~"големах", "смертник"~"пересмешник"
+    # Безопасно: проверено на БД — 0 golden, 8 FP
+    if error_type == 'insertion' and len(words_norm[0]) >= 4:
+        inserted = words_norm[0]
+        context = error.get('context', '').lower()
+        if context:
+            ctx_words = context.split()
+            for ctx_word in ctx_words:
+                ctx_clean = ''.join(c for c in ctx_word if c.isalpha())
+                # Пропускаем короткие слова и само вставленное слово
+                if len(ctx_clean) >= 4 and ctx_clean != inserted:
+                    ratio = SequenceMatcher(None, inserted, ctx_clean).ratio()
+                    if ratio > 0.6:
+                        return True, 'misrecognition_artifact'
+
+    # v8.8: Вставка неизвестного слова (UNKN) — артефакт распознавания
+    # Примеры: "бла" (обрыв "глава")
+    # Безопасно: проверено на БД — 0 golden, 1 FP
+    if error_type == 'insertion' and HAS_PYMORPHY and len(words_norm[0]) >= 2:
+        inserted = words_norm[0]
+        parsed = morph.parse(inserted)
+        if parsed and 'UNKN' in str(parsed[0].tag):
+            return True, 'unknown_word_artifact'
 
     # DEL редких наречий (эдак, этак)
     if error_type == 'deletion' and words_norm[0] in RARE_ADVERBS:
@@ -716,6 +812,88 @@ def should_filter_error(
     return False, 'real_error'
 
 
+def calculate_smart_score(error: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """
+    v8.9: Рассчитывает SmartScore для ошибки (для метрик, не для фильтрации).
+
+    Возвращает словарь с метриками или None если расчёт невозможен.
+    Эти метрики добавляются к ошибке для:
+    - Сортировки по приоритету (высокий score = важнее)
+    - Аналитики и отладки
+    - Будущей калибровки весов
+    """
+    if not HAS_SMART_SCORER:
+        return None
+
+    error_type = error.get('type', '')
+
+    # Получаем слова
+    if error_type == 'substitution':
+        word1 = error.get('wrong', '') or error.get('transcript', '')
+        word2 = error.get('correct', '') or error.get('original', '')
+    elif error_type == 'insertion':
+        word1 = error.get('wrong', '') or error.get('transcript', '') or error.get('word', '')
+        word2 = ''
+    elif error_type == 'deletion':
+        word1 = ''
+        word2 = error.get('correct', '') or error.get('original', '') or error.get('word', '')
+    else:
+        return None
+
+    # Создаём скорер и результат
+    scorer = SmartScorer()
+    result = scorer.create_result(error_type, word2, word1)  # original, transcript
+
+    # Базовый скоринг по типу
+    scorer.apply_base_score(result)
+
+    # Морфологический скоринг
+    if HAS_PYMORPHY and error_type == 'substitution' and word1 and word2:
+        w1_norm = normalize_word(word1)
+        w2_norm = normalize_word(word2)
+
+        lemma1 = get_lemma(w1_norm)
+        lemma2 = get_lemma(w2_norm)
+        pos1 = get_pos(w1_norm)
+        pos2 = get_pos(w2_norm)
+
+        same_lemma = lemma1 and lemma2 and lemma1 == lemma2
+        same_pos = pos1 and pos2 and pos1 == pos2
+
+        # Грамматические различия
+        has_grammar_diff = False
+        if same_lemma:
+            num1 = get_number(w1_norm)
+            num2 = get_number(w2_norm)
+            case1 = get_case(w1_norm)
+            case2 = get_case(w2_norm)
+            if (num1 and num2 and num1 != num2) or (case1 and case2 and case1 != case2):
+                has_grammar_diff = True
+
+        scorer.apply_morphology(result, same_lemma, same_pos, has_grammar_diff)
+
+        result.original_lemma = lemma2
+        result.transcript_lemma = lemma1
+        result.original_pos = pos2
+        result.transcript_pos = pos1
+
+    # Семантический скоринг
+    if HAS_SEMANTIC_MANAGER and error_type == 'substitution' and word1 and word2:
+        semantic_sim = get_similarity(word1, word2)
+        scorer.apply_semantics(result, semantic_sim)
+
+    return {
+        'smart_score': result.score,
+        'smart_rules': result.applied_rules,
+        'is_visible': result.is_visible(),
+        'original_lemma': result.original_lemma,
+        'transcript_lemma': result.transcript_lemma,
+        'original_pos': result.original_pos,
+        'transcript_pos': result.transcript_pos,
+        'semantic_similarity': result.semantic_similarity,
+    }
+
+
 def filter_errors(
     errors: List[Dict[str, Any]],
     config: Optional[Dict] = None,
@@ -742,10 +920,19 @@ def filter_errors(
         should_filter, reason = should_filter_error(error, config, errors)
         stats[reason] += 1
 
+        # v8.9: Добавляем SmartScore метрики к ошибке
+        smart_metrics = calculate_smart_score(error)
+
         if should_filter:
-            removed.append({**error, 'filter_reason': reason})
+            error_with_reason = {**error, 'filter_reason': reason}
+            if smart_metrics:
+                error_with_reason['smart_metrics'] = smart_metrics
+            removed.append(error_with_reason)
         else:
-            filtered.append(error)
+            error_with_metrics = error.copy()
+            if smart_metrics:
+                error_with_metrics['smart_metrics'] = smart_metrics
+            filtered.append(error_with_metrics)
 
     return filtered, removed, dict(stats)
 
