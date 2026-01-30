@@ -28,6 +28,10 @@
     python Тесты/run_full_test.py --versions     # сводка по версиям
 
 Changelog:
+    v6.3 (2026-01-30): Унификация версионирования
+        - Добавлена запись в единый versions.json при успешном полном тесте
+        - update_versions_json() — функция обновления источника правды
+        - Интеграция с version_table.py для быстрого сравнения версий
     v6.2 (2026-01-29): Флаг --clean для чистого тестирования
         - Добавлен флаг --clean — удаляет старые compared/filtered перед пайплайном
         - Это гарантирует тестирование на свежих файлах, а не на кэшированных
@@ -41,8 +45,8 @@ Changelog:
     v5.1 (2026-01-25): Логирование и статистика
 """
 
-VERSION = '6.2.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '6.3.0'
+VERSION_DATE = '2026-01-30'
 
 import argparse
 import json
@@ -68,6 +72,7 @@ from test_golden_standard import test_golden_standard
 
 HISTORY_FILE = TESTS_DIR / 'golden_test_history.json'
 HISTORY_DIR = TESTS_DIR / 'История'
+VERSIONS_FILE = TESTS_DIR / 'versions.json'
 
 
 def clean_chapter_results(chapter_cfg) -> int:
@@ -458,6 +463,88 @@ def log_test_run(results, chapters_tested, comment=None):
     return run_entry, archive_path
 
 
+def update_versions_json(run_entry: dict, version_id: str = None) -> None:
+    """
+    Обновляет versions.json с текущими результатами.
+
+    Это ЕДИНЫЙ источник правды для сравнения версий.
+
+    Логика определения version_id:
+    1. Явно переданный version_id
+    2. Из комментария (если содержит vX.Y.Z)
+    3. Последняя версия в файле с таким же filter_version (обновление)
+    4. Генерация на основе filter_version
+    """
+    if not VERSIONS_FILE.exists():
+        versions_data = {"_schema_version": "1.0", "versions": []}
+    else:
+        with open(VERSIONS_FILE, 'r', encoding='utf-8') as f:
+            versions_data = json.load(f)
+
+    filter_ver = run_entry.get('filter_version', '?')
+
+    if not version_id:
+        # Попробуем извлечь версию из комментария (vX.Y или vX.Y.Z)
+        comment = run_entry.get('comment', '')
+        import re
+        match = re.search(r'v(\d+(?:\.\d+)*)', comment, re.IGNORECASE)
+        if match:
+            version_id = f"v{match.group(1)}"
+        else:
+            # Ищем существующую версию с таким же filter_version для обновления
+            for v in versions_data.get('versions', []):
+                if v.get('filter_version', '').startswith(filter_ver.split('.')[0]):
+                    version_id = v['id']
+                    break
+            else:
+                # Генерируем новый ID
+                version_id = f"v{filter_ver}"
+
+    # Формируем данные о версии
+    results = run_entry.get('results', {})
+    summary = run_entry.get('summary', {})
+
+    chapters = {}
+    for ch_key, ch_data in results.items():
+        ch_num = ch_key.replace('chapter_', '')
+        chapters[ch_num] = {
+            'total': ch_data.get('total_errors', 0),
+            'golden': ch_data.get('golden_expected', 0)
+        }
+
+    new_version = {
+        'id': version_id,
+        'date': datetime.now().strftime('%Y-%m-%d'),
+        'filter_version': filter_ver,
+        'chapters': chapters,
+        'totals': {
+            'errors': summary.get('total_errors', 0),
+            'golden': summary.get('total_golden_expected', 0),
+            'fp': summary.get('total_errors', 0) - summary.get('total_golden_expected', 0)
+        },
+        'notes': run_entry.get('comment', f'Auto-saved by run_full_test.py v{VERSION}')
+    }
+
+    # Ищем существующую версию с таким ID
+    existing_idx = None
+    for i, v in enumerate(versions_data['versions']):
+        if v['id'] == version_id:
+            existing_idx = i
+            break
+
+    if existing_idx is not None:
+        # Обновляем существующую
+        versions_data['versions'][existing_idx] = new_version
+    else:
+        # Добавляем новую
+        versions_data['versions'].append(new_version)
+
+    versions_data['_updated'] = datetime.now().strftime('%Y-%m-%d')
+
+    with open(VERSIONS_FILE, 'w', encoding='utf-8') as f:
+        json.dump(versions_data, f, ensure_ascii=False, indent=2)
+
+
 def show_versions_summary():
     """Показывает сводку результатов по версиям фильтров."""
     history = load_history()
@@ -786,9 +873,11 @@ def main():
     # Логирование
     if not args.no_log:
         run_entry, archive_path = log_test_run(results, valid_chapters, comment=args.comment)
+        # Обновляем единый versions.json (источник правды для сравнения версий)
+        if all_passed and len(valid_chapters) == 4:
+            update_versions_json(run_entry)
         print(f"  Результат записан в {HISTORY_FILE.name}")
         print(f"  Архив: {archive_path.name}")
-        print()
 
     return 0 if all_passed else 1
 

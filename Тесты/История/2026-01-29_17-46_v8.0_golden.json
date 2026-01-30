@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-01-29T17:46:26.939262",
+  "test_version": "6.0.0",
+  "filter_version": "8.0",
+  "smart_compare_version": "8.0.0",
+  "chapters_tested": [
+    "1",
+    "2",
+    "3"
+  ],
+  "results": {
+    "chapter_1": {
+      "passed": false,
+      "golden_found": 29,
+      "golden_expected": 31,
+      "total_errors": 121
+    },
+    "chapter_2": {
+      "passed": true,
+      "golden_found": 21,
+      "golden_expected": 21,
+      "total_errors": 82
+    },
+    "chapter_3": {
+      "passed": true,
+      "golden_found": 20,
+      "golden_expected": 20,
+      "total_errors": 132
+    }
+  },
+  "summary": {
+    "total_golden_found": 70,
+    "total_golden_expected": 72,
+    "total_errors": 335,
+    "all_passed": false,
+    "golden_percentage": 97.2
+  },
+  "comment": "v6.0: Первый тест с архивированием"
+}

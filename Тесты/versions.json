@@ -1,0 +1,149 @@
+{
+  "_schema_version": "1.0",
+  "_description": "Единый источник истины для версий проекта и метрик",
+  "_updated": "2026-01-30",
+  "versions": [
+    {
+      "id": "v5.7.2",
+      "date": "2026-01-25",
+      "filter_version": "5.7.0",
+      "chapters": {
+        "1": {
+          "total": 62,
+          "golden": 31
+        },
+        "2": {
+          "total": 46,
+          "golden": 21
+        },
+        "3": {
+          "total": 88,
+          "golden": 20
+        },
+        "4": null
+      },
+      "totals": {
+        "errors": 196,
+        "golden": 72,
+        "fp": 124
+      },
+      "notes": "Паттерны глава 4, откат 'и' в INS. Тест на 3 главах."
+    },
+    {
+      "id": "v10.0",
+      "date": "2026-01-29",
+      "filter_version": "8.0.0",
+      "chapters": {
+        "1": {
+          "total": 99,
+          "golden": 31
+        },
+        "2": {
+          "total": 73,
+          "golden": 21
+        },
+        "3": {
+          "total": 124,
+          "golden": 20
+        },
+        "4": {
+          "total": 61,
+          "golden": 21
+        }
+      },
+      "totals": {
+        "errors": 357,
+        "golden": 93,
+        "fp": 264
+      },
+      "notes": "Полный segment comparison, 4 главы, morpho_rules v1.0"
+    },
+    {
+      "id": "v10.5",
+      "date": "2026-01-29",
+      "filter_version": "8.5.0",
+      "chapters": {
+        "1": {
+          "total": 88,
+          "golden": 31
+        },
+        "2": {
+          "total": 62,
+          "golden": 21
+        },
+        "3": {
+          "total": 108,
+          "golden": 20
+        },
+        "4": {
+          "total": 51,
+          "golden": 21
+        }
+      },
+      "totals": {
+        "errors": 309,
+        "golden": 93,
+        "fp": 216
+      },
+      "notes": "Unified versioning, removed duplicates"
+    },
+    {
+      "id": "v10.7",
+      "date": "2026-01-29",
+      "filter_version": "8.5.0",
+      "chapters": {
+        "1": {
+          "total": 79,
+          "golden": 31
+        },
+        "2": {
+          "total": 49,
+          "golden": 21
+        },
+        "3": {
+          "total": 83,
+          "golden": 20
+        },
+        "4": {
+          "total": 51,
+          "golden": 21
+        }
+      },
+      "totals": {
+        "errors": 262,
+        "golden": 93,
+        "fp": 169
+      },
+      "notes": "safe_ending_transition filter"
+    },
+    {
+      "id": "v11.5",
+      "date": "2026-01-30",
+      "filter_version": "8.9.0",
+      "chapters": {
+        "1": {
+          "total": 74,
+          "golden": 31
+        },
+        "2": {
+          "total": 45,
+          "golden": 21
+        },
+        "3": {
+          "total": 80,
+          "golden": 20
+        },
+        "4": {
+          "total": 48,
+          "golden": 21
+        }
+      },
+      "totals": {
+        "errors": 247,
+        "golden": 93,
+        "fp": 154
+      },
+      "notes": "SemanticManager + SmartScorer integration"
+    }
+  ]
+}
