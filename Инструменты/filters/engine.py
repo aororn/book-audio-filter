@@ -83,6 +83,7 @@ v6.0 изменения (устарело):
 
 import json
 import os
+import re
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
@@ -135,8 +136,14 @@ except ImportError:
     HAS_RULES_MODULE = False
 
 # Версия модуля
-VERSION = '9.4.1'
+VERSION = '9.6.0'
 VERSION_DATE = '2026-01-30'
+
+# v9.5.1 изменения:
+# - ИСПРАВЛЕНО: Логическая ошибка в check_alignment_artifact (условие было вне блока)
+# - РЕФАКТОРИНГ: Унифицирована защита merged_from_ins_del в _should_skip_merged_different_lemmas()
+#   - Убрано дублирование в 3 местах (alignment, ML, context_verifier)
+# - ДОБАВЛЕНО: Word boundaries в compound_particle_to
 
 # v9.3.2 изменения:
 # - РЕФАКТОРИНГ: Убран костыль "как то ... там"
@@ -233,6 +240,37 @@ ML_CONFIDENCE_THRESHOLD = 0.90
 # Безопасный порог: semantic >= 0.4 + phonetic >= 0.7 = оговорка
 SEMANTIC_SLIP_THRESHOLD = 0.4      # Семантическая близость для оговорки
 PHONETIC_SLIP_THRESHOLD = 0.7      # Фонетическая близость для оговорки
+
+
+def _should_skip_merged_different_lemmas(
+    error: Dict[str, Any],
+    words_norm: List[str]
+) -> bool:
+    """
+    v9.5.1: Проверяет, нужно ли пропустить merged ошибку с разными леммами.
+
+    Merged ошибки (merged_from_ins_del=True) создаются merge_adjacent_ins_del()
+    из соседних insertion+deletion. Если леммы разные — это реальная ошибка чтеца,
+    не артефакт выравнивания.
+
+    Args:
+        error: Словарь с ошибкой
+        words_norm: Нормализованные слова [wrong, correct]
+
+    Returns:
+        True если нужно пропустить (не фильтровать), False если можно фильтровать
+    """
+    if not error.get('merged_from_ins_del', False):
+        return False
+
+    if not HAS_PYMORPHY or len(words_norm) < 2:
+        return False
+
+    lemma1 = get_lemma(words_norm[0])
+    lemma2 = get_lemma(words_norm[1])
+
+    # Разные леммы = реальная ошибка чтеца, не фильтруем
+    return bool(lemma1 and lemma2 and lemma1 != lemma2)
 
 
 def should_filter_error(
@@ -335,29 +373,22 @@ def should_filter_error(
 
     # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4 → v9.1 migrated to rules/) ====
     # v9.2.1: добавлена проверка падежа (get_case)
-    # v9.3.2: защита merged_from_ins_del — если разные леммы, это реальная ошибка
-    is_merged = error.get('merged_from_ins_del', False)
+    # v9.5.1: защита merged унифицирована в _should_skip_merged_different_lemmas()
     if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
 
-        # Защита merged: разные леммы = реальная ошибка чтеца, не артефакт
-        skip_alignment = False
-        if is_merged and HAS_PYMORPHY:
-            lemma1 = get_lemma(w1)
-            lemma2 = get_lemma(w2)
-            if lemma1 and lemma2 and lemma1 != lemma2:
-                skip_alignment = True  # Разные леммы — не фильтруем
-
-        if not skip_alignment:
+        # v9.5.1: Унифицированная защита merged
+        if not _should_skip_merged_different_lemmas(error, words_norm):
             should_filter, reason = check_alignment_artifact(
                 w1, w2,
                 error_type='substitution',
                 get_lemma_func=get_lemma if HAS_PYMORPHY else None,
                 get_pos_func=get_pos if HAS_PYMORPHY else None,
                 get_case_func=get_case if HAS_PYMORPHY else None
-        )
-        if should_filter:
-            return True, reason
+            )
+            # v9.5.1: ИСПРАВЛЕНО — условие внутри блока if not skip_alignment
+            if should_filter:
+                return True, reason
 
     # ==== ЭТАП 0: Артефакты алгоритма выравнивания ====
 
@@ -412,6 +443,8 @@ def should_filter_error(
                     return True, 'interrogative_split_to'
         # Старая логика для compound_particle_to
         # v9.3.2: Рефакторинг костыля "как то ... там"
+        # v9.5.1: Добавлены word boundaries чтобы избежать ложных срабатываний
+        #         Пример ложного: "вкусного то" содержит "кто то" внутри слова
         # Устойчивые выражения: "как-то там", "что-то там", "где-то там" и т.д.
         # Яндекс разбивает их на "как то там" — это ложная вставка "то"
         context = error.get('context', '').lower()
@@ -420,10 +453,12 @@ def should_filter_error(
             'какой', 'какая', 'какое', 'какие',
         ]
         for prefix in compound_prefixes:
-            pattern = f'{prefix} то'
-            if pattern in context:
-                idx = context.find(pattern)
-                after_to_start = idx + len(pattern)
+            # v9.5.1: Используем regex с word boundaries (\b) для точного совпадения
+            pattern_regex = r'\b' + re.escape(prefix) + r'\s+то\b'
+            match = re.search(pattern_regex, context, re.IGNORECASE)
+            if match:
+                # v9.5.1: Используем match.end() для получения позиции после "то"
+                after_to_start = match.end()
                 after_to = context[after_to_start:].strip().split()
                 if after_to:
                     next_word = after_to[0]
@@ -586,6 +621,15 @@ def should_filter_error(
 
     if error_type == 'substitution' and has_protected:
         w1, w2 = words_norm[0], words_norm[1]
+
+        # v9.6.0: Phonetic morphoform check для protected слов
+        # "ордена"→"орден" — одинаковая лемма и фонетика = FP даже если слово protected
+        if HAS_CONTEXT_VERIFIER and HAS_PYMORPHY:
+            from .context_verifier import verify_phonetic_morphoform
+            is_phon_fp, phon_reason, _ = verify_phonetic_morphoform(w1, w2)
+            if is_phon_fp:
+                return True, f'phonetic_morphoform_protected:{phon_reason}'
+
         if is_yandex_typical_error(w1, w2):
             return True, 'yandex_typical'
         if use_lemmatization and HAS_PYMORPHY and is_lemma_match(w1, w2):
@@ -778,19 +822,12 @@ def should_filter_error(
     # Только substitution, порог 90% — консервативно
     # Тестировано: 'или→и' = REAL (59%), 'и→я' = REAL (82%)
     # v9.2.2: Защита от ML для грамматических ошибок (same_lemma + diff_number)
-    # v9.3.2: Защита merged_from_ins_del — разные леммы = реальная ошибка
+    # v9.5.1: Защита merged унифицирована в _should_skip_merged_different_lemmas()
     if HAS_ML_CLASSIFIER and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
 
-        # v9.3.2: Защита merged — разные леммы = реальная ошибка чтеца, ML не применяем
-        skip_ml_merged = False
-        if is_merged and HAS_PYMORPHY:
-            lemma1_m = get_lemma(w1)
-            lemma2_m = get_lemma(w2)
-            if lemma1_m and lemma2_m and lemma1_m != lemma2_m:
-                skip_ml_merged = True  # Merged с разными леммами — реальная ошибка
-
-        if not skip_ml_merged:
+        # v9.5.1: Унифицированная защита merged
+        if not _should_skip_merged_different_lemmas(error, words_norm):
             # v9.2.2: Защита — если одинаковая лемма, но разное число — это реальная ошибка
             # Пример: "идущими" vs "идущим" — ML ошибочно считает FP
             # v9.2.3: Дополнительно: если одинаковая лемма и разные окончания — потенциальная
@@ -862,20 +899,12 @@ def should_filter_error(
         except Exception:
             pass
 
-    # Уровень 2-3: Морфологическая когерентность + Семантическая связность для substitution
+    # Уровень 2-4: Морфологическая когерентность + Семантическая связность + Phonetic morphoform
     # v9.4: Включает все три уровня context_verifier
-    # v9.4.1: Защита merged_from_ins_del — разные леммы = реальная ошибка
+    # v9.5.1: Защита merged унифицирована в _should_skip_merged_different_lemmas()
     if HAS_CONTEXT_VERIFIER and error_type == 'substitution':
-        # Защита merged: разные леммы = реальная ошибка чтеца
-        skip_context = False
-        if is_merged and HAS_PYMORPHY and len(words_norm) >= 2:
-            w1_ctx, w2_ctx = words_norm[0], words_norm[1]
-            lemma1_ctx = get_lemma(w1_ctx)
-            lemma2_ctx = get_lemma(w2_ctx)
-            if lemma1_ctx and lemma2_ctx and lemma1_ctx != lemma2_ctx:
-                skip_context = True  # Merged с разными леммами — не фильтруем
-
-        if not skip_context:
+        # v9.5.1: Унифицированная защита merged
+        if not _should_skip_merged_different_lemmas(error, words_norm):
             try:
                 is_fp, reason = should_filter_by_context(
                     error,

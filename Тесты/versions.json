@@ -1,7 +1,7 @@
 {
   "_schema_version": "1.0",
   "_description": "Единый источник истины для версий проекта и метрик",
-  "_updated": "2026-01-30",
+  "_updated": "2026-01-31",
   "versions": [
     {
       "id": "v5.7.2",
@@ -171,6 +171,111 @@
         "errors": 358,
         "golden": 93,
         "fp": 265
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v12.3.0",
+      "date": "2026-01-30",
+      "project_version": "12.3.0",
+      "filter_version": "9.2.0",
+      "smart_compare_version": "10.5.0",
+      "chapters": {
+        "1": {
+          "total": 87,
+          "golden": 31
+        },
+        "2": {
+          "total": 79,
+          "golden": 21
+        },
+        "3": {
+          "total": 111,
+          "golden": 20
+        },
+        "4": {
+          "total": 58,
+          "golden": 21
+        },
+        "5": {
+          "total": 119,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 454,
+        "golden": 127,
+        "fp": 327
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v12.6.0",
+      "date": "2026-01-30",
+      "project_version": "12.6.0",
+      "filter_version": "9.5.0",
+      "smart_compare_version": "10.5.0",
+      "chapters": {
+        "1": {
+          "total": 87,
+          "golden": 31
+        },
+        "2": {
+          "total": 79,
+          "golden": 21
+        },
+        "3": {
+          "total": 111,
+          "golden": 20
+        },
+        "4": {
+          "total": 58,
+          "golden": 21
+        },
+        "5": {
+          "total": 119,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 454,
+        "golden": 127,
+        "fp": 327
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v13.0.0",
+      "date": "2026-01-31",
+      "project_version": "13.0.0",
+      "filter_version": "9.6.0",
+      "smart_compare_version": "10.5.0",
+      "chapters": {
+        "1": {
+          "total": 83,
+          "golden": 31
+        },
+        "2": {
+          "total": 68,
+          "golden": 21
+        },
+        "3": {
+          "total": 104,
+          "golden": 20
+        },
+        "4": {
+          "total": 54,
+          "golden": 21
+        },
+        "5": {
+          "total": 115,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 424,
+        "golden": 127,
+        "fp": 297
       },
       "notes": "Auto-saved by run_full_test.py v6.3.0"
     }

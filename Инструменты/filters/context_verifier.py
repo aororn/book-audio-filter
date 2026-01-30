@@ -25,6 +25,12 @@
 - Если слово из транскрипции ПРИСУТСТВУЕТ в контексте оригинала
   на правильной позиции — это артефакт выравнивания, а не ошибка чтеца.
 
+v4.1 (2026-01-30):
+- ИСПРАВЛЕНО: L1 anchor_verification теперь проверяет ПОЗИЦИЮ суффикса/prefix
+  - Было: suffix in trans_words (любое место в списке)
+  - Стало: проверка соседних позиций (MAX_DISTANCE=2)
+  - Это предотвращает ложные срабатывания когда суффикс есть далеко в тексте
+
 v4.0 (2026-01-30):
 - Добавлен Уровень 4: фонетическая идентичность морфоформ
 - verify_phonetic_morphoform() — same_lemma + same_phonetic = FP
@@ -59,7 +65,7 @@ import re
 from typing import Dict, Any, Tuple, List, Optional
 from difflib import SequenceMatcher
 
-VERSION = '4.0.0'
+VERSION = '4.1.0'
 
 # Попытка импорта pymorphy3
 try:
@@ -143,22 +149,37 @@ def verify_insertion_against_context(
     # В этом случае count одинаковый, но Яндекс создал лишний insertion
 
     # Проверяем только склейку — единственный источник FP для insertions
+    # v4.1: Улучшена логика — проверяем не просто наличие, а позицию рядом с inserted
+    MAX_DISTANCE = 2  # Максимальное расстояние для проверки "рядом"
+
+    # Находим позиции inserted_word в транскрипции
+    inserted_positions = find_word_positions(trans_words, inserted_lower)
+
     for i, orig_word in enumerate(orig_words):
         # Проверяем: оригинальное слово начинается с inserted?
         # Например: "ибахару" начинается с "и"
         if orig_word.startswith(inserted_lower) and len(orig_word) > len(inserted_lower):
             suffix = orig_word[len(inserted_lower):]
-            # Проверяем: есть ли суффикс как отдельное слово в транскрипции?
-            if trans_words and suffix in trans_words:
-                # Яндекс разбил склеенное слово на части
-                return True, f'split_word_artifact:{inserted_lower}+{suffix}={orig_word}'
+            # v4.1: Проверяем, что суффикс находится РЯДОМ с inserted в транскрипции
+            # а не где-то далеко в тексте
+            for ins_pos in inserted_positions:
+                # Проверяем слова рядом с позицией inserted
+                for offset in range(1, MAX_DISTANCE + 1):
+                    neighbor_pos = ins_pos + offset
+                    if neighbor_pos < len(trans_words) and trans_words[neighbor_pos] == suffix:
+                        # Яндекс разбил склеенное слово на части, они рядом
+                        return True, f'split_word_artifact:{inserted_lower}+{suffix}={orig_word}'
 
         # Проверяем: оригинальное слово заканчивается на inserted?
         # Например: "бахаруи" заканчивается на "и"
         if orig_word.endswith(inserted_lower) and len(orig_word) > len(inserted_lower):
             prefix = orig_word[:-len(inserted_lower)]
-            if trans_words and prefix in trans_words:
-                return True, f'split_word_artifact:{prefix}+{inserted_lower}={orig_word}'
+            # v4.1: Проверяем, что prefix находится ПЕРЕД inserted в транскрипции
+            for ins_pos in inserted_positions:
+                for offset in range(1, MAX_DISTANCE + 1):
+                    neighbor_pos = ins_pos - offset
+                    if neighbor_pos >= 0 and trans_words[neighbor_pos] == prefix:
+                        return True, f'split_word_artifact:{prefix}+{inserted_lower}={orig_word}'
 
     return False, ''
 

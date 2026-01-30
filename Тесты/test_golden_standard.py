@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Тест золотого стандарта
+Тест золотого стандарта v6.5
 
 Проверяет, что система находит ВСЕ ошибки из эталонного списка.
 Если какая-то ошибка не найдена — тест провален.
@@ -8,12 +8,28 @@
 Использование:
     python test_golden_standard.py отчет.json золотой_стандарт.json
     python test_golden_standard.py отчет.json  # использует стандарт из папки Тесты
+
+v6.5 (2026-01-31):
+- Использует унифицированный формат ошибок из unify_formats.py
+- Поддержка как transcript/original, так и wrong/correct
+- Добавлены функции get_transcript(), get_original()
 """
 
 import argparse
 import json
 import sys
 from pathlib import Path
+
+# Импортируем унифицированные функции
+try:
+    sys.path.insert(0, str(Path(__file__).parent.parent / 'Инструменты'))
+    from unify_formats import get_transcript, get_original
+except ImportError:
+    # Fallback если unify_formats недоступен
+    def get_transcript(error):
+        return error.get('transcript', error.get('wrong', '')) or ''
+    def get_original(error):
+        return error.get('original', error.get('correct', '')) or ''
 
 
 def normalize(word):
@@ -74,8 +90,9 @@ def find_matching_error(expected, found_errors, time_tolerance=10):
         найденная ошибка или None
     """
     exp_time = expected.get('time_seconds', time_to_seconds(expected.get('time', 0)))
-    exp_wrong = normalize(expected.get('wrong', ''))
-    exp_correct = normalize(expected.get('correct', ''))
+    # v6.5: Используем унифицированные функции для получения полей
+    exp_wrong = normalize(get_transcript(expected))
+    exp_correct = normalize(get_original(expected))
     exp_type = expected.get('type', 'substitution')
 
     for err in found_errors:
@@ -86,11 +103,10 @@ def find_matching_error(expected, found_errors, time_tolerance=10):
         if abs(err_time - exp_time) > time_tolerance:
             continue
 
-        # Проверяем слова (поддержка двух форматов: wrong/correct и transcript/original)
-        # wrong = то что услышал Яндекс (transcript)
-        # correct = то что должно быть (original)
-        err_wrong = normalize(err.get('wrong', err.get('transcript', '')))
-        err_correct = normalize(err.get('correct', err.get('original', '')))
+        # v6.5: Используем унифицированные функции для получения полей
+        # Поддержка обоих форматов: wrong/correct и transcript/original
+        err_wrong = normalize(get_transcript(err))
+        err_correct = normalize(get_original(err))
 
         # Прямое совпадение по типу
         if err_type == exp_type:
@@ -141,6 +157,22 @@ def find_matching_error(expected, found_errors, time_tolerance=10):
                 if exp_wrong in err_all_words or exp_correct in err_all_words:
                     return err
 
+        # v6.4: Обратный случай: insertion или deletion могут быть найдены как substitution
+        # Это происходит когда smart_compare.merge_adjacent_ins_del объединяет
+        # соседние insertion + deletion в одну substitution.
+        # Например: golden имеет deletion "→затем" + insertion "он→"
+        #           а система нашла substitution "он→затем"
+        if exp_type == 'deletion' and err_type == 'substitution':
+            # deletion: correct = пропущенное слово
+            # substitution: original = что в книге (= пропущенное слово)
+            if words_match(exp_correct, err_correct):
+                return err
+        if exp_type == 'insertion' and err_type == 'substitution':
+            # insertion: wrong = лишнее слово
+            # substitution: transcript = что услышал Яндекс (= лишнее слово)
+            if words_match(exp_wrong, err_wrong):
+                return err
+
     return None
 
 
@@ -179,14 +211,18 @@ def test_golden_standard(report_path, standard_path, verbose=True):
     for exp in expected_errors:
         match = find_matching_error(exp, found_errors)
 
+        # v6.5: Используем унифицированные функции
+        exp_transcript = get_transcript(exp)
+        exp_original = get_original(exp)
+
         if match:
             found_count += 1
             if verbose:
-                print(f"  ✓ {exp['time']} — {exp.get('wrong', '')} → {exp.get('correct', '')}")
+                print(f"  ✓ {exp['time']} — {exp_transcript} → {exp_original}")
         else:
             missing.append(exp)
             if verbose:
-                print(f"  ✗ {exp['time']} — {exp.get('wrong', '')} → {exp.get('correct', '')} — НЕ НАЙДЕНА!")
+                print(f"  ✗ {exp['time']} — {exp_transcript} → {exp_original} — НЕ НАЙДЕНА!")
 
     # Результат
     passed = len(missing) == 0
@@ -200,7 +236,8 @@ def test_golden_standard(report_path, standard_path, verbose=True):
             print(f"  ✗ ТЕСТ НЕ ПРОЙДЕН: {found_count}/{total} ошибок найдено")
             print(f"\n  Пропущенные ошибки:")
             for err in missing:
-                print(f"    - {err['time']}: {err.get('wrong', '')} → {err.get('correct', '')}")
+                # v6.5: Используем унифицированные функции
+                print(f"    - {err['time']}: {get_transcript(err)} → {get_original(err)}")
                 if err.get('context'):
                     print(f"      Контекст: {err['context'][:60]}...")
         print(f"{'='*60}\n")

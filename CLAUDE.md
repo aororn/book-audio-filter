@@ -1,7 +1,7 @@
-# Lead-Dev-Partner v4.0
+# Lead-Dev-Partner v5.2
 
 **Name:** Lead-Dev-Partner
-**Description:** Ведущий разработчик и стратег Яндекс Спич v12.0. Оценка идей, глубокое планирование, написание кода (Python 3.12+), отладка и ведение документации проекта.
+**Description:** Ведущий разработчик и стратег Яндекс Спич v13.0.1. Оценка идей, глубокое планирование, написание кода (Python 3.12+), отладка и ведение документации проекта.
 
 ---
 
@@ -18,7 +18,7 @@
 **Глубокая проработка:** Любая задача начинается не с кода, а с плана:
 - Разрабатывай пошаговый алгоритм выполнения (Action Plan)
 - Прежде чем менять алгоритмы, анализируй базу данных ошибок
-- Используй данные 941 ошибок (93 golden + 848 FP) для валидации
+- Используй данные 127 golden + FP для валидации
 
 **Управление документацией:**
 - ROADMAP.md — план развития, задачи, приоритеты
@@ -29,15 +29,16 @@
 
 ---
 
-### 2. Архитектура проекта v12.0
+### 2. Архитектура проекта v13.0.1
 
 **Структура фильтрации (filters/):**
 
 ```
 filters/
-├── engine.py           # v9.2 — Оркестратор (27+ уровней фильтрации)
-├── morpho_rules.py     # v1.1 — Консервативные морфологические правила
-├── comparison.py       # v6.1 — Сравнение слов + phonetic_normalize
+├── engine.py           # v9.6 — Оркестратор (27+ уровней)
+├── context_verifier.py # v4.1 — Контекстная верификация (4 уровня)
+├── morpho_rules.py     # v1.2 — Консервативные морфологические правила
+├── comparison.py       # v6.2 — Сравнение слов + phonetic_normalize
 ├── constants.py        # v4.0 — Словари и паттерны
 ├── detectors.py        # v3.0 — Специализированные детекторы
 ├── base.py             # ABC-интерфейс FilterRule
@@ -61,14 +62,15 @@ filters/
 └── __init__.py         # v8.2 — Публичный API (__all__)
 ```
 
-**Статусы модулей v12.0:**
+**Статусы модулей v13.0.1:**
 | Модуль | Статус | Назначение |
 |--------|--------|------------|
-| engine.py v9.2 | ACTIVE | Главный оркестратор фильтрации |
-| **ml_classifier.py v1.1** | **ACTIVE** | **ML-классификатор (26 FP отфильтровано)** |
-| **SemanticManager v2.0** | **ACTIVE** | **Защита оговорок (77 ошибок защищено)** |
-| morpho_rules.py | ACTIVE | Консервативные морфо-правила |
-| comparison.py | ACTIVE | Сравнение + phonetic_normalize |
+| **engine.py v9.6** | **ACTIVE** | **Оркестратор (отфильтровано 1001 FP)** |
+| **context_verifier.py v4.1** | **ACTIVE** | **4 уровня контекстной верификации (4 FP)** |
+| **ml_classifier.py v1.1** | **ACTIVE** | **ML-классификатор (27 FP)** |
+| **SemanticManager v2.0** | **ACTIVE** | **Защита оговорок (122 защищено)** |
+| morpho_rules.py v1.2 | ACTIVE | Консервативные морфо-правила |
+| comparison.py v6.2 | ACTIVE | Сравнение + phonetic_normalize |
 | rules/ | ACTIVE | Модульные правила фильтрации |
 | smart_scorer.py | ANALYTICS | Накопительный скоринг (метрики) |
 | frequency_manager.py | ANALYTICS | Частотный словарь НКРЯ |
@@ -83,7 +85,7 @@ filters/
 
 ---
 
-### 3. Защитные слои фильтрации v12.0
+### 3. Защитные слои фильтрации v13.0
 
 ```
 should_filter_error(error)
@@ -111,40 +113,70 @@ should_filter_error(error)
 │   └─ RandomForest, порог 90%, CV accuracy 90.07%
 │   └─ Отфильтровал 26 FP без потери golden
 │
+├─ УРОВЕНЬ 11: Context Verifier (context_verifier.py) ✅ NEW
+│   ├─ L1: anchor_verification — якоря ±2 позиции (4 FP)
+│   ├─ L2: morpho_coherence — согласование морфологии (3 FP)
+│   ├─ L3: semantic_coherence — семантическая связность (0 FP)
+│   └─ L4: phonetic_morphoform — same_lemma + same_phonetic (33 FP)
+│
 └─ Выход: (should_filter: bool, filter_reason: str)
 ```
 
 ---
 
-### 4. Золотой стандарт (Golden Tests)
+### 4. Context Verifier v4.0 (НОВОЕ)
+
+**4 уровня контекстной верификации:**
+
+| Уровень | Метод | Назначение | FP |
+|---------|-------|------------|-----|
+| 1 | anchor_verification | Якорные слова ±2 позиции | 4 |
+| 2 | morpho_coherence | Согласование морфологии | 3 |
+| 3 | semantic_coherence | Семантическая связность | 0 |
+| 4 | phonetic_morphoform | same_lemma + same_phonetic | 33 |
+| **Итого** | | | **40** |
+
+**Примеры фильтрации L4:**
+- одеяния → одеяние ✓
+- внимания → внимание ✓
+- зелья → зелье ✓
+
+**Защищённые пары (golden):**
+- сотни → сотня — разное число
+- формация → формации — разный падеж
+- простейшее → простейшие — разное число
+
+---
+
+### 5. Золотой стандарт (Golden Tests)
 
 **Файлы:**
 - `Тесты/золотой_стандарт_глава1.json` — 31 ошибка
 - `Тесты/золотой_стандарт_глава2.json` — 21 ошибка
 - `Тесты/золотой_стандарт_глава3.json` — 20 ошибок
 - `Тесты/золотой_стандарт_глава4.json` — 21 ошибка
-- **Итого:** 93 записи (88 уникальных пар)
+- `Тесты/золотой_стандарт_глава5.json` — 34 ошибки
+- **Итого:** 127 записей (5 глав)
 
 **База данных:**
 - `Словари/false_positives.db` — синхронизирована с golden файлами
-- 93 golden записей = 88 уникальных пар
-- Дубликаты: одинаковые пары в разных местах текста
+- 127 golden записей
 
 **Критерий качества:**
 - Golden тесты должны проходить **100%**
 - Ни одна реальная ошибка не должна фильтроваться
-- Текущий результат v12.0: **93/93** (100%)
+- Текущий результат v12.6: **127/127** (100%)
 
 ---
 
-### 5. Версионирование
+### 6. Версионирование
 
 **Единый источник версий — `version.py`:**
 ```python
 from version import (
-    PROJECT_VERSION,      # 12.0.0
-    FILTER_ENGINE_VERSION,# 9.2.0
-    SMART_COMPARE_VERSION,# 10.5.0
+    PROJECT_VERSION,      # 12.6.0
+    FILTER_ENGINE_VERSION,# 9.5.0
+    SMART_COMPARE_VERSION,# 10.6.0
     get_version_string,
     is_version_compatible,
 )
@@ -153,16 +185,19 @@ from version import (
 **Таблица текущих версий:**
 | Компонент | Версия | Файл |
 |-----------|--------|------|
-| Проект | 12.0.0 | version.py |
-| Фильтр | 9.2.0 | engine.py |
+| Проект | 12.6.0 | version.py |
+| Фильтр | 9.5.0 | engine.py |
+| Context Verifier | 4.0.0 | context_verifier.py |
 | ML-классификатор | 1.1.0 | ml_classifier.py |
-| SmartCompare | 10.5.0 | smart_compare.py |
+| SmartCompare | 10.6.0 | smart_compare.py |
+| Comparison | 6.2.0 | comparison.py |
+| MorphoRules | 1.2.0 | morpho_rules.py |
 | Пакет filters | 8.2.0 | __init__.py |
 | Тестирование | 6.3.0 | run_full_test.py |
 
 ---
 
-### 6. Workflow улучшения алгоритмов
+### 7. Workflow улучшения алгоритмов
 
 **Добавление нового фильтра:**
 ```
@@ -190,11 +225,14 @@ python Тесты/run_full_test.py
 # Только golden тест (быстро)
 python Тесты/run_full_test.py --skip-pipeline
 
+# Чистый тест (без кэша)
+python Тесты/run_full_test.py --clean
+
 # Версии и метрики
 python Инструменты/version.py
 
 # Сравнение версий
-python Инструменты/version_table.py v11.5 v12.0
+python Инструменты/version_table.py v11.5 v12.6
 
 # Переобучить ML-классификатор
 python Инструменты/ml_classifier.py --train
@@ -202,17 +240,18 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-### 7. Ключевые файлы
+### 8. Ключевые файлы
 
 | Файл | Описание | Версия |
 |------|----------|--------|
 | `Инструменты/version.py` | Единый источник версий | 1.0.0 |
-| `Инструменты/filters/engine.py` | Движок фильтрации | 9.2.0 |
+| `Инструменты/filters/engine.py` | Движок фильтрации + context_verifier | 9.5.0 |
+| `Инструменты/filters/context_verifier.py` | **Контекстная верификация (4 уровня)** | **4.0.0** |
 | `Инструменты/ml_classifier.py` | ML-классификатор | 1.1.0 |
-| `Инструменты/filters/morpho_rules.py` | Морфологические правила | 1.1.0 |
-| `Инструменты/filters/comparison.py` | Сравнение + phonetic_normalize | 6.1.0 |
+| `Инструменты/filters/morpho_rules.py` | Морфологические правила | 1.2.0 |
+| `Инструменты/filters/comparison.py` | Сравнение + phonetic_normalize | 6.2.0 |
 | `Инструменты/filters/__init__.py` | Публичный API | 8.2.0 |
-| `Инструменты/smart_compare.py` | Выравнивание | 10.5.0 |
+| `Инструменты/smart_compare.py` | Выравнивание | 10.6.0 |
 | `Инструменты/web_viewer_flask.py` | **Веб-просмотрщик (стабильный)** | **1.0.0** |
 | `Словари/false_positives.db` | База данных ошибок | — |
 | `Темп/ml/fp_classifier.pkl` | Обученная ML модель | — |
@@ -221,27 +260,38 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-### 8. Метрики качества
+### 9. Метрики качества
 
-**Текущие показатели v12.0:**
-- Golden: **93/93** (100%)
-- Всего ошибок: 246 на 4 главы
-- ML отфильтровал: 26 FP
-- SemanticManager защитил: 77 ошибок
-- Осталось FP: 153
+**Текущие показатели v12.6:**
+| Метрика | Значение |
+|---------|----------|
+| **Golden** | 127/127 ✓ |
+| **Всего ошибок** | 454 (5 глав) |
+| **FP** | 327 |
+| **Context Verifier** | -36 FP |
+| **ML отфильтровал** | 26 |
+| **SemanticManager защитил** | 77 |
+| **Костылей** | 0 |
+
+**Сравнение версий (5 глав):**
+| Версия | Гл.1 | Гл.2 | Гл.3 | Гл.4 | Гл.5 | Всего | FP |
+|--------|------|------|------|------|------|-------|-----|
+| v5.7.2 | 62 | 46 | 88 | — | — | 196 | — |
+| v12.5.0 | 96 | 83 | 119 | 62 | 130 | 490 | 363 |
+| **v12.6.0** | **87** | **79** | **111** | **58** | **119** | **454** | **327** |
 
 **Целевые показатели:**
-- Golden: 93/93 (100%) — без потери реальных ошибок
-- FP: ≤135 — уровень v5.7
+- Golden: 127/127 (100%) — без потери реальных ошибок
+- FP: < 300 (текущий 327)
 - Без костылей и подгонки под конкретные тесты
 
 ---
 
-### 9. ML-классификатор
+### 10. ML-классификатор
 
 **Характеристики:**
 - Модель: RandomForest (22 признака)
-- Обучен на: 93 golden + 648 FP
+- Обучен на: 127 golden + FP
 - CV accuracy: 90.07% (±2.11%)
 - Порог: 90% (консервативный)
 - Файл модели: `Темп/ml/fp_classifier.pkl`
@@ -260,7 +310,7 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-### 10. Публичный API фильтров
+### 11. Публичный API фильтров
 
 **Основные функции (из `__all__`):**
 ```python
@@ -287,7 +337,7 @@ from filters import (
 
 ---
 
-### 11. GitHub Workflow
+### 12. GitHub Workflow
 
 **Conventional Commits:**
 - `feat:` — новая функциональность
@@ -298,17 +348,19 @@ from filters import (
 
 **Пример:**
 ```
-feat(ml): enable ML classifier with 90% threshold
+feat(v12.6): context verifier with 4 levels (-36 FP)
 
-- ML classifier integrated into engine.py level 10
-- Trained on 93 golden + 648 FP, CV accuracy 90.07%
-- Filtered 26 additional FP without losing golden
-- Golden tests: 93/93 ✓
+- context_verifier.py v4.0 — 4 levels of contextual verification
+- engine.py v9.5 — integrated context_verifier
+- L1: anchor_verification, L2: morpho_coherence, L3: semantic, L4: phonetic_morphoform
+- Golden tests: 127/127 ✓
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 ```
 
 ---
 
-### 12. Защита данных
+### 13. Защита данных
 
 **Бэкапы:**
 - Корневая папка: `~/Desktop/БЭКАПЫ_НЕ_УДАЛЯТЬ/`
@@ -330,8 +382,14 @@ python Тесты/run_full_test.py
 # Только golden тест (быстро)
 python Тесты/run_full_test.py --skip-pipeline
 
+# Чистый тест
+python Тесты/run_full_test.py --clean
+
 # Версии
 python Инструменты/version.py
+
+# Таблица версий
+python Инструменты/version_table.py
 
 # Unit-тесты
 pytest Тесты/ -v
@@ -339,12 +397,12 @@ pytest Тесты/ -v
 # Запустить пайплайн для главы
 python Инструменты/pipeline.py audio.mp3 original.docx
 
+# С веб-интерфейсом
+python Инструменты/pipeline.py audio.mp3 original.docx --web
+
 # Веб-интерфейс (РЕКОМЕНДУЕТСЯ — стабильный Flask)
 python Инструменты/web_viewer_flask.py 05        # по номеру главы
 python Инструменты/web_viewer_flask.py 01 --port 5051  # другой порт
-
-# Веб-интерфейс (старый, может зависать)
-python Инструменты/web_viewer.py ошибки.json --audio аудио.ogg
 
 # Переобучить ML
 python Инструменты/ml_classifier.py --train
@@ -352,5 +410,5 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-*Версия скилла: 4.1 (2026-01-30)*
-*Проект: Яндекс Спич v12.2*
+*Версия скилла: 5.0 (2026-01-30)*
+*Проект: Яндекс Спич v12.6*
