@@ -11,7 +11,7 @@ v1.0.0 (2026-01-30): Начальная версия
 # ВЕРСИЯ ПРОЕКТА
 # =============================================================================
 
-PROJECT_VERSION = '12.3.0'
+PROJECT_VERSION = '12.6.0'
 PROJECT_DATE = '2026-01-30'
 
 # =============================================================================
@@ -19,7 +19,8 @@ PROJECT_DATE = '2026-01-30'
 # =============================================================================
 
 # Фильтрация
-FILTER_ENGINE_VERSION = '9.2.0'
+FILTER_ENGINE_VERSION = '9.5.0'
+CONTEXT_VERIFIER_VERSION = '4.0.0'
 RULES_MODULE_VERSION = '1.0.0'
 MORPHO_RULES_VERSION = '1.1.0'
 # SMART_RULES_VERSION — УДАЛЁН в v11.7.2
@@ -71,6 +72,7 @@ def get_version_info() -> dict:
         'project': PROJECT_VERSION,
         'project_date': PROJECT_DATE,
         'filter_engine': FILTER_ENGINE_VERSION,
+        'context_verifier': CONTEXT_VERIFIER_VERSION,
         'smart_compare': SMART_COMPARE_VERSION,
         'morpho_rules': MORPHO_RULES_VERSION,
         'filters_package': FILTERS_PACKAGE_VERSION,

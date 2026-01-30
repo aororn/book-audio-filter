@@ -135,7 +135,7 @@ except ImportError:
     HAS_RULES_MODULE = False
 
 # Версия модуля
-VERSION = '9.3.2'
+VERSION = '9.4.1'
 VERSION_DATE = '2026-01-30'
 
 # v9.3.2 изменения:
@@ -852,15 +852,41 @@ def should_filter_error(
 
     # ==== УРОВЕНЬ 12: ContextVerifier v1.0 ====
     # Контекстная верификация: проверяет артефакты склеенных/разбитых слов
-    # Работает только для insertion (пока)
+    # Уровень 1: Anchor verification для insertion
     # Безопасно: протестировано на golden, 0 ложных фильтраций
     if HAS_CONTEXT_VERIFIER and error_type == 'insertion':
         try:
-            is_fp, reason = should_filter_by_context(error)
+            is_fp, reason = should_filter_by_context(error, use_morpho=False)
             if is_fp:
                 return True, reason
         except Exception:
             pass
+
+    # Уровень 2-3: Морфологическая когерентность + Семантическая связность для substitution
+    # v9.4: Включает все три уровня context_verifier
+    # v9.4.1: Защита merged_from_ins_del — разные леммы = реальная ошибка
+    if HAS_CONTEXT_VERIFIER and error_type == 'substitution':
+        # Защита merged: разные леммы = реальная ошибка чтеца
+        skip_context = False
+        if is_merged and HAS_PYMORPHY and len(words_norm) >= 2:
+            w1_ctx, w2_ctx = words_norm[0], words_norm[1]
+            lemma1_ctx = get_lemma(w1_ctx)
+            lemma2_ctx = get_lemma(w2_ctx)
+            if lemma1_ctx and lemma2_ctx and lemma1_ctx != lemma2_ctx:
+                skip_context = True  # Merged с разными леммами — не фильтруем
+
+        if not skip_context:
+            try:
+                is_fp, reason = should_filter_by_context(
+                    error,
+                    use_morpho=True,
+                    use_semantic=True,
+                    use_phonetic_morpho=True  # v9.5: Level 4
+                )
+                if is_fp:
+                    return True, reason
+            except Exception:
+                pass
 
     return False, 'real_error'
 
