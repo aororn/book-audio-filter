@@ -128,8 +128,13 @@ except ImportError:
     HAS_RULES_MODULE = False
 
 # Версия модуля
-VERSION = '9.2.1'
+VERSION = '9.2.3'
 VERSION_DATE = '2026-01-30'
+
+# v9.2.2 изменения:
+# - safe_ending_transition: добавлена проверка падежа (get_case)
+# - check_alignment_artifact: добавлен get_case_func
+# - ML защита: same_lemma + diff_number → не применяем ML
 
 # v9.2.1 изменения:
 # - Эксперимент ML 85% НЕ ПРОШЁЛ: "услышав → услышал" отфильтровано
@@ -268,12 +273,14 @@ def should_filter_error(
 
     # ==== УРОВЕНЬ 0.3: Безопасные окончания (v8.8 → v9.1 migrated to rules/) ====
     # Переходы окончаний, которые встречаются ТОЛЬКО в FP, НИКОГДА в Golden
+    # v9.2.1: добавлена проверка падежа (get_case)
     if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
         should_filter, reason = check_safe_ending_transition(
             w1, w2,
             get_lemma_func=get_lemma if HAS_PYMORPHY else None,
-            get_pos_func=get_pos if HAS_PYMORPHY else None
+            get_pos_func=get_pos if HAS_PYMORPHY else None,
+            get_case_func=get_case if HAS_PYMORPHY else None
         )
         if should_filter:
             return True, reason
@@ -285,13 +292,15 @@ def should_filter_error(
             return True, reason
 
     # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4 → v9.1 migrated to rules/) ====
+    # v9.2.1: добавлена проверка падежа (get_case)
     if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
         should_filter, reason = check_alignment_artifact(
             w1, w2,
             error_type='substitution',
             get_lemma_func=get_lemma if HAS_PYMORPHY else None,
-            get_pos_func=get_pos if HAS_PYMORPHY else None
+            get_pos_func=get_pos if HAS_PYMORPHY else None,
+            get_case_func=get_case if HAS_PYMORPHY else None
         )
         if should_filter:
             return True, reason
@@ -707,14 +716,56 @@ def should_filter_error(
     # Обучен на 93 golden + 648 FP. CV accuracy: 90%
     # Только substitution, порог 90% — консервативно
     # Тестировано: 'или→и' = REAL (59%), 'и→я' = REAL (82%)
+    # v9.2.2: Защита от ML для грамматических ошибок (same_lemma + diff_number)
     if HAS_ML_CLASSIFIER and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
-        try:
-            is_fp, confidence = _ml_classifier.predict(w1, w2)
-            if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
-                return True, f'ml_classifier({confidence:.2f})'
-        except Exception:
-            pass
+
+        # v9.2.2: Защита — если одинаковая лемма, но разное число — это реальная ошибка
+        # Пример: "идущими" vs "идущим" — ML ошибочно считает FP
+        # v9.2.3: Дополнительно: если одинаковая лемма и разные окончания — потенциальная
+        #         грамматическая ошибка (pymorphy может не различить число из-за омонимии)
+        #         Пример: "тюрьмы" vs "тюрьма" — sing,gent vs plur,nomn — омонимия
+        if HAS_PYMORPHY:
+            lemma1 = get_lemma(w1)
+            lemma2 = get_lemma(w2)
+            num1 = get_number(w1)
+            num2 = get_number(w2)
+            if lemma1 and lemma2 and lemma1 == lemma2:
+                # Одинаковая лемма — проверяем грамматические различия
+                skip_ml = False
+                if num1 and num2 and num1 != num2:
+                    # Явно разное число — реальная ошибка
+                    skip_ml = True
+                elif w1 != w2 and len(w1) > 2 and len(w2) > 2:
+                    # v9.2.3: Слова отличаются, но одинаковая лемма
+                    # Это грамматическая вариация (падеж, число, род и т.д.)
+                    # Не применяем ML — пусть человек проверит
+                    skip_ml = True
+
+                if not skip_ml:
+                    # Применяем ML только если слова идентичны (чистый FP)
+                    try:
+                        is_fp, confidence = _ml_classifier.predict(w1, w2)
+                        if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
+                            return True, f'ml_classifier({confidence:.2f})'
+                    except Exception:
+                        pass
+            else:
+                # Разные леммы — применяем ML
+                try:
+                    is_fp, confidence = _ml_classifier.predict(w1, w2)
+                    if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
+                        return True, f'ml_classifier({confidence:.2f})'
+                except Exception:
+                    pass
+        else:
+            # Без морфологии — применяем ML
+            try:
+                is_fp, confidence = _ml_classifier.predict(w1, w2)
+                if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
+                    return True, f'ml_classifier({confidence:.2f})'
+            except Exception:
+                pass
 
     # ==== УРОВЕНЬ 11: SmartFilter — ОТКЛЮЧЁН ====
     # ПРИЧИНА: Все оставшиеся FP имеют score > 70 (grammar_change)

@@ -17,10 +17,11 @@ Morpho Rules v1.0 — Морфологические правила фильтр
 
 v1.0 (2026-01-26): Начальная версия
 v1.1 (2026-01-29): Исправлен баг с _is_proper_name() — исключены составные слова (когдато и т.п.)
+v1.2 (2026-01-30): proper_name фильтр теперь проверяет схожесть слов (≥50%)
 """
 
-VERSION = '1.1.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '1.2.0'
+VERSION_DATE = '2026-01-30'
 
 from typing import Optional, Tuple
 from dataclasses import dataclass
@@ -102,9 +103,18 @@ class MorphoRules:
         # =================================================================
         if lemma1 != lemma2:
             # Исключение: имена собственные (Яндекс не знает имён)
+            # v1.2: Добавлена проверка схожести — если слова совершенно разные
+            # (например, "Рутгош" vs "лет"), это НЕ ошибка распознавания имени
             if self._is_proper_name(w1) or self._is_proper_name(w2):
-                return FilterResult(True, 'proper_name', 1.0,
-                                  f'Имя собственное: {w1}/{w2}')
+                # Проверяем схожесть слов
+                max_len = max(len(w1), len(w2))
+                if max_len > 0:
+                    dist = levenshtein_distance(w1.lower(), w2.lower())
+                    similarity = 1 - (dist / max_len)
+                    # Фильтруем только если слова похожи (>50% схожести)
+                    if similarity >= 0.5:
+                        return FilterResult(True, 'proper_name', 1.0,
+                                          f'Имя собственное: {w1}/{w2}')
 
             # Фонетически идентичные с РАЗНЫМИ леммами — омофоны
             # НО только если одинаковая часть речи!

@@ -213,6 +213,7 @@ python Инструменты/ml_classifier.py --train
 | `Инструменты/filters/comparison.py` | Сравнение + phonetic_normalize | 6.1.0 |
 | `Инструменты/filters/__init__.py` | Публичный API | 8.2.0 |
 | `Инструменты/smart_compare.py` | Выравнивание | 10.5.0 |
+| `Инструменты/web_viewer_flask.py` | **Веб-просмотрщик (стабильный)** | **1.0.0** |
 | `Словари/false_positives.db` | База данных ошибок | — |
 | `Темп/ml/fp_classifier.pkl` | Обученная ML модель | — |
 | `Тесты/run_full_test.py` | Запуск тестов | 6.3.0 |
@@ -338,7 +339,11 @@ pytest Тесты/ -v
 # Запустить пайплайн для главы
 python Инструменты/pipeline.py audio.mp3 original.docx
 
-# Веб-интерфейс
+# Веб-интерфейс (РЕКОМЕНДУЕТСЯ — стабильный Flask)
+python Инструменты/web_viewer_flask.py 05        # по номеру главы
+python Инструменты/web_viewer_flask.py 01 --port 5051  # другой порт
+
+# Веб-интерфейс (старый, может зависать)
 python Инструменты/web_viewer.py ошибки.json --audio аудио.ogg
 
 # Переобучить ML
@@ -347,5 +352,5 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-*Версия скилла: 4.0 (2026-01-30)*
-*Проект: Яндекс Спич v12.0*
+*Версия скилла: 4.1 (2026-01-30)*
+*Проект: Яндекс Спич v12.2*

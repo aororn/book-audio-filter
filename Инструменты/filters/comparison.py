@@ -21,6 +21,7 @@
 v5.7.0: Унификация — normalize_word импортируется из morphology.py
 v6.0.0: Убрано дублирование pymorphy, добавлены aspect/phonetic функции
 v6.0.1: is_yandex_typical_error проверяет леммы для слов >= 5 символов
+v6.2.0: is_short_full_adjective_match проверяет род (gender)
 """
 
 from functools import lru_cache
@@ -341,19 +342,27 @@ def is_verb_gerund_safe_match(word1: str, word2: str) -> bool:
 
 
 def is_short_full_adjective_match(word1: str, word2: str) -> bool:
-    """Проверяет краткое↔полное прилагательное."""
+    """Проверяет краткое↔полное прилагательное.
+
+    v6.2: Добавлена проверка рода. Если род разный (например,
+    'непрозрачно' neut vs 'непрозрачная' femn) — это разные формы,
+    реальная ошибка чтеца, НЕ фильтруем.
+    """
     if not HAS_PYMORPHY:
         return False
 
     info1 = get_word_info(word1)
     info2 = get_word_info(word2)
-    lemma1, pos1, _, _, _ = info1
-    lemma2, pos2, _, _, _ = info2
+    lemma1, pos1, _, gender1, _ = info1
+    lemma2, pos2, _, gender2, _ = info2
 
     if lemma1 != lemma2:
         return False
 
     if (pos1 == 'ADJS' and pos2 == 'ADJF') or (pos1 == 'ADJF' and pos2 == 'ADJS'):
+        # v6.2: Проверяем род — разный род = разные формы = реальная ошибка
+        if gender1 and gender2 and gender1 != gender2:
+            return False
         return True
 
     return False

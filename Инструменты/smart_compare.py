@@ -58,8 +58,8 @@ Changelog:
 """
 
 # Версия модуля
-VERSION = '10.4.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '10.6.0'
+VERSION_DATE = '2026-01-30'
 
 import argparse
 import json
@@ -276,6 +276,173 @@ def compare_with_anchors(
 
 
 # =============================================================================
+# SMART REPLACE MATCHING v10.6 — Умное сопоставление при replace
+# =============================================================================
+
+def smart_replace_match(
+    orig_words: List[str],
+    trans_words: List[str],
+    similarity_threshold: float = 0.4
+) -> List[Tuple[Optional[int], Optional[int], float]]:
+    """
+    v10.6: Умное сопоставление слов при replace блоке.
+
+    Вместо простого сопоставления по индексам (orig[0]↔trans[0], orig[1]↔trans[1]),
+    ищет оптимальные пары на основе схожести слов.
+
+    Алгоритм:
+    1. Для каждого слова оригинала находим наиболее похожее в транскрипте
+    2. Жадно выбираем лучшие пары (greedy matching)
+    3. Несопоставленные слова — insertions/deletions
+
+    Пример:
+        orig = ['рутгош', 'поправил']
+        trans = ['лет', 'рудош', 'поправился']
+
+        Результат: [(None, 0, 0), (0, 1, 0.67), (1, 2, 0.89)]
+        - trans[0]='лет' — insertion (не сопоставлено с orig)
+        - orig[0]='рутгош' ↔ trans[1]='рудош' — substitution (схожесть 0.67)
+        - orig[1]='поправил' ↔ trans[2]='поправился' — substitution (схожесть 0.89)
+
+    Args:
+        orig_words: слова оригинала (нормализованные тексты)
+        trans_words: слова транскрипта (нормализованные тексты)
+        similarity_threshold: минимальная схожесть для сопоставления (0.0-1.0)
+
+    Returns:
+        Список кортежей (orig_idx, trans_idx, similarity):
+        - (None, j, 0) — insertion: trans[j] лишнее
+        - (i, None, 0) — deletion: orig[i] пропущено
+        - (i, j, sim) — substitution/match: orig[i] ↔ trans[j]
+    """
+    if not orig_words and not trans_words:
+        return []
+
+    if not orig_words:
+        # Все слова транскрипта — insertions
+        return [(None, j, 0.0) for j in range(len(trans_words))]
+
+    if not trans_words:
+        # Все слова оригинала — deletions
+        return [(i, None, 0.0) for i in range(len(orig_words))]
+
+    # Вычисляем матрицу схожести
+    # similarity_matrix[i][j] = схожесть orig[i] с trans[j]
+    similarity_matrix = []
+    for i, o_word in enumerate(orig_words):
+        row = []
+        for j, t_word in enumerate(trans_words):
+            # Используем комбинацию Левенштейна и фонетики
+            o_lower = o_word.lower()
+            t_lower = t_word.lower()
+
+            # Левенштейн-схожесть
+            max_len = max(len(o_lower), len(t_lower))
+            if max_len == 0:
+                lev_sim = 1.0
+            else:
+                # Простой Левенштейн без внешних зависимостей
+                dist = _levenshtein_distance(o_lower, t_lower)
+                lev_sim = 1.0 - (dist / max_len)
+
+            # Фонетическая схожесть (если доступна)
+            phon_sim = 0.0
+            if smart_phonetic_normalize:
+                o_phon = smart_phonetic_normalize(o_word)
+                t_phon = smart_phonetic_normalize(t_word)
+                phon_max = max(len(o_phon), len(t_phon))
+                if phon_max > 0:
+                    phon_dist = _levenshtein_distance(o_phon, t_phon)
+                    phon_sim = 1.0 - (phon_dist / phon_max)
+
+            # Берём максимум
+            sim = max(lev_sim, phon_sim)
+            row.append(sim)
+        similarity_matrix.append(row)
+
+    # Жадный алгоритм сопоставления (greedy matching)
+    # Выбираем пары с наибольшей схожестью
+    used_orig = set()
+    used_trans = set()
+    matches = []
+
+    # Собираем все возможные пары с их схожестью
+    all_pairs = []
+    for i in range(len(orig_words)):
+        for j in range(len(trans_words)):
+            sim = similarity_matrix[i][j]
+            if sim >= similarity_threshold:
+                all_pairs.append((sim, i, j))
+
+    # Сортируем по убыванию схожести
+    all_pairs.sort(reverse=True)
+
+    # Жадно выбираем лучшие пары
+    for sim, i, j in all_pairs:
+        if i not in used_orig and j not in used_trans:
+            matches.append((i, j, sim))
+            used_orig.add(i)
+            used_trans.add(j)
+
+    # Формируем результат: сохраняем порядок транскрипта
+    result = []
+
+    # Проходим по транскрипту и формируем упорядоченный результат
+    match_by_trans = {j: (i, sim) for i, j, sim in matches}
+    match_by_orig = {i: (j, sim) for i, j, sim in matches}
+
+    # Собираем все события в хронологическом порядке транскрипта
+    trans_idx = 0
+    orig_idx = 0
+
+    # Множество уже добавленных orig
+    added_orig = set()
+
+    for j in range(len(trans_words)):
+        if j in match_by_trans:
+            i, sim = match_by_trans[j]
+            # Сначала добавляем все deletions до этого orig
+            for prev_i in range(orig_idx, i):
+                if prev_i not in added_orig and prev_i not in used_orig:
+                    result.append((prev_i, None, 0.0))
+                    added_orig.add(prev_i)
+            result.append((i, j, sim))
+            added_orig.add(i)
+            orig_idx = i + 1
+        else:
+            # insertion
+            result.append((None, j, 0.0))
+
+    # Добавляем оставшиеся deletions
+    for i in range(len(orig_words)):
+        if i not in added_orig:
+            result.append((i, None, 0.0))
+
+    return result
+
+
+def _levenshtein_distance(s1: str, s2: str) -> int:
+    """Простая реализация Левенштейна без внешних зависимостей."""
+    if len(s1) < len(s2):
+        return _levenshtein_distance(s2, s1)
+
+    if len(s2) == 0:
+        return len(s1)
+
+    previous_row = range(len(s2) + 1)
+    for i, c1 in enumerate(s1):
+        current_row = [i + 1]
+        for j, c2 in enumerate(s2):
+            insertions = previous_row[j + 1] + 1
+            deletions = current_row[j] + 1
+            substitutions = previous_row[j] + (c1 != c2)
+            current_row.append(min(insertions, deletions, substitutions))
+        previous_row = current_row
+
+    return previous_row[-1]
+
+
+# =============================================================================
 # YANDEX PHONETIC PAIRS v10.2 — Фонетические ошибки Яндекса
 # =============================================================================
 
@@ -338,17 +505,23 @@ def is_alignment_artifact(orig: str, trans: str) -> bool:
 
     # Паттерн 2: Одно слово является подстрокой другого (мин. длина 3)
     # v10.4: НО если леммы равны — это грамматика, не артефакт!
+    # v10.5: Если леммы РАЗНЫЕ — это разные слова, тоже не артефакт!
     if len_o >= 3 and len_t >= 3:
         if o in t or t in o:
             if abs(len_o - len_t) >= 2:
-                # v10.4: Проверяем леммы — разные формы одного слова НЕ артефакт
+                # v10.5: Проверяем леммы
                 if morphology_get_lemma:
                     lemma_o = morphology_get_lemma(orig)
                     lemma_t = morphology_get_lemma(trans)
-                    if lemma_o and lemma_t and lemma_o == lemma_t:
-                        # Одинаковые леммы = грамматическое различие (падеж, число и т.д.)
-                        # Это НЕ артефакт выравнивания
-                        return False
+                    if lemma_o and lemma_t:
+                        if lemma_o == lemma_t:
+                            # Одинаковые леммы = грамматическое различие (падеж, число и т.д.)
+                            # Это НЕ артефакт выравнивания
+                            return False
+                        else:
+                            # Разные леммы = разные слова (как "как" vs "какой")
+                            # Это тоже НЕ артефакт — это реальная замена слова
+                            return False
                 return True
 
     return False
@@ -1043,10 +1216,33 @@ def get_context(words: List[Word], position: int, window: int = 10) -> Tuple[str
     start = max(0, position - window)
     end = min(len(words), position + window + 1)
 
-    # Собираем слова до позиции
-    before_words = []
+    def dedupe_original_texts(word_list):
+        """Убирает последовательные дубликаты original_text.
+
+        Когда несколько нормализованных слов (с, с, старейшина) ссылаются
+        на один original_text (с-с-старейшина?), берём его только один раз.
+        """
+        result = []
+        last_orig = None
+        for w in word_list:
+            orig = w.original_text if w.original_text else w.text
+            if orig != last_orig:
+                result.append(orig)
+                last_orig = orig
+        return result
+
+    # Дедуплицируем весь диапазон слов целиком
+    all_words_in_range = dedupe_original_texts(words[start:end])
+
+    # Находим позицию target в дедуплицированном списке
+    # Для этого считаем сколько уникальных original_text до position
+    target_idx_in_deduped = 0
+    last_orig = None
     for w in words[start:position]:
-        before_words.append(w.original_text if w.original_text else w.text)
+        orig = w.original_text if w.original_text else w.text
+        if orig != last_orig:
+            target_idx_in_deduped += 1
+            last_orig = orig
 
     # Слово на позиции
     target_word = ""
@@ -1054,10 +1250,20 @@ def get_context(words: List[Word], position: int, window: int = 10) -> Tuple[str
         w = words[position]
         target_word = w.original_text if w.original_text else w.text
 
-    # Слова после позиции
-    after_words = []
-    for w in words[position + 1:end]:
-        after_words.append(w.original_text if w.original_text else w.text)
+    # Разделяем на before и after относительно target
+    before_words = all_words_in_range[:target_idx_in_deduped]
+
+    # Убираем target из after если он там есть (дубль с target)
+    after_start = target_idx_in_deduped + 1 if target_idx_in_deduped < len(all_words_in_range) else len(all_words_in_range)
+    after_words = all_words_in_range[after_start:]
+
+    # Убираем дубль target с последним before
+    if before_words and before_words[-1] == target_word:
+        before_words = before_words[:-1]
+
+    # Убираем дубль target с первым after
+    if after_words and after_words[0] == target_word:
+        after_words = after_words[1:]
 
     before_text = ' '.join(before_words)
     after_text = ' '.join(after_words)
@@ -1095,14 +1301,20 @@ def get_context_with_marker(words: List[Word], position: int, window: int = 10) 
     start = max(0, position - window)
     end = min(len(words), position + window + 1)
 
-    # Собираем слова до позиции и после
-    before_words = []
-    for w in words[start:position]:
-        before_words.append(w.original_text if w.original_text else w.text)
+    def dedupe_original_texts(word_list):
+        """Убирает последовательные дубликаты original_text."""
+        result = []
+        last_orig = None
+        for w in word_list:
+            orig = w.original_text if w.original_text else w.text
+            if orig != last_orig:
+                result.append(orig)
+                last_orig = orig
+        return result
 
-    after_words = []
-    for w in words[position:end]:
-        after_words.append(w.original_text if w.original_text else w.text)
+    # Собираем слова до позиции и после (дедуплицируем)
+    before_words = dedupe_original_texts(words[start:position])
+    after_words = dedupe_original_texts(words[position:end])
 
     before_text = ' '.join(before_words)
     after_text = ' '.join(after_words)
@@ -1606,12 +1818,19 @@ def smart_compare(transcript_path: str, original_path: str,
 
         elif tag == 'replace':
             # Замена: слова orig[i1:i2] заменены на trans[j1:j2]
-            for k in range(max(i2 - i1, j2 - j1)):
-                orig_idx = i1 + k
-                trans_idx = j1 + k
+            # v10.6: Используем умное сопоставление вместо индексного
+            orig_block = [original[k].text for k in range(i1, i2)]
+            trans_block = [transcript[k].text for k in range(j1, j2)]
 
-                orig_word = original[orig_idx] if orig_idx < i2 else None
-                trans_word = transcript[trans_idx] if trans_idx < j2 else None
+            smart_pairs = smart_replace_match(orig_block, trans_block, similarity_threshold=0.4)
+
+            for orig_local_idx, trans_local_idx, pair_sim in smart_pairs:
+                # Преобразуем локальные индексы в глобальные
+                orig_idx = i1 + orig_local_idx if orig_local_idx is not None else None
+                trans_idx = j1 + trans_local_idx if trans_local_idx is not None else None
+
+                orig_word = original[orig_idx] if orig_idx is not None else None
+                trans_word = transcript[trans_idx] if trans_idx is not None else None
 
                 time = trans_word.time_start if trans_word else 0
 

@@ -79,6 +79,7 @@ def check_alignment_artifact_substring(
     Проверяет артефакт подстроки: одно слово является частью другого.
 
     v8.4: Если леммы равны — это грамматика, НЕ артефакт.
+    v1.2: Если леммы РАЗНЫЕ — это разные слова (реальная ошибка), НЕ артефакт.
 
     Args:
         w1: Первое слово (нормализованное)
@@ -98,14 +99,20 @@ def check_alignment_artifact_substring(
     if len1 >= 3 and len2 >= 3:
         if w1 in w2 or w2 in w1:
             if abs(len1 - len2) >= 2:
-                # v8.4: Проверяем леммы
+                # v8.4 + v1.2: Проверяем леммы
                 if get_lemma_func:
                     lemma1 = get_lemma_func(w1)
                     lemma2 = get_lemma_func(w2)
-                    if lemma1 and lemma2 and lemma1 == lemma2:
-                        # Одинаковые леммы = грамматика, НЕ артефакт
-                        return False, ''
+                    if lemma1 and lemma2:
+                        if lemma1 == lemma2:
+                            # Одинаковые леммы = грамматика, НЕ артефакт
+                            return False, ''
+                        else:
+                            # v1.2: Разные леммы = разные слова (поправиться vs поправить)
+                            # Это реальная ошибка чтеца, НЕ артефакт
+                            return False, ''
 
+                # Без морфологии — фильтруем консервативно
                 return True, 'alignment_artifact_substring'
 
     return False, ''
@@ -115,7 +122,8 @@ def check_safe_ending_transition(
     w1: str,
     w2: str,
     get_lemma_func: Optional[callable] = None,
-    get_pos_func: Optional[callable] = None
+    get_pos_func: Optional[callable] = None,
+    get_case_func: Optional[callable] = None
 ) -> Tuple[bool, str]:
     """
     Проверяет безопасные переходы окончаний.
@@ -123,13 +131,18 @@ def check_safe_ending_transition(
     Условия:
     - same_lemma = True
     - same_POS = True
+    - same_case = True (v1.1: добавлена проверка падежа)
     - Переход окончаний в SAFE_ENDING_TRANSITIONS
+
+    v1.1: Добавлена проверка падежа. Разные падежи (тюрьма/nomn vs тюрьмы/gent)
+    — это реальная грамматическая разница, не FP.
 
     Args:
         w1: Первое слово (нормализованное)
         w2: Второе слово (нормализованное)
         get_lemma_func: Функция получения леммы
         get_pos_func: Функция получения части речи
+        get_case_func: Функция получения падежа (v1.1)
 
     Returns:
         (should_filter, reason)
@@ -151,6 +164,12 @@ def check_safe_ending_transition(
         pos2 = get_pos_func(w2)
 
         if lemma1 and lemma2 and lemma1 == lemma2 and pos1 == pos2:
+            # v1.1: Проверка падежа — разные падежи = реальная ошибка
+            if get_case_func:
+                case1 = get_case_func(w1)
+                case2 = get_case_func(w2)
+                if case1 and case2 and case1 != case2:
+                    return False, ''  # Разные падежи — НЕ фильтруем
             return True, 'safe_ending_transition'
 
     return False, ''
@@ -177,7 +196,8 @@ def check_alignment_artifact(
     w2: str,
     error_type: str = 'substitution',
     get_lemma_func: Optional[callable] = None,
-    get_pos_func: Optional[callable] = None
+    get_pos_func: Optional[callable] = None,
+    get_case_func: Optional[callable] = None
 ) -> Tuple[bool, str]:
     """
     Проверяет все типы артефактов выравнивания.
@@ -188,6 +208,7 @@ def check_alignment_artifact(
         error_type: Тип ошибки
         get_lemma_func: Функция получения леммы
         get_pos_func: Функция получения части речи
+        get_case_func: Функция получения падежа (v1.1)
 
     Returns:
         (should_filter, reason)
@@ -203,8 +224,8 @@ def check_alignment_artifact(
         if should_filter:
             return True, reason
 
-        # Безопасные окончания
-        should_filter, reason = check_safe_ending_transition(w1, w2, get_lemma_func, get_pos_func)
+        # Безопасные окончания (v1.1: добавлен get_case_func)
+        should_filter, reason = check_safe_ending_transition(w1, w2, get_lemma_func, get_pos_func, get_case_func)
         if should_filter:
             return True, reason
 

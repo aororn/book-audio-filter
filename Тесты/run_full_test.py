@@ -115,14 +115,21 @@ def find_transcript_file(chapter_id: str) -> Path | None:
     Автоматический поиск файла транскрипции для главы.
 
     Приоритет:
-    1. {chapter_id}_transcript.json (стандартное имя)
-    2. {chapter_id}_yandex_transcript*.json (старое имя)
-    3. Файл с "transcript" и самой поздней датой (NEW_YYYYMMDD)
-    4. Любой JSON без _compared/_filtered
+    1. Результаты проверки/{chapter_id}/{chapter_id}_transcript.json
+    2. Транскрипции/Глава{N}/{chapter_id}_transcript.json
+    3. {chapter_id}_yandex_transcript*.json (старое имя)
+    4. Файл с "transcript" и самой поздней датой (NEW_YYYYMMDD)
+    5. Любой JSON без _compared/_filtered
 
     Исключаем файлы с битрейтом (16kbps, 32kbps и т.д.) — это тестовые.
     """
     chapter_num = chapter_id.lstrip('0') or '0'
+
+    # 0. Проверяем в папке результатов (новый формат)
+    results_transcript = RESULTS_DIR / chapter_id / f'{chapter_id}_transcript.json'
+    if results_transcript.exists():
+        return results_transcript
+
     trans_dir = TRANSCRIPTIONS_DIR / f'Глава{chapter_num}'
 
     if not trans_dir.exists():
@@ -163,15 +170,18 @@ def find_original_file(chapter_id: str) -> Path | None:
     """
     Автоматический поиск файла оригинала для главы.
 
-    Поиск: Глава{N}.docx, Глава {N}.docx, Глава_{N}.docx
+    Поиск: Глава{N}.docx, Глава {N}.docx, Глава_{N}.docx, Глава{N}.txt
     """
     chapter_num = chapter_id.lstrip('0') or '0'
 
-    # Варианты именования
+    # Варианты именования (сначала docx, затем txt)
     variants = [
         f'Глава{chapter_num}.docx',
         f'Глава {chapter_num}.docx',
         f'Глава_{chapter_num}.docx',
+        f'Глава{chapter_num}.txt',
+        f'Глава {chapter_num}.txt',
+        f'Глава_{chapter_num}.txt',
     ]
 
     for variant in variants:
@@ -240,7 +250,7 @@ def check_chapter_files(chapter_cfg):
     missing = []
     for key in ('audio', 'original', 'transcript', 'golden_standard'):
         path = chapter_cfg[key]
-        if not path.exists():
+        if path is None or not path.exists():
             missing.append(f"  {key}: {path}")
     return missing
 
@@ -649,7 +659,7 @@ def main():
   python Тесты/run_full_test.py --archive      # список файлов архива
         """
     )
-    parser.add_argument('--chapter', '-c', choices=['1', '2', '3', '4'],
+    parser.add_argument('--chapter', '-c', choices=['1', '2', '3', '4', '5'],
                         help='Номер главы (по умолчанию: все)')
     parser.add_argument('--skip-pipeline', action='store_true',
                         help='Пропустить пайплайн, запустить только золотой тест')
@@ -720,7 +730,7 @@ def main():
     if args.chapter:
         chapters_to_test = [args.chapter]
     else:
-        chapters_to_test = ['1', '2', '3', '4']
+        chapters_to_test = ['1', '2', '3', '4', '5']
 
     filter_ver = get_filter_version()
     sc_ver = get_smart_compare_version()

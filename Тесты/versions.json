@@ -151,26 +151,26 @@
       "filter_version": "9.2",
       "chapters": {
         "1": {
-          "total": 81,
+          "total": 99,
           "golden": 31
         },
         "2": {
-          "total": 55,
+          "total": 77,
           "golden": 21
         },
         "3": {
-          "total": 82,
+          "total": 131,
           "golden": 20
         },
         "4": {
-          "total": 48,
+          "total": 51,
           "golden": 21
         }
       },
       "totals": {
-        "errors": 266,
+        "errors": 358,
         "golden": 93,
-        "fp": 173
+        "fp": 265
       },
       "notes": "Auto-saved by run_full_test.py v6.3.0"
     }
