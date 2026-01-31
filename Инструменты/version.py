@@ -11,7 +11,7 @@ v1.0.0 (2026-01-30): Начальная версия
 # ВЕРСИЯ ПРОЕКТА
 # =============================================================================
 
-PROJECT_VERSION = '14.10.0'
+PROJECT_VERSION = '14.11.2'
 PROJECT_DATE = '2026-01-31'
 
 # =============================================================================
@@ -19,9 +19,9 @@ PROJECT_DATE = '2026-01-31'
 # =============================================================================
 
 # Фильтрация
-FILTER_ENGINE_VERSION = '9.14.0'      # v9.14.0: high_phon_sem + perfect_phon filters (-29 FP)
+FILTER_ENGINE_VERSION = '9.17.0'      # v9.17.0: context_name_artifact перенесён в context_verifier.py (Level 5)
 CLUSTER_ANALYZER_VERSION = '1.0.0'    # v1.0.0: Кластерный анализ артефактов
-CONTEXT_VERIFIER_VERSION = '4.1.0'
+CONTEXT_VERIFIER_VERSION = '5.0.0'    # v5.0.0: Level 5 — name_artifact (перенесён из engine.py)
 RULES_MODULE_VERSION = '1.0.0'
 MORPHO_RULES_VERSION = '1.4.0'        # v1.4: Исправлен импорт morphology
 COMPARISON_VERSION = '6.5.0'           # v6.5: Исправлен импорт morphology

@@ -1,80 +1,42 @@
 """
-Контекстная верификация ошибок v3.0.
+Контекстная верификация ошибок v5.0.
 
 Уровень 1: Сверка с оригиналом (Anchor Verification)
-====================================================
-Проверяет, является ли ошибка артефактом выравнивания путём анализа
-контекстного окна в оригинальном тексте.
-
 Уровень 2: Морфологическая когерентность
-========================================
-Проверяет согласование слова с контекстом по роду, числу, падежу.
-- Если transcript НЕ согласуется с контекстом, а original СОГЛАСУЕТСЯ → реальная ошибка
-- Если оба слова одинаково (не)согласуются → артефакт
-- Используется pymorphy3 для анализа
-- Защита: существительные с различием в числе/падеже НЕ фильтруются
+Уровень 3: Семантическая связность (Navec)
+Уровень 4: Фонетическая идентичность морфоформ
+Уровень 5: Артефакты имён персонажей (insertion рядом с именем)
 
-Уровень 3: Семантическая связность
-==================================
-Проверяет, какое слово лучше вписывается в контекст по смыслу.
-- Использует Navec (500K слов) для вычисления семантического сходства
-- Если transcript лучше связано с контекстом → возможно FP
-- Защита: если original хорошо вписывается в контекст → реальная ошибка
-
-Принцип:
-- Если слово из транскрипции ПРИСУТСТВУЕТ в контексте оригинала
-  на правильной позиции — это артефакт выравнивания, а не ошибка чтеца.
-
-v4.1 (2026-01-30):
-- ИСПРАВЛЕНО: L1 anchor_verification теперь проверяет ПОЗИЦИЮ суффикса/prefix
-  - Было: suffix in trans_words (любое место в списке)
-  - Стало: проверка соседних позиций (MAX_DISTANCE=2)
-  - Это предотвращает ложные срабатывания когда суффикс есть далеко в тексте
-
-v4.0 (2026-01-30):
-- Добавлен Уровень 4: фонетическая идентичность морфоформ
-- verify_phonetic_morphoform() — same_lemma + same_phonetic = FP
-- Защищённые пары (golden): сотни→сотня, формация→формации, простейшее→простейшие
-- Прогноз: ~50 FP без потери golden
-
-v3.1 (2026-01-30):
-- Оптимизированы пороги semantic_coherence: diff>0.15, trans>0.25, orig<0.35
-- Убрана агрессивная защита orig_sim>0.3, заменена на условие orig_sim<0.35
-- Тестирование: 7 FP без потери golden
-
-v3.0 (2026-01-30):
-- Добавлен Уровень 3: семантическая связность (Navec)
-- verify_semantic_coherence() — сравнение сходства с контекстом
-
-v2.1 (2026-01-30):
-- Исправлен импорт: pymorphy2 → pymorphy3
-- Добавлены защиты для существительных (число, падеж)
-- Morpho coherence применяется только к глаголам
-
-v2.0 (2026-01-30):
-- Добавлен Уровень 2: морфологическая когерентность
-- verify_morphological_coherence() — проверка согласования с контекстом
-
-v1.0 (2026-01-30):
-- Базовая реализация anchor verification
-- Поддержка insertion, deletion, substitution
-- Защита от ложных срабатываний через анализ позиций
+v5.0 (2026-01-31): Уровень 5 — name_artifact (перенесён из engine.py)
+v4.2 (2026-01-31): Унификация — использует dependencies.py вместо прямого импорта pymorphy
+v4.1 (2026-01-30): L1 anchor_verification проверяет позицию суффикса/prefix
+v4.0 (2026-01-30): Уровень 4 — phonetic_morphoform
+v3.0 (2026-01-30): Уровень 3 — semantic_coherence (Navec)
+v2.0 (2026-01-30): Уровень 2 — morpho_coherence
+v1.0 (2026-01-30): Базовая реализация anchor verification
 """
 
 import re
-from typing import Dict, Any, Tuple, List, Optional
+from typing import Dict, Any, Tuple, List, Optional, Set
 from difflib import SequenceMatcher
 
-VERSION = '4.1.0'
+VERSION = '5.0.1'  # Исправлен импорт FULL_CHARACTER_NAMES из detectors.py
 
-# Попытка импорта pymorphy3
+# v4.2: Унифицированный импорт через dependencies.py
 try:
-    import pymorphy3
-    _morph = pymorphy3.MorphAnalyzer()
-    HAS_PYMORPHY = True
+    from .dependencies import get_dependencies
+    _deps = get_dependencies()
+    _morph = _deps.morph
+    HAS_PYMORPHY = _deps.has_pymorphy
 except ImportError:
-    _morph = None
-    HAS_PYMORPHY = False
+    # Fallback для автономного запуска
+    try:
+        import pymorphy3
+        _morph = pymorphy3.MorphAnalyzer()
+        HAS_PYMORPHY = True
+    except ImportError:
+        _morph = None
+        HAS_PYMORPHY = False
 
 # Слова, которые часто пропускаются/вставляются из-за выравнивания
 COMMON_ALIGNMENT_WORDS = {
@@ -695,12 +657,28 @@ def verify_semantic_coherence(
 
 # Попытка импорта phonetic_normalize
 try:
-    from .comparison import phonetic_normalize, get_lemma
+    from .comparison import phonetic_normalize, get_lemma, levenshtein_distance
     HAS_PHONETIC = True
 except ImportError:
     HAS_PHONETIC = False
     phonetic_normalize = None
     get_lemma = None
+    levenshtein_distance = None
+
+# Попытка импорта frequency_manager
+try:
+    from .frequency_manager import get_word_frequency
+    HAS_FREQUENCY = True
+except ImportError:
+    HAS_FREQUENCY = False
+    def get_word_frequency(word):
+        return 0.0
+
+# Импорт имён персонажей из detectors
+try:
+    from .detectors import FULL_CHARACTER_NAMES
+except ImportError:
+    FULL_CHARACTER_NAMES = set()
 
 # Защищённые пары (golden с same_lemma + same_phonetic)
 # Эти пары НЕ фильтруем, даже если они подходят под критерии Level 4
@@ -819,6 +797,152 @@ def is_alignment_boundary_artifact(
 
 
 # ============================================================================
+# УРОВЕНЬ 5: АРТЕФАКТЫ ИМЁН ПЕРСОНАЖЕЙ
+# ============================================================================
+
+def verify_name_artifact(
+    error: Dict[str, Any],
+    character_names: Set[str] = None
+) -> Tuple[bool, str, float]:
+    """
+    Уровень 5: Проверяет, является ли insertion артефактом распознавания имени.
+
+    Паттерн: Яндекс неправильно распознаёт имя персонажа и вставляет похожие
+    по звучанию обычные слова.
+
+    Примеры артефактов:
+    - "кивнул род гош" → оригинал "кивнул Рутгош" (род = артефакт, freq=165)
+    - "тот год подхватил" → оригинал "Рутгош подхватил" (год = артефакт, freq=3727)
+    - "гошх" рядом с "Рутгош" → артефакт (freq=0, "гош" ∈ "рутгош")
+
+    Защита golden:
+    - "пятьдесят лет рудош" → "лет" = реальная insertion (freq=9.7, имя "рудош" ≈ "рутгош" В транскрипте)
+
+    Критерии фильтрации (OR):
+    1. Фонетическое сходство: слово похоже на начало имени (ТОЛЬКО для freq=0)
+    1b. Слово является частью имени (ТОЛЬКО для freq=0)
+    1c. Слово без последней буквы является частью имени (ТОЛЬКО для freq=0)
+    2. Позиционное сходство: имя в оригинале на позиции ±2 от вставки,
+       НО имя ОТСУТСТВУЕТ в транскрипте (даже как искажённое)
+
+    Args:
+        error: словарь с ошибкой (type='insertion')
+        character_names: множество имён персонажей (по умолчанию FULL_CHARACTER_NAMES)
+
+    Returns:
+        (is_fp, reason, confidence) — FP ли это, причина, уверенность
+    """
+    # Работаем только с insertion
+    if error.get('type') != 'insertion':
+        return False, '', 0.0
+
+    # Получаем вставленное слово
+    inserted_word = (error.get('transcript', '') or error.get('wrong', '')).lower().strip()
+    if not inserted_word or len(inserted_word) < 2:
+        return False, '', 0.0
+
+    # Контексты
+    context = error.get('context', '')
+    transcript_context = error.get('transcript_context', '')
+
+    if not context or not transcript_context:
+        return False, '', 0.0
+
+    # Используем переданные имена или глобальный словарь
+    if character_names is None:
+        character_names = FULL_CHARACTER_NAMES
+
+    if not character_names:
+        return False, '', 0.0
+
+    # Нормализуем контексты
+    ctx_clean = re.sub(r'[^\w\s]', '', context.lower())
+    trans_words = transcript_context.lower().split()
+    ctx_words = ctx_clean.split()
+
+    # Позиции слова в транскрипте
+    word_positions = [i for i, w in enumerate(trans_words) if w == inserted_word]
+
+    if not word_positions:
+        return False, '', 0.0
+
+    # Позиции имён в оригинале
+    name_positions = {}  # {имя: [позиции]}
+    for i, cw in enumerate(ctx_words):
+        for name in character_names:
+            if len(name) >= 5 and name in cw:
+                if name not in name_positions:
+                    name_positions[name] = []
+                name_positions[name].append(i)
+
+    # Получаем частоту слова
+    word_freq = 0.0
+    if HAS_FREQUENCY:
+        try:
+            word_freq = get_word_frequency(inserted_word)
+        except Exception:
+            pass
+
+    # Проверяем каждую позицию слова
+    for word_pos in word_positions:
+        # Окно поиска ±5 слов
+        search_start = max(0, word_pos - 5)
+        search_end = min(len(ctx_words), word_pos + 6)
+        nearby_context = ' '.join(ctx_words[search_start:search_end])
+
+        for name in character_names:
+            # Пропускаем короткие имена
+            if len(name) < 5:
+                continue
+
+            if name not in nearby_context:
+                continue
+
+            # Критерий 1: Фонетическое сходство с началом имени
+            # ТОЛЬКО для неизвестных слов (freq == 0)
+            if word_freq == 0 and HAS_PHONETIC and levenshtein_distance:
+                name_prefix = name[:len(inserted_word)]
+                dist = levenshtein_distance(inserted_word, name_prefix)
+                max_dist = 2 if len(inserted_word) >= 3 else 1
+
+                if dist <= max_dist:
+                    return True, f'L5:name_artifact_phonetic:{name}', 0.9
+
+            # Критерий 1b: Слово является частью имени
+            # ТОЛЬКО для неизвестных слов (freq == 0)
+            if word_freq == 0 and inserted_word in name and len(inserted_word) >= 3:
+                return True, f'L5:name_artifact_part:{name}', 0.9
+
+            # Критерий 1c: Слово без последней буквы является частью имени
+            # Пример: "гошх"[:-1] = "гош" ∈ "рутгош"
+            # ТОЛЬКО для неизвестных слов (freq == 0)
+            if word_freq == 0 and len(inserted_word) >= 4:
+                word_trimmed = inserted_word[:-1]
+                if word_trimmed in name:
+                    return True, f'L5:name_artifact_trimmed:{name}', 0.85
+
+            # Критерий 2: Позиционное сходство — если имя ОТСУТСТВУЕТ в транскрипте
+            # Пример: "тот год подхватил" vs "Рутгош подхватил" (имени нет в транскрипте)
+            # НЕ применяем если: "лет рудош" vs "Рутгош" (имя есть как "рудош")
+            if name in name_positions and HAS_PHONETIC and levenshtein_distance:
+                # Проверяем: есть ли имя (или похожее) в транскрипте?
+                name_in_transcript = False
+                for tw in trans_words:
+                    if len(tw) >= 4 and levenshtein_distance(tw, name) <= 2:
+                        name_in_transcript = True
+                        break
+
+                # Если имени нет в транскрипте — слово может быть его заменой
+                if not name_in_transcript:
+                    for name_pos in name_positions[name]:
+                        pos_diff = abs(word_pos - name_pos)
+                        if pos_diff <= 2:
+                            return True, f'L5:name_artifact_pos:{name}(diff={pos_diff})', 0.8
+
+    return False, '', 0.0
+
+
+# ============================================================================
 # ПУБЛИЧНЫЙ API
 # ============================================================================
 
@@ -827,7 +951,8 @@ def should_filter_by_context(
     strict: bool = False,
     use_morpho: bool = True,
     use_semantic: bool = True,
-    use_phonetic_morpho: bool = True
+    use_phonetic_morpho: bool = True,
+    use_name_artifact: bool = True
 ) -> Tuple[bool, str]:
     """
     Определяет, нужно ли фильтровать ошибку на основе контекстной верификации.
@@ -838,6 +963,7 @@ def should_filter_by_context(
         use_morpho: использовать морфологическую когерентность (Уровень 2)
         use_semantic: использовать семантическую связность (Уровень 3)
         use_phonetic_morpho: использовать фонетическую идентичность морфоформ (Уровень 4)
+        use_name_artifact: использовать детекцию артефактов имён (Уровень 5)
 
     Returns:
         (should_filter, reason)
@@ -885,6 +1011,13 @@ def should_filter_by_context(
 
         if is_phonetic_fp:
             return True, f'phonetic_morphoform:{phonetic_reason}'
+
+    # Уровень 5: Артефакты имён персонажей (только для insertion)
+    if use_name_artifact and error.get('type') == 'insertion':
+        is_name_fp, name_reason, confidence = verify_name_artifact(error)
+
+        if is_name_fp:
+            return True, name_reason
 
     # Дополнительные проверки в строгом режиме
     if strict:

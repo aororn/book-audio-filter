@@ -231,9 +231,25 @@ try:
 except ImportError:
     HAS_RULES_MODULE = False
 
+# Импорт частотного менеджера
+try:
+    from .frequency_manager import get_word_frequency
+    HAS_FREQUENCY_MANAGER = True
+except ImportError:
+    HAS_FREQUENCY_MANAGER = False
+    def get_word_frequency(word):
+        return 0.0
+
 # Версия модуля
-VERSION = '9.13.0'
+VERSION = '9.17.0'
 VERSION_DATE = '2026-01-31'
+
+# v9.17.0 изменения (2026-01-31):
+# - РЕФАКТОРИНГ: context_name_artifact перенесён в context_verifier.py (Level 5)
+#   - Это более правильное архитектурное решение
+#   - Контекстные фильтры должны быть в context_verifier, а не в ранних слоях
+#   - Изоляция изменений — не влияет на другие фильтры
+#   - split_name_insertion остаётся в engine.py (это НЕ контекстный фильтр)
 
 # v9.10.0 изменения (2026-01-31):
 # - НОВЫЙ ФИЛЬТР: merge_artifact для deletion (уровень -0.3)
@@ -873,7 +889,8 @@ def should_filter_error(
                             if combined in FULL_CHARACTER_NAMES:
                                 return True, 'split_name_insertion'
                             for name in FULL_CHARACTER_NAMES:
-                                if len(name) >= 6 and levenshtein_distance(combined, name) <= 1:
+                                # v9.16: Увеличен порог с 1 до 2 для "родгош"→"рутгош"
+                                if len(name) >= 6 and levenshtein_distance(combined, name) <= 2:
                                     return True, 'split_name_insertion'
                         if i < len(ctx_words) - 1:
                             next_word = ctx_words[i + 1]
@@ -881,7 +898,8 @@ def should_filter_error(
                             if combined in FULL_CHARACTER_NAMES:
                                 return True, 'split_name_insertion'
                             for name in FULL_CHARACTER_NAMES:
-                                if len(name) >= 6 and levenshtein_distance(combined, name) <= 1:
+                                # v9.16: Увеличен порог с 1 до 2 для "родгош"→"рутгош"
+                                if len(name) >= 6 and levenshtein_distance(combined, name) <= 2:
                                     return True, 'split_name_insertion'
                         break
 
@@ -936,6 +954,10 @@ def should_filter_error(
         transcript_context = error.get('transcript_context', '')
         if is_split_name_insertion(words_norm[0], transcript_context):
             return True, 'split_name'
+
+    # v9.17: context_name_artifact перенесён в context_verifier.py (Level 5)
+    # Это более правильное архитектурное решение — контекстные фильтры
+    # должны быть в context_verifier, а не в ранних слоях engine.py
 
     # ОТКЛЮЧЕНО v8.5.1: compound_prefix — см. deprecated_filters.py
 
