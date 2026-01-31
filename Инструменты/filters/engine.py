@@ -136,8 +136,18 @@ except ImportError:
     HAS_RULES_MODULE = False
 
 # Версия модуля
-VERSION = '9.6.0'
-VERSION_DATE = '2026-01-30'
+VERSION = '9.7.0'
+VERSION_DATE = '2026-01-31'
+
+# v9.7.0 изменения (2026-01-31):
+# - КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Статистика filter_errors() теперь корректна
+#   - Раньше stats считал ВСЕ причины (включая real_error) — завышало отчёты в 2-4 раза
+#   - Теперь возвращает 4 элемента: filtered, removed, filtered_stats, protected_stats
+#   - filtered_stats: ТОЛЬКО реально отфильтрованные ошибки
+#   - protected_stats: PROTECTED_* причины (для аналитики)
+# - Добавлена валидация: sum(filtered_stats) == len(removed)
+# - Добавлена секция protected_breakdown в filter_metadata
+# - Ошибки в filtered теперь содержат not_filtered_reason для аналитики
 
 # v9.5.1 изменения:
 # - ИСПРАВЛЕНО: Логическая ошибка в check_alignment_artifact (условие было вне блока)
@@ -325,6 +335,15 @@ def should_filter_error(
         if is_interjection(w1) and is_interjection(w2):
             return True, 'interjection_pair'
 
+    # ==== УРОВЕНЬ -0.55: Фонетические пары Яндекса (v9.7.0 — ПЕРЕМЕЩЕНО ВЫШЕ semantic_slip) ====
+    # Известные фонетические пары (ну↔но, не↔ни, а↔о) — ТЕХНИЧЕСКИЕ ошибки Яндекса
+    # Должны фильтроваться ДО semantic_slip, иначе semantic_slip защитит их
+    # v9.7.0: Перемещено с уровня 0.5 на уровень -0.55
+    if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
+        should_filter, reason = check_yandex_phonetic_pair(words_norm[0], words_norm[1])
+        if should_filter:
+            return True, reason
+
     # ==== УРОВЕНЬ -0.5: SemanticManager ЗАЩИТА (v8.9) ====
     # Высокая семантическая близость + разные леммы = оговорка чтеца
     # Анализ БД: semantic>0.4 + diff_lemma = реальные ошибки (мечтательны→мечтатели)
@@ -362,12 +381,6 @@ def should_filter_error(
             get_pos_func=get_pos if HAS_PYMORPHY else None,
             get_case_func=get_case if HAS_PYMORPHY else None
         )
-        if should_filter:
-            return True, reason
-
-    # ==== УРОВЕНЬ 0.5: Фонетические пары Яндекса (v8.2 → v9.1 migrated to rules/) ====
-    if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
-        should_filter, reason = check_yandex_phonetic_pair(words_norm[0], words_norm[1])
         if should_filter:
             return True, reason
 
@@ -1005,44 +1018,61 @@ def calculate_smart_score(error: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 def filter_errors(
     errors: List[Dict[str, Any]],
     config: Optional[Dict] = None,
-) -> Tuple[List[Dict], List[Dict], Dict[str, int]]:
-    """Фильтрует список ошибок."""
+) -> Tuple[List[Dict], List[Dict], Dict[str, int], Dict[str, int]]:
+    """
+    Фильтрует список ошибок.
+
+    v9.7.0: Исправлена статистика — теперь возвращает 4 элемента:
+    - filtered: список оставшихся ошибок (реальные)
+    - removed: список отфильтрованных ошибок
+    - filtered_stats: статистика ТОЛЬКО отфильтрованных (причина → количество)
+    - protected_stats: статистика защищённых от фильтрации (PROTECTED_* причины)
+
+    Раньше stats содержал ВСЕ причины включая real_error, что завышало отчёты.
+    """
     filtered: List[Dict] = []
     removed: List[Dict] = []
-    stats: Dict[str, int] = defaultdict(int)
+    filtered_stats: Dict[str, int] = defaultdict(int)  # Только отфильтрованные
+    protected_stats: Dict[str, int] = defaultdict(int)  # PROTECTED_* причины
 
     chain_indices = detect_alignment_chains(errors)
     linked_prefix_indices = detect_linked_prefix_errors(errors)
 
     for idx, error in enumerate(errors):
         if idx in chain_indices:
-            stats['alignment_chain'] += 1
+            filtered_stats['alignment_chain'] += 1
             removed.append({**error, 'filter_reason': 'alignment_chain'})
             continue
 
         if idx in linked_prefix_indices:
-            stats['linked_prefix_error'] += 1
+            filtered_stats['linked_prefix_error'] += 1
             removed.append({**error, 'filter_reason': 'linked_prefix_error'})
             continue
 
         should_filter, reason = should_filter_error(error, config, errors)
-        stats[reason] += 1
 
         # v8.9: Добавляем SmartScore метрики к ошибке
         smart_metrics = calculate_smart_score(error)
 
         if should_filter:
+            # v9.7.0: Считаем только РЕАЛЬНО отфильтрованные
+            filtered_stats[reason] += 1
             error_with_reason = {**error, 'filter_reason': reason}
             if smart_metrics:
                 error_with_reason['smart_metrics'] = smart_metrics
             removed.append(error_with_reason)
         else:
+            # v9.7.0: Отдельно считаем защищённые (PROTECTED_*) для аналитики
+            if reason.startswith('PROTECTED_'):
+                protected_stats[reason] += 1
+            # real_error не считаем — это просто "не отфильтровано"
             error_with_metrics = error.copy()
+            error_with_metrics['not_filtered_reason'] = reason  # Для аналитики
             if smart_metrics:
                 error_with_metrics['smart_metrics'] = smart_metrics
             filtered.append(error_with_metrics)
 
-    return filtered, removed, dict(stats)
+    return filtered, removed, dict(filtered_stats), dict(protected_stats)
 
 
 def _validate_report_version(report: Dict[str, Any], report_path: str) -> None:
@@ -1123,14 +1153,23 @@ def filter_report(
     print(f"    Омофоны: {'да' if config.get('use_homophones', default_homophones) else 'нет'}")
     print(f"{'='*60}\n")
 
-    filtered, removed, stats = filter_errors(errors, config)
+    filtered, removed, filtered_stats, protected_stats = filter_errors(errors, config)
 
     report['errors'] = filtered
     report['total_errors'] = len(filtered)
     report['filtered_count'] = original_count - len(filtered)
-    report['filter_stats'] = stats
+    # v9.7.0: filter_stats теперь содержит ТОЛЬКО отфильтрованные причины
+    report['filter_stats'] = filtered_stats
 
     cache_info = parse_word_cached.cache_info()
+
+    # v9.7.0: Валидация — сумма filtered_stats должна равняться len(removed)
+    stats_sum = sum(filtered_stats.values())
+    if stats_sum != len(removed):
+        print(f"  ⚠ ВНИМАНИЕ: Несоответствие статистики!")
+        print(f"    sum(filtered_stats) = {stats_sum}")
+        print(f"    len(removed) = {len(removed)}")
+
     # Добавляем метаданные фильтрации
     input_metadata = report.get('metadata', {})
     report['filter_metadata'] = {
@@ -1141,19 +1180,28 @@ def filter_report(
         'original_errors': original_count,
         'real_errors': len(filtered),
         'filtered_errors': len(removed),
+        'protected_errors': sum(protected_stats.values()),  # v9.7.0: Защищённые от фильтрации
         'filter_efficiency': f"{(len(removed) / original_count * 100):.1f}%" if original_count > 0 else "0%",
         'cache_stats': {
             'hits': cache_info.hits,
             'misses': cache_info.misses,
             'efficiency': f"{(cache_info.hits / (cache_info.hits + cache_info.misses) * 100):.1f}%" if (cache_info.hits + cache_info.misses) > 0 else "0%",
         },
+        # v9.7.0: filter_breakdown теперь точно соответствует filtered_errors_detail
         'filter_breakdown': {
             reason: {
                 'count': count,
                 'percentage': f"{(count / original_count * 100):.1f}%" if original_count > 0 else "0%",
             }
-            for reason, count in sorted(stats.items(), key=lambda x: -x[1])
-            if reason != 'real_error'
+            for reason, count in sorted(filtered_stats.items(), key=lambda x: -x[1])
+        },
+        # v9.7.0: Новая секция — защищённые от фильтрации
+        'protected_breakdown': {
+            reason: {
+                'count': count,
+                'percentage': f"{(count / original_count * 100):.1f}%" if original_count > 0 else "0%",
+            }
+            for reason, count in sorted(protected_stats.items(), key=lambda x: -x[1])
         },
         'error_types': {
             'substitution': len([e for e in filtered if e.get('type') == 'substitution']),
@@ -1186,9 +1234,15 @@ def filter_report(
     print(f"  Результат:")
     print(f"    Реальных ошибок: {len(filtered)}")
     print(f"    Отфильтровано: {len(removed)}")
-    print(f"\n  Причины фильтрации:")
-    for reason, count in sorted(stats.items(), key=lambda x: -x[1]):
-        if reason != 'real_error':
+    print(f"    Защищено (PROTECTED): {sum(protected_stats.values())}")
+    print(f"\n  Причины фильтрации (топ-10):")
+    for reason, count in sorted(filtered_stats.items(), key=lambda x: -x[1])[:10]:
+        print(f"    {reason}: {count}")
+    if len(filtered_stats) > 10:
+        print(f"    ... и ещё {len(filtered_stats) - 10} причин")
+    if protected_stats:
+        print(f"\n  Защищённые от фильтрации:")
+        for reason, count in sorted(protected_stats.items(), key=lambda x: -x[1]):
             print(f"    {reason}: {count}")
 
     cache_info = parse_word_cached.cache_info()

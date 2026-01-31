@@ -11,30 +11,33 @@ v1.0.0 (2026-01-30): Начальная версия
 # ВЕРСИЯ ПРОЕКТА
 # =============================================================================
 
-PROJECT_VERSION = '12.6.0'
-PROJECT_DATE = '2026-01-30'
+PROJECT_VERSION = '14.1.0'
+PROJECT_DATE = '2026-01-31'
 
 # =============================================================================
-# ВЕРСИИ МОДУЛЕЙ
+# ВЕРСИИ МОДУЛЕЙ (синхронизированы с реальными версиями в файлах)
 # =============================================================================
 
 # Фильтрация
-FILTER_ENGINE_VERSION = '9.5.0'
-CONTEXT_VERIFIER_VERSION = '4.0.0'
+FILTER_ENGINE_VERSION = '9.7.0'       # v9.7.0: Исправлена статистика (2026-01-31)
+CONTEXT_VERIFIER_VERSION = '4.1.0'
 RULES_MODULE_VERSION = '1.0.0'
-MORPHO_RULES_VERSION = '1.1.0'
-# SMART_RULES_VERSION — УДАЛЁН в v11.7.2
-COMPARISON_VERSION = '6.1.0'
+MORPHO_RULES_VERSION = '1.2.0'        # Реальная версия в morpho_rules.py
+COMPARISON_VERSION = '6.2.0'           # Реальная версия в comparison.py
 
 # Выравнивание
-SMART_COMPARE_VERSION = '10.5.0'
+SMART_COMPARE_VERSION = '10.6.0'       # Реальная версия в smart_compare.py
 ALIGNMENT_MANAGER_VERSION = '1.2.0'
+
+# ML и семантика
+ML_CLASSIFIER_VERSION = '2.0.0'        # v2.0.0: Контекстные признаки (31 признак)
+SEMANTIC_MANAGER_VERSION = '2.0.0'
 
 # Тестирование
 TEST_RUNNER_VERSION = '6.3.0'
 
 # Пакет фильтров
-FILTERS_PACKAGE_VERSION = '8.1.0'
+FILTERS_PACKAGE_VERSION = '8.2.0'     # Реальная версия в __init__.py
 
 # =============================================================================
 # ЗАВИСИМОСТИ ВЕРСИЙ (для валидации)
@@ -75,6 +78,9 @@ def get_version_info() -> dict:
         'context_verifier': CONTEXT_VERIFIER_VERSION,
         'smart_compare': SMART_COMPARE_VERSION,
         'morpho_rules': MORPHO_RULES_VERSION,
+        'comparison': COMPARISON_VERSION,
+        'ml_classifier': ML_CLASSIFIER_VERSION,
+        'semantic_manager': SEMANTIC_MANAGER_VERSION,
         'filters_package': FILTERS_PACKAGE_VERSION,
         'test_runner': TEST_RUNNER_VERSION,
     }

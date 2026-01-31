@@ -39,8 +39,10 @@ Changelog:
         - Интеграция с false_positives_db.py
 """
 
-VERSION = '1.1.0'
-VERSION_DATE = '2026-01-30'
+VERSION = '2.0.0'
+VERSION_DATE = '2026-01-31'
+# v2.0: Добавлены контекстные признаки (semantic_similarity, prev/next POS, word_in_navec)
+# v1.2: Синхронизированы фонетические паттерны fallback с comparison.py (20 паттернов)
 # v1.1: Унификация levenshtein и phonetic_normalize из filters.comparison
 
 import os
@@ -104,18 +106,39 @@ try:
 except ImportError:
     HAS_PHONETIC = False
     HAS_LEVENSHTEIN = False
-    # Fallback phonetic_normalize — базовая нормализация
+    import re
+    # Fallback phonetic_normalize — полные паттерны из comparison.py (v1.2)
+    _PHONETIC_REPLACEMENTS = [
+        # Гласные (безударная редукция)
+        (r'о', 'а'),      # безударное о → а
+        (r'е', 'и'),      # безударное е → и
+        (r'я', 'и'),      # безударное я → и (после согласных)
+        # Согласные — ассимиляция и упрощение
+        (r'тс', 'ц'),     # -тся/-ться → ца
+        (r'тьс', 'ц'),
+        (r'дс', 'ц'),     # подсказка → поцказка
+        (r'чн', 'шн'),    # конечно → конешно
+        (r'чт', 'шт'),    # что → што
+        (r'гк', 'хк'),    # мягкий → мяхкий
+        (r'гч', 'хч'),
+        (r'сч', 'щ'),     # счастье → щастье
+        (r'зч', 'щ'),
+        (r'сш', 'ш'),     # сшить → шить (долгий ш)
+        (r'зж', 'ж'),     # разжечь → ражжечь
+        (r'стн', 'сн'),   # честный → чесный
+        (r'здн', 'зн'),   # поздно → позно
+        (r'стл', 'сл'),   # счастливый → щасливый
+        (r'рдц', 'рц'),   # сердце → серце
+        (r'лнц', 'нц'),   # солнце → сонце
+        (r'вств', 'ств'), # чувство → чуство
+        (r'ндск', 'нск'), # голландский → голланский
+        (r'нтск', 'нск'),
+    ]
     def phonetic_normalize(w):
-        """Fallback: базовая русская фонетика."""
+        """Fallback: русская фонетика (синхронизировано с comparison.py)."""
         w = w.lower().replace('ё', 'е')
-        # Простые фонетические замены
-        replacements = [
-            ('тся', 'ца'), ('ться', 'ца'),
-            ('чт', 'шт'), ('что', 'што'),
-            ('его', 'ево'), ('ого', 'ово'),
-        ]
-        for old, new in replacements:
-            w = w.replace(old, new)
+        for pattern, replacement in _PHONETIC_REPLACEMENTS:
+            w = re.sub(pattern, replacement, w)
         return w
 
 # Импорт БД
@@ -124,6 +147,20 @@ try:
     HAS_DB = True
 except ImportError:
     HAS_DB = False
+
+# v2.0: Импорт Navec для семантических признаков
+try:
+    from navec import Navec
+    _navec_path = Path(__file__).parent.parent / 'models' / 'navec_hudlit_v1_12B_500K_300d_100q.tar'
+    if _navec_path.exists():
+        _navec = Navec.load(str(_navec_path))
+        HAS_NAVEC = True
+    else:
+        _navec = None
+        HAS_NAVEC = False
+except ImportError:
+    _navec = None
+    HAS_NAVEC = False
 
 
 # =============================================================================
@@ -246,6 +283,136 @@ def extract_features(word1: str, word2: str) -> Dict[str, float]:
     # Короткие слова (часто проблемные)
     features['is_short'] = 1.0 if min(len(w1), len(w2)) <= 3 else 0.0
 
+    # v2.0: Семантические признаки (Navec)
+    if HAS_NAVEC and _navec is not None:
+        features['semantic_similarity'] = _get_semantic_similarity(w1, w2)
+        features['word1_in_navec'] = 1.0 if _word_in_navec(w1) else 0.0
+        features['word2_in_navec'] = 1.0 if _word_in_navec(w2) else 0.0
+    else:
+        features['semantic_similarity'] = 0.0
+        features['word1_in_navec'] = 0.0
+        features['word2_in_navec'] = 0.0
+
+    return features
+
+
+def _word_in_navec(word: str) -> bool:
+    """Проверяет, есть ли слово в Navec."""
+    if not HAS_NAVEC or _navec is None:
+        return False
+    word = word.lower().replace('ё', 'е')
+    return word in _navec
+
+
+def _get_navec_vector(word: str):
+    """Получает вектор слова из Navec."""
+    if not HAS_NAVEC or _navec is None:
+        return None
+    word = word.lower().replace('ё', 'е')
+    return _navec[word] if word in _navec else None
+
+
+def _get_semantic_similarity(word1: str, word2: str) -> float:
+    """Вычисляет семантическую близость между словами (косинусное сходство)."""
+    if not HAS_NAVEC or not HAS_NUMPY:
+        return 0.0
+
+    v1 = _get_navec_vector(word1)
+    v2 = _get_navec_vector(word2)
+
+    if v1 is None or v2 is None:
+        return 0.0
+
+    norm1 = np.linalg.norm(v1)
+    norm2 = np.linalg.norm(v2)
+
+    if norm1 == 0 or norm2 == 0:
+        return 0.0
+
+    return float(np.dot(v1, v2) / (norm1 * norm2))
+
+
+def extract_context_features(
+    word1: str,
+    word2: str,
+    context: str = '',
+    error_type: str = 'substitution'
+) -> Dict[str, float]:
+    """
+    v2.0: Извлекает контекстные признаки из ошибки.
+
+    Args:
+        word1: Слово из транскрипции (wrong)
+        word2: Слово из оригинала (correct)
+        context: Контекст ошибки
+        error_type: Тип ошибки (substitution, insertion, deletion)
+
+    Returns:
+        Словарь контекстных признаков
+    """
+    features = {}
+
+    if not context:
+        # Возвращаем нули для всех контекстных признаков
+        features['prev_is_prep'] = 0.0
+        features['prev_is_verb'] = 0.0
+        features['prev_is_conj'] = 0.0
+        features['next_is_noun'] = 0.0
+        features['next_is_verb'] = 0.0
+        features['dist_to_punct'] = 0.0
+        return features
+
+    import re
+    ctx_lower = context.lower()
+    ctx_words = re.findall(r'\b\w+\b', ctx_lower)
+
+    w1 = word1.lower() if word1 else ''
+
+    # Позиция слова в контексте
+    word_pos = -1
+    if w1 and w1 in ctx_words:
+        word_pos = ctx_words.index(w1)
+
+    # POS предыдущего слова
+    features['prev_is_prep'] = 0.0
+    features['prev_is_verb'] = 0.0
+    features['prev_is_conj'] = 0.0
+
+    if word_pos > 0 and HAS_MORPHOLOGY:
+        prev_word = ctx_words[word_pos - 1]
+        try:
+            from morphology import get_pos as _get_pos
+            prev_pos = _get_pos(prev_word)
+            features['prev_is_prep'] = 1.0 if prev_pos == 'PREP' else 0.0
+            features['prev_is_verb'] = 1.0 if prev_pos in ('VERB', 'INFN') else 0.0
+            features['prev_is_conj'] = 1.0 if prev_pos == 'CONJ' else 0.0
+        except:
+            pass
+
+    # POS следующего слова
+    features['next_is_noun'] = 0.0
+    features['next_is_verb'] = 0.0
+
+    if word_pos >= 0 and word_pos < len(ctx_words) - 1 and HAS_MORPHOLOGY:
+        next_word = ctx_words[word_pos + 1]
+        try:
+            from morphology import get_pos as _get_pos
+            next_pos = _get_pos(next_word)
+            features['next_is_noun'] = 1.0 if next_pos == 'NOUN' else 0.0
+            features['next_is_verb'] = 1.0 if next_pos in ('VERB', 'INFN') else 0.0
+        except:
+            pass
+
+    # Расстояние до ближайшей пунктуации
+    features['dist_to_punct'] = 0.0
+    if w1 and w1 in ctx_lower:
+        word_idx = ctx_lower.index(w1)
+        punct_positions = [i for i, c in enumerate(context) if c in '.!?,;:—']
+        if punct_positions:
+            min_dist = min(abs(word_idx - p) for p in punct_positions)
+            # Нормализуем: делим на длину контекста
+            features['dist_to_punct'] = min_dist / len(context) if context else 0.0
+
     return features
 
 
@@ -277,16 +444,29 @@ class FalsePositiveClassifier:
     Обучается на данных из false_positives.db.
     """
 
+    # v2.0: Расширенный список признаков с контекстом
     FEATURE_NAMES = [
+        # Длины слов (4)
         'len_w1', 'len_w2', 'len_diff', 'len_ratio',
+        # Левенштейн (2)
         'levenshtein', 'levenshtein_norm',
+        # Фонетика (2)
         'phonetic_dist', 'phonetic_same',
+        # Морфология (9)
         'same_lemma', 'lemma_dist', 'same_pos', 'pos1_code', 'pos2_code',
         'same_aspect', 'is_aspect_pair', 'same_number', 'same_case',
+        # Общие паттерны (5)
         'common_prefix', 'common_prefix_ratio',
         'common_suffix', 'common_suffix_ratio',
-        'is_short'
+        'is_short',
+        # v2.0: Семантика Navec (3)
+        'semantic_similarity', 'word1_in_navec', 'word2_in_navec',
+        # v2.0: Контекстные признаки (6)
+        'prev_is_prep', 'prev_is_verb', 'prev_is_conj',
+        'next_is_noun', 'next_is_verb',
+        'dist_to_punct',
     ]
+    # Итого: 31 признак (было 22)
 
     def __init__(self, model_type: str = 'random_forest', model_dir: Optional[Path] = None):
         """
@@ -335,7 +515,7 @@ class FalsePositiveClassifier:
 
     def _load_training_data(self) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Загружает обучающие данные из БД.
+        v2.0: Загружает обучающие данные из БД с контекстом.
 
         Returns:
             (X, y) — признаки и метки
@@ -345,9 +525,9 @@ class FalsePositiveClassifier:
 
         db = FalsePositivesDB()
 
-        # Получаем все паттерны
+        # v2.0: Получаем паттерны с контекстом
         cursor = db.conn.execute('''
-            SELECT wrong, correct, is_golden
+            SELECT wrong, correct, is_golden, context, error_type
             FROM patterns
             WHERE wrong IS NOT NULL AND correct IS NOT NULL
             AND LENGTH(wrong) > 0 AND LENGTH(correct) > 0
@@ -360,9 +540,16 @@ class FalsePositiveClassifier:
             wrong = row[0]
             correct = row[1]
             is_golden = row[2]  # 1 = реальная ошибка, 0 = ложное срабатывание
+            context = row[3] if len(row) > 3 else ''
+            error_type = row[4] if len(row) > 4 else 'substitution'
 
-            # Извлекаем признаки
+            # Извлекаем базовые признаки (включая семантику Navec)
             features = extract_features(wrong, correct)
+
+            # v2.0: Добавляем контекстные признаки
+            ctx_features = extract_context_features(wrong, correct, context or '', error_type or 'substitution')
+            features.update(ctx_features)
+
             X_list.append(features_to_vector(features, self.FEATURE_NAMES))
 
             # Метка: 1 = ложное срабатывание (NOT golden), 0 = реальная ошибка (golden)
@@ -372,12 +559,91 @@ class FalsePositiveClassifier:
 
         return np.array(X_list), np.array(y_list)
 
-    def train(self, test_size: float = 0.2) -> Dict[str, Any]:
+    def _load_training_data_from_files(self) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Обучает модель на данных из БД.
+        v2.0: Загружает обучающие данные из compared файлов (с контекстом).
+
+        Этот метод используется когда в БД нет колонки context.
+        Загружает данные напрямую из:
+        - Результаты проверки/*/compared.json — все ошибки
+        - Тесты/золотой_стандарт_глава*.json — golden маркировка
+
+        Returns:
+            (X, y) — признаки и метки
+        """
+        import json
+        from pathlib import Path
+
+        project_root = Path(__file__).parent.parent
+        compared_dir = project_root / 'Результаты проверки'
+        golden_dir = project_root / 'Тесты'
+
+        # Загружаем golden ключи
+        golden_set = set()
+        for i in range(1, 6):
+            golden_file = golden_dir / f'золотой_стандарт_глава{i}.json'
+            if golden_file.exists():
+                with open(golden_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    for err in data.get('errors', []):
+                        wrong = err.get('wrong', err.get('transcript', '')).lower()
+                        correct = err.get('correct', err.get('original', '')).lower()
+                        if wrong and correct:
+                            golden_set.add((wrong, correct))
+
+        print(f"  Golden ключей: {len(golden_set)}")
+
+        # Загружаем ошибки из compared файлов
+        X_list = []
+        y_list = []
+
+        for chapter_dir in sorted(compared_dir.iterdir()):
+            if not chapter_dir.is_dir():
+                continue
+
+            for cmp_file in chapter_dir.glob('*_compared.json'):
+                try:
+                    with open(cmp_file, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+
+                    for err in data.get('errors', []):
+                        error_type = err.get('type', 'substitution')
+
+                        # Пока только substitution
+                        if error_type != 'substitution':
+                            continue
+
+                        wrong = err.get('wrong', err.get('transcript', '')).lower()
+                        correct = err.get('correct', err.get('original', '')).lower()
+                        context = err.get('context', '')
+
+                        if not wrong or not correct:
+                            continue
+
+                        # Определяем golden
+                        is_golden = (wrong, correct) in golden_set
+
+                        # Извлекаем признаки
+                        features = extract_features(wrong, correct)
+                        ctx_features = extract_context_features(wrong, correct, context, error_type)
+                        features.update(ctx_features)
+
+                        X_list.append(features_to_vector(features, self.FEATURE_NAMES))
+                        y_list.append(0 if is_golden else 1)
+
+                except Exception as e:
+                    continue
+
+        return np.array(X_list), np.array(y_list)
+
+    def train(self, test_size: float = 0.2, use_files: bool = True) -> Dict[str, Any]:
+        """
+        v2.0: Обучает модель на данных.
 
         Args:
             test_size: Доля тестовой выборки
+            use_files: True — загружать из compared файлов (с контекстом),
+                       False — загружать из БД (без контекста)
 
         Returns:
             Статистика обучения
@@ -385,7 +651,12 @@ class FalsePositiveClassifier:
         from datetime import datetime
 
         print("Загрузка данных...")
-        X, y = self._load_training_data()
+        if use_files:
+            print("  Источник: compared файлы (с контекстом)")
+            X, y = self._load_training_data_from_files()
+        else:
+            print("  Источник: БД (без контекста)")
+            X, y = self._load_training_data()
         print(f"  Всего примеров: {len(y)}")
         print(f"  Реальных ошибок: {sum(y == 0)}")
         print(f"  Ложных срабатываний: {sum(y == 1)}")
@@ -457,13 +728,15 @@ class FalsePositiveClassifier:
             'confusion_matrix': cm.tolist()
         }
 
-    def predict(self, word1: str, word2: str) -> Tuple[bool, float]:
+    def predict(self, word1: str, word2: str, context: str = '', error_type: str = 'substitution') -> Tuple[bool, float]:
         """
-        Предсказывает, является ли пара ложным срабатыванием.
+        v2.0: Предсказывает, является ли пара ложным срабатыванием.
 
         Args:
             word1: Первое слово (transcript/wrong)
             word2: Второе слово (original/correct)
+            context: Контекст ошибки (опционально)
+            error_type: Тип ошибки (опционально)
 
         Returns:
             (is_false_positive, confidence)
@@ -471,8 +744,13 @@ class FalsePositiveClassifier:
         if self.model is None:
             raise RuntimeError("Модель не обучена. Вызовите train() или load().")
 
-        # Извлекаем признаки
+        # Извлекаем базовые признаки (включая семантику Navec)
         features = extract_features(word1, word2)
+
+        # v2.0: Добавляем контекстные признаки
+        ctx_features = extract_context_features(word1, word2, context, error_type)
+        features.update(ctx_features)
+
         X = np.array([features_to_vector(features, self.FEATURE_NAMES)])
         X_scaled = self.scaler.transform(X)
 
