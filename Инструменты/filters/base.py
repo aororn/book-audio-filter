@@ -1,29 +1,42 @@
 """
 Base classes for filter rules - ABC interface for extensible filtering
 
+DEPRECATED: Этот модуль устарел и сохранён только для обратной совместимости.
+Новые правила следует добавлять в rules/ (insertion.py, deletion.py, substitution.py).
+Планируется к удалению в v15.0.
+
 Этот модуль определяет базовый интерфейс для правил фильтрации,
 позволяя легко добавлять новые правила без изменения engine.py.
 
-Использование:
+Использование (устаревшее):
     from filters.base import FilterRule, register_rule
 
     class MyCustomRule(FilterRule):
         name = "my_custom_rule"
-        priority = 15  # 0-19, меньше = раньше выполняется
+        priority = 15
 
         def should_filter(self, error, context):
             if some_condition(error):
                 return True, "my_custom_rule"
             return False, ""
 
-    # Регистрируем правило
     register_rule(MyCustomRule())
 
 Changelog:
+    v1.1 (2026-01-31): DEPRECATED — рекомендуется rules/
     v1.0 (2026-01-25): Начальная версия
 """
-
 from __future__ import annotations
+
+import warnings
+
+def _deprecated_warning():
+    warnings.warn(
+        "filters.base is deprecated and will be removed in v15.0. "
+        "Use filters.rules/ modules instead.",
+        DeprecationWarning,
+        stacklevel=3
+    )
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Tuple, List, Optional, Union
 from dataclasses import dataclass, field
@@ -129,9 +142,12 @@ def register_rule(rule: FilterRule) -> None:
     """
     Регистрирует правило в глобальном реестре.
 
+    DEPRECATED: Используйте rules/ модули вместо реестра.
+
     Args:
         rule: Экземпляр FilterRule
     """
+    _deprecated_warning()
     _rules_registry.append(rule)
     # Сортируем по приоритету
     _rules_registry.sort(key=lambda r: r.priority)

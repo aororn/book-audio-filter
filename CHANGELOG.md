@@ -2,7 +2,79 @@
 
 > Полная детальная история: `Документация/Архив/CHANGELOG_FULL.md`
 
-## [14.1.0] - 2026-01-31 — Текущая версия ✅
+## [14.2.0] - 2026-01-31 — Текущая версия ✅
+
+**Рефакторинг инфраструктуры + pyproject.toml + VERSION константы + Golden тест: 127/127 (100%)**
+
+| Метрика | v14.1.0 | v14.2.0 | Δ |
+|---------|---------|---------|---|
+| Глава 1 | 86 | **86** | = |
+| Глава 2 | 78 | **78** | = |
+| Глава 3 | 115 | **115** | = |
+| Глава 4 | 57 | **57** | = |
+| Глава 5 | 121 | **121** | = |
+| **ИТОГО** | 457 | **457** | = |
+| **FP** | 330 | **330** | = |
+| Golden | 127/127 | **127/127** ✓ | — |
+
+### Ключевые изменения:
+
+**1. Фаза 1 — Инфраструктура рефакторинга:**
+- **config.py v1.0** — централизованные пороги и флаги
+  - `FilterConfig`, `FilterThresholds`, `FilterFlags`, `VersionRequirements`
+  - Все магические числа из engine.py вынесены в dataclass-ы
+- **dependencies.py v1.0** — менеджер зависимостей
+  - Единый класс `Dependencies` вместо 8 отдельных try-except блоков
+  - Методы `has_pymorphy`, `has_scoring_engine`, `has_semantic_manager` и т.д.
+- **extractors.py v1.0** — экстракторы данных из ошибок
+  - `ExtractedWords`, `ExtractedContext` — dataclass-ы для результатов
+  - `extract_words()`, `extract_context()` — унифицированное извлечение
+
+**2. Аудит Фаза 1 — VERSION константы:**
+- **text_normalizer.py v2.0.0** — добавлена VERSION/VERSION_DATE
+- **transcribe.py v3.0.0** — добавлена VERSION/VERSION_DATE
+- **audio_converter.py v2.0.0** — добавлена VERSION/VERSION_DATE
+- **version.py** — синхронизированы версии, добавлены утилиты:
+  - `TEXT_NORMALIZER_VERSION`, `TRANSCRIBE_VERSION`, `AUDIO_CONVERTER_VERSION`
+  - `FILTER_ENGINE_VERSION` обновлена 9.7.0 → 9.8.0
+
+**3. Аудит Фаза 2 — pyproject.toml (PEP 517):**
+- **pyproject.toml** — корректная конфигурация Python пакета:
+  - version: 5.0.0 → 14.1.0
+  - requires-python: >=3.8 → >=3.10
+  - pymorphy2 → pymorphy3, добавлен navec>=0.10
+  - build-backend: `setuptools.build_meta` (исправлен deprecated)
+- **Установка через pip**: `pip install -e .` в venv
+- **filters/base.py** — исправлен синтаксис `from __future__ import annotations`
+  - Ошибка: должен быть в начале файла после docstring
+
+**4. Модульные правила по типам ошибок:**
+- **rules/insertion.py v1.0** — 12 функций для insertion ошибок
+- **rules/deletion.py v1.0** — 11 функций для deletion ошибок
+- **rules/substitution.py v1.0** — 18 функций для substitution ошибок
+- **rules/__init__.py v1.1** — 41 функция экспортирована
+
+### Обновлённые версии:
+| Компонент | Версия |
+|-----------|--------|
+| Проект | 14.2.0 |
+| pyproject.toml | 14.1.0 (синхр.) |
+| engine.py | 9.8.0 |
+| filters/__init__.py | 8.3.0 |
+| text_normalizer.py | 2.0.0 (NEW) |
+| transcribe.py | 3.0.0 (NEW) |
+| audio_converter.py | 2.0.0 (NEW) |
+| version.py | +utility versions |
+| config.py | 1.0.0 |
+| dependencies.py | 1.0.0 |
+| extractors.py | 1.0.0 |
+| rules/insertion.py | 1.0.0 |
+| rules/deletion.py | 1.0.0 |
+| rules/substitution.py | 1.0.0 |
+
+---
+
+## [14.1.0] - 2026-01-31
 
 **ML-классификатор v2.0 с контекстными признаками + Golden тест: 127/127 (100%)**
 

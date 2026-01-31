@@ -22,6 +22,9 @@ Transcribe v3.0 - Модуль транскрибации через Яндек�
     deferred-general - отложенная (дешевле, до 24ч обработки)
 """
 
+VERSION = '3.0.0'
+VERSION_DATE = '2026-01-31'
+
 import argparse
 import base64
 import json

@@ -15,6 +15,9 @@ Text Normalizer v2.0 - Нормализация текста для сверки
     python text_normalizer.py текст.txt --keep-hyphens  # сохранить дефисы
 """
 
+VERSION = '2.0.0'
+VERSION_DATE = '2026-01-31'
+
 import argparse
 import json
 import os

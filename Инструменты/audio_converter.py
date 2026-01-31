@@ -12,6 +12,9 @@ Audio Converter v2.0 - Конвертация аудио для Яндекс Spe
     python audio_converter.py аудио.mp3 --format mp3 --bitrate 64
 """
 
+VERSION = '2.0.0'
+VERSION_DATE = '2026-01-31'
+
 import argparse
 import os
 import subprocess
