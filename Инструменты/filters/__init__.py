@@ -1,13 +1,14 @@
 """
-Пакет фильтрации ошибок транскрипции — Golden Filter v8.1
+Пакет фильтрации ошибок транскрипции — Golden Filter v8.5
 
 Модульная архитектура:
-- engine.py v9.1 — движок фильтрации (оркестратор)
-- morpho_rules.py v1.1 — консервативные морфологические правила
-- comparison.py v6.1 — функции сравнения слов + phonetic_normalize
+- engine.py v9.18 — движок фильтрации (оркестратор) + SafetyVeto
+- morpho_rules.py v1.3 — консервативные морфологические правила
+- comparison.py v6.4 — функции сравнения слов + phonetic_normalize
+- context_verifier.py v4.2 — контекстная верификация (4 уровня)
 - detectors.py v3.0 — специализированные детекторы
 - constants.py v4.0 — словари и константы
-- base.py — ABC-интерфейс FilterRule для расширяемых правил
+- base.py v1.1 — DEPRECATED, используйте rules/
 
 Модульные правила (rules/):
 - rules/protection.py — HARD_NEGATIVES, семантическая защита
@@ -15,9 +16,14 @@
 - rules/alignment.py — артефакты выравнивания
 
 Защитные слои:
+- safety_veto.py v1.0 — ФИНАЛЬНОЕ вето на фильтрацию (v8.5)
 - semantic_manager.py v2.0 — Navec семантика (защита оговорок)
 - scoring_engine.py v1.2 — адаптивные штрафы (HARD_NEGATIVES)
 - character_guard.py v1.0 — защита имён персонажей
+Инфраструктура (v8.4 — рефакторинг):
+- config.py v1.0 — централизованная конфигурация и пороги
+- dependencies.py v1.1 — менеджер зависимостей
+- extractors.py v1.0 — экстракторы слов и контекста из ошибок
 
 Smart Filter модули (АНАЛИТИКА — не влияют на фильтрацию):
 - smart_scorer.py v3.0 — накопительный скоринг (метрики для отладки)
@@ -33,19 +39,30 @@ Smart Filter модули (АНАЛИТИКА — не влияют на фил�
 - smart_rules.py (v11.7.2) — функционал в morpho_rules.py + rules/
 - learned_rules.py (v11.7.0) — неиспользуемый
 
+v8.5 изменения (2026-01-31):
+- engine.py v9.18 — SafetyVeto: финальный слой защиты от ложной фильтрации
+- safety_veto.py v1.0 — вынесен из engine.py: semantic_slip, merged_diff_lemmas, misrecognized
+
+v8.4 изменения (2026-01-31):
+- comparison.py v6.4 — убран sys.path hack
+- morpho_rules.py v1.3 — убран sys.path hack
+- context_verifier.py v4.2 — унификация pymorphy через dependencies.py
+- dependencies.py v1.1 — убран sys.path hack, инициализация флагов совместимости
+- base.py v1.1 — помечен как DEPRECATED
+
+v8.3 изменения (2026-01-31):
+- config.py v1.0 — централизованные пороги
+- dependencies.py v1.0 — менеджер зависимостей
+- extractors.py v1.0 — экстракторы данных
+
 v8.2 изменения (2026-01-30):
 - Документирован статус Smart модулей (аналитика, не фильтрация)
 - SKIP_SPLIT_FRAGMENT перемещён в constants.py
 - deprecated_filters.py — архив отключённых фильтров
-
-v8.1 изменения (2026-01-30):
-- Удалён smart_rules.py (36KB deprecated кода)
-- Добавлена документация rules/ модулей
-- Обновлены версии модулей
 """
 
-__version__ = '8.2.0'
-__version_date__ = '2026-01-30'
+__version__ = '8.5.0'
+__version_date__ = '2026-01-31'
 
 # =============================================================================
 # ПУБЛИЧНЫЙ API
@@ -89,6 +106,16 @@ __all__ = [
 
     # --- Флаги доступности ---
     'HAS_PYMORPHY',          # Доступен ли pymorphy
+
+    # --- Инфраструктура (v8.3) ---
+    'FilterConfig',          # Конфигурация фильтрации
+    'FilterThresholds',      # Пороги фильтрации
+    'Dependencies',          # Менеджер зависимостей
+    'get_dependencies',      # Получить глобальные зависимости
+    'extract_words',         # Извлечь слова из ошибки
+    'extract_context',       # Извлечь контекст из ошибки
+    'ExtractedWords',        # Результат извлечения слов
+    'ExtractedContext',      # Результат извлечения контекста
 ]
 
 # Реэкспорт основного API
@@ -134,6 +161,11 @@ from .scoring_engine import (
     calculate_penalty, should_filter_by_score, is_hard_negative,
     HARD_NEGATIVES,
 )
+# v8.5: SafetyVeto — финальный слой защиты
+from .safety_veto import (
+    apply_safety_veto, get_veto_stats,
+    SEMANTIC_SLIP_THRESHOLD, MISRECOGNITION_COMMON_WORDS,
+)
 from .window_verifier import (
     WindowVerifier, get_window_verifier, VerificationStatus, VerificationResult,
     verify_segment, is_technical_noise, is_word_transposition,
@@ -154,4 +186,20 @@ from .sliding_window import (
 )
 from .smart_filter import (
     SmartFilter, SmartFilterResult, get_smart_filter, evaluate_error_smart,
+)
+
+# v8.3: Инфраструктура рефакторинга
+from .config import (
+    FilterConfig, FilterThresholds, FilterFlags, VersionRequirements,
+    get_default_config, set_default_config,
+)
+from .dependencies import (
+    Dependencies, DependencyStatus, get_dependencies, reload_dependencies,
+)
+from .extractors import (
+    ExtractedWords, ExtractedContext,
+    extract_words, extract_context, extract_all,
+    get_error_type, get_time, is_merged_error,
+    get_context_words, find_word_in_context,
+    get_before_marker, get_after_marker, ends_with_sentence,
 )

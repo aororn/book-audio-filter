@@ -1,10 +1,30 @@
 """
-Движок фильтрации ошибок транскрипции v9.14.0.
+Движок фильтрации ошибок транскрипции v9.19.0.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (оркестратор правил)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v9.19.0 изменения (2026-01-31):
+- РЕФАКТОРИНГ АРХИТЕКТУРЫ: Упрощение ранних слоёв
+  - HARD_NEGATIVES перенесён с уровня -1 в SafetyVeto (финал)
+  - yandex_phonetic_pair (уровень -0.55) УДАЛЁН — 0 фильтраций в БД
+  - SafetyVeto v2.0: добавлен VETO_hard_negative
+  - Результат: Golden 127/127, архитектура упрощена
+
+v9.18.0 изменения (2026-01-31):
+- АРХИТЕКТУРНЫЙ РЕФАКТОРИНГ: SafetyVeto — финальный слой защиты
+  - semantic_slip перенесён из уровня -0.5 в финальное ВЕТО
+  - merged_diff_lemmas унифицирован в один финальный вызов (было 4)
+  - _is_misrecognized_real_word перенесён из уровня 9.5 в финальное ВЕТО
+  - Новый модуль: safety_veto.py v1.0
+  - Логика: все фильтры решают, SafetyVeto может наложить ВЕТО
+  - Преимущества:
+    - ContextVerifier Level 3 (semantic_coherence) теперь может работать
+    - Убрано дублирование кода (4 вызова → 1)
+    - Прозрачная архитектура: VETO_xxx(was:reason)
+  - Результат: Golden 127/127, архитектура улучшена
 
 v9.14.0 изменения (2026-01-31):
 - НОВЫЙ ФИЛЬТР: high_phon_sem_diff_lemma (уровень 0.45)
@@ -240,9 +260,30 @@ except ImportError:
     def get_word_frequency(word):
         return 0.0
 
+# v9.19: Импорт фонетико-семантических фильтров
+try:
+    from .phonetic_semantic import check_phonetic_semantic
+    HAS_PHONETIC_SEMANTIC = True
+except ImportError:
+    HAS_PHONETIC_SEMANTIC = False
+    def check_phonetic_semantic(error, words_norm):
+        return False, ''
+
 # Версия модуля
-VERSION = '9.17.0'
+VERSION = '9.19.0'
 VERSION_DATE = '2026-01-31'
+
+# v9.18.0 изменения (2026-01-31):
+# - АРХИТЕКТУРНЫЙ РЕФАКТОРИНГ: SafetyVeto — финальный слой защиты
+#   - semantic_slip: перенесён из уровня -0.5 в финальное ВЕТО
+#   - merged_diff_lemmas: унифицирован в один вызов (было 4 дублирования)
+#   - _is_misrecognized_real_word: перенесён из уровня 9.5 в финальное ВЕТО
+#   - Новый модуль: safety_veto.py v1.0
+#   - Логика: фильтры решают "фильтровать", SafetyVeto может наложить "ВЕТО"
+#   - Преимущества:
+#     - ContextVerifier Level 3 теперь может работать (раньше блокировался semantic_slip)
+#     - Убрано дублирование (merged_check вызывался 4 раза, теперь 1)
+#     - Прозрачность: VETO_xxx(was:original_reason)
 
 # v9.17.0 изменения (2026-01-31):
 # - РЕФАКТОРИНГ: context_name_artifact перенесён в context_verifier.py (Level 5)
@@ -359,11 +400,25 @@ except ImportError:
 
 # v14.9: Импорт ClusterAnalyzer для фильтрации кластерных артефактов
 try:
-    from .cluster_analyzer import should_filter_by_cluster, get_cluster_artifacts, VERSION as CLUSTER_ANALYZER_VERSION
+    from .cluster_analyzer import (
+        should_filter_by_cluster, get_cluster_artifacts, check_merge_artifact,
+        VERSION as CLUSTER_ANALYZER_VERSION
+    )
     HAS_CLUSTER_ANALYZER = True
 except ImportError:
     HAS_CLUSTER_ANALYZER = False
     CLUSTER_ANALYZER_VERSION = 'N/A'
+
+# v9.18: Импорт SafetyVeto для финальной защиты
+try:
+    from .safety_veto import apply_safety_veto, VERSION as SAFETY_VETO_VERSION
+    HAS_SAFETY_VETO = True
+except ImportError:
+    HAS_SAFETY_VETO = False
+    SAFETY_VETO_VERSION = 'N/A'
+    # Fallback: если нет модуля, просто возвращаем исходное решение
+    def apply_safety_veto(error, filter_decision, filter_reason, words_norm=None):
+        return filter_decision, filter_reason
 
 # v11.8: Импорт ML-классификатора
 try:
@@ -464,173 +519,9 @@ def _is_golden_error(error: Dict[str, Any], chapter: int = 0) -> bool:
 
     return False
 
-# v8.9: Калиброванные пороги на основе анализа БД (941 ошибок)
-# Анализ: high semantic + diff_lemma = 12 golden, 247 FP
-# Безопасный порог: semantic >= 0.4 + phonetic >= 0.7 = оговорка
-SEMANTIC_SLIP_THRESHOLD = 0.4      # Семантическая близость для оговорки
-PHONETIC_SLIP_THRESHOLD = 0.7      # Фонетическая близость для оговорки
-
-
-def _should_skip_merged_different_lemmas(
-    error: Dict[str, Any],
-    words_norm: List[str]
-) -> bool:
-    """
-    v9.5.1: Проверяет, нужно ли пропустить merged ошибку с разными леммами.
-
-    Merged ошибки (merged_from_ins_del=True) создаются merge_adjacent_ins_del()
-    из соседних insertion+deletion. Если леммы разные — это реальная ошибка чтеца,
-    не артефакт выравнивания.
-
-    Args:
-        error: Словарь с ошибкой
-        words_norm: Нормализованные слова [wrong, correct]
-
-    Returns:
-        True если нужно пропустить (не фильтровать), False если можно фильтровать
-    """
-    if not error.get('merged_from_ins_del', False):
-        return False
-
-    if not HAS_PYMORPHY or len(words_norm) < 2:
-        return False
-
-    lemma1 = get_lemma(words_norm[0])
-    lemma2 = get_lemma(words_norm[1])
-
-    # Разные леммы = реальная ошибка чтеца, не фильтруем
-    return bool(lemma1 and lemma2 and lemma1 != lemma2)
-
-
-# =============================================================================
-# v9.11.0: ЗАЩИТА ОТ ML ДЛЯ ИСКАЖЁННЫХ РАСПОЗНАВАНИЙ
-# =============================================================================
-# Проблема: Яндекс иногда искажает распознанное слово
-# Пример: чтец сказал "или", Яндекс распознал "эли"
-# ML ошибочно фильтрует "эли→и" как FP (99% уверенность)
-# Но на самом деле это реальная ошибка: чтец сказал "или" вместо "и"
-
-# Частотные слова, которые Яндекс может исказить
-# Формат: искажение → (оригинал, минимальная схожесть)
-MISRECOGNITION_COMMON_WORDS = {
-    'эли': ('или', 0.65),   # или → эли (потеря первой буквы)
-    'ли': ('или', 0.65),    # или → ли
-    'ило': ('или', 0.65),   # или → ило
-    'али': ('или', 0.65),   # или → али
-}
-
-
-def _is_misrecognized_real_word(
-    transcript: str,
-    original: str,
-) -> Tuple[bool, str]:
-    """
-    v9.11.0: Проверяет, является ли transcript искажённым распознаванием
-    реального слова, отличающегося от original.
-
-    Проблема: Яндекс иногда искажает распознанное слово.
-    - чтец сказал "или", Яндекс распознал "эли"
-    - original = "и", transcript = "эли"
-    - ML ошибочно считает это FP (низкая схожесть "эли" vs "и")
-    - Но на самом деле чтец СКАЗАЛ "или" вместо "и" — реальная ошибка!
-
-    Решение: Если transcript похоже на известное частое слово,
-    которое отличается от original — это реальная ошибка, не FP.
-
-    Args:
-        transcript: Что распознал Яндекс
-        original: Что в оригинале книги
-
-    Returns:
-        (True, reason) если это искажённое реальное слово → НЕ фильтровать
-        (False, '') если нет
-    """
-    t = transcript.lower().strip()
-    o = original.lower().strip()
-
-    # Проверяем известные искажения
-    if t in MISRECOGNITION_COMMON_WORDS:
-        real_word, min_sim = MISRECOGNITION_COMMON_WORDS[t]
-        # Если реальное слово отличается от оригинала — это реальная ошибка
-        if real_word != o:
-            return True, f'misrecognized_{real_word}'
-
-    return False, ''
-
-
-def _is_merge_artifact(
-    error: Dict[str, Any],
-    all_errors: Optional[List[Dict]] = None,
-    time_window: float = 2.0
-) -> Tuple[bool, str]:
-    """
-    v9.10.0: Проверяет, является ли deletion артефактом слияния слов.
-
-    Паттерн: Яндекс сливает два слова в одно ("так же" → "также").
-    Выравнивание создаёт: substitution "так"→"также" + deletion "же".
-    Deletion "же" — артефакт, не ошибка чтеца.
-
-    Верифицировано на исходных данных (транскрипция + оригинал):
-    - я+же→яша, так+же→также, во+время→вовремя, на+встречу→навстречу
-    - 11 FP, 0 golden
-
-    Args:
-        error: Текущая ошибка (должна быть deletion)
-        all_errors: Список всех ошибок для поиска соседних substitution
-        time_window: Окно времени для поиска связанных ошибок (секунды)
-
-    Returns:
-        (True, reason) если это артефакт слияния
-        (False, '') если нет
-    """
-    if error.get('type') != 'deletion':
-        return False, ''
-
-    if not all_errors:
-        return False, ''
-
-    del_word = (error.get('original', '') or error.get('correct', '')).lower()
-    del_time = error.get('time', 0)
-
-    if not del_word:
-        return False, ''
-
-    # Ищем substitution рядом по времени
-    for e in all_errors:
-        if e.get('type') != 'substitution':
-            continue
-
-        t = e.get('time', 0)
-        # substitution должен быть ДО или почти одновременно с deletion
-        if t > del_time + 0.5 or del_time - t > time_window:
-            continue
-
-        orig = (e.get('original', '') or e.get('correct', '')).lower()
-        trans = (e.get('transcript', '') or e.get('wrong', '')).lower()
-
-        if not orig or not trans:
-            continue
-
-        # Паттерн 1: trans = orig + del_word (префикс)
-        # Пример: "так" → "также", del="же" → trans начинается с orig
-        if trans.startswith(orig) and len(trans) > len(orig):
-            tail = trans[len(orig):]
-            # Проверяем: хвост похож на del_word?
-            if len(tail) <= len(del_word) + 2 and tail and del_word:
-                # Первые буквы совпадают или близкие согласные (ж↔ш)
-                if (tail[0] == del_word[0] or
-                    (del_word[0] in 'жш' and tail[0] in 'жш')):
-                    return True, f'merge_artifact:{orig}+{del_word}→{trans}'
-
-        # Паттерн 2: trans = del_word + orig (суффикс)
-        # Пример: "время" → "вовремя", del="во" → trans начинается с del
-        if trans.startswith(del_word) and len(trans) > len(del_word):
-            tail = trans[len(del_word):]
-            # Хвост начинается с orig
-            if tail.startswith(orig[:min(3, len(orig))]):
-                return True, f'merge_artifact:{del_word}+{orig}→{trans}'
-
-    return False, ''
+# v9.18: Пороги semantic_slip, merged_diff_lemmas и MISRECOGNITION перенесены в safety_veto.py
+# v9.18: Функции _should_skip_merged_different_lemmas и _is_misrecognized_real_word перенесены в safety_veto.py
+# v9.19: Функция _is_merge_artifact перенесена в cluster_analyzer.py как check_merge_artifact
 
 
 def should_filter_error(
@@ -638,7 +529,33 @@ def should_filter_error(
     config: Optional[Dict] = None,
     all_errors: Optional[List[Dict]] = None,
 ) -> Tuple[bool, str]:
-    """Определяет, нужно ли отфильтровать ошибку."""
+    """
+    Определяет, нужно ли отфильтровать ошибку.
+
+    v9.18: Добавлен финальный слой SafetyVeto.
+    Сначала вызывается _should_filter_error_core(), затем результат
+    проверяется через apply_safety_veto() для защиты от ложной фильтрации.
+    """
+    # Вызываем основную логику фильтрации
+    should_filter, reason = _should_filter_error_core(error, config, all_errors)
+
+    # v9.18: Применяем SafetyVeto к решениям о фильтрации
+    # SafetyVeto может наложить ВЕТО на фильтрацию, если обнаружит:
+    # - semantic_slip: оговорка чтеца (высокая семантика + разные леммы)
+    # - merged_diff_lemmas: merged ошибка с разными леммами
+    # - misrecognized_real_word: искажённое Яндексом распознавание
+    if HAS_SAFETY_VETO:
+        should_filter, reason = apply_safety_veto(error, should_filter, reason)
+
+    return should_filter, reason
+
+
+def _should_filter_error_core(
+    error: Dict[str, Any],
+    config: Optional[Dict] = None,
+    all_errors: Optional[List[Dict]] = None,
+) -> Tuple[bool, str]:
+    """Внутренняя функция фильтрации (без SafetyVeto)."""
     config = config or {}
     levenshtein_threshold = config.get('levenshtein_threshold', 2)
     use_lemmatization = config.get('use_lemmatization', True)
@@ -668,14 +585,9 @@ def should_filter_error(
 
     words_norm = [normalize_word(w) for w in words]
 
-    # ==== УРОВЕНЬ -1: ScoringEngine ЗАЩИТА (v8.1) ====
-    # Проверяем HARD_NEGATIVES — известные пары путаницы, которые нельзя фильтровать
-    # Это защитный уровень: если пара в HARD_NEGATIVES — ПРЕКРАЩАЕМ фильтрацию
-    if HAS_SCORING_ENGINE and error_type == 'substitution' and len(words_norm) >= 2:
-        w1, w2 = words_norm[0], words_norm[1]
-        if is_hard_negative(w1, w2):
-            # Это известная пара путаницы — НЕ фильтруем, это реальная ошибка
-            return False, 'PROTECTED_hard_negative'
+    # ==== УРОВЕНЬ -1: ПЕРЕНЕСЁН в SafetyVeto (v9.19) ====
+    # HARD_NEGATIVES теперь проверяется ФИНАЛЬНЫМ слоем apply_safety_veto()
+    # Это позволяет всем фильтрам работать, а VETO защищает в конце
 
     # ==== УРОВЕНЬ -0.6: Междометия (v9.2.4) ====
     # Пары междометий (кхм↔хм, ах↔ох) — всегда фильтруем как техническую ошибку
@@ -685,58 +597,22 @@ def should_filter_error(
         if is_interjection(w1) and is_interjection(w2):
             return True, 'interjection_pair'
 
-    # ==== УРОВЕНЬ -0.55: Фонетические пары Яндекса (v9.7.0 — ПЕРЕМЕЩЕНО ВЫШЕ semantic_slip) ====
-    # Известные фонетические пары (ну↔но, не↔ни, а↔о) — ТЕХНИЧЕСКИЕ ошибки Яндекса
-    # Должны фильтроваться ДО semantic_slip, иначе semantic_slip защитит их
-    # v9.7.0: Перемещено с уровня 0.5 на уровень -0.55
-    if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
-        should_filter, reason = check_yandex_phonetic_pair(words_norm[0], words_norm[1])
-        if should_filter:
-            return True, reason
+    # ==== УРОВЕНЬ -0.55: УДАЛЁН (v9.19) ====
+    # yandex_phonetic_pair удалён — 0 фильтраций в БД
+    # Пары ну↔но, не↔ни уже обрабатываются HOMOPHONES на уровне 8
 
-    # ==== УРОВЕНЬ -0.5: SemanticManager ЗАЩИТА (v8.9) ====
-    # Высокая семантическая близость + разные леммы = оговорка чтеца
-    # Анализ БД: semantic>0.4 + diff_lemma = реальные ошибки (мечтательны→мечтатели)
-    # Это ЗАЩИТНЫЙ уровень: НЕ фильтруем оговорки
-    # v9.14: Исключение — если первые буквы разные + phon >= 0.8 + sem >= 0.5
-    #        то это артефакт ASR (вглубь→глубь), не оговорка
-    if HAS_SEMANTIC_MANAGER and error_type == 'substitution' and len(words_norm) >= 2:
-        w1, w2 = words_norm[0], words_norm[1]
-        # Только для разных лемм — проверяем семантику
-        if HAS_PYMORPHY:
-            lemma1 = get_lemma(w1)
-            lemma2 = get_lemma(w2)
-            if lemma1 and lemma2 and lemma1 != lemma2:
-                semantic_sim = get_similarity(w1, w2)
-                # Если семантика высокая — это оговорка, не фильтруем
-                if semantic_sim >= SEMANTIC_SLIP_THRESHOLD:
-                    # Получаем фонетику для проверки исключений
-                    phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
-                    if phon_sim > 1:
-                        phon_sim = phon_sim / 100
+    # ==== УРОВЕНЬ -0.5: ПЕРЕНЕСЁН в SafetyVeto (v9.18) ====
+    # semantic_slip теперь проверяется ФИНАЛЬНЫМ слоем apply_safety_veto()
+    # Это позволяет другим фильтрам (Context Verifier Level 3) работать
 
-                    # v9.14: Исключение 1 — идеальное фонетическое совпадение (phon >= 0.99)
-                    # Это орфографические варианты: прочие→прочее, эта→это
-                    # Пусть пройдут к фильтру perfect_phon_diff_lemma
-                    if phon_sim >= 0.99:
-                        pass  # Не защищаем
-                    # v9.14: Исключение 2 — diff_start + high_phon + high_sem
-                    # Это артефакты ASR: вглубь→глубь, хотелось→захотелось
-                    elif w1 and w2 and w1[0].lower() != w2[0].lower():
-                        if phon_sim >= 0.8 and semantic_sim >= 0.5:
-                            pass  # Не защищаем — пусть пройдёт к фильтру 0.45
-                        else:
-                            return False, f'PROTECTED_semantic_slip({semantic_sim:.2f})'
-                    else:
-                        return False, f'PROTECTED_semantic_slip({semantic_sim:.2f})'
-
-    # ==== УРОВЕНЬ -0.3: Артефакт слияния слов (v9.10) ====
+    # ==== УРОВЕНЬ -0.3: Артефакт слияния слов (v9.19 → cluster_analyzer) ====
     # Яндекс сливает два слова в одно: "так же" → "также", "во время" → "вовремя"
     # Выравнивание создаёт: substitution "так"→"также" + deletion "же"
     # Deletion — артефакт, не ошибка чтеца
-    # Верифицировано на исходных данных: 11 FP, 0 golden
-    if error_type == 'deletion' and all_errors:
-        is_merge, reason = _is_merge_artifact(error, all_errors)
+    # v9.19: Перенесено в cluster_analyzer.check_merge_artifact()
+    # Верифицировано на исходных данных: 33 FP, 0 golden
+    if HAS_CLUSTER_ANALYZER and error_type == 'deletion' and all_errors:
+        is_merge, reason = check_merge_artifact(error, all_errors)
         if is_merge:
             return True, reason
 
@@ -764,105 +640,30 @@ def should_filter_error(
         if should_filter:
             return True, reason
 
-    # ==== УРОВЕНЬ 0.4: Одинаковая фонетика, разные леммы (v9.9) ====
-    # Если слова звучат одинаково, но имеют разные леммы — это ошибка ASR
-    # Пример: устранять→устранить, прочие→прочее, открыта→открыто
-    # БЕЗОПАСНО: проверено — в golden только "и→я" с same_phon+diff_lemma,
-    # но "и" и "я" — служебные слова длиной 1, исключаем их
-    if error_type == 'substitution' and len(words_norm) >= 2 and HAS_PYMORPHY:
-        w1, w2 = words_norm[0], words_norm[1]
-        # Исключаем очень короткие слова (служебные)
-        if len(w1) >= 3 and len(w2) >= 3:
-            phon1 = phonetic_normalize(w1)
-            phon2 = phonetic_normalize(w2)
-            if phon1 == phon2:
-                lemma1 = get_lemma(w1)
-                lemma2 = get_lemma(w2)
-                if lemma1 != lemma2:
-                    return True, f'same_phonetic_diff_lemma:{phon1}'
-
-    # ==== УРОВЕНЬ 0.45: Высокая фонетика + высокая семантика + разные леммы (v9.14) ====
-    # Критерии: phon >= 0.8, sem >= 0.5, diff_lemma, первая буква разная
-    # Примеры FP: вглубь→глубь, хотелось→захотелось, молчал→помолчал
-    # Защита: нашу→вашу (притяжательные местоимения разных лиц)
-    # Верифицировано на БД: 15 FP, 0 golden (с защитой)
-    if error_type == 'substitution' and len(words_norm) >= 2 and HAS_PYMORPHY and HAS_SEMANTIC_MANAGER:
-        w1, w2 = words_norm[0], words_norm[1]
-        # Получаем леммы
-        lemma1 = get_lemma(w1)
-        lemma2 = get_lemma(w2)
-        # Только для разных лемм
-        if lemma1 and lemma2 and lemma1 != lemma2:
-            # Проверяем первые буквы — должны быть разные
-            if w1 and w2 and w1[0].lower() != w2[0].lower():
-                # Получаем фонетику из error (уже вычислена в smart_compare)
-                # или вычисляем заново если нет
-                phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
-                # Нормализуем: может быть 0-100 или 0-1
-                if phon_sim > 1:
-                    phon_sim = phon_sim / 100
-                if phon_sim >= 0.8:
-                    # Проверяем семантику
-                    sem_sim = get_similarity(w1, w2)
-                    if sem_sim >= 0.5:
-                        # Защита: притяжательные местоимения разных лиц
-                        protected_pairs = {
-                            ('наш', 'ваш'), ('ваш', 'наш'),
-                            ('наша', 'ваша'), ('ваша', 'наша'),
-                            ('наши', 'ваши'), ('ваши', 'наши'),
-                            ('нашу', 'вашу'), ('вашу', 'нашу'),
-                            ('нашей', 'вашей'), ('вашей', 'нашей'),
-                            ('нашего', 'вашего'), ('вашего', 'нашего'),
-                            ('нашим', 'вашим'), ('вашим', 'нашим'),
-                            ('нашими', 'вашими'), ('вашими', 'нашими'),
-                            ('нашем', 'вашем'), ('вашем', 'нашем'),
-                        }
-                        if (w1.lower(), w2.lower()) not in protected_pairs:
-                            return True, f'high_phon_sem_diff_lemma:phon={phon_sim:.2f},sem={sem_sim:.2f}'
-
-    # ==== УРОВЕНЬ 0.5: Идеальное фонетическое совпадение + разные леммы (v9.14) ====
-    # Критерии: phon >= 0.99, diff_lemma, любая семантика
-    # Примеры FP: прочие→прочее, эта→это, обоснованно→обосновано
-    # Защита: образу→образцу (разные слова, не формы)
-    # Верифицировано на БД: 14 FP, 1 golden (с защитой)
-    if error_type == 'substitution' and len(words_norm) >= 2 and HAS_PYMORPHY:
-        w1, w2 = words_norm[0], words_norm[1]
-        # Получаем леммы
-        lemma1 = get_lemma(w1)
-        lemma2 = get_lemma(w2)
-        # Только для разных лемм
-        if lemma1 and lemma2 and lemma1 != lemma2:
-            # Получаем фонетику из error
-            phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
-            if phon_sim > 1:
-                phon_sim = phon_sim / 100
-            # Только для идеального совпадения (phon >= 0.99)
-            if phon_sim >= 0.99:
-                # Защита: пары с разными корнями (образ≠образец)
-                protected_roots = {
-                    ('образ', 'образец'), ('образец', 'образ'),
-                }
-                if (lemma1.lower(), lemma2.lower()) not in protected_roots:
-                    return True, f'perfect_phon_diff_lemma:phon={phon_sim:.2f}'
+    # ==== УРОВНИ 0.4-0.5: Фонетико-семантические фильтры (v9.19) ====
+    # Объединены в phonetic_semantic.py:
+    # - same_phonetic_diff_lemma (0.4)
+    # - high_phon_sem_diff_lemma (0.45)
+    # - perfect_phon_diff_lemma (0.5)
+    if HAS_PHONETIC_SEMANTIC and error_type == 'substitution' and len(words_norm) >= 2:
+        should_filter, reason = check_phonetic_semantic(error, words_norm)
+        if should_filter:
+            return True, reason
 
     # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4 → v9.1 migrated to rules/) ====
     # v9.2.1: добавлена проверка падежа (get_case)
-    # v9.5.1: защита merged унифицирована в _should_skip_merged_different_lemmas()
+    # v9.18: Защита merged перенесена в SafetyVeto (финальный слой)
     if HAS_RULES_MODULE and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
-
-        # v9.5.1: Унифицированная защита merged
-        if not _should_skip_merged_different_lemmas(error, words_norm):
-            should_filter, reason = check_alignment_artifact(
-                w1, w2,
-                error_type='substitution',
-                get_lemma_func=get_lemma if HAS_PYMORPHY else None,
-                get_pos_func=get_pos if HAS_PYMORPHY else None,
-                get_case_func=get_case if HAS_PYMORPHY else None
-            )
-            # v9.5.1: ИСПРАВЛЕНО — условие внутри блока if not skip_alignment
-            if should_filter:
-                return True, reason
+        should_filter, reason = check_alignment_artifact(
+            w1, w2,
+            error_type='substitution',
+            get_lemma_func=get_lemma if HAS_PYMORPHY else None,
+            get_pos_func=get_pos if HAS_PYMORPHY else None,
+            get_case_func=get_case if HAS_PYMORPHY else None
+        )
+        if should_filter:
+            return True, reason
 
     # ==== ЭТАП 0: Артефакты алгоритма выравнивания ====
 
@@ -1297,60 +1098,42 @@ def should_filter_error(
 
         # v6.1: prefix_variant заменён на morpho_rules.py
 
-    # ==== УРОВЕНЬ 9.5: Защита от искажённых распознаваний (v9.11.0) ====
-    # Проблема: Яндекс иногда искажает распознанное слово (или→эли)
-    # ML ошибочно фильтрует эти случаи как FP
-    # Решение: если transcript похоже на известное слово ≠ original → реальная ошибка
-    if error_type == 'substitution' and len(words_norm) >= 2:
-        is_misrec, misrec_reason = _is_misrecognized_real_word(words_norm[0], words_norm[1])
-        if is_misrec:
-            # Это искажённое распознавание реального слова — НЕ фильтруем
-            # Возвращаем False (не фильтровать) и прерываем дальнейшие проверки
-            return False, f'PROTECTED_{misrec_reason}'
+    # ==== УРОВЕНЬ 9.5: ПЕРЕНЕСЁН в SafetyVeto (v9.18) ====
+    # misrecognized_real_word теперь проверяется ФИНАЛЬНЫМ слоем apply_safety_veto()
 
     # ==== УРОВЕНЬ 10: ML-классификатор v1.1 ====
     # Обучен на 93 golden + 648 FP. CV accuracy: 90%
     # Только substitution, порог 90% — консервативно
     # Тестировано: 'или→и' = REAL (59%), 'и→я' = REAL (82%)
     # v9.2.2: Защита от ML для грамматических ошибок (same_lemma + diff_number)
-    # v9.5.1: Защита merged унифицирована в _should_skip_merged_different_lemmas()
+    # v9.18: Защита merged перенесена в SafetyVeto (финальный слой)
     if HAS_ML_CLASSIFIER and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
 
-        # v9.5.1: Унифицированная защита merged
-        if not _should_skip_merged_different_lemmas(error, words_norm):
-            # v9.2.2: Защита — если одинаковая лемма, но разное число — это реальная ошибка
-            # Пример: "идущими" vs "идущим" — ML ошибочно считает FP
-            # v9.2.3: Дополнительно: если одинаковая лемма и разные окончания — потенциальная
-            #         грамматическая ошибка (pymorphy может не различить число из-за омонимии)
-            #         Пример: "тюрьмы" vs "тюрьма" — sing,gent vs plur,nomn — омонимия
-            if HAS_PYMORPHY:
-                lemma1 = get_lemma(w1)
-                lemma2 = get_lemma(w2)
-                num1 = get_number(w1)
-                num2 = get_number(w2)
-                if lemma1 and lemma2 and lemma1 == lemma2:
-                    # Одинаковая лемма — проверяем грамматические различия
-                    skip_ml = False
-                    if num1 and num2 and num1 != num2:
-                        # Явно разное число — реальная ошибка
-                        skip_ml = True
-                    elif w1 != w2 and len(w1) > 2 and len(w2) > 2:
-                        # v9.2.3: Слова отличаются, но одинаковая лемма
-                        # Это грамматическая вариация (падеж, число, род и т.д.)
-                        # Не применяем ML — пусть человек проверит
-                        skip_ml = True
+        # v9.2.2: Защита — если одинаковая лемма, но разное число — это реальная ошибка
+        # Пример: "идущими" vs "идущим" — ML ошибочно считает FP
+        # v9.2.3: Дополнительно: если одинаковая лемма и разные окончания — потенциальная
+        #         грамматическая ошибка (pymorphy может не различить число из-за омонимии)
+        #         Пример: "тюрьмы" vs "тюрьма" — sing,gent vs plur,nomn — омонимия
+        if HAS_PYMORPHY:
+            lemma1 = get_lemma(w1)
+            lemma2 = get_lemma(w2)
+            num1 = get_number(w1)
+            num2 = get_number(w2)
+            if lemma1 and lemma2 and lemma1 == lemma2:
+                # Одинаковая лемма — проверяем грамматические различия
+                skip_ml = False
+                if num1 and num2 and num1 != num2:
+                    # Явно разное число — реальная ошибка
+                    skip_ml = True
+                elif w1 != w2 and len(w1) > 2 and len(w2) > 2:
+                    # v9.2.3: Слова отличаются, но одинаковая лемма
+                    # Это грамматическая вариация (падеж, число, род и т.д.)
+                    # Не применяем ML — пусть человек проверит
+                    skip_ml = True
 
-                    if not skip_ml:
-                        # Применяем ML только если слова идентичны (чистый FP)
-                        try:
-                            is_fp, confidence = _ml_classifier.predict(w1, w2)
-                            if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
-                                return True, f'ml_classifier({confidence:.2f})'
-                        except Exception:
-                            pass
-                else:
-                    # Разные леммы — применяем ML
+                if not skip_ml:
+                    # Применяем ML только если слова идентичны (чистый FP)
                     try:
                         is_fp, confidence = _ml_classifier.predict(w1, w2)
                         if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
@@ -1358,13 +1141,21 @@ def should_filter_error(
                     except Exception:
                         pass
             else:
-                # Без морфологии — применяем ML
+                # Разные леммы — применяем ML
                 try:
                     is_fp, confidence = _ml_classifier.predict(w1, w2)
                     if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
                         return True, f'ml_classifier({confidence:.2f})'
                 except Exception:
                     pass
+        else:
+            # Без морфологии — применяем ML
+            try:
+                is_fp, confidence = _ml_classifier.predict(w1, w2)
+                if is_fp and confidence >= ML_CONFIDENCE_THRESHOLD:
+                    return True, f'ml_classifier({confidence:.2f})'
+            except Exception:
+                pass
 
     # ==== УРОВЕНЬ 11: SmartFilter — ОТКЛЮЧЁН ====
     # ПРИЧИНА: Все оставшиеся FP имеют score > 70 (grammar_change)
@@ -1392,21 +1183,19 @@ def should_filter_error(
 
     # Уровень 2-4: Морфологическая когерентность + Семантическая связность + Phonetic morphoform
     # v9.4: Включает все три уровня context_verifier
-    # v9.5.1: Защита merged унифицирована в _should_skip_merged_different_lemmas()
+    # v9.18: Защита merged перенесена в SafetyVeto (финальный слой)
     if HAS_CONTEXT_VERIFIER and error_type == 'substitution':
-        # v9.5.1: Унифицированная защита merged
-        if not _should_skip_merged_different_lemmas(error, words_norm):
-            try:
-                is_fp, reason = should_filter_by_context(
-                    error,
-                    use_morpho=True,
-                    use_semantic=True,
-                    use_phonetic_morpho=True  # v9.5: Level 4
-                )
-                if is_fp:
-                    return True, reason
-            except Exception:
-                pass
+        try:
+            is_fp, reason = should_filter_by_context(
+                error,
+                use_morpho=True,
+                use_semantic=True,
+                use_phonetic_morpho=True  # v9.5: Level 4
+            )
+            if is_fp:
+                return True, reason
+        except Exception:
+            pass
 
     # ==== УРОВЕНЬ 13: ClusterAnalyzer v1.0 (v14.9) ====
     # Фильтрация артефактов кластеров — групп ошибок в пределах 2 сек
@@ -1439,6 +1228,8 @@ def should_filter_error(
         except Exception:
             pass
 
+    # Ничего не отфильтровано — это реальная ошибка
+    # v9.18: SafetyVeto применяется в обёртке should_filter_error()
     return False, 'real_error'
 
 

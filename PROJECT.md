@@ -1,6 +1,6 @@
 # Проверка аудиокниг через Яндекс SpeechKit
 
-**Версия:** 14.9.0 | **Дата:** 2026-01-31
+**Версия:** 14.12.0 | **Дата:** 2026-01-31
 
 > Полная документация: `Документация/Архив/PROJECT_FULL.md`
 
@@ -19,17 +19,17 @@ python Тесты/run_full_test.py
 python Инструменты/pipeline.py audio.mp3 original.docx
 ```
 
-## Текущие показатели v14.9.0
+## Текущие показатели v14.12.0
 
 | Метрика | Значение |
 |---------|----------|
 | **Golden** | 127/127 ✓ |
-| **Всего ошибок** | 382 (5 глав) |
-| **Всего в БД** | 1407 |
-| **Отфильтровано** | ~1000 |
+| **Всего ошибок** | 385 (5 глав) |
+| **Всего в БД** | 1411 |
+| **Отфильтровано** | 1026 |
 | **ML v2.0 признаков** | 31 |
-| **SemanticManager защитил** | 77 |
-| **ClusterAnalyzer** | -28 FP |
+| **SafetyVeto v2.0** | Финальная защита |
+| **ClusterAnalyzer v1.1** | merge_artifact + кластеры |
 
 ### Статистика по главам
 
@@ -42,16 +42,31 @@ python Инструменты/pipeline.py audio.mp3 original.docx
 | 5 | 287 | 179 | 34 | 108 |
 | **Итого** | **1407** | **~1000** | **127** | **382** |
 
-## Архитектура v14.8
+## Архитектура v14.12
 
 ```
 Аудио → Яндекс SpeechKit → Транскрипция
                                ↓
-Оригинал → Нормализация → Умное сравнение → Фильтрация → Ошибки
-                               ↓                ↓            ↓
-                        JSON / DOCX / Веб    27+ уровней   БД (автоматически)
+Оригинал → Нормализация → Умное сравнение → Фильтрация → SafetyVeto → Ошибки
+                               ↓                ↓            ↓            ↓
+                        JSON / DOCX / Веб    10 уровней   VETO защита   БД
                                                     ↓
-                                             Context Verifier (4 уровня)
+                                             Context Verifier (5 уровней)
+```
+
+### Структура слоёв фильтрации v14.12
+
+```
+УРОВЕНЬ -0.6: Междометия
+УРОВЕНЬ -0.3: merge_artifact (ClusterAnalyzer)
+УРОВЕНЬ 0: MorphoRules
+УРОВЕНЬ 0.4-0.5: PhoneticSemantic (объединённый модуль)
+УРОВЕНЬ 0.6: AlignmentArtifacts
+УРОВНИ 1-9: InlineFilters (словари)
+УРОВЕНЬ 10: ML-классификатор
+УРОВЕНЬ 12: ContextVerifier (L1-L5)
+УРОВЕНЬ 13: ClusterAnalyzer
+ФИНАЛ: SafetyVeto (HARD_NEGATIVES + semantic_slip + merged + misrecognized)
 ```
 
 ### База данных v2.2 — Единый источник правды
@@ -79,26 +94,29 @@ python Инструменты/populate_db_v3.py --stats       # Детальна
 |--------|--------|------------|
 | version.py | v1.0 | Единый источник версий |
 | smart_compare.py | v10.6 | Посегментное выравнивание |
-| **engine.py** | **v9.13.0** | **Фильтрация + ClusterAnalyzer** |
-| **cluster_analyzer.py** | **v1.0.0** | **Кластерный анализ артефактов (-28 FP)** |
-| db_writer.py | v1.1.0 | Интеграция фильтрации с БД |
+| **engine.py** | **v9.19.0** | **Оркестратор фильтрации** |
+| **safety_veto.py** | **v2.0.0** | **Финальная защита (VETO)** |
+| **phonetic_semantic.py** | **v1.0.0** | **Фонетико-семантические фильтры** |
+| **cluster_analyzer.py** | **v1.1.0** | **Кластерный анализ + merge_artifact** |
+| db_writer.py | v1.2.0 | Интеграция фильтрации с БД |
 | ml_classifier.py | v2.0.0 | ML с контекстными признаками (31 признак) |
-| context_verifier.py | v4.1 | Контекстная верификация (4 уровня) |
+| context_verifier.py | v5.0 | Контекстная верификация (5 уровней) |
 | comparison.py | v6.5 | Сравнение + phonetic_normalize |
 | morpho_rules.py | v1.4 | Морфологические правила |
 | config.py | v6.1 | Единый путь к БД (FALSE_POSITIVES_DB) |
 | db_schema_v2.py | v2.2 | Схема БД + миграция |
 | populate_db_v3.py | v3.2 | Populator с историей изменений |
 
-### Context Verifier v4.0
+### Context Verifier v5.0
 
 | Уровень | Метод | Назначение | FP |
 |---------|-------|------------|-----|
 | 1 | anchor_verification | Якорные слова ±2 позиции | 4 |
-| 2 | morpho_coherence | Согласование морфологии | 3 |
-| 3 | semantic_coherence | Семантическая связность | 0 |
-| 4 | phonetic_morphoform | same_lemma + same_phonetic | 33 |
-| **Итого** | | | **40** |
+| 2 | morpho_coherence | Согласование морфологии | 5 |
+| 3 | semantic_coherence | Семантическая связность | 2 |
+| 4 | phonetic_morphoform | same_lemma + same_phonetic | 55 |
+| 5 | name_artifact | Артефакты имён персонажей | 4 |
+| **Итого** | | | **70** |
 
 ## Быстрый старт
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Cluster Analyzer v1.0 — Анализ и фильтрация кластеров ошибок
+Cluster Analyzer v1.1 — Анализ и фильтрация кластеров ошибок
 
 Кластер — группа ошибок в пределах 2 сек друг от друга.
 Многие FP являются артефактами выравнивания, которые проявляются как кластеры:
@@ -11,11 +11,13 @@ Cluster Analyzer v1.0 — Анализ и фильтрация кластеро�
 1. Находит кластеры ошибок по времени
 2. Определяет паттерны merge/split
 3. Помечает артефакты для фильтрации
+4. check_merge_artifact — быстрая проверка deletion на merge артефакт (v1.1)
 
+v1.1 (2026-01-31): Добавлен check_merge_artifact (перенесён из engine.py)
 v1.0 (2026-01-31): Начальная версия
 """
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 from typing import List, Dict, Tuple, Optional, Set
 from dataclasses import dataclass
@@ -457,6 +459,84 @@ def get_cluster_artifacts(
                 artifacts.append((error, reason))
 
     return artifacts
+
+
+def check_merge_artifact(
+    error: Dict,
+    all_errors: Optional[List[Dict]] = None,
+    time_window: float = CLUSTER_TIME_WINDOW
+) -> Tuple[bool, str]:
+    """
+    v1.1: Проверяет, является ли deletion артефактом слияния слов.
+
+    Паттерн: Яндекс сливает два слова в одно ("так же" → "также").
+    Выравнивание создаёт: substitution "так"→"также" + deletion "же".
+    Deletion "же" — артефакт, не ошибка чтеца.
+
+    Перенесено из engine.py v9.19 (ex-уровень -0.3).
+    Верифицировано на исходных данных:
+    - я+же→яша, так+же→также, во+время→вовремя, на+встречу→навстречу
+    - 33 FP, 0 golden
+
+    Args:
+        error: Текущая ошибка (должна быть deletion)
+        all_errors: Список всех ошибок для поиска соседних substitution
+        time_window: Окно времени для поиска связанных ошибок (секунды)
+
+    Returns:
+        (True, reason) если это артефакт слияния
+        (False, '') если нет
+    """
+    error_type = error.get('error_type', error.get('type', ''))
+    if error_type != 'deletion':
+        return False, ''
+
+    if not all_errors:
+        return False, ''
+
+    del_word = (error.get('original', '') or error.get('correct', '')).lower()
+    del_time = error.get('time_seconds', error.get('time', 0))
+
+    if not del_word:
+        return False, ''
+
+    # Ищем substitution рядом по времени
+    for e in all_errors:
+        e_type = e.get('error_type', e.get('type', ''))
+        if e_type != 'substitution':
+            continue
+
+        t = e.get('time_seconds', e.get('time', 0))
+        # substitution должен быть ДО или почти одновременно с deletion
+        if t > del_time + 0.5 or del_time - t > time_window:
+            continue
+
+        orig = (e.get('original', '') or e.get('correct', '')).lower()
+        trans = (e.get('transcript', '') or e.get('wrong', '')).lower()
+
+        if not orig or not trans:
+            continue
+
+        # Паттерн 1: trans = orig + del_word (префикс)
+        # Пример: "так" → "также", del="же" → trans начинается с orig
+        if trans.startswith(orig) and len(trans) > len(orig):
+            tail = trans[len(orig):]
+            # Проверяем: хвост похож на del_word?
+            if len(tail) <= len(del_word) + 2 and tail and del_word:
+                # Первые буквы совпадают или близкие согласные (ж↔ш)
+                if (tail[0] == del_word[0] or
+                    (del_word[0] in 'жш' and tail[0] in 'жш')):
+                    return True, f'merge_artifact:{orig}+{del_word}→{trans}'
+
+        # Паттерн 2: trans = del_word + orig (суффикс)
+        # Пример: "время" → "вовремя", del="во" → trans начинается с del
+        if trans.startswith(del_word) and len(trans) > len(del_word):
+            tail = trans[len(del_word):]
+            # Хвост начинается с orig
+            if tail.startswith(orig[:min(3, len(orig))]):
+                return True, f'merge_artifact:{del_word}+{orig}→{trans}'
+
+    return False, ''
 
 
 # Для тестирования
