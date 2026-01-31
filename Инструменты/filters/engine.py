@@ -1,10 +1,17 @@
 """
-Движок фильтрации ошибок транскрипции v9.13.0.
+Движок фильтрации ошибок транскрипции v9.14.0.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (оркестратор правил)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v9.14.0 изменения (2026-01-31):
+- НОВЫЙ ФИЛЬТР: high_phon_sem_diff_lemma (уровень 0.45)
+  - Критерии: phon >= 0.8, sem >= 0.5, diff_lemma, первая буква разная
+  - Примеры FP: вглубь→глубь, хотелось→захотелось, молчал→помолчал
+  - Защита: нашу→вашу (притяжательные местоимения)
+  - Верифицировано на БД: 15 FP, 0 golden
 
 v9.13.0 изменения (2026-01-31):
 - НОВЫЙ ФИЛЬТР: ClusterAnalyzer (уровень 13)
@@ -675,6 +682,8 @@ def should_filter_error(
     # Высокая семантическая близость + разные леммы = оговорка чтеца
     # Анализ БД: semantic>0.4 + diff_lemma = реальные ошибки (мечтательны→мечтатели)
     # Это ЗАЩИТНЫЙ уровень: НЕ фильтруем оговорки
+    # v9.14: Исключение — если первые буквы разные + phon >= 0.8 + sem >= 0.5
+    #        то это артефакт ASR (вглубь→глубь), не оговорка
     if HAS_SEMANTIC_MANAGER and error_type == 'substitution' and len(words_norm) >= 2:
         w1, w2 = words_norm[0], words_norm[1]
         # Только для разных лемм — проверяем семантику
@@ -685,7 +694,25 @@ def should_filter_error(
                 semantic_sim = get_similarity(w1, w2)
                 # Если семантика высокая — это оговорка, не фильтруем
                 if semantic_sim >= SEMANTIC_SLIP_THRESHOLD:
-                    return False, f'PROTECTED_semantic_slip({semantic_sim:.2f})'
+                    # Получаем фонетику для проверки исключений
+                    phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
+                    if phon_sim > 1:
+                        phon_sim = phon_sim / 100
+
+                    # v9.14: Исключение 1 — идеальное фонетическое совпадение (phon >= 0.99)
+                    # Это орфографические варианты: прочие→прочее, эта→это
+                    # Пусть пройдут к фильтру perfect_phon_diff_lemma
+                    if phon_sim >= 0.99:
+                        pass  # Не защищаем
+                    # v9.14: Исключение 2 — diff_start + high_phon + high_sem
+                    # Это артефакты ASR: вглубь→глубь, хотелось→захотелось
+                    elif w1 and w2 and w1[0].lower() != w2[0].lower():
+                        if phon_sim >= 0.8 and semantic_sim >= 0.5:
+                            pass  # Не защищаем — пусть пройдёт к фильтру 0.45
+                        else:
+                            return False, f'PROTECTED_semantic_slip({semantic_sim:.2f})'
+                    else:
+                        return False, f'PROTECTED_semantic_slip({semantic_sim:.2f})'
 
     # ==== УРОВЕНЬ -0.3: Артефакт слияния слов (v9.10) ====
     # Яндекс сливает два слова в одно: "так же" → "также", "во время" → "вовремя"
@@ -737,6 +764,70 @@ def should_filter_error(
                 lemma2 = get_lemma(w2)
                 if lemma1 != lemma2:
                     return True, f'same_phonetic_diff_lemma:{phon1}'
+
+    # ==== УРОВЕНЬ 0.45: Высокая фонетика + высокая семантика + разные леммы (v9.14) ====
+    # Критерии: phon >= 0.8, sem >= 0.5, diff_lemma, первая буква разная
+    # Примеры FP: вглубь→глубь, хотелось→захотелось, молчал→помолчал
+    # Защита: нашу→вашу (притяжательные местоимения разных лиц)
+    # Верифицировано на БД: 15 FP, 0 golden (с защитой)
+    if error_type == 'substitution' and len(words_norm) >= 2 and HAS_PYMORPHY and HAS_SEMANTIC_MANAGER:
+        w1, w2 = words_norm[0], words_norm[1]
+        # Получаем леммы
+        lemma1 = get_lemma(w1)
+        lemma2 = get_lemma(w2)
+        # Только для разных лемм
+        if lemma1 and lemma2 and lemma1 != lemma2:
+            # Проверяем первые буквы — должны быть разные
+            if w1 and w2 and w1[0].lower() != w2[0].lower():
+                # Получаем фонетику из error (уже вычислена в smart_compare)
+                # или вычисляем заново если нет
+                phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
+                # Нормализуем: может быть 0-100 или 0-1
+                if phon_sim > 1:
+                    phon_sim = phon_sim / 100
+                if phon_sim >= 0.8:
+                    # Проверяем семантику
+                    sem_sim = get_similarity(w1, w2)
+                    if sem_sim >= 0.5:
+                        # Защита: притяжательные местоимения разных лиц
+                        protected_pairs = {
+                            ('наш', 'ваш'), ('ваш', 'наш'),
+                            ('наша', 'ваша'), ('ваша', 'наша'),
+                            ('наши', 'ваши'), ('ваши', 'наши'),
+                            ('нашу', 'вашу'), ('вашу', 'нашу'),
+                            ('нашей', 'вашей'), ('вашей', 'нашей'),
+                            ('нашего', 'вашего'), ('вашего', 'нашего'),
+                            ('нашим', 'вашим'), ('вашим', 'нашим'),
+                            ('нашими', 'вашими'), ('вашими', 'нашими'),
+                            ('нашем', 'вашем'), ('вашем', 'нашем'),
+                        }
+                        if (w1.lower(), w2.lower()) not in protected_pairs:
+                            return True, f'high_phon_sem_diff_lemma:phon={phon_sim:.2f},sem={sem_sim:.2f}'
+
+    # ==== УРОВЕНЬ 0.5: Идеальное фонетическое совпадение + разные леммы (v9.14) ====
+    # Критерии: phon >= 0.99, diff_lemma, любая семантика
+    # Примеры FP: прочие→прочее, эта→это, обоснованно→обосновано
+    # Защита: образу→образцу (разные слова, не формы)
+    # Верифицировано на БД: 14 FP, 1 golden (с защитой)
+    if error_type == 'substitution' and len(words_norm) >= 2 and HAS_PYMORPHY:
+        w1, w2 = words_norm[0], words_norm[1]
+        # Получаем леммы
+        lemma1 = get_lemma(w1)
+        lemma2 = get_lemma(w2)
+        # Только для разных лемм
+        if lemma1 and lemma2 and lemma1 != lemma2:
+            # Получаем фонетику из error
+            phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
+            if phon_sim > 1:
+                phon_sim = phon_sim / 100
+            # Только для идеального совпадения (phon >= 0.99)
+            if phon_sim >= 0.99:
+                # Защита: пары с разными корнями (образ≠образец)
+                protected_roots = {
+                    ('образ', 'образец'), ('образец', 'образ'),
+                }
+                if (lemma1.lower(), lemma2.lower()) not in protected_roots:
+                    return True, f'perfect_phon_diff_lemma:phon={phon_sim:.2f}'
 
     # ==== УРОВЕНЬ 0.6: Артефакты выравнивания (v8.4 → v9.1 migrated to rules/) ====
     # v9.2.1: добавлена проверка падежа (get_case)
