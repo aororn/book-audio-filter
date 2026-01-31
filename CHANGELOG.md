@@ -21,6 +21,11 @@
 3. **pipeline.py** — передача chapter в config
    - ClusterAnalyzer использует chapter для защиты golden
 
+4. **db_writer.py v1.2.0** — запись контекстов в БД
+   - Добавлены поля: `transcript_context`, `pos_transcript`, `pos_original`
+   - Для insertions теперь записывается контекст и позиция
+   - FilterResult dataclass расширен новыми полями
+
 ### Результат:
 
 | Метрика | Было | Стало | Изменение |
