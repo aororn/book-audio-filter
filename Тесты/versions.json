@@ -278,6 +278,216 @@
         "fp": 297
       },
       "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v14.0.0",
+      "date": "2026-01-31",
+      "project_version": "14.0.0",
+      "filter_version": "9.7.0",
+      "smart_compare_version": "10.6.0",
+      "chapters": {
+        "1": {
+          "total": 83,
+          "golden": 31
+        },
+        "2": {
+          "total": 68,
+          "golden": 21
+        },
+        "3": {
+          "total": 104,
+          "golden": 20
+        },
+        "4": {
+          "total": 54,
+          "golden": 21
+        },
+        "5": {
+          "total": 115,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 424,
+        "golden": 127,
+        "fp": 297
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v14.1.0",
+      "date": "2026-01-31",
+      "project_version": "14.1.0",
+      "filter_version": "9.8.0",
+      "smart_compare_version": "10.6.0",
+      "chapters": {
+        "1": {
+          "total": 91,
+          "golden": 31
+        },
+        "2": {
+          "total": 82,
+          "golden": 21
+        },
+        "3": {
+          "total": 125,
+          "golden": 20
+        },
+        "4": {
+          "total": 58,
+          "golden": 21
+        },
+        "5": {
+          "total": 125,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 481,
+        "golden": 127,
+        "fp": 354
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v14.5.0",
+      "date": "2026-01-31",
+      "project_version": "14.5.0",
+      "filter_version": "9.8.0",
+      "smart_compare_version": "10.6.0",
+      "chapters": {
+        "1": {
+          "total": 88,
+          "golden": 31
+        },
+        "2": {
+          "total": 58,
+          "golden": 21
+        },
+        "3": {
+          "total": 101,
+          "golden": 20
+        },
+        "4": {
+          "total": 46,
+          "golden": 21
+        },
+        "5": {
+          "total": 105,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 398,
+        "golden": 127,
+        "fp": 271
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v14.6.1",
+      "date": "2026-01-31",
+      "project_version": "14.6.1",
+      "filter_version": "9.11.0",
+      "smart_compare_version": "10.6.0",
+      "chapters": {
+        "1": {
+          "total": 88,
+          "golden": 31
+        },
+        "2": {
+          "total": 58,
+          "golden": 21
+        },
+        "3": {
+          "total": 101,
+          "golden": 20
+        },
+        "4": {
+          "total": 46,
+          "golden": 21
+        },
+        "5": {
+          "total": 105,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 398,
+        "golden": 127,
+        "fp": 271
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v14.7.0",
+      "date": "2026-01-31",
+      "project_version": "14.7.0",
+      "filter_version": "9.12.0",
+      "smart_compare_version": "10.6.0",
+      "chapters": {
+        "1": {
+          "total": 88,
+          "golden": 31
+        },
+        "2": {
+          "total": 58,
+          "golden": 21
+        },
+        "3": {
+          "total": 101,
+          "golden": 20
+        },
+        "4": {
+          "total": 46,
+          "golden": 21
+        },
+        "5": {
+          "total": 105,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 398,
+        "golden": 127,
+        "fp": 271
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
+    },
+    {
+      "id": "v14.8.0",
+      "date": "2026-01-31",
+      "project_version": "14.8.0",
+      "filter_version": "9.12.0",
+      "smart_compare_version": "10.6.0",
+      "chapters": {
+        "1": {
+          "total": 88,
+          "golden": 31
+        },
+        "2": {
+          "total": 62,
+          "golden": 21
+        },
+        "3": {
+          "total": 104,
+          "golden": 20
+        },
+        "4": {
+          "total": 48,
+          "golden": 21
+        },
+        "5": {
+          "total": 108,
+          "golden": 34
+        }
+      },
+      "totals": {
+        "errors": 410,
+        "golden": 127,
+        "fp": 283
+      },
+      "notes": "Auto-saved by run_full_test.py v6.3.0"
     }
   ]
 }

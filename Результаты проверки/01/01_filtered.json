@@ -1,7 +1,7 @@
 {
-  "audio": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Аудио/01.mp3",
-  "original": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Оригинал/Главы/Глава 1.docx",
-  "transcript": "/Users/mihailignatov/Desktop/Claude-Work/Яндекс Спич/Результаты проверки/01/01_transcript.json",
+  "audio": "Результаты проверки/01/01_yandex.ogg",
+  "original": "Результаты проверки/01/01_original.txt",
+  "transcript": "Результаты проверки/01/01_transcript.json",
   "threshold": 0.7,
   "stats": {
     "original_words": 8046,
@@ -27,6 +27,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.73,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -56,6 +57,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 0.89,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -85,6 +87,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -113,6 +116,7 @@
       "similarity": 0.3076923076923077,
       "phonetic_similarity": 0.3076923076923077,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -141,6 +145,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -169,6 +174,7 @@
       "similarity": 0.89,
       "phonetic_similarity": 0.89,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.47)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -180,6 +186,35 @@
         "original_pos": "VERB",
         "transcript_pos": "VERB",
         "semantic_similarity": 0.47486963868141174
+      }
+    },
+    {
+      "type": "deletion",
+      "time": 212.91,
+      "time_end": 0.0,
+      "time_seconds": 212,
+      "original": "несколько",
+      "transcript": "",
+      "context": "Свою, купленную на аукционе, если меня не подводят глаза. Следом несколько артефактов, которые я вижу впервые. Седой и Красноволосый молчат, молчат",
+      "transcript_context": "",
+      "marker_pos": 65,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "deletion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {
@@ -197,6 +232,7 @@
       "similarity": 0.83,
       "phonetic_similarity": 0.86,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -225,6 +261,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.63)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -254,6 +291,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 0.8,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.47)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -282,6 +320,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -310,6 +349,7 @@
       "similarity": 0.62,
       "phonetic_similarity": 0.88,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -338,6 +378,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 0.8,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.46)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -366,6 +407,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.86,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.54)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -395,6 +437,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -424,6 +467,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -452,6 +496,7 @@
       "similarity": 0.89,
       "phonetic_similarity": 0.9,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 140,
         "smart_rules": [
@@ -482,6 +527,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -510,6 +556,7 @@
       "similarity": 0.93,
       "phonetic_similarity": 0.93,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -539,6 +586,7 @@
       "similarity": 0.5,
       "phonetic_similarity": 0.5,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.41)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -551,35 +599,6 @@
         "original_pos": "NPRO",
         "transcript_pos": "CONJ",
         "semantic_similarity": 0.40818923711776733
-      }
-    },
-    {
-      "type": "substitution",
-      "time": 827.489,
-      "time_end": 827.83,
-      "time_seconds": 827,
-      "original": "младший",
-      "transcript": "младше",
-      "context": "на миг потемнел, а затем он задрал подбородок и спросил: Младший господин, помнится, вы говорили, что места главы стражи, казначея и",
-      "transcript_context": "",
-      "marker_pos": 57,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.77,
-      "phonetic_similarity": 0.93,
-      "merged_from_ins_del": false,
-      "smart_metrics": {
-        "smart_score": 110,
-        "smart_rules": [
-          "grammar_change (+70)",
-          "pos_mismatch (+40)"
-        ],
-        "is_visible": true,
-        "original_lemma": "младший",
-        "transcript_lemma": "младший",
-        "original_pos": "ADJF",
-        "transcript_pos": "COMP",
-        "semantic_similarity": 0.3712373673915863
       }
     },
     {
@@ -597,6 +616,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.76)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -625,7 +645,8 @@
       "is_yandex_error": false,
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
-      "merged_from_ins_del": false
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error"
     },
     {
       "type": "substitution",
@@ -642,6 +663,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 0.8,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -671,6 +693,7 @@
       "similarity": 0.83,
       "phonetic_similarity": 0.83,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -699,6 +722,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.86,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -727,6 +751,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.67)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -756,6 +781,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -784,6 +810,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.63)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -813,6 +840,7 @@
       "similarity": 0.91,
       "phonetic_similarity": 0.94,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -842,6 +870,7 @@
       "similarity": 0.85,
       "phonetic_similarity": 0.92,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.74)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -871,6 +900,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.62,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.58)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -900,6 +930,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -928,6 +959,7 @@
       "similarity": 0.4,
       "phonetic_similarity": 0.4,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.58)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -957,6 +989,7 @@
       "similarity": 0.88,
       "phonetic_similarity": 0.88,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -986,6 +1019,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.86,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.41)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1014,6 +1048,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.93,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1042,6 +1077,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -1070,6 +1106,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1099,6 +1136,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -1127,6 +1165,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.65)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -1156,6 +1195,7 @@
       "similarity": 0.88,
       "phonetic_similarity": 0.96,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1184,6 +1224,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -1212,6 +1253,7 @@
       "similarity": 0.4,
       "phonetic_similarity": 0.8,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.63)",
       "smart_metrics": {
         "smart_score": 140,
         "smart_rules": [
@@ -1242,6 +1284,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 0.84,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.49)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1271,6 +1314,7 @@
       "similarity": 0.92,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.40)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1299,6 +1343,7 @@
       "similarity": 0.5,
       "phonetic_similarity": 0.5,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "PROTECTED_misrecognized_или",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1328,6 +1373,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.65)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -1340,6 +1386,35 @@
         "original_pos": "CONJ",
         "transcript_pos": "CONJ",
         "semantic_similarity": 0.6520956754684448
+      }
+    },
+    {
+      "type": "insertion",
+      "time": 1913.73,
+      "time_end": 0.0,
+      "time_seconds": 1913,
+      "original": "",
+      "transcript": "на",
+      "context": "переносицу и уже каким-то другим тоном сказал. Слушай, Зеленорукий, да? Да, Седой, кивнул тот. У меня есть прекрасное вино столетней",
+      "transcript_context": "пальцами переносицу уже каким то другим тоном сказал слушай тебе на руки да да седой кивнул тот у меня есть прекрасное",
+      "marker_pos": 68,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {
@@ -1357,6 +1432,7 @@
       "similarity": 0.83,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1385,6 +1461,7 @@
       "similarity": 0.82,
       "phonetic_similarity": 0.93,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1413,6 +1490,7 @@
       "similarity": 0.91,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.41)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1424,6 +1502,36 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.41246700286865234
+      }
+    },
+    {
+      "type": "substitution",
+      "time": 1992.05,
+      "time_end": 1992.67,
+      "time_seconds": 1992,
+      "original": "пересмешник",
+      "transcript": "смешник",
+      "context": "третья чаша у вас найдётся? Не веря восприятию, я обернулся. Пересмешник. С кривой ухмылкой, которая совсем не соответствовала серьёзности тона. Теперь",
+      "transcript_context": "",
+      "marker_pos": 61,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.78,
+      "phonetic_similarity": 0.8,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
+      "smart_metrics": {
+        "smart_score": 110,
+        "smart_rules": [
+          "different_lemma (+70)",
+          "pos_mismatch (+40)"
+        ],
+        "is_visible": true,
+        "original_lemma": "пересмешник",
+        "transcript_lemma": "смешникнуть",
+        "original_pos": "NOUN",
+        "transcript_pos": "VERB",
+        "semantic_similarity": 0.0
       }
     },
     {
@@ -1441,6 +1549,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.64)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -1470,6 +1579,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -1498,6 +1608,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -1509,6 +1620,35 @@
         "original_pos": null,
         "transcript_pos": null,
         "semantic_similarity": null
+      }
+    },
+    {
+      "type": "substitution",
+      "time": 2090.26,
+      "time_end": 2090.839,
+      "time_seconds": 2090,
+      "original": "выторговали",
+      "transcript": "говори",
+      "context": "удивлённый его словами. Старейшины. Раз вы выторговали себе их девять… Выторговали? не сдержался один из тех самых комтуров, который всё это",
+      "transcript_context": "",
+      "marker_pos": 71,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.47,
+      "phonetic_similarity": 0.59,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
+      "smart_metrics": {
+        "smart_score": 70,
+        "smart_rules": [
+          "different_lemma (+70)"
+        ],
+        "is_visible": true,
+        "original_lemma": "выторговать",
+        "transcript_lemma": "говорить",
+        "original_pos": "VERB",
+        "transcript_pos": "VERB",
+        "semantic_similarity": -0.15868358314037323
       }
     },
     {
@@ -1526,6 +1666,7 @@
       "similarity": 0.89,
       "phonetic_similarity": 0.89,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1555,6 +1696,7 @@
       "similarity": 0.91,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1583,6 +1725,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1611,6 +1754,7 @@
       "similarity": 0.4,
       "phonetic_similarity": 0.8,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.46)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1627,31 +1771,60 @@
     },
     {
       "type": "substitution",
-      "time": 2439.41,
-      "time_end": 2439.81,
-      "time_seconds": 2439,
-      "original": "сломанного",
-      "transcript": "сломана",
-      "context": "вашу помощь, а затем и вовсе добавил. Сила нашей семьи Сломанного Клинка в единстве, в верности, в общей цели. Сломанный Клинок",
+      "time": 2415.42,
+      "time_end": 2415.94,
+      "time_seconds": 2415,
+      "original": "ошарашенные",
+      "transcript": "ошарашенное",
+      "context": "Снимайте формацию и начинаем заниматься каждый своим делом. Помедлил, видя ошарашенные лица Предводителей, простых служителей, которые как-то не успели ещё",
       "transcript_context": "",
-      "marker_pos": 55,
+      "marker_pos": 75,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.91,
+      "phonetic_similarity": 0.92,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
+      "smart_metrics": {
+        "smart_score": 70,
+        "smart_rules": [
+          "grammar_change (+70)"
+        ],
+        "is_visible": true,
+        "original_lemma": "ошарашить",
+        "transcript_lemma": "ошарашить",
+        "original_pos": "PRTF",
+        "transcript_pos": "PRTF",
+        "semantic_similarity": 0.3077063262462616
+      }
+    },
+    {
+      "type": "substitution",
+      "time": 2422.28,
+      "time_end": 2422.58,
+      "time_seconds": 2422,
+      "original": "которые",
+      "transcript": "которая",
+      "context": "как-то не успели ещё привыкнуть к изменениям и запретам, которые теперь носят на себе. Нужно бы как-то их поддержать,",
+      "transcript_context": "",
+      "marker_pos": 57,
       "confidence": 1.0,
       "is_yandex_error": false,
       "similarity": 0.71,
-      "phonetic_similarity": 0.88,
+      "phonetic_similarity": 0.86,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
-        "smart_score": 110,
+        "smart_score": 70,
         "smart_rules": [
-          "grammar_change (+70)",
-          "pos_mismatch (+40)"
+          "grammar_change (+70)"
         ],
         "is_visible": true,
-        "original_lemma": "сломать",
-        "transcript_lemma": "сломать",
-        "original_pos": "PRTF",
-        "transcript_pos": "PRTS",
-        "semantic_similarity": 0.28275156021118164
+        "original_lemma": "который",
+        "transcript_lemma": "который",
+        "original_pos": "ADJF",
+        "transcript_pos": "ADJF",
+        "semantic_similarity": 0.22916392982006073
       }
     },
     {
@@ -1669,6 +1842,7 @@
       "similarity": 0.73,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -1698,6 +1872,7 @@
       "similarity": 0.92,
       "phonetic_similarity": 0.92,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -1727,6 +1902,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -1755,6 +1931,7 @@
       "similarity": 0.71,
       "phonetic_similarity": 0.75,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1783,6 +1960,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 0.75,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.45)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1795,34 +1973,6 @@
         "original_pos": "PRCL",
         "transcript_pos": "ADVB",
         "semantic_similarity": 0.45475947856903076
-      }
-    },
-    {
-      "type": "deletion",
-      "time": 2587.579,
-      "time_end": 0.0,
-      "time_seconds": 2587,
-      "original": "во",
-      "transcript": "",
-      "context": "ними сейчас? Хватит приставать к главе с мелочами! рыкнул вошедший во всё ещё разгромленный зал Седой, Проверь то, что мы можем",
-      "transcript_context": "",
-      "marker_pos": 67,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "merged_from_ins_del": false,
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "deletion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
       }
     },
     {
@@ -1840,6 +1990,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1869,6 +2020,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.57,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.61)",
       "smart_metrics": {
         "smart_score": 140,
         "smart_rules": [
@@ -1899,6 +2051,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.41)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -1928,6 +2081,7 @@
       "similarity": 0.3333333333333333,
       "phonetic_similarity": 0.3333333333333333,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -1942,31 +2096,32 @@
       }
     },
     {
-      "type": "deletion",
-      "time": 2899.09,
-      "time_end": 0.0,
-      "time_seconds": 2899,
-      "original": "же",
-      "transcript": "",
-      "context": "сверкнул улыбкой, передавая мне кисет с флагами, и ушёл. Я же просунул руку за ворот халата, нащупал нужный артефакт и толкнул",
+      "type": "substitution",
+      "time": 2998.98,
+      "time_end": 2999.66,
+      "time_seconds": 2998,
+      "original": "ограниченные",
+      "transcript": "ограниченная",
+      "context": "их гнев. Мой советник утверждает, что они не поступят так, ограниченные установленными правилами. Я тоже считаю, глава, что если они решат",
       "transcript_context": "",
       "marker_pos": 59,
       "confidence": 1.0,
       "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
+      "similarity": 0.83,
+      "phonetic_similarity": 0.92,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
-        "smart_score": 40,
+        "smart_score": 70,
         "smart_rules": [
-          "deletion_base (+40)"
+          "grammar_change (+70)"
         ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
+        "is_visible": true,
+        "original_lemma": "ограниченный",
+        "transcript_lemma": "ограниченный",
+        "original_pos": "ADJF",
+        "transcript_pos": "ADJF",
+        "semantic_similarity": 0.42352166771888733
       }
     },
     {
@@ -1984,6 +2139,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 0.75,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "protected_word",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -1996,6 +2152,35 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.6700840592384338
+      }
+    },
+    {
+      "type": "substitution",
+      "time": 3013.63,
+      "time_end": 3014.09,
+      "time_seconds": 3013,
+      "original": "которые",
+      "transcript": "которая",
+      "context": "увидит. Например, в Каменном Лабиринте. Там их сдержат зоны запрета. Которые не позволят вам вызвать Стража на помощь. И которые обойдутся",
+      "transcript_context": "",
+      "marker_pos": 69,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.71,
+      "phonetic_similarity": 0.86,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
+      "smart_metrics": {
+        "smart_score": 70,
+        "smart_rules": [
+          "grammar_change (+70)"
+        ],
+        "is_visible": true,
+        "original_lemma": "который",
+        "transcript_lemma": "который",
+        "original_pos": "ADJF",
+        "transcript_pos": "ADJF",
+        "semantic_similarity": 0.22916392982006073
       }
     },
     {
@@ -2013,6 +2198,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.42)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -2042,6 +2228,7 @@
       "similarity": 0.5,
       "phonetic_similarity": 0.5,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.41)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -2071,6 +2258,7 @@
       "similarity": 0.36363636363636365,
       "phonetic_similarity": 0.36363636363636365,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -2100,6 +2288,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.5,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.63)",
       "smart_metrics": {
         "smart_score": 140,
         "smart_rules": [
@@ -2130,6 +2319,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 0.78,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": -40,
         "smart_rules": [
@@ -2158,6 +2348,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.49)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -2170,6 +2361,35 @@
         "original_pos": "PRCL",
         "transcript_pos": "ADJF",
         "semantic_similarity": 0.49134561419487
+      }
+    },
+    {
+      "type": "substitution",
+      "time": 3276.339,
+      "time_end": 3276.66,
+      "time_seconds": 3276,
+      "original": "который",
+      "transcript": "которые",
+      "context": "на ваш разум, мелькнула мысль и о ярости, зверином раже, который действуют на вас из-за вашей родословной… Чем больше говорил",
+      "transcript_context": "",
+      "marker_pos": 57,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.86,
+      "phonetic_similarity": 0.86,
+      "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
+      "smart_metrics": {
+        "smart_score": 70,
+        "smart_rules": [
+          "grammar_change (+70)"
+        ],
+        "is_visible": true,
+        "original_lemma": "который",
+        "transcript_lemma": "который",
+        "original_pos": "ADJF",
+        "transcript_pos": "ADJF",
+        "semantic_similarity": 0.2464885115623474
       }
     },
     {
@@ -2187,6 +2407,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.88,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 140,
         "smart_rules": [
@@ -2217,6 +2438,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.44)",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -2245,6 +2467,7 @@
       "similarity": 0.4444444444444444,
       "phonetic_similarity": 0.4444444444444444,
       "merged_from_ins_del": true,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.61)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -2274,6 +2497,7 @@
       "similarity": 0.91,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -2302,6 +2526,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.88,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.65)",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -2331,6 +2556,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "real_error",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -2359,6 +2585,7 @@
       "similarity": 0.67,
       "phonetic_similarity": 0.67,
       "merged_from_ins_del": false,
+      "not_filtered_reason": "PROTECTED_semantic_slip(0.43)",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -2584,94 +2811,82 @@
       "merged_from_ins_del": false
     }
   ],
-  "total_errors": 83,
-  "filtered_count": 322,
+  "total_errors": 88,
+  "filtered_count": 317,
   "filter_stats": {
-    "yandex_name_error": 47,
-    "real_error": 50,
+    "yandex_name_error": 45,
     "morpho_same_form": 18,
-    "alignment_artifact": 53,
-    "adverb_adjective": 3,
-    "yandex_typical": 80,
+    "alignment_artifact": 56,
+    "levenshtein_protected": 1,
+    "yandex_typical": 82,
     "split_name": 2,
-    "sentence_start_weak": 8,
+    "sentence_start_weak": 7,
     "morpho_proper_name": 13,
-    "PROTECTED_semantic_slip(0.47)": 2,
+    "same_lemma": 5,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=одеяние,phon=адиинии": 1,
-    "homophone": 8,
+    "same_phonetic_diff_lemma:блиднии": 1,
     "morpho_homophone": 12,
-    "PROTECTED_semantic_slip(0.63)": 4,
-    "safe_ending_transition": 11,
+    "morpho_coherence:morpho_coherence_fp:trans=1.00,orig=0.00": 3,
     "linked_prefix_error": 14,
-    "PROTECTED_semantic_slip(0.46)": 2,
-    "PROTECTED_semantic_slip(0.54)": 1,
-    "protected_word": 1,
-    "PROTECTED_semantic_slip(0.41)": 5,
-    "PROTECTED_semantic_slip(0.76)": 1,
-    "case_form": 2,
+    "homophone": 8,
+    "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=годия,phon=гадии": 1,
     "interjection": 16,
-    "PROTECTED_semantic_slip(0.67)": 1,
-    "single_consonant_artifact": 7,
-    "PROTECTED_semantic_slip(0.74)": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=следующий,phon=слидующии": 1,
     "verb_gerund_safe": 1,
     "character_name_unrecognized": 5,
-    "PROTECTED_semantic_slip(0.58)": 2,
-    "PROTECTED_semantic_slip(0.65)": 3,
-    "weak_words_same_lemma": 1,
-    "PROTECTED_semantic_slip(0.49)": 2,
-    "PROTECTED_semantic_slip(0.40)": 1,
-    "yandex_phonetic_pair": 1,
+    "merge_artifact:и+так→итак": 1,
+    "adverb_adjective": 1,
+    "merge_artifact:не+достает→недостает": 1,
+    "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=ты,phon=тиби": 1,
     "split_word_insertion": 1,
-    "ml_classifier(0.95)": 1,
-    "PROTECTED_semantic_slip(0.64)": 1,
-    "ml_classifier(0.93)": 1,
+    "phonetic_morphoform:phonetic_morphoform_fp:lemma=подходить,phon=падхадит": 1,
     "interjection_pair": 1,
     "hyphenated_part": 1,
+    "merge_artifact:на+столько→настолько": 1,
     "sentence_start_conjunction": 1,
     "compound_word": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=лицо,phon=лица": 1,
+    "phonetic_morphoform:phonetic_morphoform_fp:lemma=носить,phon=насит": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=приручение,phon=приручинии": 1,
-    "PROTECTED_semantic_slip(0.45)": 1,
+    "merge_artifact:во+все→вовсе": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=внимание,phon=внимании": 1,
-    "PROTECTED_semantic_slip(0.61)": 2,
     "rare_adverb": 1,
-    "phonetic_morphoform:phonetic_morphoform_fp:lemma=небо,phon=ниба": 1,
+    "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=небо,phon=ниба": 1,
     "misrecognition_artifact": 1,
     "yandex_merge_artifact": 1,
-    "morpho_coherence:morpho_coherence_fp:trans=1.00,orig=0.00": 2,
+    "merge_artifact:я+же→яша": 1,
+    "phonetic_morphoform:phonetic_morphoform_fp:lemma=позволить,phon=пазвалит": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=мой,phon=маи": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=сожаление,phon=сажалинии": 1,
-    "PROTECTED_semantic_slip(0.42)": 1,
-    "PROTECTED_semantic_slip(0.44)": 1,
-    "PROTECTED_semantic_slip(0.43)": 1
+    "same_phonetic_diff_lemma:интирисна": 1
   },
   "filter_metadata": {
-    "version": "9.6.0",
+    "version": "9.12.0",
     "input_smart_compare_version": "unknown",
     "input_alignment_manager_version": "unknown",
-    "timestamp": "2026-01-31T00:13:53.326298",
+    "timestamp": "2026-01-31T14:16:54.719567",
     "original_errors": 405,
-    "real_errors": 83,
-    "filtered_errors": 322,
-    "filter_efficiency": "79.5%",
+    "real_errors": 88,
+    "filtered_errors": 317,
+    "protected_errors": 33,
+    "filter_efficiency": "78.3%",
     "cache_stats": {
-      "hits": 5692,
-      "misses": 428,
-      "efficiency": "93.0%"
+      "hits": 5774,
+      "misses": 444,
+      "efficiency": "92.9%"
     },
     "filter_breakdown": {
       "yandex_typical": {
-        "count": 80,
-        "percentage": "19.8%"
+        "count": 82,
+        "percentage": "20.2%"
       },
       "alignment_artifact": {
-        "count": 53,
-        "percentage": "13.1%"
+        "count": 56,
+        "percentage": "13.8%"
       },
       "yandex_name_error": {
-        "count": 47,
-        "percentage": "11.6%"
+        "count": 45,
+        "percentage": "11.1%"
       },
       "morpho_same_form": {
         "count": 18,
@@ -2693,23 +2908,15 @@
         "count": 12,
         "percentage": "3.0%"
       },
-      "safe_ending_transition": {
-        "count": 11,
-        "percentage": "2.7%"
-      },
-      "sentence_start_weak": {
-        "count": 8,
-        "percentage": "2.0%"
-      },
       "homophone": {
         "count": 8,
         "percentage": "2.0%"
       },
-      "single_consonant_artifact": {
+      "sentence_start_weak": {
         "count": 7,
         "percentage": "1.7%"
       },
-      "PROTECTED_semantic_slip(0.41)": {
+      "same_lemma": {
         "count": 5,
         "percentage": "1.2%"
       },
@@ -2717,15 +2924,7 @@
         "count": 5,
         "percentage": "1.2%"
       },
-      "PROTECTED_semantic_slip(0.63)": {
-        "count": 4,
-        "percentage": "1.0%"
-      },
-      "adverb_adjective": {
-        "count": 3,
-        "percentage": "0.7%"
-      },
-      "PROTECTED_semantic_slip(0.65)": {
+      "morpho_coherence:morpho_coherence_fp:trans=1.00,orig=0.00": {
         "count": 3,
         "percentage": "0.7%"
       },
@@ -2733,55 +2932,19 @@
         "count": 2,
         "percentage": "0.5%"
       },
-      "PROTECTED_semantic_slip(0.47)": {
-        "count": 2,
-        "percentage": "0.5%"
-      },
-      "PROTECTED_semantic_slip(0.46)": {
-        "count": 2,
-        "percentage": "0.5%"
-      },
-      "case_form": {
-        "count": 2,
-        "percentage": "0.5%"
-      },
-      "PROTECTED_semantic_slip(0.58)": {
-        "count": 2,
-        "percentage": "0.5%"
-      },
-      "PROTECTED_semantic_slip(0.49)": {
-        "count": 2,
-        "percentage": "0.5%"
-      },
-      "PROTECTED_semantic_slip(0.61)": {
-        "count": 2,
-        "percentage": "0.5%"
-      },
-      "morpho_coherence:morpho_coherence_fp:trans=1.00,orig=0.00": {
-        "count": 2,
-        "percentage": "0.5%"
+      "levenshtein_protected": {
+        "count": 1,
+        "percentage": "0.2%"
       },
       "phonetic_morphoform:phonetic_morphoform_fp:lemma=одеяние,phon=адиинии": {
         "count": 1,
         "percentage": "0.2%"
       },
-      "PROTECTED_semantic_slip(0.54)": {
+      "same_phonetic_diff_lemma:блиднии": {
         "count": 1,
         "percentage": "0.2%"
       },
-      "protected_word": {
-        "count": 1,
-        "percentage": "0.2%"
-      },
-      "PROTECTED_semantic_slip(0.76)": {
-        "count": 1,
-        "percentage": "0.2%"
-      },
-      "PROTECTED_semantic_slip(0.67)": {
-        "count": 1,
-        "percentage": "0.2%"
-      },
-      "PROTECTED_semantic_slip(0.74)": {
+      "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=годия,phon=гадии": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2793,15 +2956,19 @@
         "count": 1,
         "percentage": "0.2%"
       },
-      "weak_words_same_lemma": {
+      "merge_artifact:и+так→итак": {
         "count": 1,
         "percentage": "0.2%"
       },
-      "PROTECTED_semantic_slip(0.40)": {
+      "adverb_adjective": {
         "count": 1,
         "percentage": "0.2%"
       },
-      "yandex_phonetic_pair": {
+      "merge_artifact:не+достает→недостает": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=ты,phon=тиби": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2809,15 +2976,7 @@
         "count": 1,
         "percentage": "0.2%"
       },
-      "ml_classifier(0.95)": {
-        "count": 1,
-        "percentage": "0.2%"
-      },
-      "PROTECTED_semantic_slip(0.64)": {
-        "count": 1,
-        "percentage": "0.2%"
-      },
-      "ml_classifier(0.93)": {
+      "phonetic_morphoform:phonetic_morphoform_fp:lemma=подходить,phon=падхадит": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2826,6 +2985,10 @@
         "percentage": "0.2%"
       },
       "hyphenated_part": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "merge_artifact:на+столько→настолько": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2841,11 +3004,15 @@
         "count": 1,
         "percentage": "0.2%"
       },
+      "phonetic_morphoform:phonetic_morphoform_fp:lemma=носить,phon=насит": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
       "phonetic_morphoform:phonetic_morphoform_fp:lemma=приручение,phon=приручинии": {
         "count": 1,
         "percentage": "0.2%"
       },
-      "PROTECTED_semantic_slip(0.45)": {
+      "merge_artifact:во+все→вовсе": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2857,7 +3024,7 @@
         "count": 1,
         "percentage": "0.2%"
       },
-      "phonetic_morphoform:phonetic_morphoform_fp:lemma=небо,phon=ниба": {
+      "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=небо,phon=ниба": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2869,11 +3036,89 @@
         "count": 1,
         "percentage": "0.2%"
       },
+      "merge_artifact:я+же→яша": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "phonetic_morphoform:phonetic_morphoform_fp:lemma=позволить,phon=пазвалит": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
       "phonetic_morphoform:phonetic_morphoform_fp:lemma=мой,phon=маи": {
         "count": 1,
         "percentage": "0.2%"
       },
       "phonetic_morphoform:phonetic_morphoform_fp:lemma=сожаление,phon=сажалинии": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "same_phonetic_diff_lemma:интирисна": {
+        "count": 1,
+        "percentage": "0.2%"
+      }
+    },
+    "protected_breakdown": {
+      "PROTECTED_semantic_slip(0.41)": {
+        "count": 5,
+        "percentage": "1.2%"
+      },
+      "PROTECTED_semantic_slip(0.63)": {
+        "count": 4,
+        "percentage": "1.0%"
+      },
+      "PROTECTED_semantic_slip(0.65)": {
+        "count": 3,
+        "percentage": "0.7%"
+      },
+      "PROTECTED_semantic_slip(0.47)": {
+        "count": 2,
+        "percentage": "0.5%"
+      },
+      "PROTECTED_semantic_slip(0.46)": {
+        "count": 2,
+        "percentage": "0.5%"
+      },
+      "PROTECTED_semantic_slip(0.58)": {
+        "count": 2,
+        "percentage": "0.5%"
+      },
+      "PROTECTED_semantic_slip(0.49)": {
+        "count": 2,
+        "percentage": "0.5%"
+      },
+      "PROTECTED_semantic_slip(0.61)": {
+        "count": 2,
+        "percentage": "0.5%"
+      },
+      "PROTECTED_semantic_slip(0.54)": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_semantic_slip(0.76)": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_semantic_slip(0.67)": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_semantic_slip(0.74)": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_semantic_slip(0.40)": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_misrecognized_или": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_semantic_slip(0.64)": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
+      "PROTECTED_semantic_slip(0.45)": {
         "count": 1,
         "percentage": "0.2%"
       },
@@ -2891,9 +3136,9 @@
       }
     },
     "error_types": {
-      "substitution": 66,
-      "insertion": 9,
-      "deletion": 7
+      "substitution": 71,
+      "insertion": 10,
+      "deletion": 6
     }
   },
   "filtered_errors_detail": [
@@ -3029,7 +3274,7 @@
       "similarity": 0.88,
       "phonetic_similarity": 0.86,
       "merged_from_ins_del": false,
-      "filter_reason": "adverb_adjective",
+      "filter_reason": "levenshtein_protected",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -3422,35 +3667,6 @@
       }
     },
     {
-      "type": "deletion",
-      "time": 212.91,
-      "time_end": 0.0,
-      "time_seconds": 212,
-      "original": "несколько",
-      "transcript": "",
-      "context": "Свою, купленную на аукционе, если меня не подводят глаза. Следом несколько артефактов, которые я вижу впервые. Седой и Красноволосый молчат, молчат",
-      "transcript_context": "",
-      "marker_pos": 65,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "merged_from_ins_del": false,
-      "filter_reason": "alignment_artifact",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "deletion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
-      }
-    },
-    {
       "type": "substitution",
       "time": 219.059,
       "time_end": 219.579,
@@ -3523,7 +3739,7 @@
       "similarity": 0.91,
       "phonetic_similarity": 0.92,
       "merged_from_ins_del": false,
-      "filter_reason": "yandex_name_error",
+      "filter_reason": "same_lemma",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -3788,7 +4004,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "homophone",
+      "filter_reason": "same_phonetic_diff_lemma:блиднии",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -4022,7 +4238,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
+      "filter_reason": "morpho_coherence:morpho_coherence_fp:trans=1.00,orig=0.00",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -4708,7 +4924,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "yandex_name_error",
+      "filter_reason": "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=годия,phon=гадии",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -4971,7 +5187,7 @@
       "similarity": 0.86,
       "phonetic_similarity": 0.92,
       "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
+      "filter_reason": "yandex_typical",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -5046,6 +5262,36 @@
     },
     {
       "type": "substitution",
+      "time": 827.489,
+      "time_end": 827.83,
+      "time_seconds": 827,
+      "original": "младший",
+      "transcript": "младше",
+      "context": "на миг потемнел, а затем он задрал подбородок и спросил: Младший господин, помнится, вы говорили, что места главы стражи, казначея и",
+      "transcript_context": "",
+      "marker_pos": 57,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.77,
+      "phonetic_similarity": 0.93,
+      "merged_from_ins_del": false,
+      "filter_reason": "same_lemma",
+      "smart_metrics": {
+        "smart_score": 110,
+        "smart_rules": [
+          "grammar_change (+70)",
+          "pos_mismatch (+40)"
+        ],
+        "is_visible": true,
+        "original_lemma": "младший",
+        "transcript_lemma": "младший",
+        "original_pos": "ADJF",
+        "transcript_pos": "COMP",
+        "semantic_similarity": 0.3712373673915863
+      }
+    },
+    {
+      "type": "substitution",
       "time": 827.89,
       "time_end": 828.63,
       "time_seconds": 827,
@@ -5088,7 +5334,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 0.83,
       "merged_from_ins_del": false,
-      "filter_reason": "case_form",
+      "filter_reason": "same_lemma",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -5616,7 +5862,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -6118,7 +6364,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 0.89,
       "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
+      "filter_reason": "yandex_typical",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -6293,7 +6539,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "sentence_start_weak",
+      "filter_reason": "merge_artifact:и+так→итак",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -6352,7 +6598,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -7197,7 +7443,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "alignment_artifact",
+      "filter_reason": "merge_artifact:не+достает→недостает",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -7313,7 +7559,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "weak_words_same_lemma",
+      "filter_reason": "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=ты,phon=тиби",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -7343,7 +7589,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": true,
-      "filter_reason": "yandex_phonetic_pair",
+      "filter_reason": "homophone",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -7403,7 +7649,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -7432,7 +7678,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -7561,35 +7807,6 @@
         "original_pos": "ADJF",
         "transcript_pos": "NPRO",
         "semantic_similarity": 0.0
-      }
-    },
-    {
-      "type": "insertion",
-      "time": 1913.73,
-      "time_end": 0.0,
-      "time_seconds": 1913,
-      "original": "",
-      "transcript": "на",
-      "context": "переносицу и уже каким-то другим тоном сказал. Слушай, Зеленорукий, да? Да, Седой, кивнул тот. У меня есть прекрасное вино столетней",
-      "transcript_context": "пальцами переносицу уже каким то другим тоном сказал слушай тебе на руки да да седой кивнул тот у меня есть прекрасное",
-      "marker_pos": 68,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "merged_from_ins_del": false,
-      "filter_reason": "alignment_artifact",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
       }
     },
     {
@@ -7752,7 +7969,7 @@
       "similarity": 0.88,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
+      "filter_reason": "phonetic_morphoform:phonetic_morphoform_fp:lemma=подходить,phon=падхадит",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -7910,36 +8127,6 @@
         "original_pos": null,
         "transcript_pos": null,
         "semantic_similarity": null
-      }
-    },
-    {
-      "type": "substitution",
-      "time": 1992.05,
-      "time_end": 1992.67,
-      "time_seconds": 1992,
-      "original": "пересмешник",
-      "transcript": "смешник",
-      "context": "третья чаша у вас найдётся? Не веря восприятию, я обернулся. Пересмешник. С кривой ухмылкой, которая совсем не соответствовала серьёзности тона. Теперь",
-      "transcript_context": "",
-      "marker_pos": 61,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.78,
-      "phonetic_similarity": 0.8,
-      "merged_from_ins_del": false,
-      "filter_reason": "ml_classifier(0.95)",
-      "smart_metrics": {
-        "smart_score": 110,
-        "smart_rules": [
-          "different_lemma (+70)",
-          "pos_mismatch (+40)"
-        ],
-        "is_visible": true,
-        "original_lemma": "пересмешник",
-        "transcript_lemma": "смешникнуть",
-        "original_pos": "NOUN",
-        "transcript_pos": "VERB",
-        "semantic_similarity": 0.0
       }
     },
     {
@@ -8155,35 +8342,6 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": -0.010172445327043533
-      }
-    },
-    {
-      "type": "substitution",
-      "time": 2090.26,
-      "time_end": 2090.839,
-      "time_seconds": 2090,
-      "original": "выторговали",
-      "transcript": "говори",
-      "context": "удивлённый его словами. Старейшины. Раз вы выторговали себе их девять… Выторговали? не сдержался один из тех самых комтуров, который всё это",
-      "transcript_context": "",
-      "marker_pos": 71,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.47,
-      "phonetic_similarity": 0.59,
-      "merged_from_ins_del": false,
-      "filter_reason": "ml_classifier(0.93)",
-      "smart_metrics": {
-        "smart_score": 70,
-        "smart_rules": [
-          "different_lemma (+70)"
-        ],
-        "is_visible": true,
-        "original_lemma": "выторговать",
-        "transcript_lemma": "говорить",
-        "original_pos": "VERB",
-        "transcript_pos": "VERB",
-        "semantic_similarity": -0.15868358314037323
       }
     },
     {
@@ -8696,7 +8854,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "alignment_artifact",
+      "filter_reason": "merge_artifact:на+столько→настолько",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -9251,7 +9409,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -9413,35 +9571,6 @@
     },
     {
       "type": "substitution",
-      "time": 2415.42,
-      "time_end": 2415.94,
-      "time_seconds": 2415,
-      "original": "ошарашенные",
-      "transcript": "ошарашенное",
-      "context": "Снимайте формацию и начинаем заниматься каждый своим делом. Помедлил, видя ошарашенные лица Предводителей, простых служителей, которые как-то не успели ещё",
-      "transcript_context": "",
-      "marker_pos": 75,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.91,
-      "phonetic_similarity": 0.92,
-      "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
-      "smart_metrics": {
-        "smart_score": 70,
-        "smart_rules": [
-          "grammar_change (+70)"
-        ],
-        "is_visible": true,
-        "original_lemma": "ошарашить",
-        "transcript_lemma": "ошарашить",
-        "original_pos": "PRTF",
-        "transcript_pos": "PRTF",
-        "semantic_similarity": 0.3077063262462616
-      }
-    },
-    {
-      "type": "substitution",
       "time": 2416.0,
       "time_end": 2416.2,
       "time_seconds": 2416,
@@ -9472,35 +9601,6 @@
     },
     {
       "type": "substitution",
-      "time": 2422.28,
-      "time_end": 2422.58,
-      "time_seconds": 2422,
-      "original": "которые",
-      "transcript": "которая",
-      "context": "как-то не успели ещё привыкнуть к изменениям и запретам, которые теперь носят на себе. Нужно бы как-то их поддержать,",
-      "transcript_context": "",
-      "marker_pos": 57,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.71,
-      "phonetic_similarity": 0.86,
-      "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
-      "smart_metrics": {
-        "smart_score": 70,
-        "smart_rules": [
-          "grammar_change (+70)"
-        ],
-        "is_visible": true,
-        "original_lemma": "который",
-        "transcript_lemma": "который",
-        "original_pos": "ADJF",
-        "transcript_pos": "ADJF",
-        "semantic_similarity": 0.22916392982006073
-      }
-    },
-    {
-      "type": "substitution",
       "time": 2422.96,
       "time_end": 2423.2,
       "time_seconds": 2422,
@@ -9514,7 +9614,7 @@
       "similarity": 0.8,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
+      "filter_reason": "phonetic_morphoform:phonetic_morphoform_fp:lemma=носить,phon=насит",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -9527,6 +9627,36 @@
         "original_pos": "VERB",
         "transcript_pos": "VERB",
         "semantic_similarity": 0.6838780045509338
+      }
+    },
+    {
+      "type": "substitution",
+      "time": 2439.41,
+      "time_end": 2439.81,
+      "time_seconds": 2439,
+      "original": "сломанного",
+      "transcript": "сломана",
+      "context": "вашу помощь, а затем и вовсе добавил. Сила нашей семьи Сломанного Клинка в единстве, в верности, в общей цели. Сломанный Клинок",
+      "transcript_context": "",
+      "marker_pos": 55,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.71,
+      "phonetic_similarity": 0.88,
+      "merged_from_ins_del": false,
+      "filter_reason": "same_lemma",
+      "smart_metrics": {
+        "smart_score": 110,
+        "smart_rules": [
+          "grammar_change (+70)",
+          "pos_mismatch (+40)"
+        ],
+        "is_visible": true,
+        "original_lemma": "сломать",
+        "transcript_lemma": "сломать",
+        "original_pos": "PRTF",
+        "transcript_pos": "PRTS",
+        "semantic_similarity": 0.28275156021118164
       }
     },
     {
@@ -9574,7 +9704,7 @@
       "similarity": 0.83,
       "phonetic_similarity": 0.91,
       "merged_from_ins_del": false,
-      "filter_reason": "case_form",
+      "filter_reason": "same_lemma",
       "smart_metrics": {
         "smart_score": 70,
         "smart_rules": [
@@ -9847,6 +9977,35 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.122590571641922
+      }
+    },
+    {
+      "type": "deletion",
+      "time": 2587.579,
+      "time_end": 0.0,
+      "time_seconds": 2587,
+      "original": "во",
+      "transcript": "",
+      "context": "ними сейчас? Хватит приставать к главе с мелочами! рыкнул вошедший во всё ещё разгромленный зал Седой, Проверь то, что мы можем",
+      "transcript_context": "",
+      "marker_pos": 67,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "merged_from_ins_del": false,
+      "filter_reason": "merge_artifact:во+все→вовсе",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "deletion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {
@@ -10418,7 +10577,7 @@
       "similarity": 0.75,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "phonetic_morphoform:phonetic_morphoform_fp:lemma=небо,phon=ниба",
+      "filter_reason": "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=небо,phon=ниба",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -10814,6 +10973,35 @@
       }
     },
     {
+      "type": "deletion",
+      "time": 2899.09,
+      "time_end": 0.0,
+      "time_seconds": 2899,
+      "original": "же",
+      "transcript": "",
+      "context": "сверкнул улыбкой, передавая мне кисет с флагами, и ушёл. Я же просунул руку за ворот халата, нащупал нужный артефакт и толкнул",
+      "transcript_context": "",
+      "marker_pos": 59,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "merged_from_ins_del": false,
+      "filter_reason": "merge_artifact:я+же→яша",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "deletion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
+      }
+    },
+    {
       "type": "substitution",
       "time": 2953.73,
       "time_end": 2954.15,
@@ -10963,35 +11151,6 @@
     },
     {
       "type": "substitution",
-      "time": 2998.98,
-      "time_end": 2999.66,
-      "time_seconds": 2998,
-      "original": "ограниченные",
-      "transcript": "ограниченная",
-      "context": "их гнев. Мой советник утверждает, что они не поступят так, ограниченные установленными правилами. Я тоже считаю, глава, что если они решат",
-      "transcript_context": "",
-      "marker_pos": 59,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.83,
-      "phonetic_similarity": 0.92,
-      "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
-      "smart_metrics": {
-        "smart_score": 70,
-        "smart_rules": [
-          "grammar_change (+70)"
-        ],
-        "is_visible": true,
-        "original_lemma": "ограниченный",
-        "transcript_lemma": "ограниченный",
-        "original_pos": "ADJF",
-        "transcript_pos": "ADJF",
-        "semantic_similarity": 0.42352166771888733
-      }
-    },
-    {
-      "type": "substitution",
       "time": 3011.839,
       "time_end": 3012.239,
       "time_seconds": 3011,
@@ -11022,35 +11181,6 @@
     },
     {
       "type": "substitution",
-      "time": 3013.63,
-      "time_end": 3014.09,
-      "time_seconds": 3013,
-      "original": "которые",
-      "transcript": "которая",
-      "context": "увидит. Например, в Каменном Лабиринте. Там их сдержат зоны запрета. Которые не позволят вам вызвать Стража на помощь. И которые обойдутся",
-      "transcript_context": "",
-      "marker_pos": 69,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.71,
-      "phonetic_similarity": 0.86,
-      "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
-      "smart_metrics": {
-        "smart_score": 70,
-        "smart_rules": [
-          "grammar_change (+70)"
-        ],
-        "is_visible": true,
-        "original_lemma": "который",
-        "transcript_lemma": "который",
-        "original_pos": "ADJF",
-        "transcript_pos": "ADJF",
-        "semantic_similarity": 0.22916392982006073
-      }
-    },
-    {
-      "type": "substitution",
       "time": 3014.29,
       "time_end": 3014.729,
       "time_seconds": 3014,
@@ -11064,7 +11194,7 @@
       "similarity": 0.88,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
+      "filter_reason": "phonetic_morphoform:phonetic_morphoform_fp:lemma=позволить,phon=пазвалит",
       "smart_metrics": {
         "smart_score": 100,
         "smart_rules": [
@@ -11385,7 +11515,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [
@@ -11605,35 +11735,6 @@
     },
     {
       "type": "substitution",
-      "time": 3276.339,
-      "time_end": 3276.66,
-      "time_seconds": 3276,
-      "original": "который",
-      "transcript": "которые",
-      "context": "на ваш разум, мелькнула мысль и о ярости, зверином раже, который действуют на вас из-за вашей родословной… Чем больше говорил",
-      "transcript_context": "",
-      "marker_pos": 57,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.86,
-      "phonetic_similarity": 0.86,
-      "merged_from_ins_del": false,
-      "filter_reason": "safe_ending_transition",
-      "smart_metrics": {
-        "smart_score": 70,
-        "smart_rules": [
-          "grammar_change (+70)"
-        ],
-        "is_visible": true,
-        "original_lemma": "который",
-        "transcript_lemma": "который",
-        "original_pos": "ADJF",
-        "transcript_pos": "ADJF",
-        "semantic_similarity": 0.2464885115623474
-      }
-    },
-    {
-      "type": "substitution",
       "time": 3318.91,
       "time_end": 3319.529,
       "time_seconds": 3318,
@@ -11706,7 +11807,7 @@
       "similarity": 0.89,
       "phonetic_similarity": 1.0,
       "merged_from_ins_del": false,
-      "filter_reason": "adverb_adjective",
+      "filter_reason": "same_phonetic_diff_lemma:интирисна",
       "smart_metrics": {
         "smart_score": 110,
         "smart_rules": [
@@ -11766,7 +11867,7 @@
       "similarity": 0.0,
       "phonetic_similarity": 0.0,
       "merged_from_ins_del": false,
-      "filter_reason": "single_consonant_artifact",
+      "filter_reason": "alignment_artifact",
       "smart_metrics": {
         "smart_score": 40,
         "smart_rules": [

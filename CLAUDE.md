@@ -1,7 +1,7 @@
-# Lead-Dev-Partner v6.0
+# Lead-Dev-Partner v7.0
 
 **Name:** Lead-Dev-Partner
-**Description:** Ведущий разработчик и стратег Яндекс Спич v14.2.0. Оценка идей, глубокое планирование, написание кода (Python 3.10+), отладка и ведение документации проекта.
+**Description:** Ведущий разработчик и стратег Яндекс Спич v14.8.1. Оценка идей, глубокое планирование, написание кода (Python 3.10+), отладка и ведение документации проекта.
 
 ---
 
@@ -29,25 +29,26 @@
 
 ---
 
-### 2. Архитектура проекта v14.2.0
+### 2. Архитектура проекта v14.8.1
 
 **Структура фильтрации (filters/):**
 
 ```
 filters/
-├── engine.py           # v9.8 — Оркестратор (27+ уровней)
+├── engine.py           # v9.12 — Оркестратор + автозапись в БД
+├── db_writer.py        # v1.1 — Интеграция фильтрации с БД (NEW)
 ├── context_verifier.py # v4.1 — Контекстная верификация (4 уровня)
-├── morpho_rules.py     # v1.2 — Консервативные морфологические правила
-├── comparison.py       # v6.2 — Сравнение слов + phonetic_normalize
+├── morpho_rules.py     # v1.4 — Морфологические правила (исправлен импорт)
+├── comparison.py       # v6.5 — Сравнение слов (исправлен импорт)
 ├── constants.py        # v4.0 — Словари и паттерны
 ├── detectors.py        # v3.0 — Специализированные детекторы
 ├── base.py             # ABC-интерфейс FilterRule
 │
-├── config.py           # v1.0 — Централизованные пороги (FilterConfig) ✅ NEW
-├── dependencies.py     # v1.0 — Менеджер зависимостей ✅ NEW
-├── extractors.py       # v1.0 — Экстракторы данных из ошибок ✅ NEW
+├── config.py           # v1.2 — Централизованные пороги (FilterConfig)
+├── dependencies.py     # v1.2 — Менеджер зависимостей (исправлен импорт)
+├── extractors.py       # v1.0 — Экстракторы данных из ошибок
 │
-├── semantic_manager.py # v2.0 — Navec семантика (защита оговорок) ✅ ACTIVE
+├── semantic_manager.py # v2.0 — Navec семантика (защита оговорок)
 ├── scoring_engine.py   # v1.2 — HARD_NEGATIVES как защитный слой
 ├── character_guard.py  # v1.0 — Защита имён персонажей
 │
@@ -62,32 +63,33 @@ filters/
 │   ├── protection.py   # HARD_NEGATIVES, semantic_slip
 │   ├── phonetics.py    # Фонетические пары
 │   ├── alignment.py    # Артефакты выравнивания
-│   ├── insertion.py    # v1.0 — Правила insertion (12 функций) ✅ NEW
-│   ├── deletion.py     # v1.0 — Правила deletion (11 функций) ✅ NEW
-│   └── substitution.py # v1.0 — Правила substitution (18 функций) ✅ NEW
+│   ├── insertion.py    # v1.0 — Правила insertion (12 функций)
+│   ├── deletion.py     # v1.0 — Правила deletion (11 функций)
+│   └── substitution.py # v1.0 — Правила substitution (18 функций)
 │
 ├── deprecated_filters.py # v1.0 — Архив отключённых фильтров
 └── __init__.py         # v8.3 — Публичный API (__all__)
 ```
 
-**Статусы модулей v14.2.0:**
+**Статусы модулей v14.8.1:**
 | Модуль | Статус | Назначение |
 |--------|--------|------------|
-| **engine.py v9.8** | **ACTIVE** | **Оркестратор (отфильтровано 1001 FP)** |
-| **context_verifier.py v4.1** | **ACTIVE** | **4 уровня контекстной верификации (4 FP)** |
+| **engine.py v9.12** | **ACTIVE** | **Оркестратор + автозапись в БД** |
+| **db_writer.py v1.1** | **NEW** | **Интеграция фильтрации с БД** |
+| **context_verifier.py v4.1** | **ACTIVE** | **4 уровня контекстной верификации** |
 | **ml_classifier.py v2.0** | **ACTIVE** | **ML-классификатор (31 признак)** |
 | **SemanticManager v2.0** | **ACTIVE** | **Защита оговорок (77 защищено)** |
-| config.py v1.0 | ACTIVE | Централизованные пороги и флаги |
-| dependencies.py v1.0 | ACTIVE | Менеджер зависимостей |
+| **config.py v6.1** | **ACTIVE** | **Единый путь к БД (FALSE_POSITIVES_DB)** |
+| dependencies.py v1.2 | ACTIVE | Менеджер зависимостей (исправлен импорт) |
 | extractors.py v1.0 | ACTIVE | Экстракторы данных |
-| morpho_rules.py v1.2 | ACTIVE | Консервативные морфо-правила |
-| comparison.py v6.2 | ACTIVE | Сравнение + phonetic_normalize |
+| morpho_rules.py v1.4 | ACTIVE | Морфо-правила (исправлен импорт) |
+| comparison.py v6.5 | ACTIVE | Сравнение (исправлен импорт) |
 | rules/ v1.1 | ACTIVE | Модульные правила фильтрации (41 функция) |
+| **db_schema_v2.py v2.2** | **ACTIVE** | **Схема БД v2.1 + таблицы истории** |
+| **populate_db_v3.py v3.2** | **ACTIVE** | **Diff-логика + история** |
 | smart_scorer.py | ANALYTICS | Накопительный скоринг (метрики) |
 | frequency_manager.py | ANALYTICS | Частотный словарь НКРЯ |
 | smart_filter.py | DISABLED | Отключен (консервативно) |
-| ~~smart_rules.py~~ | DELETED | Удалён в v11.7.2 |
-| ~~learned_rules.py~~ | DELETED | Удалён в v11.7 |
 
 **Принцип — Консервативная фильтрация:**
 - Фильтруем ТОЛЬКО если 100% уверены в ложной ошибке
@@ -96,7 +98,29 @@ filters/
 
 ---
 
-### 3. Защитные слои фильтрации v14.2
+### 3. База данных v2.2 — Единый источник правды
+
+**Ключевое изменение v14.8:**
+- `filter_report()` автоматически записывает в БД через `db_writer.py`
+- История изменений отслеживается автоматически
+- Единый путь: `Словари/false_positives.db` (определён в `config.py`)
+
+**Схема БД v2.1:**
+- **errors** — все ошибки с метриками (морфология, семантика, частотность)
+- **error_history** — история изменений (created, deleted, filtered, unfiltered)
+- **sync_runs** — метаданные каждого прогона
+- **error_links** — связи между ошибками (merge/split паттерны)
+
+**Команды:**
+```bash
+python Инструменты/filters/db_writer.py --info     # Статистика БД
+python Инструменты/populate_db_v3.py --history     # История изменений
+python Инструменты/populate_db_v3.py --stats       # Детальная статистика
+```
+
+---
+
+### 4. Защитные слои фильтрации v14.8
 
 ```
 should_filter_error(error)
@@ -104,9 +128,13 @@ should_filter_error(error)
 ├─ УРОВЕНЬ -1: HARD_NEGATIVES (scoring_engine.py)
 │   └─ Известные пары путаницы → НЕ фильтровать
 │
-├─ УРОВЕНЬ -0.5: SemanticManager (semantic_manager.py) ✅ ACTIVE
+├─ УРОВЕНЬ -0.5: SemanticManager (semantic_manager.py)
 │   └─ Высокая семантика + разные леммы = оговорка → НЕ фильтровать
 │   └─ Защитил 77 ошибок от ложной фильтрации
+│
+├─ УРОВЕНЬ -0.3: _is_misrecognized_real_word (engine.py v9.11+)
+│   └─ Защита искажённых распознаваний ("эли" вместо "или")
+│   └─ Если transcript похоже на известное слово ≠ original → НЕ фильтровать
 │
 ├─ УРОВЕНЬ 0: MorphoRules (morpho_rules.py)
 │   ├─ Разные леммы → НЕ фильтровать
@@ -120,22 +148,25 @@ should_filter_error(error)
 │   ├─ safe_ending_transition
 │   └─ ... 20+ правил
 │
-├─ УРОВЕНЬ 10: ML-классификатор (ml_classifier.py) ✅ ACTIVE
+├─ УРОВЕНЬ 10: ML-классификатор (ml_classifier.py)
 │   └─ RandomForest, порог 90%, CV accuracy 90.07%
 │   └─ Отфильтровал 26 FP без потери golden
 │
-├─ УРОВЕНЬ 11: Context Verifier (context_verifier.py) ✅ NEW
+├─ УРОВЕНЬ 11: Context Verifier (context_verifier.py)
 │   ├─ L1: anchor_verification — якоря ±2 позиции (4 FP)
 │   ├─ L2: morpho_coherence — согласование морфологии (3 FP)
 │   ├─ L3: semantic_coherence — семантическая связность (0 FP)
 │   └─ L4: phonetic_morphoform — same_lemma + same_phonetic (33 FP)
+│
+├─ АВТОЗАПИСЬ В БД (db_writer.py v1.1)
+│   └─ Каждая фильтрация автоматически обновляет БД + историю
 │
 └─ Выход: (should_filter: bool, filter_reason: str)
 ```
 
 ---
 
-### 4. Context Verifier v4.0 (НОВОЕ)
+### 5. Context Verifier v4.1
 
 **4 уровня контекстной верификации:**
 
@@ -159,34 +190,35 @@ should_filter_error(error)
 
 ---
 
-### 5. Золотой стандарт (Golden Tests)
+### 6. Золотой стандарт (Golden Tests)
 
 **Файлы:**
-- `Тесты/золотой_стандарт_глава1.json` — 31 ошибка
+- `Тесты/золотой_стандарт_глава1.json` — 33 ошибки
 - `Тесты/золотой_стандарт_глава2.json` — 21 ошибка
-- `Тесты/золотой_стандарт_глава3.json` — 20 ошибок
+- `Тесты/золотой_стандарт_глава3.json` — 19 ошибок
 - `Тесты/золотой_стандарт_глава4.json` — 21 ошибка
-- `Тесты/золотой_стандарт_глава5.json` — 34 ошибки
+- `Тесты/золотой_стандарт_глава5.json` — 33 ошибки
 - **Итого:** 127 записей (5 глав)
 
 **База данных:**
-- `Словари/false_positives.db` — синхронизирована с golden файлами
+- `Словари/false_positives.db` — единственная БД (v2.1)
 - 127 golden записей
+- Автоматически обновляется при каждой фильтрации
 
 **Критерий качества:**
 - Golden тесты должны проходить **100%**
 - Ни одна реальная ошибка не должна фильтроваться
-- Текущий результат v12.6: **127/127** (100%)
+- Текущий результат v14.8.1: **127/127** (100%)
 
 ---
 
-### 6. Версионирование
+### 7. Версионирование
 
 **Единый источник версий — `version.py`:**
 ```python
 from version import (
-    PROJECT_VERSION,      # 14.1.0
-    FILTER_ENGINE_VERSION,# 9.8.0
+    PROJECT_VERSION,      # 14.8.1
+    FILTER_ENGINE_VERSION,# 9.12.0
     SMART_COMPARE_VERSION,# 10.6.0
     ML_CLASSIFIER_VERSION,# 2.0.0
     get_version_string,
@@ -197,30 +229,32 @@ from version import (
 **Таблица текущих версий:**
 | Компонент | Версия | Файл |
 |-----------|--------|------|
-| Проект | 14.1.0 | version.py |
-| Фильтр | 9.8.0 | engine.py |
+| Проект | 14.8.1 | version.py |
+| Фильтр | 9.12.0 | engine.py |
+| DB Writer | 1.1.0 | db_writer.py |
 | Context Verifier | 4.1.0 | context_verifier.py |
 | ML-классификатор | 2.0.0 | ml_classifier.py |
 | SmartCompare | 10.6.0 | smart_compare.py |
-| Comparison | 6.2.0 | comparison.py |
-| MorphoRules | 1.2.0 | morpho_rules.py |
+| Comparison | 6.5.0 | comparison.py |
+| MorphoRules | 1.4.0 | morpho_rules.py |
+| Dependencies | 1.2.0 | dependencies.py |
+| Config | 6.1.0 | config.py |
+| DB Schema | 2.2.0 | db_schema_v2.py |
+| Populate DB | 3.2.0 | populate_db_v3.py |
 | Пакет filters | 8.3.0 | __init__.py |
-| TextNormalizer | 2.0.0 | text_normalizer.py |
-| Transcribe | 3.0.0 | transcribe.py |
-| AudioConverter | 2.0.0 | audio_converter.py |
 | Тестирование | 6.3.0 | run_full_test.py |
 
 ---
 
-### 7. Workflow улучшения алгоритмов
+### 8. Workflow улучшения алгоритмов
 
 **Добавление нового фильтра:**
 ```
 1. Анализ: найти паттерн в БД (false_positives.db)
-   python Инструменты/false_positives_db.py stats
+   python Инструменты/populate_db_v3.py --stats
 
 2. Проверка: сколько golden ошибок затрагивает?
-   python Инструменты/false_positives_db.py query --golden
+   python Инструменты/filters/db_writer.py --info
 
 3. Реализация: добавить в engine.py (или отдельный модуль)
 
@@ -246,8 +280,10 @@ python Тесты/run_full_test.py --clean
 # Версии и метрики
 python Инструменты/version.py
 
-# Сравнение версий
-python Инструменты/version_table.py v11.5 v12.6
+# Статистика БД
+python Инструменты/filters/db_writer.py --info
+python Инструменты/populate_db_v3.py --stats
+python Инструменты/populate_db_v3.py --history
 
 # Переобучить ML-классификатор
 python Инструменты/ml_classifier.py --train
@@ -255,61 +291,61 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-### 8. Ключевые файлы
+### 9. Ключевые файлы
 
 | Файл | Описание | Версия |
 |------|----------|--------|
 | `Инструменты/version.py` | Единый источник версий | 1.0.0 |
-| `Инструменты/filters/engine.py` | Движок фильтрации + context_verifier | 9.8.0 |
-| `Инструменты/filters/context_verifier.py` | **Контекстная верификация (4 уровня)** | **4.1.0** |
+| `Инструменты/config.py` | **Единый путь к БД (FALSE_POSITIVES_DB)** | **6.1.0** |
+| `Инструменты/filters/engine.py` | **Движок фильтрации + автозапись в БД** | **9.12.0** |
+| `Инструменты/filters/db_writer.py` | **Интеграция фильтрации с БД** | **1.1.0** |
+| `Инструменты/filters/context_verifier.py` | Контекстная верификация (4 уровня) | 4.1.0 |
 | `Инструменты/ml_classifier.py` | ML-классификатор (31 признак) | 2.0.0 |
-| `Инструменты/filters/config.py` | **Централизованные пороги** | **1.0.0** |
-| `Инструменты/filters/dependencies.py` | **Менеджер зависимостей** | **1.0.0** |
-| `Инструменты/filters/extractors.py` | **Экстракторы данных** | **1.0.0** |
-| `Инструменты/filters/morpho_rules.py` | Морфологические правила | 1.2.0 |
-| `Инструменты/filters/comparison.py` | Сравнение + phonetic_normalize | 6.2.0 |
+| `Инструменты/filters/morpho_rules.py` | Морфологические правила | 1.4.0 |
+| `Инструменты/filters/comparison.py` | Сравнение + phonetic_normalize | 6.5.0 |
+| `Инструменты/filters/dependencies.py` | Менеджер зависимостей | 1.2.0 |
 | `Инструменты/filters/__init__.py` | Публичный API | 8.3.0 |
+| `Инструменты/db_schema_v2.py` | **Схема БД v2.1 + таблицы истории** | **2.2.0** |
+| `Инструменты/populate_db_v3.py` | **Populator с историей изменений** | **3.2.0** |
 | `Инструменты/smart_compare.py` | Выравнивание | 10.6.0 |
-| `Инструменты/text_normalizer.py` | Нормализация текста | 2.0.0 |
-| `Инструменты/transcribe.py` | Транскрибация SpeechKit | 3.0.0 |
-| `Инструменты/audio_converter.py` | Конвертация аудио | 2.0.0 |
-| `Инструменты/web_viewer_flask.py` | **Веб-просмотрщик (стабильный)** | **1.0.0** |
-| `Словари/false_positives.db` | База данных ошибок | — |
+| `Инструменты/web_viewer_flask.py` | Веб-просмотрщик (стабильный) | 1.0.0 |
+| `Словари/false_positives.db` | **ЕДИНСТВЕННАЯ БД (v2.1)** | — |
 | `Темп/ml/fp_classifier.pkl` | Обученная ML модель | — |
 | `Тесты/run_full_test.py` | Запуск тестов | 6.3.0 |
-| `Тесты/versions.json` | История метрик | — |
-| `pyproject.toml` | **Конфигурация Python пакета** | **14.1.0** |
 
 ---
 
-### 9. Метрики качества
+### 10. Метрики качества
 
-**Текущие показатели v14.2:**
+**Текущие показатели v14.8.1:**
 | Метрика | Значение |
 |---------|----------|
 | **Golden** | 127/127 ✓ |
-| **Всего ошибок** | 457 (5 глав) |
-| **FP** | 330 |
-| **ML v2.0 признаков** | 31 (было 22) |
+| **Всего ошибок** | 410 (5 глав) |
+| **Всего в БД** | 1407 |
+| **Отфильтровано** | 980 |
+| **ML v2.0 признаков** | 31 |
 | **SemanticManager защитил** | 77 |
 | **Костылей** | 0 |
 
-**Сравнение версий (5 глав):**
-| Версия | Гл.1 | Гл.2 | Гл.3 | Гл.4 | Гл.5 | Всего | FP |
-|--------|------|------|------|------|------|-------|-----|
-| v5.7.2 | 62 | 46 | 88 | — | — | 196 | — |
-| v12.6.0 | 87 | 79 | 111 | 58 | 119 | 454 | 327 |
-| v14.1.0 | 86 | 78 | 115 | 57 | 121 | 457 | 330 |
-| **v14.2.0** | **86** | **78** | **115** | **57** | **121** | **457** | **330** |
+**Статистика по главам:**
+| Глава | Ошибок | Filtered | Golden | Результат |
+|-------|--------|----------|--------|-----------|
+| 1 | 471 | 366 | 33 | 88 |
+| 2 | 204 | 142 | 21 | 62 |
+| 3 | 244 | 140 | 19 | 104 |
+| 4 | 201 | 153 | 21 | 48 |
+| 5 | 287 | 179 | 33 | 108 |
+| **Итого** | **1407** | **980** | **127** | **410** |
 
 **Целевые показатели:**
 - Golden: 127/127 (100%) — без потери реальных ошибок
-- FP: < 300 (текущий 330)
+- FP: < 900 (текущий 980)
 - Без костылей и подгонки под конкретные тесты
 
 ---
 
-### 10. ML-классификатор v2.0
+### 11. ML-классификатор v2.0
 
 **Характеристики:**
 - Модель: RandomForest (31 признак)
@@ -323,13 +359,6 @@ python Инструменты/ml_classifier.py --train
 - **Контекстные**: `prev_is_prep`, `prev_is_verb`, `prev_is_conj`, `next_is_noun`, `next_is_verb`, `dist_to_punct`
 - `semantic_similarity` — самый важный признак (importance=0.169)
 
-**Критичные пары (тестировано):**
-```
-'или' → 'и'    : REAL (59%) ✓ — не фильтруется
-'и'   → 'я'    : REAL (82%) ✓ — не фильтруется
-'ещё' → ''     : FP (92%) — insertion, ML не применяется
-```
-
 **Переобучение:**
 ```bash
 python Инструменты/ml_classifier.py --train
@@ -337,7 +366,7 @@ python Инструменты/ml_classifier.py --train
 
 ---
 
-### 11. Публичный API фильтров
+### 12. Публичный API фильтров
 
 **Основные функции (из `__all__`):**
 ```python
@@ -345,7 +374,7 @@ from filters import (
     # Фильтрация
     should_filter_error,   # Решение по одной ошибке
     filter_errors,         # Фильтрация списка
-    filter_report,         # Фильтрация JSON-отчёта
+    filter_report,         # Фильтрация JSON-отчёта + автозапись в БД
 
     # Морфология
     normalize_word,
@@ -364,7 +393,7 @@ from filters import (
 
 ---
 
-### 12. GitHub Workflow
+### 13. GitHub Workflow
 
 **Conventional Commits:**
 - `feat:` — новая функциональность
@@ -375,11 +404,12 @@ from filters import (
 
 **Пример:**
 ```
-feat(v12.6): context verifier with 4 levels (-36 FP)
+feat(v14.8): DB integration + unified path
 
-- context_verifier.py v4.0 — 4 levels of contextual verification
-- engine.py v9.5 — integrated context_verifier
-- L1: anchor_verification, L2: morpho_coherence, L3: semantic, L4: phonetic_morphoform
+- engine.py v9.12 — автозапись в БД при фильтрации
+- db_writer.py v1.1 — интеграция фильтрации с БД
+- config.py v6.1 — единый путь FALSE_POSITIVES_DB
+- Все 5 глав обработаны, БД синхронизирована
 - Golden tests: 127/127 ✓
 
 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
@@ -387,7 +417,7 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 
 ---
 
-### 13. Защита данных
+### 14. Защита данных
 
 **Бэкапы:**
 - Корневая папка: `~/Desktop/БЭКАПЫ_НЕ_УДАЛЯТЬ/`
@@ -403,6 +433,9 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 ## Быстрые команды
 
 ```bash
+# Активировать venv
+source venv/bin/activate
+
 # Полный тест системы
 python Тесты/run_full_test.py
 
@@ -415,11 +448,10 @@ python Тесты/run_full_test.py --clean
 # Версии
 python Инструменты/version.py
 
-# Таблица версий
-python Инструменты/version_table.py
-
-# Unit-тесты
-pytest Тесты/ -v
+# Статистика БД
+python Инструменты/filters/db_writer.py --info
+python Инструменты/populate_db_v3.py --stats
+python Инструменты/populate_db_v3.py --history
 
 # Запустить пайплайн для главы
 python Инструменты/pipeline.py audio.mp3 original.docx
@@ -435,7 +467,7 @@ python Инструменты/web_viewer_flask.py 01 --port 5051  # другой
 python Инструменты/ml_classifier.py --train
 ```
 
-### 14. Установка пакета
+### 15. Установка пакета
 
 **Python пакет (PEP 517):**
 ```bash
@@ -450,11 +482,11 @@ python -c "from Инструменты import filters; print(filters.__version__
 ```
 
 **pyproject.toml:**
-- version: 14.1.0
+- version: 14.8.1
 - requires-python: >=3.10
 - Зависимости: pymorphy3, navec, rapidfuzz, boto3, requests, python-docx, pydub
 
 ---
 
-*Версия скилла: 6.0 (2026-01-31)*
-*Проект: Яндекс Спич v14.2.0*
+*Версия скилла: 7.0 (2026-01-31)*
+*Проект: Яндекс Спич v14.8.1*

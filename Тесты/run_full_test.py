@@ -64,6 +64,7 @@ from config import (
     CHAPTERS_DIR, AUDIO_DIR, FileNaming
 )
 from test_golden_standard import test_golden_standard
+from version import PROJECT_VERSION, FILTER_ENGINE_VERSION, SMART_COMPARE_VERSION
 
 
 # =============================================================================
@@ -214,35 +215,19 @@ def get_chapter_config(chapter_num: str) -> dict:
 CHAPTERS = {str(i): get_chapter_config(str(i)) for i in range(1, 10)}
 
 
+def get_project_version():
+    """Возвращает версию проекта из version.py"""
+    return PROJECT_VERSION
+
+
 def get_filter_version():
-    """Извлекает версию фильтров из engine.py"""
-    engine_path = PROJECT_DIR / 'Инструменты' / 'filters' / 'engine.py'
-    try:
-        content = engine_path.read_text(encoding='utf-8')
-        # Ищем "Движок фильтрации ошибок транскрипции vX.Y"
-        match = re.search(r'Движок фильтрации.*?v(\d+\.\d+)', content)
-        if match:
-            return match.group(1)
-        # Или ищем VERSION = 'X.Y.Z'
-        match = re.search(r"VERSION\s*=\s*['\"](\d+\.\d+\.?\d*)['\"]", content)
-        if match:
-            return match.group(1)
-    except Exception:
-        pass
-    return 'unknown'
+    """Возвращает версию движка фильтрации из version.py"""
+    return FILTER_ENGINE_VERSION
 
 
 def get_smart_compare_version():
-    """Извлекает версию smart_compare.py"""
-    sc_path = PROJECT_DIR / 'Инструменты' / 'smart_compare.py'
-    try:
-        content = sc_path.read_text(encoding='utf-8')
-        match = re.search(r"VERSION\s*=\s*['\"](\d+\.\d+\.?\d*)['\"]", content)
-        if match:
-            return match.group(1)
-    except Exception:
-        pass
-    return 'unknown'
+    """Возвращает версию smart_compare из version.py"""
+    return SMART_COMPARE_VERSION
 
 
 def check_chapter_files(chapter_cfg):
@@ -401,15 +386,15 @@ def save_history(history):
 def save_run_to_archive(run_entry):
     """
     Сохраняет прогон в отдельный файл в папке История/.
-    Формат имени: YYYY-MM-DD_HH-MM_vX.Y_golden.json
+    Формат имени: YYYY-MM-DD_HH-MM_vX.Y.Z_golden.json
     """
     HISTORY_DIR.mkdir(exist_ok=True)
 
     ts = datetime.now()
     date_str = ts.strftime('%Y-%m-%d_%H-%M')
-    filter_ver = run_entry.get('filter_version', 'unknown')
+    project_ver = run_entry.get('project_version', get_project_version())
 
-    filename = f"{date_str}_v{filter_ver}_golden.json"
+    filename = f"{date_str}_v{project_ver}_golden.json"
     filepath = HISTORY_DIR / filename
 
     with open(filepath, 'w', encoding='utf-8') as f:
@@ -422,12 +407,14 @@ def log_test_run(results, chapters_tested, comment=None):
     """Записывает результат теста в историю."""
     history = load_history()
 
+    project_version = get_project_version()
     filter_version = get_filter_version()
     smart_compare_version = get_smart_compare_version()
 
     run_entry = {
         'timestamp': datetime.now().isoformat(),
         'test_version': VERSION,
+        'project_version': project_version,
         'filter_version': filter_version,
         'smart_compare_version': smart_compare_version,
         'chapters_tested': chapters_tested,
@@ -481,34 +468,21 @@ def update_versions_json(run_entry: dict, version_id: str = None) -> None:
 
     Логика определения version_id:
     1. Явно переданный version_id
-    2. Из комментария (если содержит vX.Y.Z)
-    3. Последняя версия в файле с таким же filter_version (обновление)
-    4. Генерация на основе filter_version
+    2. Из project_version (PROJECT_VERSION из version.py)
     """
     if not VERSIONS_FILE.exists():
-        versions_data = {"_schema_version": "1.0", "versions": []}
+        versions_data = {"_schema_version": "1.0", "_description": "Единый источник истины для версий проекта и метрик", "versions": []}
     else:
         with open(VERSIONS_FILE, 'r', encoding='utf-8') as f:
             versions_data = json.load(f)
 
+    project_ver = run_entry.get('project_version', get_project_version())
     filter_ver = run_entry.get('filter_version', '?')
+    smart_compare_ver = run_entry.get('smart_compare_version', '?')
 
     if not version_id:
-        # Попробуем извлечь версию из комментария (vX.Y или vX.Y.Z)
-        comment = run_entry.get('comment', '')
-        import re
-        match = re.search(r'v(\d+(?:\.\d+)*)', comment, re.IGNORECASE)
-        if match:
-            version_id = f"v{match.group(1)}"
-        else:
-            # Ищем существующую версию с таким же filter_version для обновления
-            for v in versions_data.get('versions', []):
-                if v.get('filter_version', '').startswith(filter_ver.split('.')[0]):
-                    version_id = v['id']
-                    break
-            else:
-                # Генерируем новый ID
-                version_id = f"v{filter_ver}"
+        # Используем project_version как ID
+        version_id = f"v{project_ver}"
 
     # Формируем данные о версии
     results = run_entry.get('results', {})
@@ -525,7 +499,9 @@ def update_versions_json(run_entry: dict, version_id: str = None) -> None:
     new_version = {
         'id': version_id,
         'date': datetime.now().strftime('%Y-%m-%d'),
+        'project_version': project_ver,
         'filter_version': filter_ver,
+        'smart_compare_version': smart_compare_ver,
         'chapters': chapters,
         'totals': {
             'errors': summary.get('total_errors', 0),
@@ -732,12 +708,14 @@ def main():
     else:
         chapters_to_test = ['1', '2', '3', '4', '5']
 
+    project_ver = get_project_version()
     filter_ver = get_filter_version()
     sc_ver = get_smart_compare_version()
 
     print(f"\n{'#'*70}")
     print(f"  ПОЛНЫЙ ТЕСТ ЗОЛОТОГО СТАНДАРТА v{VERSION}")
     print(f"{'#'*70}")
+    print(f"  Версия проекта: {project_ver}")
     print(f"  Главы: {', '.join(chapters_to_test)}")
     print(f"  Пайплайн: {'пропуск' if args.skip_pipeline else 'запуск'}")
     print(f"  Чистое тестирование: {'ДА (--clean)' if args.clean else 'нет'}")
@@ -823,7 +801,7 @@ def main():
 
     # Итоговый результат с историей
     print(f"\n{'#'*70}")
-    print(f"  ИТОГИ v{filter_ver} (с историей последних 4 итераций)")
+    print(f"  ИТОГИ v{project_ver} (с историей последних 4 итераций)")
     print(f"{'#'*70}")
 
     # Заголовок таблицы
@@ -884,7 +862,7 @@ def main():
     if not args.no_log:
         run_entry, archive_path = log_test_run(results, valid_chapters, comment=args.comment)
         # Обновляем единый versions.json (источник правды для сравнения версий)
-        if all_passed and len(valid_chapters) == 4:
+        if all_passed and len(valid_chapters) >= 4:
             update_versions_json(run_entry)
         print(f"  Результат записан в {HISTORY_FILE.name}")
         print(f"  Архив: {archive_path.name}")

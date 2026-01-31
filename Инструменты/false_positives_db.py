@@ -49,8 +49,8 @@ Changelog:
         - CLI интерфейс
 """
 
-VERSION = '3.0.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '3.1.0'  # v3.1: Унифицированный путь к БД из config.py (Словари/, не Темп/)
+VERSION_DATE = '2026-01-31'
 SCHEMA_VERSION = 3
 
 import sqlite3
@@ -75,7 +75,8 @@ except ImportError:
     TEMP_DIR = Path(__file__).parent.parent / 'Темп'
     DICTS_DIR = Path(__file__).parent.parent / 'Словари'
     TESTS_DIR = Path(__file__).parent.parent / 'Тесты'
-    FALSE_POSITIVES_DB = TEMP_DIR / 'false_positives.db'
+    # ВАЖНО: БД хранится в Словари/, НЕ в Темп/
+    FALSE_POSITIVES_DB = DICTS_DIR / 'false_positives.db'
 
 # Импорт морфологии для ML-признаков
 try:

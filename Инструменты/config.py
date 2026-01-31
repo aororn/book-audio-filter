@@ -45,8 +45,10 @@ PROTECTED_WORDS = DICTIONARIES_DIR / 'защищенные_слова.txt'
 READER_ERRORS = DICTIONARIES_DIR / 'ошибки_чтеца.json'
 CONFIG_JSON = DICTIONARIES_DIR / 'config.json'
 
-# Базы данных (v6.0)
-FALSE_POSITIVES_DB = TEMP_DIR / 'false_positives.db'
+# Базы данных (v6.1 — унифицирован путь к БД)
+# ВАЖНО: Единственный источник правды — Словари/false_positives.db
+# НЕ использовать Темп/ для хранения БД!
+FALSE_POSITIVES_DB = DICTIONARIES_DIR / 'false_positives.db'
 MORPH_CACHE_DB = TEMP_DIR / 'cache' / 'morph_cache.db'
 ML_MODEL_DIR = TEMP_DIR / 'ml'
 
@@ -912,5 +914,5 @@ def log_exception(logger: logging.Logger, msg: str, exc: Exception = None):
 # ВЕРСИЯ
 # =============================================================================
 
-VERSION = '5.0.0'
-VERSION_DATE = '2026-01-25'
+VERSION = '6.1.0'
+VERSION_DATE = '2026-01-31'

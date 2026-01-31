@@ -11,7 +11,7 @@ v1.0.0 (2026-01-30): Начальная версия
 # ВЕРСИЯ ПРОЕКТА
 # =============================================================================
 
-PROJECT_VERSION = '14.1.0'
+PROJECT_VERSION = '14.8.1'
 PROJECT_DATE = '2026-01-31'
 
 # =============================================================================
@@ -19,11 +19,11 @@ PROJECT_DATE = '2026-01-31'
 # =============================================================================
 
 # Фильтрация
-FILTER_ENGINE_VERSION = '9.8.0'       # v9.8.0: Актуальная версия engine.py (2026-01-31)
+FILTER_ENGINE_VERSION = '9.12.0'      # v9.12.0: Интеграция с БД (DatabaseWriter)
 CONTEXT_VERIFIER_VERSION = '4.1.0'
 RULES_MODULE_VERSION = '1.0.0'
-MORPHO_RULES_VERSION = '1.2.0'        # Реальная версия в morpho_rules.py
-COMPARISON_VERSION = '6.2.0'           # Реальная версия в comparison.py
+MORPHO_RULES_VERSION = '1.4.0'        # v1.4: Исправлен импорт morphology
+COMPARISON_VERSION = '6.5.0'           # v6.5: Исправлен импорт morphology
 
 # Выравнивание
 SMART_COMPARE_VERSION = '10.6.0'       # Реальная версия в smart_compare.py
@@ -43,6 +43,12 @@ FILTERS_PACKAGE_VERSION = '8.2.0'     # Реальная версия в __init_
 TEXT_NORMALIZER_VERSION = '2.0.0'     # Нормализация текста
 TRANSCRIBE_VERSION = '3.0.0'          # Транскрибация через Яндекс SpeechKit
 AUDIO_CONVERTER_VERSION = '2.0.0'     # Конвертация аудио
+
+# База знаний v2.2 — унифицированы пути
+DB_SCHEMA_VERSION = '2.2.0'           # Унифицированный путь к БД из config.py
+POPULATE_DB_VERSION = '3.2.0'         # Унифицированный путь к БД из config.py
+ERROR_CONTEXT_VERSION = '1.0.0'       # Модуль контекстов ошибок
+MERGE_SPLIT_DETECTOR_VERSION = '1.0.0' # Детектор merge/split паттернов
 
 # =============================================================================
 # ЗАВИСИМОСТИ ВЕРСИЙ (для валидации)
@@ -91,6 +97,11 @@ def get_version_info() -> dict:
         'text_normalizer': TEXT_NORMALIZER_VERSION,
         'transcribe': TRANSCRIBE_VERSION,
         'audio_converter': AUDIO_CONVERTER_VERSION,
+        # База знаний v2.0
+        'db_schema': DB_SCHEMA_VERSION,
+        'populate_db': POPULATE_DB_VERSION,
+        'error_context': ERROR_CONTEXT_VERSION,
+        'merge_split_detector': MERGE_SPLIT_DETECTOR_VERSION,
     }
 
 

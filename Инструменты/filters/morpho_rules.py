@@ -1,5 +1,5 @@
 """
-Morpho Rules v1.0 — Морфологические правила фильтрации.
+Morpho Rules v1.3 — Морфологические правила фильтрации.
 
 Единый модуль для фильтрации ложных ошибок транскрипции.
 Заменяет smart_rules.py и learned_rules.py.
@@ -15,43 +15,34 @@ Morpho Rules v1.0 — Морфологические правила фильтр
 - SAME_LEMMA + DIFF_POS:  6 реальных ошибок → НЕ фильтровать
 - SAME_LEMMA + DIFF_TENSE: 2 реальных ошибки → НЕ фильтровать
 
-v1.0 (2026-01-26): Начальная версия
-v1.1 (2026-01-29): Исправлен баг с _is_proper_name() — исключены составные слова (когдато и т.п.)
+ВАЖНО: Запускать через venv с установленным пакетом (pip install -e .)
+
+v1.3 (2026-01-31): Относительный импорт из Инструменты.morphology
 v1.2 (2026-01-30): proper_name фильтр теперь проверяет схожесть слов (≥50%)
+v1.1 (2026-01-29): Исправлен баг с _is_proper_name()
+v1.0 (2026-01-26): Начальная версия
 """
 
-VERSION = '1.2.0'
-VERSION_DATE = '2026-01-30'
-
-from typing import Optional, Tuple
-from dataclasses import dataclass
+VERSION = '1.4.0'  # v1.4: Исправлен импорт morphology через sys.path
+VERSION_DATE = '2026-01-31'
 
 import sys
 from pathlib import Path
-parent_dir = Path(__file__).parent.parent
-if str(parent_dir) not in sys.path:
-    sys.path.insert(0, str(parent_dir))
+from typing import Optional, Tuple
+from dataclasses import dataclass
 
-try:
-    from morphology import (
-        normalize_word, get_lemma, get_pos, get_number, get_case,
-        HAS_PYMORPHY, morph
-    )
-    HAS_MORPHOLOGY = True
-except ImportError:
-    HAS_MORPHOLOGY = False
-    HAS_PYMORPHY = False
-    morph = None
-    normalize_word = lambda x: x.lower().strip()
-    get_lemma = lambda x: x
-    get_pos = lambda x: None
-    get_number = lambda x: None
-    get_case = lambda x: None
+# Добавляем путь к Инструменты в sys.path
+_SCRIPT_DIR = Path(__file__).parent.parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
 
-try:
-    from .comparison import levenshtein_distance, phonetic_normalize
-except ImportError:
-    from comparison import levenshtein_distance, phonetic_normalize
+from morphology import (
+    normalize_word, get_lemma, get_pos, get_number, get_case,
+    HAS_PYMORPHY, morph
+)
+HAS_MORPHOLOGY = HAS_PYMORPHY  # Синоним для совместимости
+
+from .comparison import levenshtein_distance, phonetic_normalize
 
 
 @dataclass
