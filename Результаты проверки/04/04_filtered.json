@@ -351,33 +351,6 @@
       }
     },
     {
-      "type": "insertion",
-      "time": 907.2,
-      "time_end": 0.0,
-      "original": "",
-      "transcript": "и",
-      "context": "части семьи. Три и один. Надеюсь, вы не будете возражать отложить осмотр прочих на будущее? Как по мне, им хватит сейчас",
-      "transcript_context": "части семьи три и один надеюсь вы не будете возражать и отложить осмотр прочих на будущее как по мне им хватит",
-      "marker_pos": 57,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
-      }
-    },
-    {
       "type": "substitution",
       "time": 919.26,
       "time_end": 919.379,
@@ -511,33 +484,6 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.4075591266155243
-      }
-    },
-    {
-      "type": "insertion",
-      "time": 1337.269,
-      "time_end": 0.0,
-      "original": "",
-      "transcript": "и",
-      "context": "сейчас о ком? Пересмешник подался вперёд, словно это могло помочь сделать мыслеречь ещё тише: Об Эрзум. Останется кто-то кто-то один. Либо",
-      "transcript_context": "сейчас о ком пересмешник подался вперед словно это могло помочь и сделать мыслеречь еще тише оборзума останется кто то один либо",
-      "marker_pos": 66,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
       }
     },
     {
@@ -706,33 +652,6 @@
       }
     },
     {
-      "type": "insertion",
-      "time": 1777.369,
-      "time_end": 0.0,
-      "original": "",
-      "transcript": "и",
-      "context": "посвятить нашего нового главу в тайну искателей Ордена. Я, радостный, чуть не подпрыгнул на месте, всё поняв. Можно ограничить тех, кому",
-      "transcript_context": "посвятить нашего нового главу в тайну искателей ордена я радостно и чуть не подпрыгнул на месте все поняв можно ограничить тех",
-      "marker_pos": 70,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
-      }
-    },
-    {
       "type": "substitution",
       "time": 1878.96,
       "time_end": 1879.04,
@@ -758,87 +677,6 @@
         "original_pos": "PRCL",
         "transcript_pos": "NPRO",
         "semantic_similarity": 0.45961979031562805
-      }
-    },
-    {
-      "type": "insertion",
-      "time": 1986.22,
-      "time_end": 0.0,
-      "original": "",
-      "transcript": "они",
-      "context": "совершенно пусто. Искатели семьи проверили всё до последнего закутка и не нашли ни подвалов с сокровищами, подобных тому столу с фигурками,",
-      "transcript_context": "совершенно пусто искатели семьи проверили все до последнего закутка и они нашли не подвалов с сокровищами подобных тому столу с фигурками",
-      "marker_pos": 71,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
-      }
-    },
-    {
-      "type": "insertion",
-      "time": 1986.36,
-      "time_end": 0.0,
-      "original": "",
-      "transcript": "нашли",
-      "context": "совершенно пусто. Искатели семьи проверили всё до последнего закутка и не нашли ни подвалов с сокровищами, подобных тому столу с фигурками,",
-      "transcript_context": "пусто искатели семьи проверили все до последнего закутка и они нашли не подвалов с сокровищами подобных тому столу с фигурками ничего",
-      "marker_pos": 71,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
-      }
-    },
-    {
-      "type": "deletion",
-      "time": 1986.78,
-      "time_end": 0.0,
-      "original": "нашли",
-      "transcript": "",
-      "context": "пусто. Искатели семьи проверили всё до последнего закутка и не нашли ни подвалов с сокровищами, подобных тому столу с фигурками, ни",
-      "transcript_context": "",
-      "marker_pos": 63,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "deletion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
       }
     },
     {
@@ -1223,33 +1061,6 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.46958884596824646
-      }
-    },
-    {
-      "type": "insertion",
-      "time": 2605.209,
-      "time_end": 0.0,
-      "original": "",
-      "transcript": "и",
-      "context": "каждый миг стереть символ боли, предупредил: Если нестерпимо, подними руку, я тут же уменьшу своё давление. Тот шевельнул непослушными губами: Тер-пи-мо,",
-      "transcript_context": "каждый миг стереть символ боли предупредил если нестерпимо подними руку и я тут же уменьшу свое давление тот шевельнул непослушными губами",
-      "marker_pos": 76,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
       }
     },
     {
@@ -1729,8 +1540,8 @@
       "phonetic_similarity": 1.0
     }
   ],
-  "total_errors": 48,
-  "filtered_count": 155,
+  "total_errors": 41,
+  "filtered_count": 162,
   "filter_stats": {
     "alignment_artifact": 36,
     "yandex_typical": 53,
@@ -1744,6 +1555,7 @@
     "phonetic_morphoform_protected:phonetic_morphoform_fp:lemma=зелье,phon=зильи": 2,
     "sentence_start_weak": 3,
     "merge_artifact:за+плевую→заплевываю": 1,
+    "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и": 7,
     "morpho_proper_name": 4,
     "short_full_adjective": 1,
     "merge_artifact:так+же→также": 3,
@@ -1760,19 +1572,19 @@
     "split_name_insertion": 1
   },
   "filter_metadata": {
-    "version": "9.12.0",
+    "version": "9.13.0",
     "input_smart_compare_version": "10.5.0",
     "input_alignment_manager_version": "1.2.0",
-    "timestamp": "2026-01-31T14:17:42.284359",
+    "timestamp": "2026-01-31T14:49:32.055357",
     "original_errors": 203,
-    "real_errors": 48,
-    "filtered_errors": 155,
+    "real_errors": 41,
+    "filtered_errors": 162,
     "protected_errors": 16,
-    "filter_efficiency": "76.4%",
+    "filter_efficiency": "79.8%",
     "cache_stats": {
-      "hits": 2796,
-      "misses": 258,
-      "efficiency": "91.6%"
+      "hits": 15439,
+      "misses": 1141,
+      "efficiency": "93.1%"
     },
     "filter_breakdown": {
       "yandex_typical": {
@@ -1790,6 +1602,10 @@
       "linked_prefix_error": {
         "count": 9,
         "percentage": "4.4%"
+      },
+      "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и": {
+        "count": 7,
+        "percentage": "3.4%"
       },
       "hyphenated_part": {
         "count": 4,
@@ -1940,8 +1756,8 @@
     },
     "error_types": {
       "substitution": 36,
-      "insertion": 8,
-      "deletion": 4
+      "insertion": 2,
+      "deletion": 3
     }
   },
   "filtered_errors_detail": [
@@ -3172,6 +2988,33 @@
       }
     },
     {
+      "type": "insertion",
+      "time": 907.2,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "и",
+      "context": "части семьи. Три и один. Надеюсь, вы не будете возражать отложить осмотр прочих на будущее? Как по мне, им хватит сейчас",
+      "transcript_context": "части семьи три и один надеюсь вы не будете возражать и отложить осмотр прочих на будущее как по мне им хватит",
+      "marker_pos": 57,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
+      }
+    },
+    {
       "type": "substitution",
       "time": 920.02,
       "time_end": 920.279,
@@ -3551,6 +3394,33 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.5607173442840576
+      }
+    },
+    {
+      "type": "insertion",
+      "time": 1337.269,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "и",
+      "context": "сейчас о ком? Пересмешник подался вперёд, словно это могло помочь сделать мыслеречь ещё тише: Об Эрзум. Останется кто-то кто-то один. Либо",
+      "transcript_context": "сейчас о ком пересмешник подался вперед словно это могло помочь и сделать мыслеречь еще тише оборзума останется кто то один либо",
+      "marker_pos": 66,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {
@@ -4583,6 +4453,33 @@
       }
     },
     {
+      "type": "insertion",
+      "time": 1777.369,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "и",
+      "context": "посвятить нашего нового главу в тайну искателей Ордена. Я, радостный, чуть не подпрыгнул на месте, всё поняв. Можно ограничить тех, кому",
+      "transcript_context": "посвятить нашего нового главу в тайну искателей ордена я радостно и чуть не подпрыгнул на месте все поняв можно ограничить тех",
+      "marker_pos": 70,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
+      }
+    },
+    {
       "type": "deletion",
       "time": 1797.82,
       "time_end": 0.0,
@@ -4715,6 +4612,87 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.0
+      }
+    },
+    {
+      "type": "insertion",
+      "time": 1986.22,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "они",
+      "context": "совершенно пусто. Искатели семьи проверили всё до последнего закутка и не нашли ни подвалов с сокровищами, подобных тому столу с фигурками,",
+      "transcript_context": "совершенно пусто искатели семьи проверили все до последнего закутка и они нашли не подвалов с сокровищами подобных тому столу с фигурками",
+      "marker_pos": 71,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
+      }
+    },
+    {
+      "type": "insertion",
+      "time": 1986.36,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "нашли",
+      "context": "совершенно пусто. Искатели семьи проверили всё до последнего закутка и не нашли ни подвалов с сокровищами, подобных тому столу с фигурками,",
+      "transcript_context": "пусто искатели семьи проверили все до последнего закутка и они нашли не подвалов с сокровищами подобных тому столу с фигурками ничего",
+      "marker_pos": 71,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
+      }
+    },
+    {
+      "type": "deletion",
+      "time": 1986.78,
+      "time_end": 0.0,
+      "original": "нашли",
+      "transcript": "",
+      "context": "пусто. Искатели семьи проверили всё до последнего закутка и не нашли ни подвалов с сокровищами, подобных тому столу с фигурками, ни",
+      "transcript_context": "",
+      "marker_pos": 63,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "deletion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {
@@ -5589,6 +5567,33 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.7112720012664795
+      }
+    },
+    {
+      "type": "insertion",
+      "time": 2605.209,
+      "time_end": 0.0,
+      "original": "",
+      "transcript": "и",
+      "context": "каждый миг стереть символ боли, предупредил: Если нестерпимо, подними руку, я тут же уменьшу своё давление. Тот шевельнул непослушными губами: Тер-пи-мо,",
+      "transcript_context": "каждый миг стереть символ боли предупредил если нестерпимо подними руку и я тут же уменьшу свое давление тот шевельнул непослушными губами",
+      "marker_pos": 76,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "filter_reason": "cluster_artifact:split:не+просто=непросто; split_suffix:змея+в≈змеев; split_suffix:змея+в≈змеев; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix2:зеленокий+и→зеленорукий; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix:контуров+в≈комтуров; split_prefix:к+контуров≈комтуров; split_suffix2:посягнувших+к→присягнувших; split_suffix2:посягнувших+к→присягнувших; split_prefix:к+келлер≈келлера; split_prefix:к+келлер≈келлера; split_suffix:руки+у≈руку; split_prefix:в+встретив≈встретил; split_prefix:в+встретив≈встретил; split_prefix:в+властелина≈властелинов; split_prefix:в+властелина≈властелинов; split:верну+в=вернув; split:верну+в=вернув; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:производители+и≈предводители; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:заран+и≈аранви; split_suffix:слуха+в≈слухов; split_suffix:слуха+в≈слухов; split_prefix:к+контурам≈комтурам; split_prefix:к+контурам≈комтурам; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix2:необходимы+и→необходимой; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:стражу+и≈стражи; split_suffix:эгедону+у≈рагедону; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:чистой+и→чистый; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:преград+и→преграды; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:поместья+и→поместий; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_suffix2:информации+и→формаций; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+возможности≈возможностей; split_suffix2:возможности+и→возможностей; split_prefix:в+верности≈верность; split_prefix:в+верности≈верность; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_suffix2:радостно+и→радостный; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix2:вытянутые+и→вытянутой; split_prefix:в+вытянутые≈вытянутой; split_suffix2:вытянутые+и→вытянутой; split_suffix:половине+у≈половину; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix2:платы+и→платой; split_suffix:арзунцев+в≈эрзумцев; split_suffix:арзунцев+в≈эрзумцев; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:пара+и→пары; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:затеи+и→затей; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:силы+и→силой; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix2:указа+и→указы; split_suffix:сказал+в≈сказав; split_suffix:сказал+в≈сказав; split_prefix:в+воздействия≈воздействие; split_prefix:в+воздействия≈воздействие; split_prefix:в+нашу≈вашу; split_prefix:в+нашу≈вашу; split:указ+у=указу; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:старейшины+и→старейшиной; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split_suffix2:соглядатаи+и→соглядатай; split:не+важно=неважно; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:и+бахар=ибахар; merge:не+полный=неполный; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge_overlap:об...а=оборзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:и+стирают=истирают; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:господин+а=господина; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:эрзум+а=эрзума; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:шлем+а=шлема; merge:в+алом=валом; merge:ни+чего=ничего; merge:так+же=также; merge:так+же=также; merge:так+же=также; merge_overlap:тер...мо=терпимо; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge_overlap:гла...а=глава; merge:гла+ва=глава; merge:так+же=также; merge:так+же=также; merge:так+же=также; duplicate:в; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:нашли; duplicate:в; duplicate:к; duplicate:к; duplicate:к; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; duplicate:и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и; func_phonetic:и≈и",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {

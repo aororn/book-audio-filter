@@ -3292,19 +3292,19 @@
     "semantic_coherence:semantic_coherence_fp:trans=0.36,orig=0.08,diff=0.28": 1
   },
   "filter_metadata": {
-    "version": "9.12.0",
+    "version": "9.13.0",
     "input_smart_compare_version": "unknown",
     "input_alignment_manager_version": "unknown",
-    "timestamp": "2026-01-31T14:17:58.998044",
+    "timestamp": "2026-01-31T14:49:32.786613",
     "original_errors": 289,
     "real_errors": 108,
     "filtered_errors": 181,
     "protected_errors": 26,
     "filter_efficiency": "62.6%",
     "cache_stats": {
-      "hits": 4589,
-      "misses": 331,
-      "efficiency": "93.3%"
+      "hits": 20027,
+      "misses": 1369,
+      "efficiency": "93.6%"
     },
     "filter_breakdown": {
       "alignment_artifact": {

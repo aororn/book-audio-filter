@@ -1888,35 +1888,6 @@
       }
     },
     {
-      "type": "insertion",
-      "time": 2537.929,
-      "time_end": 0.0,
-      "time_seconds": 2537,
-      "original": "",
-      "transcript": "и",
-      "context": "Я надеюсь отыскать среди этих людей скрытые таланты, Феор. Таланты, глава? Да. Они слишком слабы, чтобы привлечь к себе внимание каких-то",
-      "transcript_context": "я надеюсь отыскать среди этих людей скрытые таланты фиор талант и глава да они слишком слабы чтобы привлечь к себе внимание",
-      "marker_pos": 68,
-      "confidence": 1.0,
-      "is_yandex_error": false,
-      "similarity": 0.0,
-      "phonetic_similarity": 0.0,
-      "merged_from_ins_del": false,
-      "not_filtered_reason": "real_error",
-      "smart_metrics": {
-        "smart_score": 40,
-        "smart_rules": [
-          "insertion_base (+40)"
-        ],
-        "is_visible": false,
-        "original_lemma": null,
-        "transcript_lemma": null,
-        "original_pos": null,
-        "transcript_pos": null,
-        "semantic_similarity": null
-      }
-    },
-    {
       "type": "substitution",
       "time": 2563.51,
       "time_end": 2563.849,
@@ -2811,8 +2782,8 @@
       "merged_from_ins_del": false
     }
   ],
-  "total_errors": 88,
-  "filtered_count": 317,
+  "total_errors": 87,
+  "filtered_count": 318,
   "filter_stats": {
     "yandex_name_error": 45,
     "morpho_same_form": 18,
@@ -2847,6 +2818,7 @@
     "compound_word": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=лицо,phon=лица": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=носить,phon=насит": 1,
+    "cluster_artifact:split_suffix2:талант+и→таланты": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=приручение,phon=приручинии": 1,
     "merge_artifact:во+все→вовсе": 1,
     "phonetic_morphoform:phonetic_morphoform_fp:lemma=внимание,phon=внимании": 1,
@@ -2861,15 +2833,15 @@
     "same_phonetic_diff_lemma:интирисна": 1
   },
   "filter_metadata": {
-    "version": "9.12.0",
+    "version": "9.13.0",
     "input_smart_compare_version": "unknown",
     "input_alignment_manager_version": "unknown",
-    "timestamp": "2026-01-31T14:16:54.719567",
+    "timestamp": "2026-01-31T14:49:29.837494",
     "original_errors": 405,
-    "real_errors": 88,
-    "filtered_errors": 317,
+    "real_errors": 87,
+    "filtered_errors": 318,
     "protected_errors": 33,
-    "filter_efficiency": "78.3%",
+    "filter_efficiency": "78.5%",
     "cache_stats": {
       "hits": 5774,
       "misses": 444,
@@ -3008,6 +2980,10 @@
         "count": 1,
         "percentage": "0.2%"
       },
+      "cluster_artifact:split_suffix2:талант+и→таланты": {
+        "count": 1,
+        "percentage": "0.2%"
+      },
       "phonetic_morphoform:phonetic_morphoform_fp:lemma=приручение,phon=приручинии": {
         "count": 1,
         "percentage": "0.2%"
@@ -3137,7 +3113,7 @@
     },
     "error_types": {
       "substitution": 71,
-      "insertion": 10,
+      "insertion": 9,
       "deletion": 6
     }
   },
@@ -9832,6 +9808,35 @@
         "original_pos": "NOUN",
         "transcript_pos": "NOUN",
         "semantic_similarity": 0.0
+      }
+    },
+    {
+      "type": "insertion",
+      "time": 2537.929,
+      "time_end": 0.0,
+      "time_seconds": 2537,
+      "original": "",
+      "transcript": "и",
+      "context": "Я надеюсь отыскать среди этих людей скрытые таланты, Феор. Таланты, глава? Да. Они слишком слабы, чтобы привлечь к себе внимание каких-то",
+      "transcript_context": "я надеюсь отыскать среди этих людей скрытые таланты фиор талант и глава да они слишком слабы чтобы привлечь к себе внимание",
+      "marker_pos": 68,
+      "confidence": 1.0,
+      "is_yandex_error": false,
+      "similarity": 0.0,
+      "phonetic_similarity": 0.0,
+      "merged_from_ins_del": false,
+      "filter_reason": "cluster_artifact:split_suffix2:талант+и→таланты",
+      "smart_metrics": {
+        "smart_score": 40,
+        "smart_rules": [
+          "insertion_base (+40)"
+        ],
+        "is_visible": false,
+        "original_lemma": null,
+        "transcript_lemma": null,
+        "original_pos": null,
+        "transcript_pos": null,
+        "semantic_similarity": null
       }
     },
     {

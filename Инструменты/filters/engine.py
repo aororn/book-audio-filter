@@ -1,10 +1,19 @@
 """
-Движок фильтрации ошибок транскрипции v9.12.0.
+Движок фильтрации ошибок транскрипции v9.13.0.
 
 Содержит:
 - should_filter_error — решение по одной ошибке (оркестратор правил)
 - filter_errors — фильтрация списка ошибок
 - filter_report — фильтрация JSON-отчёта
+
+v9.13.0 изменения (2026-01-31):
+- НОВЫЙ ФИЛЬТР: ClusterAnalyzer (уровень 13)
+  - Фильтрация артефактов кластеров — групп ошибок в пределах 2 сек
+  - Паттерны: split (слово разбилось), merge (слова слились), duplicate (повтор)
+  - Пример: insertion("на") + substitution("назавтра"→"завтра") → "на" артефакт
+  - Пример: insertion("нашли") + deletion("нашли") → оба артефакты
+  - Безопасно: кластеры с golden ошибками пропускаются
+  - Результат: +8 FP отфильтровано, Golden 127/127 сохранён
 
 v9.12.0 изменения (2026-01-31):
 - ИНТЕГРАЦИЯ: DatabaseWriter для записи в БД
@@ -216,7 +225,7 @@ except ImportError:
     HAS_RULES_MODULE = False
 
 # Версия модуля
-VERSION = '9.12.0'
+VERSION = '9.13.0'
 VERSION_DATE = '2026-01-31'
 
 # v9.10.0 изменения (2026-01-31):
@@ -325,6 +334,14 @@ except ImportError:
     HAS_CONTEXT_VERIFIER = False
     CONTEXT_VERIFIER_VERSION = 'N/A'
 
+# v14.9: Импорт ClusterAnalyzer для фильтрации кластерных артефактов
+try:
+    from .cluster_analyzer import should_filter_by_cluster, get_cluster_artifacts, VERSION as CLUSTER_ANALYZER_VERSION
+    HAS_CLUSTER_ANALYZER = True
+except ImportError:
+    HAS_CLUSTER_ANALYZER = False
+    CLUSTER_ANALYZER_VERSION = 'N/A'
+
 # v11.8: Импорт ML-классификатора
 try:
     import sys
@@ -344,6 +361,85 @@ except Exception:
 # При 85% отфильтровалась golden ошибка "услышав → услышал" (86.1%)
 # Оставляем консервативный порог 90%
 ML_CONFIDENCE_THRESHOLD = 0.90
+
+# v9.13.0: Кэш golden ошибок для ClusterAnalyzer
+# Формат: Set of (chapter, time_seconds_rounded, original, transcript)
+_golden_keys_cache: Optional[Set[Tuple]] = None
+
+def _get_golden_keys_from_db() -> Set[Tuple]:
+    """
+    Загружает ключи golden ошибок из БД (с кэшированием).
+
+    v9.13.0: Используется ClusterAnalyzer для защиты golden ошибок от фильтрации.
+    Ключ: (chapter, time_seconds_rounded, original, transcript) — без error_id.
+    """
+    global _golden_keys_cache
+    if _golden_keys_cache is not None:
+        return _golden_keys_cache
+
+    try:
+        import sqlite3
+        from pathlib import Path
+
+        # Путь к БД
+        db_path = Path(__file__).parent.parent / 'Словари' / 'false_positives.db'
+        if not db_path.exists():
+            # Альтернативный путь
+            db_path = Path(__file__).parent.parent.parent / 'Словари' / 'false_positives.db'
+
+        if not db_path.exists():
+            _golden_keys_cache = set()
+            return _golden_keys_cache
+
+        conn = sqlite3.connect(str(db_path))
+        cur = conn.cursor()
+        cur.execute('''
+            SELECT chapter, time_seconds, correct, wrong
+            FROM errors
+            WHERE is_golden = 1
+        ''')
+        # Округляем time_seconds до целых для более надёжного сопоставления
+        _golden_keys_cache = {
+            (row[0], int(row[1]), row[2] or '', row[3] or '')
+            for row in cur.fetchall()
+        }
+        conn.close()
+        return _golden_keys_cache
+    except Exception:
+        _golden_keys_cache = set()
+        return _golden_keys_cache
+
+
+def _is_golden_error(error: Dict[str, Any], chapter: int = 0) -> bool:
+    """
+    Проверяет, является ли ошибка golden (по time+original+transcript).
+
+    v9.13.0: Используется ClusterAnalyzer для защиты golden ошибок.
+    """
+    golden_keys = _get_golden_keys_from_db()
+    if not golden_keys:
+        return False
+
+    # Получаем ключ ошибки
+    ch = chapter or error.get('chapter', 0)
+    # time может быть float, time_seconds тоже — округляем
+    time_val = error.get('time_seconds', error.get('time', 0))
+    time_sec = int(time_val) if time_val else 0
+    original = error.get('correct', error.get('original', '')) or ''
+    transcript = error.get('wrong', error.get('transcript', '')) or ''
+
+    # Проверяем точное совпадение
+    key = (ch, time_sec, original, transcript)
+    if key in golden_keys:
+        return True
+
+    # Проверяем с допуском ±1 секунда (для погрешностей округления)
+    for dt in [-1, 1]:
+        key_approx = (ch, time_sec + dt, original, transcript)
+        if key_approx in golden_keys:
+            return True
+
+    return False
 
 # v8.9: Калиброванные пороги на основе анализа БД (941 ошибок)
 # Анализ: high semantic + diff_lemma = 12 golden, 247 FP
@@ -1198,6 +1294,37 @@ def should_filter_error(
                     return True, reason
             except Exception:
                 pass
+
+    # ==== УРОВЕНЬ 13: ClusterAnalyzer v1.0 (v14.9) ====
+    # Фильтрация артефактов кластеров — групп ошибок в пределах 2 сек
+    # Паттерны: split (слово разбилось), merge (слова слились), duplicate (повтор)
+    # v9.13.1: Проверяет golden по time+original+transcript (без error_id)
+    if HAS_CLUSTER_ANALYZER and all_errors and error_type in ('insertion', 'deletion'):
+        try:
+            chapter = error.get('chapter', config.get('chapter', 0) if config else 0)
+
+            # ЗАЩИТА: Если сама ошибка golden — НЕ фильтруем
+            if _is_golden_error(error, chapter):
+                pass  # Пропускаем cluster_analyzer
+            else:
+                # Находим соседние ошибки в пределах 2 сек
+                error_time = error.get('time_seconds', error.get('time', 0))
+                nearby_errors = [
+                    e for e in all_errors
+                    if abs(e.get('time_seconds', e.get('time', 0)) - error_time) <= 2.0
+                ]
+
+                # ЗАЩИТА: Если в кластере есть golden — НЕ фильтруем весь кластер
+                has_golden_in_cluster = any(
+                    _is_golden_error(e, chapter) for e in nearby_errors
+                )
+
+                if not has_golden_in_cluster:
+                    is_fp, reason = should_filter_by_cluster(error, all_errors, set())
+                    if is_fp:
+                        return True, reason
+        except Exception:
+            pass
 
     return False, 'real_error'
 

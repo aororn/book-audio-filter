@@ -564,6 +564,14 @@ def step_golden_filter(report_path, output_dir, config=None):
         'use_homophones': True,
     }
 
+    # v14.9: Добавляем chapter в config для cluster_analyzer
+    if HAS_CONFIG and chapter_id:
+        # chapter_id формата "01", "02", etc. → int
+        try:
+            config['chapter'] = int(chapter_id)
+        except ValueError:
+            pass
+
     filter_report(
         str(report_path),
         output_path=str(output_path),
