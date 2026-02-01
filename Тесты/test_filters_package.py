@@ -561,16 +561,21 @@ class TestFilterErrors:
             {'type': 'substitution', 'wrong': 'ну', 'correct': 'но'},
             {'type': 'substitution', 'wrong': 'живем', 'correct': 'живы'},
         ]
-        filtered, removed, stats = filter_errors(errors)
+        # v9.7.0: filter_errors возвращает 4 элемента
+        filtered, removed, stats, protected = filter_errors(errors)
         assert len(filtered) + len(removed) == len(errors)
         assert isinstance(stats, dict)
+        assert isinstance(protected, dict)
         assert len(filtered) <= len(errors)
+        # v9.7.0: Проверка консистентности — сумма stats == len(removed)
+        assert sum(stats.values()) == len(removed)
 
     def test_empty_list(self):
-        filtered, removed, stats = filter_errors([])
+        filtered, removed, stats, protected = filter_errors([])
         assert filtered == []
         assert removed == []
         assert isinstance(stats, dict)
+        assert isinstance(protected, dict)
 
     def test_all_filtered(self):
         """Все ошибки — ложные срабатывания."""
@@ -578,9 +583,11 @@ class TestFilterErrors:
             {'type': 'substitution', 'wrong': 'ну', 'correct': 'но'},
             {'type': 'substitution', 'wrong': 'его', 'correct': 'ево'},
         ]
-        filtered, removed, stats = filter_errors(errors)
+        filtered, removed, stats, protected = filter_errors(errors)
         assert len(filtered) == 0
         assert len(removed) == 2
+        # v9.7.0: sum(stats) == len(removed)
+        assert sum(stats.values()) == 2
 
 
 # =============================================================================

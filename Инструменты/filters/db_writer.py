@@ -10,7 +10,7 @@ Database Writer for Filter Engine v1.0
 v1.0 (2026-01-31): Начальная версия — интеграция engine.py с БД
 """
 
-VERSION = '1.1.0'  # v1.1: Унифицированный путь к БД из config.py
+VERSION = '2.1.0'  # v2.1: Интеграция error_normalizer для унификации полей
 
 import sqlite3
 import json
@@ -18,7 +18,7 @@ import uuid
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 # Путь к БД — ЕДИНЫЙ источник из config.py
 import sys
@@ -35,10 +35,51 @@ except ImportError:
     PROJECT_VERSION = 'unknown'
     FILTER_ENGINE_VERSION = 'unknown'
 
+# v2.1: Импорт error_normalizer для унификации полей
+try:
+    from error_normalizer import (
+        get_original_word, get_transcript_word, get_time_seconds,
+        get_error_type, get_context, normalize_word, errors_match,
+        is_error_in_list, make_error_key,
+    )
+    HAS_NORMALIZER = True
+except ImportError:
+    HAS_NORMALIZER = False
+    # Fallback функции
+    def get_original_word(e): return e.get('original', e.get('correct', e.get('from_book', '')))
+    def get_transcript_word(e): return e.get('transcript', e.get('wrong', e.get('word', '')))
+    def get_time_seconds(e): return e.get('time_seconds', e.get('time', 0))
+    def get_error_type(e): return e.get('type', e.get('error_type', 'substitution'))
+    def get_context(e): return e.get('context', '')
+    def normalize_word(w): return w.lower().replace('ё', 'е').strip() if w else ''
+
+# Импорты для вычисления полей
+try:
+    from morphology import get_lemma, get_pos
+    from filters.semantic_manager import get_similarity
+    from filters.frequency_manager import FrequencyManager
+    from filters.comparison import levenshtein_distance
+    HAS_MORPHOLOGY = True
+except ImportError:
+    HAS_MORPHOLOGY = False
+    def get_lemma(w): return w.lower() if w else ''
+    def get_pos(w): return ''
+    def get_similarity(w1, w2): return 0.0
+    def levenshtein_distance(w1, w2): return abs(len(w1 or '') - len(w2 or ''))
+
+# Глобальный менеджер частотности (ленивая инициализация)
+_frequency_manager = None
+
+def _get_frequency_manager():
+    global _frequency_manager
+    if _frequency_manager is None and HAS_MORPHOLOGY:
+        _frequency_manager = FrequencyManager()
+    return _frequency_manager
+
 
 @dataclass
 class FilterResult:
-    """Результат фильтрации одной ошибки"""
+    """Результат фильтрации одной ошибки — ВСЕ поля БД"""
     error_id: str
     wrong: str
     correct: str
@@ -50,11 +91,124 @@ class FilterResult:
     is_golden: bool = False
     context: str = ''
 
-    # Метаданные
+    # Контексты
+    transcript_context: str = ''
+    pos_transcript: Optional[int] = None
+    pos_original: Optional[int] = None
+
+    # Фонетика
     phonetic_similarity: float = 0.0
+    levenshtein: int = 0
+
+    # Морфология (v2.0)
+    lemma_wrong: str = ''
+    lemma_correct: str = ''
+    pos_wrong: str = ''
+    pos_correct: str = ''
+    same_lemma: int = 0
+    same_pos: int = 0
+
+    # Семантика (v2.0)
     semantic_similarity: float = 0.0
-    same_lemma: bool = False
-    same_pos: bool = False
+
+    # Частотность (v2.0)
+    frequency_wrong: int = 0
+    frequency_correct: int = 0
+
+    # Временные окна
+    time_end_seconds: float = 0.0
+    window_start: float = 0.0
+    window_end: float = 0.0
+    context_start: float = 0.0
+    context_end: float = 0.0
+
+    # Контексты как JSON
+    context_transcript: str = ''
+    context_original: str = ''
+    context_normalized: str = ''
+    context_aligned: str = ''
+
+    # Связи
+    linked_errors: str = ''
+    link_type: str = ''
+
+    @classmethod
+    def from_error_dict(cls, error: Dict, chapter: int, is_filtered: bool,
+                        filter_reason: Optional[str], is_golden: bool) -> 'FilterResult':
+        """
+        Создаёт FilterResult из словаря ошибки, вычисляя ВСЕ поля.
+
+        v2.1: Использует error_normalizer для унификации полей.
+        Принимает ошибки с ЛЮБЫМИ названиями полей:
+        - JSON: original, transcript
+        - БД: correct, wrong
+        - Golden: correct/original, wrong/transcript
+        """
+        # v2.1: Унифицированное извлечение полей через error_normalizer
+        wrong = get_transcript_word(error)  # transcript/wrong/word
+        correct = get_original_word(error)  # original/correct/from_book
+        error_type = get_error_type(error)  # type/error_type
+        time_sec = get_time_seconds(error)  # time/time_seconds
+
+        # Морфология
+        lemma_w = get_lemma(wrong) if wrong else ''
+        lemma_c = get_lemma(correct) if correct else ''
+        pos_w = get_pos(wrong) if wrong else ''
+        pos_c = get_pos(correct) if correct else ''
+        same_lemma = 1 if (lemma_w and lemma_c and lemma_w == lemma_c) else 0
+        same_pos = 1 if (pos_w and pos_c and pos_w == pos_c) else 0
+
+        # Семантика (только для substitution)
+        sem = 0.0
+        if wrong and correct and error_type == 'substitution':
+            sem = get_similarity(wrong, correct)
+
+        # Частотность
+        freq_mgr = _get_frequency_manager()
+        freq_w = freq_mgr.get_frequency(wrong) if freq_mgr and wrong else 0
+        freq_c = freq_mgr.get_frequency(correct) if freq_mgr and correct else 0
+
+        # Фонетика
+        phon_sim = error.get('phonetic_similarity', error.get('similarity', 0))
+        lev = levenshtein_distance(wrong, correct) if wrong and correct else 0
+
+        return cls(
+            error_id=error.get('error_id', str(uuid.uuid4())[:8]),
+            wrong=wrong,
+            correct=correct,
+            error_type=error_type,
+            chapter=chapter,
+            time_seconds=time_sec,
+            is_filtered=is_filtered,
+            filter_reason=filter_reason,
+            is_golden=is_golden,
+            context=error.get('context', ''),
+            transcript_context=error.get('transcript_context', ''),
+            pos_transcript=error.get('marker_pos'),
+            pos_original=error.get('pos_original'),
+            phonetic_similarity=phon_sim,
+            levenshtein=lev,
+            lemma_wrong=lemma_w,
+            lemma_correct=lemma_c,
+            pos_wrong=pos_w,
+            pos_correct=pos_c,
+            same_lemma=same_lemma,
+            same_pos=same_pos,
+            semantic_similarity=sem,
+            frequency_wrong=freq_w,
+            frequency_correct=freq_c,
+            time_end_seconds=error.get('time_end', 0),
+            window_start=error.get('window_start', 0),
+            window_end=error.get('window_end', 0),
+            context_start=error.get('context_start', 0),
+            context_end=error.get('context_end', 0),
+            context_transcript=error.get('context_transcript', ''),
+            context_original=error.get('context_original', ''),
+            context_normalized=error.get('context_normalized', ''),
+            context_aligned=error.get('context_aligned', ''),
+            linked_errors=error.get('linked_errors', ''),
+            link_type=error.get('link_type', ''),
+        )
 
 
 class DatabaseWriter:
@@ -152,9 +306,16 @@ class DatabaseWriter:
 
     @staticmethod
     def _make_key(wrong: str, correct: str, error_type: str, time_seconds: float) -> str:
-        """Создаёт ключ для идентификации ошибки"""
+        """
+        Создаёт ключ для идентификации ошибки.
+
+        v2.1: Нормализует слова для корректного сравнения.
+        """
+        # v2.1: Нормализуем слова для консистентности
+        wrong_norm = _normalize_word_local(wrong)
+        correct_norm = _normalize_word_local(correct)
         time_key = round(time_seconds, 1) if time_seconds else 0
-        return f"{wrong}|{correct}|{error_type}|{time_key}"
+        return f"{wrong_norm}|{correct_norm}|{error_type}|{time_key}"
 
     def write_error(self, result: FilterResult):
         """Записывает одну ошибку в БД с отслеживанием изменений"""
@@ -233,18 +394,24 @@ class DatabaseWriter:
         ))
 
     def _upsert_error(self, result: FilterResult):
-        """Вставляет или обновляет ошибку"""
+        """Вставляет или обновляет ошибку — ВСЕ поля v2.0"""
         now = datetime.now().isoformat()
 
         self.conn.execute('''
             INSERT OR REPLACE INTO errors (
                 error_id, wrong, correct, error_type, chapter,
-                time_seconds, time_label, context,
+                time_seconds, time_end_seconds, time_label,
+                window_start, window_end, context_start, context_end,
+                pos_transcript, pos_original,
+                context, transcript_context,
+                context_transcript, context_normalized, context_original, context_aligned,
+                linked_errors, link_type,
                 is_golden, is_filtered, filter_reason,
-                phonetic_similarity, semantic_similarity,
-                same_lemma, same_pos,
+                lemma_wrong, lemma_correct, pos_wrong, pos_correct, same_lemma, same_pos,
+                semantic_similarity, frequency_wrong, frequency_correct,
+                phonetic_similarity, levenshtein,
                 created_at, updated_at, schema_version
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 2)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 2)
         ''', (
             result.error_id,
             result.wrong,
@@ -252,15 +419,36 @@ class DatabaseWriter:
             result.error_type,
             result.chapter,
             result.time_seconds,
+            result.time_end_seconds,
             self._seconds_to_label(result.time_seconds),
+            result.window_start,
+            result.window_end,
+            result.context_start,
+            result.context_end,
+            result.pos_transcript,
+            result.pos_original,
             result.context,
+            result.transcript_context,
+            result.context_transcript,
+            result.context_normalized,
+            result.context_original,
+            result.context_aligned,
+            result.linked_errors,
+            result.link_type,
             1 if result.is_golden else 0,
             1 if result.is_filtered else 0,
             result.filter_reason,
-            result.phonetic_similarity,
+            result.lemma_wrong,
+            result.lemma_correct,
+            result.pos_wrong,
+            result.pos_correct,
+            result.same_lemma,
+            result.same_pos,
             result.semantic_similarity,
-            1 if result.same_lemma else 0,
-            1 if result.same_pos else 0,
+            result.frequency_wrong,
+            result.frequency_correct,
+            result.phonetic_similarity,
+            result.levenshtein,
             now,
             now,
         ))
@@ -475,7 +663,7 @@ def write_filter_results(
     golden_set: set = None,
 ) -> Tuple[str, Dict[str, int]]:
     """
-    Записывает результаты фильтрации в БД.
+    Записывает результаты фильтрации в БД с ПОЛНЫМ вычислением всех полей.
 
     Вызывается из engine.py::filter_report() после фильтрации.
 
@@ -499,37 +687,27 @@ def write_filter_results(
     elif isinstance(golden_set, (list, set)):
         golden_list = list(golden_set)
 
-    # Записываем оставшиеся (реальные) ошибки
+    # Записываем оставшиеся (реальные) ошибки — с полным вычислением полей
     for error in filtered:
-        result = FilterResult(
-            error_id=error.get('error_id', str(uuid.uuid4())[:8]),
-            wrong=error.get('transcript', error.get('word', '')),
-            correct=error.get('original', error.get('from_book', '')),
-            error_type=error.get('type', 'substitution'),
+        is_golden = _is_golden(error, golden_list)
+        result = FilterResult.from_error_dict(
+            error=error,
             chapter=chapter,
-            time_seconds=error.get('time', 0),
             is_filtered=False,
             filter_reason=None,
-            is_golden=_is_golden(error, golden_list),
-            context=error.get('context', ''),
-            phonetic_similarity=error.get('similarity', error.get('phonetic_similarity', 0)),
+            is_golden=is_golden,
         )
         writer.write_error(result)
 
-    # Записываем отфильтрованные ошибки
+    # Записываем отфильтрованные ошибки — с полным вычислением полей
     for error in removed:
-        result = FilterResult(
-            error_id=error.get('error_id', str(uuid.uuid4())[:8]),
-            wrong=error.get('transcript', error.get('word', '')),
-            correct=error.get('original', error.get('from_book', '')),
-            error_type=error.get('type', 'substitution'),
+        is_golden = _is_golden(error, golden_list)
+        result = FilterResult.from_error_dict(
+            error=error,
             chapter=chapter,
-            time_seconds=error.get('time', 0),
             is_filtered=True,
             filter_reason=error.get('filter_reason', 'unknown'),
-            is_golden=_is_golden(error, golden_list),
-            context=error.get('context', ''),
-            phonetic_similarity=error.get('similarity', error.get('phonetic_similarity', 0)),
+            is_golden=is_golden,
         )
         writer.write_error(result)
 
@@ -539,20 +717,25 @@ def write_filter_results(
     return run_id, action_counts
 
 
-def _normalize_word(word: str) -> str:
-    """Нормализует слово для сравнения"""
-    return word.lower().replace('ё', 'е').strip() if word else ''
+def _normalize_word_local(word: str) -> str:
+    """Нормализует слово для сравнения (локальная версия)"""
+    return normalize_word(word) if HAS_NORMALIZER else (word.lower().replace('ё', 'е').strip() if word else '')
 
 
 def _is_golden(error: Dict, golden_list: List[Dict]) -> bool:
-    """Проверяет, является ли ошибка golden"""
+    """
+    Проверяет, является ли ошибка golden.
+
+    v2.1: Использует error_normalizer для унификации полей.
+    Работает с ЛЮБЫМИ названиями полей (original/correct, transcript/wrong).
+    """
     if not golden_list:
         return False
 
-    # Нормализуем слова из ошибки
-    wrong = _normalize_word(error.get('transcript', error.get('word', '')))
-    correct = _normalize_word(error.get('original', error.get('from_book', '')))
-    time_sec = error.get('time', 0)
+    # v2.1: Унифицированное извлечение через error_normalizer
+    wrong = _normalize_word_local(get_transcript_word(error))
+    correct = _normalize_word_local(get_original_word(error))
+    time_sec = get_time_seconds(error)
 
     TIME_TOLERANCE = 15
 
@@ -560,9 +743,10 @@ def _is_golden(error: Dict, golden_list: List[Dict]) -> bool:
         if not isinstance(g, dict):
             continue
 
-        g_wrong = _normalize_word(g.get('wrong', g.get('transcript', '')))
-        g_correct = _normalize_word(g.get('correct', g.get('original', '')))
-        g_time = g.get('time_seconds', g.get('time', 0))
+        # v2.1: Golden файлы тоже могут иметь разные форматы
+        g_wrong = _normalize_word_local(get_transcript_word(g))
+        g_correct = _normalize_word_local(get_original_word(g))
+        g_time = get_time_seconds(g)
 
         # Проверяем по времени
         if abs(g_time - time_sec) > TIME_TOLERANCE:

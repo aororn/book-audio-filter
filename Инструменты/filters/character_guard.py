@@ -1,37 +1,29 @@
 """
-CharacterGuard v1.0 — Центральный модуль защиты имён персонажей.
+CharacterGuard v1.1 — Центральный модуль защиты имён персонажей.
 
 Используется:
 - AlignmentManager — для исключения имён из якорей
 - ScoringEngine — для выставления штрафов за ошибки в именах
 - smart_compare — для приоритизации защиты имён
 
+v1.1 (2026-01-31): Унификация импортов (убран fallback)
 v1.0 (2026-01-29): Начальная версия
 """
 
-VERSION = '1.0.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '1.1.0'
+VERSION_DATE = '2026-01-31'
 
 from typing import Set, Optional
 from functools import lru_cache
 
-# Импортируем существующие словари имён
-try:
-    from .detectors import (
-        FULL_CHARACTER_NAMES,
-        CHARACTER_NAMES_BASE,
-        load_character_names_dictionary,
-        load_base_character_names,
-    )
-    from .comparison import normalize_word
-except ImportError:
-    from detectors import (
-        FULL_CHARACTER_NAMES,
-        CHARACTER_NAMES_BASE,
-        load_character_names_dictionary,
-        load_base_character_names,
-    )
-    from comparison import normalize_word
+# v1.1: Прямые импорты (без fallback)
+from .detectors import (
+    FULL_CHARACTER_NAMES,
+    CHARACTER_NAMES_BASE,
+    load_character_names_dictionary,
+    load_base_character_names,
+)
+from .comparison import normalize_word
 
 
 # =============================================================================

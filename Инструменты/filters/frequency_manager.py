@@ -1,5 +1,5 @@
 """
-FrequencyManager v1.0 — Менеджер частотного словаря для скоринга ошибок.
+FrequencyManager v1.1 — Менеджер частотного словаря для скоринга ошибок.
 
 Использует частотный словарь НКРЯ (freqrnc2011.csv) для определения
 редких и книжных слов. Редкие авторские слова важнее для проверки.
@@ -14,20 +14,23 @@ FrequencyManager v1.0 — Менеджер частотного словаря �
     - Кэширование результатов для быстрого доступа
     - Поддержка POS-тегов для омонимов (а_CONJ vs а_INTJ)
 
-Версия: 1.0.0
-Дата: 2026-01-30
+v1.1.0 (2026-01-31): Пороги из config.py
+v1.0.0 (2026-01-30): Начальная версия
 """
 
 import os
 from functools import lru_cache
 from typing import Optional
 
-VERSION = '1.0.0'
-VERSION_DATE = '2026-01-30'
+VERSION = '1.1.0'
+VERSION_DATE = '2026-01-31'
 
-# Пороги частотности (калиброваны на стресс-тесте главы 1)
-RARE_THRESHOLD = 10      # ipm — редкое слово
-BOOKISH_THRESHOLD = 50   # ipm — книжное слово
+# v1.1: Пороги из config.py
+from .config import get_freq_rare_threshold, get_freq_bookish_threshold
+
+# Алиасы для обратной совместимости
+RARE_THRESHOLD = 10      # Используй get_freq_rare_threshold()
+BOOKISH_THRESHOLD = 50   # Используй get_freq_bookish_threshold()
 
 # Путь к словарю относительно корня проекта
 DEFAULT_DICT_PATH = os.path.join(
@@ -120,17 +123,17 @@ class FrequencyManager:
         return self._data.get(word_lower, 0.0)
 
     def is_rare(self, word: str, pos: Optional[str] = None) -> bool:
-        """Редкое слово (freq < 10 ipm)."""
-        return self.get_frequency(word, pos) < RARE_THRESHOLD
+        """Редкое слово (freq < rare_threshold ipm)."""
+        return self.get_frequency(word, pos) < get_freq_rare_threshold()
 
     def is_bookish(self, word: str, pos: Optional[str] = None) -> bool:
-        """Книжное слово (10 <= freq < 50 ipm)."""
+        """Книжное слово (rare_threshold <= freq < bookish_threshold ipm)."""
         freq = self.get_frequency(word, pos)
-        return RARE_THRESHOLD <= freq < BOOKISH_THRESHOLD
+        return get_freq_rare_threshold() <= freq < get_freq_bookish_threshold()
 
     def is_common(self, word: str, pos: Optional[str] = None) -> bool:
-        """Обычное слово (freq >= 50 ipm)."""
-        return self.get_frequency(word, pos) >= BOOKISH_THRESHOLD
+        """Обычное слово (freq >= bookish_threshold ipm)."""
+        return self.get_frequency(word, pos) >= get_freq_bookish_threshold()
 
     def get_category(self, word: str, pos: Optional[str] = None) -> str:
         """
@@ -140,12 +143,14 @@ class FrequencyManager:
             'rare' | 'bookish' | 'common' | 'unknown'
         """
         freq = self.get_frequency(word, pos)
+        rare = get_freq_rare_threshold()
+        bookish = get_freq_bookish_threshold()
 
         if freq == 0.0:
             return 'unknown'
-        elif freq < RARE_THRESHOLD:
+        elif freq < rare:
             return 'rare'
-        elif freq < BOOKISH_THRESHOLD:
+        elif freq < bookish:
             return 'bookish'
         else:
             return 'common'
@@ -157,8 +162,8 @@ class FrequencyManager:
             'total_entries': len(self._data),
             'path': self.dict_path,
             'loaded': self._loaded,
-            'rare_threshold': RARE_THRESHOLD,
-            'bookish_threshold': BOOKISH_THRESHOLD,
+            'rare_threshold': get_freq_rare_threshold(),
+            'bookish_threshold': get_freq_bookish_threshold(),
         }
 
 

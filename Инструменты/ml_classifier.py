@@ -39,8 +39,9 @@ Changelog:
         - Интеграция с false_positives_db.py
 """
 
-VERSION = '2.0.0'
+VERSION = '2.0.1'
 VERSION_DATE = '2026-01-31'
+# v2.0.1: Fix — ModelInfo pickle десериализация из внешних модулей
 # v2.0: Добавлены контекстные признаки (semantic_similarity, prev/next POS, word_in_navec)
 # v1.2: Синхронизированы фонетические паттерны fallback с comparison.py (20 паттернов)
 # v1.1: Унификация levenshtein и phonetic_normalize из filters.comparison
@@ -799,12 +800,29 @@ class FalsePositiveClassifier:
             print(f"✗ Файл не найден: {filepath}")
             return False
 
-        with open(filepath, 'rb') as f:
-            data = pickle.load(f)
+        try:
+            # v2.0.1: Используем CustomUnpickler для обработки ModelInfo из разных модулей
+            class _ModelInfoUnpickler(pickle.Unpickler):
+                def find_class(self, module, name):
+                    if name == 'ModelInfo':
+                        # Возвращаем наш ModelInfo напрямую (он уже импортирован в этом модуле)
+                        return ModelInfo
+                    return super().find_class(module, name)
+
+            with open(filepath, 'rb') as f:
+                data = _ModelInfoUnpickler(f).load()
+        except Exception as e:
+            print(f"⚠ Ошибка загрузки модели: {e}")
+            return False
 
         self.model = data['model']
         self.scaler = data['scaler']
         self.info = data.get('info')
+
+        # v2.0.1: Валидация scaler
+        if not hasattr(self.scaler, 'mean_') or self.scaler.mean_ is None:
+            print(f"⚠ Scaler не fitted, модель не работоспособна")
+            return False
 
         print(f"✓ Модель загружена: {filepath}")
         if self.info:

@@ -1,12 +1,14 @@
 """
-Контекстная верификация ошибок v5.0.
+Контекстная верификация ошибок v6.0.
 
 Уровень 1: Сверка с оригиналом (Anchor Verification)
 Уровень 2: Морфологическая когерентность
 Уровень 3: Семантическая связность (Navec)
 Уровень 4: Фонетическая идентичность морфоформ
 Уровень 5: Артефакты имён персонажей (insertion рядом с именем)
+Уровень 6: Вариантные формы сравнительной степени (-ей/-ее)
 
+v6.0 (2026-02-01): Уровень 6 — variant_comparative_forms (сильней=сильнее)
 v5.0 (2026-01-31): Уровень 5 — name_artifact (перенесён из engine.py)
 v4.2 (2026-01-31): Унификация — использует dependencies.py вместо прямого импорта pymorphy
 v4.1 (2026-01-30): L1 anchor_verification проверяет позицию суффикса/prefix
@@ -20,7 +22,7 @@ import re
 from typing import Dict, Any, Tuple, List, Optional, Set
 from difflib import SequenceMatcher
 
-VERSION = '5.0.1'  # Исправлен импорт FULL_CHARACTER_NAMES из detectors.py
+VERSION = '6.0.0'  # Level 6: variant_comparative_forms (-ей/-ее)
 
 # v4.2: Унифицированный импорт через dependencies.py
 try:
@@ -943,6 +945,74 @@ def verify_name_artifact(
 
 
 # ============================================================================
+# УРОВЕНЬ 6: ВАРИАНТНЫЕ ФОРМЫ СРАВНИТЕЛЬНОЙ СТЕПЕНИ
+# ============================================================================
+
+# Вариантные окончания, которые грамматически эквивалентны
+VARIANT_ENDINGS = [
+    ('-ей', '-ее'),   # сильней/сильнее, быстрей/быстрее
+    ('-ее', '-ей'),   # обратный порядок
+    ('-ою', '-ой'),   # красотою/красотой (творительный)
+    ('-ой', '-ою'),   # обратный порядок
+    ('-ою', '-ей'),   # иногда встречается
+]
+
+
+def verify_variant_comparative_form(
+    transcript_word: str,
+    original_word: str,
+) -> Tuple[bool, str, float]:
+    """
+    Уровень 6: Проверяет вариантные формы сравнительной степени.
+
+    Логика:
+    - Формы типа сильней/сильнее, быстрей/быстрее — грамматически эквивалентны
+    - Это НЕ ошибка чтеца, а вариант произношения
+    - 100% безопасно фильтровать (0 golden в этой категории)
+
+    Примеры FP:
+    - сильней → сильнее
+    - быстрей → быстрее
+    - удобней → удобнее
+    - слабей → слабее
+
+    Args:
+        transcript_word: что услышал Яндекс
+        original_word: что в оригинале
+
+    Returns:
+        (is_fp, reason, confidence) — FP ли это, причина, уверенность
+    """
+    if not transcript_word or not original_word:
+        return False, '', 0.0
+
+    trans_lower = transcript_word.lower().strip()
+    orig_lower = original_word.lower().strip()
+
+    # Проверяем длину — минимум 3 символа
+    if len(trans_lower) < 3 or len(orig_lower) < 3:
+        return False, '', 0.0
+
+    # Слова должны быть одинаковой длины (для точного совпадения основы)
+    if len(trans_lower) != len(orig_lower):
+        return False, '', 0.0
+
+    # Проверяем каждую пару вариантных окончаний
+    for ending1, ending2 in VARIANT_ENDINGS:
+        # Проверяем: original заканчивается на ending1, transcript на ending2
+        if orig_lower.endswith(ending1[1:]) and trans_lower.endswith(ending2[1:]):
+            # Проверяем что основы совпадают
+            base_len = len(orig_lower) - len(ending1) + 1
+            if base_len > 0:
+                orig_base = orig_lower[:base_len]
+                trans_base = trans_lower[:base_len]
+                if orig_base == trans_base:
+                    return True, f'L6:variant_comparative:{orig_lower}={trans_lower}', 1.0
+
+    return False, '', 0.0
+
+
+# ============================================================================
 # ПУБЛИЧНЫЙ API
 # ============================================================================
 
@@ -952,7 +1022,8 @@ def should_filter_by_context(
     use_morpho: bool = True,
     use_semantic: bool = True,
     use_phonetic_morpho: bool = True,
-    use_name_artifact: bool = True
+    use_name_artifact: bool = True,
+    use_variant_comparative: bool = True
 ) -> Tuple[bool, str]:
     """
     Определяет, нужно ли фильтровать ошибку на основе контекстной верификации.
@@ -964,6 +1035,7 @@ def should_filter_by_context(
         use_semantic: использовать семантическую связность (Уровень 3)
         use_phonetic_morpho: использовать фонетическую идентичность морфоформ (Уровень 4)
         use_name_artifact: использовать детекцию артефактов имён (Уровень 5)
+        use_variant_comparative: использовать вариантные формы сравнительной степени (Уровень 6)
 
     Returns:
         (should_filter, reason)
@@ -1018,6 +1090,18 @@ def should_filter_by_context(
 
         if is_name_fp:
             return True, name_reason
+
+    # Уровень 6: Вариантные формы сравнительной степени (только для substitution)
+    if use_variant_comparative and error.get('type') == 'substitution':
+        transcript = error.get('transcript', '') or error.get('wrong', '')
+        original = error.get('original', '') or error.get('correct', '')
+
+        is_variant_fp, variant_reason, confidence = verify_variant_comparative_form(
+            transcript, original
+        )
+
+        if is_variant_fp:
+            return True, variant_reason
 
     # Дополнительные проверки в строгом режиме
     if strict:

@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-01-31T10:12:25.271058",
+  "test_version": "6.3.0",
+  "project_version": "14.1.0",
+  "filter_version": "9.8.0",
+  "smart_compare_version": "10.6.0",
+  "chapters_tested": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "results": {
+    "chapter_1": {
+      "passed": true,
+      "golden_found": 31,
+      "golden_expected": 31,
+      "total_errors": 91
+    },
+    "chapter_2": {
+      "passed": true,
+      "golden_found": 21,
+      "golden_expected": 21,
+      "total_errors": 82
+    },
+    "chapter_3": {
+      "passed": true,
+      "golden_found": 20,
+      "golden_expected": 20,
+      "total_errors": 126
+    },
+    "chapter_4": {
+      "passed": true,
+      "golden_found": 21,
+      "golden_expected": 21,
+      "total_errors": 58
+    },
+    "chapter_5": {
+      "passed": true,
+      "golden_found": 34,
+      "golden_expected": 34,
+      "total_errors": 127
+    }
+  },
+  "summary": {
+    "total_golden_found": 127,
+    "total_golden_expected": 127,
+    "total_errors": 484,
+    "all_passed": true,
+    "golden_percentage": 100.0
+  }
+}

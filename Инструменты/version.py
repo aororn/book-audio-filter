@@ -11,20 +11,24 @@ v1.0.0 (2026-01-30): Начальная версия
 # ВЕРСИЯ ПРОЕКТА
 # =============================================================================
 
-PROJECT_VERSION = '14.11.2'
-PROJECT_DATE = '2026-01-31'
+PROJECT_VERSION = '14.17.0'
+PROJECT_DATE = '2026-02-01'
 
 # =============================================================================
 # ВЕРСИИ МОДУЛЕЙ (синхронизированы с реальными версиями в файлах)
 # =============================================================================
 
 # Фильтрация
-FILTER_ENGINE_VERSION = '9.17.0'      # v9.17.0: context_name_artifact перенесён в context_verifier.py (Level 5)
-CLUSTER_ANALYZER_VERSION = '1.0.0'    # v1.0.0: Кластерный анализ артефактов
-CONTEXT_VERIFIER_VERSION = '5.0.0'    # v5.0.0: Level 5 — name_artifact (перенесён из engine.py)
+FILTER_ENGINE_VERSION = '9.20.0'      # v9.20.0: ContextVerifier→L10, ML→L11, HARD_NEGATIVES защита
+CLUSTER_ANALYZER_VERSION = '1.1.0'    # v1.1.0: Добавлен check_merge_artifact()
+CONTEXT_VERIFIER_VERSION = '5.0.0'    # v5.0.0: Level 5 — name_artifact
+ALIGNMENT_FILTER_VERSION = '1.0.0'    # v1.0.0: НОВЫЙ — унификация alignment-логики
 RULES_MODULE_VERSION = '1.0.0'
 MORPHO_RULES_VERSION = '1.4.0'        # v1.4: Исправлен импорт morphology
-COMPARISON_VERSION = '6.5.0'           # v6.5: Исправлен импорт morphology
+COMPARISON_VERSION = '6.5.0'          # v6.5: Исправлен импорт morphology
+CONFIG_VERSION = '1.3.0'              # v1.3.0: Добавлены пороги PhoneticSemantic, SafetyVeto
+PHONETIC_SEMANTIC_VERSION = '1.1.0'   # v1.1.0: Импорт порогов из config.py
+SAFETY_VETO_VERSION = '2.3.0'         # v2.3.0: Исключение для имён персонажей
 
 # Выравнивание
 SMART_COMPARE_VERSION = '10.6.0'       # Реальная версия в smart_compare.py
@@ -47,7 +51,9 @@ AUDIO_CONVERTER_VERSION = '2.0.0'     # Конвертация аудио
 
 # База знаний v2.2 — унифицированы пути
 DB_SCHEMA_VERSION = '2.2.0'           # Унифицированный путь к БД из config.py
-POPULATE_DB_VERSION = '3.2.0'         # Унифицированный путь к БД из config.py
+POPULATE_DB_VERSION = '2.2.0'         # v2.2: Таблица истории изменений
+DB_WRITER_VERSION = '2.1.0'           # v2.1: Интеграция error_normalizer
+ERROR_NORMALIZER_VERSION = '1.0.0'    # v1.0: НОВЫЙ — унификация полей ошибок
 ERROR_CONTEXT_VERSION = '1.0.0'       # Модуль контекстов ошибок
 MERGE_SPLIT_DETECTOR_VERSION = '1.0.0' # Детектор merge/split паттернов
 

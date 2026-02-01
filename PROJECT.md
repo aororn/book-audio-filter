@@ -1,200 +1,127 @@
 # Проверка аудиокниг через Яндекс SpeechKit
 
-**Версия:** 14.12.0 | **Дата:** 2026-01-31
+**Версия:** 14.15.0 | **Дата:** 2026-02-01
 
-> Полная документация: `Документация/Архив/PROJECT_FULL.md`
-
-## ВАЖНО: Запуск проекта
-
-**Проект работает через venv:**
-
-```bash
-# Активировать venv
-source venv/bin/activate
-
-# Запуск тестов
-python Тесты/run_full_test.py
-
-# Запуск пайплайна
-python Инструменты/pipeline.py audio.mp3 original.docx
-```
-
-## Текущие показатели v14.12.0
-
-| Метрика | Значение |
-|---------|----------|
-| **Golden** | 127/127 ✓ |
-| **Всего ошибок** | 385 (5 глав) |
-| **Всего в БД** | 1411 |
-| **Отфильтровано** | 1026 |
-| **ML v2.0 признаков** | 31 |
-| **SafetyVeto v2.0** | Финальная защита |
-| **ClusterAnalyzer v1.1** | merge_artifact + кластеры |
-
-### Статистика по главам
-
-| Глава | Ошибок | Filtered | Golden | Результат |
-|-------|--------|----------|--------|-----------|
-| 1 | 471 | 384 | 31 | 87 |
-| 2 | 204 | 146 | 21 | 58 |
-| 3 | 244 | 156 | 20 | 88 |
-| 4 | 201 | 160 | 21 | 41 |
-| 5 | 287 | 179 | 34 | 108 |
-| **Итого** | **1407** | **~1000** | **127** | **382** |
-
-## Архитектура v14.12
-
-```
-Аудио → Яндекс SpeechKit → Транскрипция
-                               ↓
-Оригинал → Нормализация → Умное сравнение → Фильтрация → SafetyVeto → Ошибки
-                               ↓                ↓            ↓            ↓
-                        JSON / DOCX / Веб    10 уровней   VETO защита   БД
-                                                    ↓
-                                             Context Verifier (5 уровней)
-```
-
-### Структура слоёв фильтрации v14.12
-
-```
-УРОВЕНЬ -0.6: Междометия
-УРОВЕНЬ -0.3: merge_artifact (ClusterAnalyzer)
-УРОВЕНЬ 0: MorphoRules
-УРОВЕНЬ 0.4-0.5: PhoneticSemantic (объединённый модуль)
-УРОВЕНЬ 0.6: AlignmentArtifacts
-УРОВНИ 1-9: InlineFilters (словари)
-УРОВЕНЬ 10: ML-классификатор
-УРОВЕНЬ 12: ContextVerifier (L1-L5)
-УРОВЕНЬ 13: ClusterAnalyzer
-ФИНАЛ: SafetyVeto (HARD_NEGATIVES + semantic_slip + merged + misrecognized)
-```
-
-### База данных v2.2 — Единый источник правды
-
-**Ключевое изменение v14.8:**
-- `filter_report()` автоматически записывает в БД
-- История изменений отслеживается автоматически
-- Единый путь: `Словари/false_positives.db`
-
-```bash
-python Инструменты/filters/db_writer.py --info     # Статистика БД
-python Инструменты/populate_db_v3.py --history     # История изменений
-python Инструменты/populate_db_v3.py --stats       # Детальная статистика
-```
-
-**Схема БД v2.1:**
-- **errors** — все ошибки с метриками (морфология, семантика, частотность)
-- **error_history** — история изменений (created, deleted, filtered, unfiltered)
-- **sync_runs** — метаданные каждого прогона
-- **error_links** — связи между ошибками (merge/split паттерны)
-
-### Ключевые модули
-
-| Модуль | Версия | Назначение |
-|--------|--------|------------|
-| version.py | v1.0 | Единый источник версий |
-| smart_compare.py | v10.6 | Посегментное выравнивание |
-| **engine.py** | **v9.19.0** | **Оркестратор фильтрации** |
-| **safety_veto.py** | **v2.0.0** | **Финальная защита (VETO)** |
-| **phonetic_semantic.py** | **v1.0.0** | **Фонетико-семантические фильтры** |
-| **cluster_analyzer.py** | **v1.1.0** | **Кластерный анализ + merge_artifact** |
-| db_writer.py | v1.2.0 | Интеграция фильтрации с БД |
-| ml_classifier.py | v2.0.0 | ML с контекстными признаками (31 признак) |
-| context_verifier.py | v5.0 | Контекстная верификация (5 уровней) |
-| comparison.py | v6.5 | Сравнение + phonetic_normalize |
-| morpho_rules.py | v1.4 | Морфологические правила |
-| config.py | v6.1 | Единый путь к БД (FALSE_POSITIVES_DB) |
-| db_schema_v2.py | v2.2 | Схема БД + миграция |
-| populate_db_v3.py | v3.2 | Populator с историей изменений |
-
-### Context Verifier v5.0
-
-| Уровень | Метод | Назначение | FP |
-|---------|-------|------------|-----|
-| 1 | anchor_verification | Якорные слова ±2 позиции | 4 |
-| 2 | morpho_coherence | Согласование морфологии | 5 |
-| 3 | semantic_coherence | Семантическая связность | 2 |
-| 4 | phonetic_morphoform | same_lemma + same_phonetic | 55 |
-| 5 | name_artifact | Артефакты имён персонажей | 4 |
-| **Итого** | | | **70** |
+---
 
 ## Быстрый старт
 
 ```bash
-# Полный пайплайн
-python Инструменты/pipeline.py глава.mp3 оригинал.docx
+source venv/bin/activate
 
-# С веб-интерфейсом
-python Инструменты/pipeline.py глава.mp3 оригинал.docx --web
+# Пайплайн
+python Инструменты/pipeline.py audio.mp3 original.docx
 
 # Тесты
-python Тесты/run_full_test.py           # все главы
-python Тесты/run_full_test.py --clean   # чистое тестирование
-
-# Версии
-python Инструменты/version.py            # текущие версии
+python Тесты/run_full_test.py
 ```
 
-## Структура проекта
+---
+
+## Метрики
+
+| Метрика | Значение |
+|---------|----------|
+| Golden | **127/127** ✓ |
+| Ошибок | 388 (5 глав) |
+| В БД | 1409 |
+| Отфильтровано | 1021 |
+
+---
+
+## Архитектура
+
+```
+Аудио → Яндекс SpeechKit → Транскрипция
+                               ↓
+Оригинал → smart_compare.py → Фильтрация → SafetyVeto → Ошибки
+                                   ↓
+                              engine.py (10+ уровней)
+                                   ↓
+                              БД (автозапись)
+```
+
+### Слои фильтрации
+
+```
+L-0.6: Междометия
+L-0.3: merge_artifact
+L0: MorphoRules
+L0.4-0.5: PhoneticSemantic
+L0.6: AlignmentArtifacts
+L1-9: Inline фильтры
+L10: ContextVerifier (5 уровней)
+L11: ML-классификатор (31 признак)
+L13: ClusterAnalyzer
+ФИНАЛ: SafetyVeto
+```
+
+---
+
+## Ключевые модули
+
+| Модуль | Версия | Назначение |
+|--------|--------|------------|
+| engine.py | 9.20 | Оркестратор фильтрации |
+| error_normalizer.py | 1.0 | Унификация полей |
+| context_verifier.py | 5.0 | 5 уровней верификации |
+| safety_veto.py | 2.1 | Финальная защита |
+| db_writer.py | 2.1 | Автозапись в БД |
+| ml_classifier.py | 2.0 | ML (31 признак) |
+| smart_compare.py | 10.6 | Выравнивание |
+
+---
+
+## База данных
+
+```bash
+python Инструменты/populate_db.py --stats   # статистика
+python Инструменты/filters/db_writer.py --info  # инфо
+```
+
+Единый путь: `Словари/false_positives.db`
+
+**Таблицы:** errors, error_history, sync_runs, error_links
+
+---
+
+## error_normalizer
+
+Унификация полей (original↔correct, transcript↔wrong):
+
+```python
+from error_normalizer import (
+    get_original_word,    # original/correct/from_book
+    get_transcript_word,  # transcript/wrong/word
+    errors_match,         # сравнение ошибок
+)
+```
+
+---
+
+## Принципы
+
+1. **Консервативность** — при сомнении НЕ фильтруем
+2. **Golden = 100%** — реальные ошибки не фильтруются
+3. **Грамматика = ошибка** — разные леммы/падежи = реальная ошибка
+4. **Унификация** — error_normalizer для консистентности
+
+---
+
+## Структура
 
 ```
 Яндекс Спич/
 ├── Инструменты/
-│   ├── pipeline.py          # Полный пайплайн
-│   ├── smart_compare.py     # Умное сравнение v10.6
-│   ├── version.py           # Единый источник версий
-│   ├── config.py            # Конфигурация v6.1 (единый путь к БД)
-│   ├── filters/
-│   │   ├── __init__.py      # Публичный API v8.3
-│   │   ├── engine.py        # Движок фильтрации v9.12 + БД
-│   │   ├── db_writer.py     # Интеграция с БД v1.1 (NEW)
-│   │   ├── comparison.py    # Сравнение v6.5
-│   │   ├── morpho_rules.py  # Морфология v1.4
-│   │   ├── config.py        # Пороги и флаги v1.2
-│   │   ├── dependencies.py  # Менеджер зависимостей v1.2
-│   │   ├── rules/           # Модульные правила v1.1
-│   │   │   ├── protection.py
-│   │   │   ├── phonetics.py
-│   │   │   ├── alignment.py
-│   │   │   ├── insertion.py
-│   │   │   ├── deletion.py
-│   │   │   └── substitution.py
-│   │   └── ...
-│   ├── db_schema_v2.py      # Схема БД v2.2
-│   ├── populate_db_v3.py    # Populator v3.2
-│   └── ...
-├── Тесты/
-│   ├── run_full_test.py     # Полный тест v6.3
-│   ├── золотой_стандарт_глава*.json
-│   └── ...
-├── Словари/
-│   ├── false_positives.db   # ЕДИНСТВЕННАЯ БД (v2.1)
-│   └── ...
-├── Результаты проверки/     # Актуальные результаты
-│   ├── 01/                  # *_compared.json, *_filtered.json
-│   └── ...
-├── PROJECT.md
-├── ROADMAP.md
-└── CHANGELOG.md
+│   ├── pipeline.py, smart_compare.py, version.py
+│   ├── error_normalizer.py, populate_db.py
+│   └── filters/ (engine.py, db_writer.py, context_verifier.py, ...)
+├── Тесты/ (run_full_test.py, золотой_стандарт_*.json)
+├── Словари/ (false_positives.db)
+├── Результаты проверки/ (01-05/)
+└── PROJECT.md, ROADMAP.md, CHANGELOG.md
 ```
-
-## Принципы фильтрации
-
-1. **Консервативность** — при сомнении НЕ фильтруем
-2. **Golden = 100%** — ни одна реальная ошибка не должна быть отфильтрована
-3. **Грамматика = реальная ошибка** — разные леммы/падежи/числа = реальные ошибки чтеца
-4. **БД = автоматическая** — filter_report() сам записывает в БД
-
-### Ключевое правило
-
-**Одинаковая лемма НЕ означает ложную ошибку!**
-
-Если лемма одинаковая, но есть грамматические различия — это РЕАЛЬНАЯ ошибка:
-- `сотни → сотня` — разное число
-- `теряю → теряя` — VERB → GRND
-- `получится → получилось` — разный вид
-- `ключ → ключа` — разный падеж
 
 ---
 
-*Версия: 14.9.0 (2026-01-31)*
+*v14.14.0 (2026-02-01)*

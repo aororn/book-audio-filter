@@ -473,28 +473,37 @@
 
                 const timeStr = formatTime(error.time);
 
+                // Поддержка разных форматов данных (wrong/correct или transcript/original)
+                const wrongWord = error.wrong || error.transcript || '';
+                const correctWord = error.correct || error.original || '';
+                const theWord = error.word || error.transcript || error.original || '';
+
                 let errorText = '';
                 if (error.type === 'substitution') {
-                    errorText = `<span class="wrong">${error.wrong}</span> → <span class="correct">${error.correct}</span>`;
+                    errorText = `<span class="wrong">${wrongWord}</span> → <span class="correct">${correctWord}</span>`;
                 } else if (error.type === 'transposition') {
-                    errorText = `<span class="wrong">${error.wrong}</span> → <span class="correct">${error.correct}</span>`;
+                    errorText = `<span class="wrong">${wrongWord}</span> → <span class="correct">${correctWord}</span>`;
                 } else if (error.type === 'insertion') {
-                    errorText = `лишнее слово: <span class="wrong">${error.word}</span>`;
+                    errorText = `лишнее слово: <span class="wrong">${error.transcript || theWord}</span>`;
                 } else if (error.type === 'deletion') {
-                    errorText = `пропущено: <span class="correct">${error.word}</span>`;
+                    errorText = `пропущено: <span class="correct">${error.original || theWord}</span>`;
                 }
 
                 // Форматируем контекст с маркером для всех типов ошибок
                 let contextHtml = '';
                 if (error.context) {
-                    if (error.type === 'deletion' && error.word) {
-                        contextHtml = highlightMissingWord(error.context, error.word, error.marker_pos);
-                    } else if (error.type === 'insertion' && error.word) {
-                        contextHtml = highlightInsertionPlace(error.context, error.word, error.marker_pos);
-                    } else if (error.type === 'substitution' && error.correct) {
-                        contextHtml = highlightSubstitution(error.context, error.correct, error.marker_pos);
-                    } else if (error.type === 'transposition' && error.correct) {
-                        contextHtml = highlightTransposition(error.context, error.correct, error.marker_pos);
+                    const delWord = error.word || error.original || '';
+                    const insWord = error.word || error.transcript || '';
+                    const subWord = error.correct || error.original || '';
+
+                    if (error.type === 'deletion' && delWord) {
+                        contextHtml = highlightMissingWord(error.context, delWord, error.marker_pos);
+                    } else if (error.type === 'insertion' && insWord) {
+                        contextHtml = highlightInsertionPlace(error.context, insWord, error.marker_pos);
+                    } else if (error.type === 'substitution' && subWord) {
+                        contextHtml = highlightSubstitution(error.context, subWord, error.marker_pos);
+                    } else if (error.type === 'transposition' && subWord) {
+                        contextHtml = highlightTransposition(error.context, subWord, error.marker_pos);
                     } else {
                         contextHtml = '...' + error.context + '...';
                     }

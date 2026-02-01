@@ -1,5 +1,5 @@
 """
-Защитные слои фильтрации v1.0.
+Защитные слои фильтрации v1.1.
 
 Эти правила выполняются ПЕРВЫМИ и защищают реальные ошибки от фильтрации.
 Если защитный слой срабатывает — ошибка НЕ фильтруется.
@@ -8,15 +8,21 @@
 1. HARD_NEGATIVES — известные пары путаницы (scoring_engine.py)
 2. SEMANTIC_SLIP — оговорки чтеца (semantic_manager.py)
 
+v1.1 (2026-01-31): Пороги из config.py (без дублирования)
 v1.0 (2026-01-30): Извлечено из engine.py v8.9
 """
 
 from typing import Tuple, Optional
 
-# Калиброванные пороги на основе анализа БД (941 ошибок)
-# Анализ: high semantic + diff_lemma = 12 golden, 247 FP
-SEMANTIC_SLIP_THRESHOLD = 0.4      # Семантическая близость для оговорки
-PHONETIC_SLIP_THRESHOLD = 0.7      # Фонетическая близость для оговорки
+# v1.1: Пороги теперь берутся из config.py
+try:
+    from ..config import get_semantic_slip_threshold, get_phonetic_slip_threshold
+except ImportError:
+    # Fallback для изолированного запуска
+    def get_semantic_slip_threshold() -> float:
+        return 0.4
+    def get_phonetic_slip_threshold() -> float:
+        return 0.7
 
 
 def check_hard_negatives(w1: str, w2: str) -> Tuple[bool, str]:
@@ -45,7 +51,7 @@ def check_hard_negatives(w1: str, w2: str) -> Tuple[bool, str]:
 def check_semantic_slip(
     w1: str,
     w2: str,
-    threshold: float = SEMANTIC_SLIP_THRESHOLD
+    threshold: float = None
 ) -> Tuple[bool, str]:
     """
     Проверяет семантическую близость для детекции оговорок.
@@ -61,6 +67,10 @@ def check_semantic_slip(
     Returns:
         (should_protect, reason) — если should_protect=True, НЕ фильтровать
     """
+    # v1.1: Порог из config.py если не передан явно
+    if threshold is None:
+        threshold = get_semantic_slip_threshold()
+
     try:
         from ..semantic_manager import get_similarity
         from ..comparison import get_lemma, HAS_PYMORPHY

@@ -84,22 +84,6 @@ def load_reader_errors(path: str) -> None:
     print(f"  Загружено ошибок чтеца: {len(errors_set)}")
 
 
-def load_protected_words(path: str) -> None:
-    """Загружает защищённые слова."""
-    from filters.constants import PROTECTED_WORDS as prot_words
-
-    if not os.path.exists(path):
-        return
-
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f:
-            word = line.strip().lower()
-            if word and not word.startswith('#'):
-                prot_words.add(word)
-
-    print(f"  Защищённых слов: {len(prot_words)}")
-
-
 def main():
     parser = argparse.ArgumentParser(
         description='Golden Filter v5.0 — модульная фильтрация ошибок транскрипции',

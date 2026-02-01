@@ -146,7 +146,8 @@ def process_transcript(transcript_path, output_dir=None):
 
         # 3. Фильтрация
         print("  [3/3] Фильтрация ошибок...")
-        filtered_errors, removed, filter_stats = filter_errors(errors_data)
+        # v9.7.0: filter_errors возвращает 4 элемента
+        filtered_errors, removed, filter_stats, protected_stats = filter_errors(errors_data)
         print(f"       После фильтрации: {len(filtered_errors)}")
 
         # Сохраняем filtered

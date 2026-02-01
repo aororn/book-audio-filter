@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-01-30T20:22:34.568831",
+  "test_version": "6.3.0",
+  "filter_version": "9.2",
+  "smart_compare_version": "10.4.0",
+  "chapters_tested": [
+    "5"
+  ],
+  "results": {
+    "chapter_5": {
+      "passed": false,
+      "golden_found": 32,
+      "golden_expected": 34,
+      "total_errors": 111
+    }
+  },
+  "summary": {
+    "total_golden_found": 32,
+    "total_golden_expected": 34,
+    "total_errors": 111,
+    "all_passed": false,
+    "golden_percentage": 94.1
+  }
+}

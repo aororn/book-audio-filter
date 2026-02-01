@@ -185,7 +185,8 @@ def process_transcript(
     all_errors = compared_data.get('errors', [])
 
     # Шаг 2: Запускаем фильтрацию
-    filtered_errors, removed_errors, filter_stats = filter_errors(all_errors)
+    # v9.7.0: filter_errors теперь возвращает 4 элемента
+    filtered_errors, removed_errors, filter_stats, protected_stats = filter_errors(all_errors)
 
     # Создаём маппинг removed_errors по ключу
     removed_map: Dict[str, str] = {}

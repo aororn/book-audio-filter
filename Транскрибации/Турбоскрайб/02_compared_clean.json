@@ -1,0 +1,167 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "timestamp": "2026-01-30T14:52:32.222552",
+    "transcript_file": "02_normalized_clean.txt",
+    "original_file": "original_02_normalized.txt",
+    "transcript_words": 5334,
+    "original_words": 5342,
+    "note": "Phantoms removed"
+  },
+  "summary": {
+    "total_errors": 212,
+    "filtered_errors": 188,
+    "remaining_errors": 24,
+    "by_type": {
+      "insertion": 24
+    },
+    "wer_raw": 3.97,
+    "wer_filtered": 0.45
+  },
+  "errors": [
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "того",
+      "position": 22
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "того",
+      "position": 37
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "десятеро",
+      "position": 145
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 453
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "справился",
+      "position": 528
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 584
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 1118
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "дым",
+      "position": 1118
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "с",
+      "position": 1755
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "тем",
+      "position": 3061
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "таранви",
+      "position": 3118
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речь",
+      "position": 3149
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 3283
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "павшие",
+      "position": 3478
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "а",
+      "position": 3944
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "поле",
+      "position": 4051
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речи",
+      "position": 4134
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "разборчивый",
+      "position": 4138
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 4280
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речи",
+      "position": 4555
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "страже",
+      "position": 4637
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речью",
+      "position": 4670
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "об",
+      "position": 4728
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "арморочные",
+      "position": 5076
+    }
+  ]
+}

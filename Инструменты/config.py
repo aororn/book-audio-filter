@@ -41,7 +41,6 @@ AUDIO_DIR = ORIGINAL_DIR / 'Аудио'       # MP3 файлы аудиокни�
 
 # Словари
 NAMES_DICT = DICTIONARIES_DIR / 'Словарь_имён_персонажей.txt'
-PROTECTED_WORDS = DICTIONARIES_DIR / 'защищенные_слова.txt'
 READER_ERRORS = DICTIONARIES_DIR / 'ошибки_чтеца.json'
 CONFIG_JSON = DICTIONARIES_DIR / 'config.json'
 

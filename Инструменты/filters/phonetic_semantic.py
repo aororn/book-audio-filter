@@ -1,5 +1,5 @@
 """
-Фонетико-семантические фильтры v1.0.
+Фонетико-семантические фильтры v1.1.
 
 Объединяет фильтры, работающие с фонетикой и семантикой:
 - same_phonetic_diff_lemma (ex-уровень 0.4)
@@ -11,10 +11,11 @@
 - phonetic_normalize
 - SemanticManager (get_similarity)
 
+v1.1 (2026-01-31): Централизованные пороги из config.py
 v1.0 (2026-01-31): Объединены из engine.py v9.19
 """
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 VERSION_DATE = '2026-01-31'
 
 from typing import Dict, Any, Tuple, Optional, Set
@@ -40,18 +41,29 @@ except ImportError:
 
 
 # =============================================================================
-# ПОРОГИ
+# ПОРОГИ (v1.1: централизованы в config.py)
 # =============================================================================
+
+# Импорт централизованных порогов
+try:
+    from .config import (
+        get_phon_sem_high_phon,
+        get_phon_sem_high_sem,
+        get_phon_sem_perfect_phon,
+    )
+    HAS_CONFIG = True
+except ImportError:
+    HAS_CONFIG = False
 
 # Уровень 0.4: Одинаковая фонетика
 MIN_WORD_LENGTH = 3  # Исключаем короткие слова (и, я, а)
 
-# Уровень 0.45: Высокая фонетика + семантика
-HIGH_PHON_THRESHOLD = 0.8
-HIGH_SEM_THRESHOLD = 0.5
+# Уровень 0.45: Высокая фонетика + семантика (fallback если config.py недоступен)
+HIGH_PHON_THRESHOLD = get_phon_sem_high_phon() if HAS_CONFIG else 0.8
+HIGH_SEM_THRESHOLD = get_phon_sem_high_sem() if HAS_CONFIG else 0.5
 
 # Уровень 0.5: Идеальная фонетика
-PERFECT_PHON_THRESHOLD = 0.99
+PERFECT_PHON_THRESHOLD = get_phon_sem_perfect_phon() if HAS_CONFIG else 0.99
 
 
 # =============================================================================

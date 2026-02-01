@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "timestamp": "2026-01-30T14:52:32.224690",
+    "transcript_file": "03_normalized_clean.txt",
+    "original_file": "original_03_normalized.txt",
+    "transcript_words": 7409,
+    "original_words": 7418,
+    "note": "Phantoms removed"
+  },
+  "summary": {
+    "total_errors": 351,
+    "filtered_errors": 309,
+    "remaining_errors": 42,
+    "by_type": {
+      "insertion": 42
+    },
+    "wer_raw": 4.73,
+    "wer_filtered": 0.57
+  },
+  "errors": [
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "идеальное",
+      "position": 88
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 233
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 535
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "рзум",
+      "position": 644
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 644
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 794
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "готове",
+      "position": 969
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "к",
+      "position": 1168
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "карте",
+      "position": 1444
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "намного",
+      "position": 1911
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "загнулся",
+      "position": 2273
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "нужно",
+      "position": 2289
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 3043
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "прав",
+      "position": 3084
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "прав",
+      "position": 3214
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "я",
+      "position": 3214
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "не",
+      "position": 3214
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "другому",
+      "position": 3404
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "настоящие",
+      "position": 3466
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "а",
+      "position": 3466
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "не",
+      "position": 3466
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "я",
+      "position": 4159
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "он",
+      "position": 4378
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "ни",
+      "position": 4830
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "два",
+      "position": 4830
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 4830
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "даже",
+      "position": 4830
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 4876
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 4879
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "послабее",
+      "position": 5097
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "кто",
+      "position": 5097
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 5289
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "током",
+      "position": 5613
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "тороплю",
+      "position": 5855
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 5952
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "клоп",
+      "position": 6068
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 6135
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "своих",
+      "position": 6670
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 6983
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "с",
+      "position": 7050
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 7093
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "душа",
+      "position": 7145
+    }
+  ]
+}

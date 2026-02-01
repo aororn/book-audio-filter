@@ -1,0 +1,334 @@
+{
+  "_comment": "Золотой стандарт ошибок главы 1. Эти ошибки ДОЛЖНЫ находиться при любой проверке.",
+  "chapter": "Глава 1",
+  "audio": "01.mp3",
+  "errors": [
+    {
+      "time": "0:59",
+      "time_seconds": 59,
+      "type": "substitution",
+      "wrong": "ЖИВЕМ",
+      "correct": "живы",
+      "context": "он из надежды Ордена стал его убийцей, — буркнул Седой. — Громко сказано. Мы ещё ЖИВЕМ (живы), и у нас новая надежда.",
+      "transcript": "ЖИВЕМ",
+      "original": "живы"
+    },
+    {
+      "time": "1:06",
+      "time_seconds": 66,
+      "type": "substitution",
+      "wrong": "ТЕРЯЮ",
+      "correct": "теряя",
+      "context": "Я, ТЕРЯЮ (теряя) терпение, в который раз напомнил им всем",
+      "transcript": "ТЕРЯЮ",
+      "original": "теряя"
+    },
+    {
+      "time": "2:23",
+      "time_seconds": 143,
+      "type": "substitution",
+      "wrong": "ВЫХОДА",
+      "correct": "способа",
+      "context": "Другого ВЫХОДА (способа) не вижу. Ты брал на этот случай что-то из особых запасов?",
+      "transcript": "ВЫХОДА",
+      "original": "способа"
+    },
+    {
+      "time": "2:48",
+      "time_seconds": 168,
+      "type": "insertion",
+      "wrong": "СКАЗАТЬ",
+      "correct": "",
+      "context": "что и брат Галум. — СКАЗАТЬ Ты хочешь, чтобы я притворился Дарагалом",
+      "transcript": "СКАЗАТЬ",
+      "original": ""
+    },
+    {
+      "time": "9:03",
+      "time_seconds": 543,
+      "type": "insertion",
+      "wrong": "ТО",
+      "correct": "",
+      "context": "Теперь, когда Ян мертвы, вряд ли кто сунется ТО туда в ближайшие годы",
+      "transcript": "ТО",
+      "original": ""
+    },
+    {
+      "time": "12:23",
+      "time_seconds": 743,
+      "type": "substitution",
+      "wrong": "СОТНИ",
+      "correct": "сотня",
+      "context": "там СОТНИ (сотня) Мечей, там две сотни тех, кто откликнулся на мой призыв",
+      "transcript": "СОТНИ",
+      "original": "сотня"
+    },
+    {
+      "time": "12:40",
+      "time_seconds": 760,
+      "type": "deletion",
+      "wrong": "",
+      "correct": "Я",
+      "context": "(Я) обернулся и встретил злой, недовольный взгляд Зеленорукого",
+      "transcript": "",
+      "original": "Я"
+    },
+    {
+      "time": "12:47",
+      "time_seconds": 767,
+      "type": "substitution",
+      "wrong": "ПРОДОЛЖАЯ",
+      "correct": "продолжал",
+      "context": "Тот молчал, ПРОДОЛЖАЯ (продолжал) глядеть на меня",
+      "transcript": "ПРОДОЛЖАЯ",
+      "original": "продолжал"
+    },
+    {
+      "time": "14:09",
+      "time_seconds": 849,
+      "type": "substitution",
+      "wrong": "ОЩУЩАЛ",
+      "correct": "ощутил",
+      "context": "Я себя ОЩУЩАЛ (ощутил) так, словно набил полный рот незрелой мушмулы",
+      "transcript": "ОЩУЩАЛ",
+      "original": "ощутил"
+    },
+    {
+      "time": "15:37",
+      "time_seconds": 937,
+      "type": "transposition",
+      "wrong": "ты что",
+      "correct": "что ты",
+      "context": "Клинке, старик, ТЫ ЧТО (что ты) раз за разом используешь это слово?",
+      "_note": "Перестановка двух соседних слов",
+      "transcript": "ты что",
+      "original": "что ты"
+    },
+    {
+      "time": "16:51",
+      "time_seconds": 1011,
+      "type": "substitution",
+      "wrong": "ДОБАВИЛА",
+      "correct": "добавив",
+      "context": "С привычным запозданием ДОБАВИЛА (добавив). — Господин.",
+      "transcript": "ДОБАВИЛА",
+      "original": "добавив"
+    },
+    {
+      "time": "19:40",
+      "time_seconds": 1180,
+      "type": "substitution",
+      "wrong": "ДОГОВАРИВАЛИСЬ",
+      "correct": "договорились",
+      "context": "о чём мы ДОГОВАРИВАЛИСЬ (договорились) перед заключением контрактов",
+      "transcript": "ДОГОВАРИВАЛИСЬ",
+      "original": "договорились"
+    },
+    {
+      "time": "22:12",
+      "time_seconds": 1332,
+      "type": "substitution",
+      "wrong": "ГРОМКО",
+      "correct": "громче",
+      "context": "уже ГРОМКО (громче) добавил. — Сплошные траты, молодой глава",
+      "transcript": "ГРОМКО",
+      "original": "громче"
+    },
+    {
+      "time": "22:32",
+      "time_seconds": 1352,
+      "type": "insertion",
+      "wrong": "ЧТО",
+      "correct": "",
+      "context": "Но я знал ЧТО — не почудился. Красноволосый всё верно понял",
+      "transcript": "ЧТО",
+      "original": ""
+    },
+    {
+      "time": "25:35",
+      "time_seconds": 1535,
+      "type": "deletion",
+      "wrong": "",
+      "correct": "ним",
+      "context": "— Вы правы, старший, — не стал я спорить с (ним)",
+      "_note": "Алгоритм видит это как сдвиг: 'я спорить с ним' → 'спорить я'. Пропуск 'ним'.",
+      "transcript": "",
+      "original": "ним"
+    },
+    {
+      "time": "25:36",
+      "time_seconds": 1536,
+      "type": "substitution",
+      "wrong": "я",
+      "correct": "с",
+      "context": "не стал спорить Я (с) ним",
+      "_note": "На месте 'с' появилось 'я'",
+      "transcript": "я",
+      "original": "с"
+    },
+    {
+      "time": "30:38",
+      "time_seconds": 1838,
+      "type": "substitution",
+      "wrong": "или",
+      "correct": "и",
+      "context": "А ты глухой ИЛИ (и) не слышал, как младший господин назначил меня главой Школы семьи?",
+      "transcript": "или",
+      "original": "и"
+    },
+    {
+      "time": "31:00",
+      "time_seconds": 1860,
+      "type": "substitution",
+      "wrong": "а",
+      "correct": "и",
+      "context": "Или всё же наберёшь учителей? А (И) из кого? Из орденцев",
+      "transcript": "а",
+      "original": "и"
+    },
+    {
+      "time": "34:11",
+      "time_seconds": 2051,
+      "type": "substitution",
+      "wrong": "вас",
+      "correct": "нас",
+      "context": "ткнул по очереди в обоих. У кого из ВАС (нас) больше в этом опыта?",
+      "transcript": "вас",
+      "original": "нас"
+    },
+    {
+      "time": "36:09",
+      "time_seconds": 2169,
+      "type": "substitution",
+      "wrong": "этими",
+      "correct": "этим",
+      "context": "Может, вы займётесь, наконец, ЭТИМИ (этим) самым порядком, вместо болтовни?",
+      "transcript": "этими",
+      "original": "этим"
+    },
+    {
+      "time": "36:41",
+      "time_seconds": 2201,
+      "type": "substitution",
+      "wrong": "мыслеречью",
+      "correct": "мыслью",
+      "context": "Займитесь делом, хотя бы отыщите место для ночлега, добавил МЫСЛЕРЕЧЬЮ (мыслью).",
+      "transcript": "мыслеречью",
+      "original": "мыслью"
+    },
+    {
+      "time": "43:13",
+      "time_seconds": 2593,
+      "type": "substitution",
+      "wrong": "нибудь",
+      "correct": "то",
+      "context": "и пристрой их к какому-НИБУДЬ (какому-то) делу",
+      "transcript": "нибудь",
+      "original": "то"
+    },
+    {
+      "time": "44:44",
+      "time_seconds": 2684,
+      "type": "substitution",
+      "wrong": "что",
+      "correct": "кто",
+      "context": "а не ушёл с Красноволосым и тем, ЧТО (кто) выдавал себя за Морщинистого",
+      "transcript": "что",
+      "original": "кто"
+    },
+    {
+      "time": "45:30",
+      "time_seconds": 2730,
+      "type": "substitution",
+      "wrong": "вопроса",
+      "correct": "слова",
+      "context": "удерживая его болью от глупого ВОПРОСА (слова)",
+      "transcript": "вопроса",
+      "original": "слова"
+    },
+    {
+      "time": "51:50",
+      "time_seconds": 3110,
+      "type": "substitution",
+      "wrong": "правду",
+      "correct": "прямо",
+      "context": "Но я буду говорить ПРАВДУ (прямо), глава, прошу не обижаться на меня",
+      "transcript": "правду",
+      "original": "прямо"
+    },
+    {
+      "time": "55:25",
+      "time_seconds": 3325,
+      "type": "substitution",
+      "wrong": "услышал",
+      "correct": "услышав",
+      "context": "увидев пещеру Чёрной Горы, того самого Мада, себя раненого, и УСЛЫШАЛ (услышав) свои вопли",
+      "transcript": "услышал",
+      "original": "услышав"
+    },
+    {
+      "time": "56:12",
+      "time_seconds": 3372,
+      "type": "substitution",
+      "wrong": "нет",
+      "correct": "нельзя",
+      "context": "отчётливо понимая, когда можно дать себе волю, а когда НЕТ (нельзя)",
+      "transcript": "нет",
+      "original": "нельзя"
+    },
+    {
+      "time": "58:31",
+      "time_seconds": 3511,
+      "type": "deletion",
+      "wrong": "",
+      "correct": "он",
+      "context": "Вы забрали их всех, глава, (он) снова подался вперёд",
+      "transcript": "",
+      "original": "он"
+    },
+    {
+      "time": "59:10",
+      "time_seconds": 3550,
+      "type": "substitution",
+      "wrong": "эти",
+      "correct": "это",
+      "context": "как выставили ЭТИ (это) олухи из рабочих",
+      "transcript": "эти",
+      "original": "это"
+    },
+    {
+      "time": "27:49",
+      "time_seconds": 1669,
+      "type": "substitution",
+      "wrong": "предводителя",
+      "correct": "предводителей",
+      "context": "Столько свитков для ПРЕДВОДИТЕЛЯ (Предводителей) найдётся и у нас самих",
+      "transcript": "предводителя",
+      "original": "предводителей"
+    },
+    {
+      "time": "34:30",
+      "time_seconds": 2070,
+      "type": "deletion",
+      "wrong": "",
+      "correct": "вам",
+      "context": "влез в разговор Пересмешник. (Вам) тоже нужно беспокоиться о том",
+      "transcript": "",
+      "original": "вам"
+    }
+  ],
+  "total_errors": 31,
+  "by_type": {
+    "substitution": 25,
+    "insertion": 3,
+    "deletion": 3,
+    "transposition": 1
+  },
+  "legend": {
+    "КАПС": "ошибка (что сказал чтец / услышал Яндекс)",
+    "жирный": "правильное слово из текста",
+    "(**слово**)": "пропущенное слово"
+  },
+  "_format_version": "2.0",
+  "_normalized": true
+}

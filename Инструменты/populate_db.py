@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-Populate False Positives Database v1.0
+Populate False Positives Database v2.0
 
-Заполняет БД всеми ошибками из compared.json файлов,
-прогоняет через фильтры и добавляет метрики:
+Заполняет БД всеми ошибками из filtered.json файлов.
+Единственный источник правды — готовые отфильтрованные данные.
+
+Метрики:
 - Морфология: lemma, POS, same_lemma
 - Семантика: semantic_similarity
 - Частотность: frequency_wrong, frequency_correct
@@ -15,7 +17,7 @@ Populate False Positives Database v1.0
     python populate_db.py --reset          # Сбросить и пересоздать БД
 """
 
-VERSION = '1.1.0'  # v1.1: унификация levenshtein из filters.comparison
+VERSION = '2.2.0'  # v2.2: Таблица истории изменений (error_history)
 
 import sys
 import json
@@ -35,6 +37,28 @@ from filters.frequency_manager import FrequencyManager
 from filters.engine import should_filter_error
 from filters.comparison import levenshtein_distance  # v1.1: унификация
 from config import RESULTS_DIR, TESTS_DIR, DICTIONARIES_DIR
+
+# Версия проекта для истории изменений
+try:
+    from version import get_version_info
+    PROJECT_VERSION = get_version_info().get('project', 'unknown')
+except (ImportError, Exception):
+    PROJECT_VERSION = 'unknown'
+
+# v2.1: Импорт error_normalizer для унификации полей
+try:
+    from error_normalizer import (
+        get_original_word, get_transcript_word, get_time_seconds,
+        get_error_type, get_context, normalize_word, errors_match,
+    )
+    HAS_NORMALIZER = True
+except ImportError:
+    HAS_NORMALIZER = False
+    def get_original_word(e): return e.get('original', e.get('correct', ''))
+    def get_transcript_word(e): return e.get('transcript', e.get('wrong', e.get('word', '')))
+    def get_time_seconds(e): return e.get('time_seconds', e.get('time', 0))
+    def get_error_type(e): return e.get('type', 'substitution')
+    def normalize_word(w): return w.lower().replace('ё', 'е').strip() if w else ''
 
 
 class SimpleMorph:
@@ -101,6 +125,22 @@ CREATE INDEX IF NOT EXISTS idx_errors_chapter ON errors(chapter);
 CREATE INDEX IF NOT EXISTS idx_errors_type ON errors(error_type);
 CREATE INDEX IF NOT EXISTS idx_errors_same_lemma ON errors(same_lemma);
 CREATE INDEX IF NOT EXISTS idx_errors_semantic ON errors(semantic_similarity);
+
+-- v2.2: Таблица истории изменений
+CREATE TABLE IF NOT EXISTS error_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    error_id INTEGER NOT NULL,
+    field_changed TEXT NOT NULL,          -- 'is_filtered', 'filter_reason'
+    old_value TEXT,
+    new_value TEXT,
+    changed_at TEXT NOT NULL,
+    version TEXT,                          -- '14.17.0'
+    FOREIGN KEY (error_id) REFERENCES errors(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_history_error_id ON error_history(error_id);
+CREATE INDEX IF NOT EXISTS idx_history_changed_at ON error_history(changed_at);
+CREATE INDEX IF NOT EXISTS idx_history_version ON error_history(version);
 '''
 
 
@@ -148,29 +188,30 @@ class DatabasePopulator:
 
     @staticmethod
     def normalize(word: str) -> str:
-        """Нормализация слова для сопоставления"""
-        return word.lower().replace('ё', 'е').strip()
+        """Нормализация слова для сопоставления (v2.1: использует error_normalizer)"""
+        return normalize_word(word)
 
     def load_golden(self):
-        """Загрузка Golden стандарта.
+        """
+        Загрузка Golden стандарта.
 
-        Golden файлы содержат:
-        - wrong = что сказал чтец (или что распознал Яндекс)
-        - correct = что в книге
-        - time_seconds = время ошибки
-
-        Сопоставление по времени (±15 сек) + совпадению хотя бы одного слова.
+        v2.1: Использует error_normalizer для унификации полей.
+        Golden файлы могут содержать:
+        - wrong/transcript = что сказал чтец
+        - correct/original = что в книге
+        - time_seconds/time = время ошибки
         """
         self.golden_list = []
-        for i in range(1, 5):
+        for i in range(1, 6):
             path = TESTS_DIR / f'золотой_стандарт_глава{i}.json'
             if path.exists():
                 with open(path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
                     for e in data.get('errors', []):
-                        book_word = self.normalize(e.get('correct', ''))
-                        said_word = self.normalize(e.get('wrong', ''))
-                        time_sec = e.get('time_seconds', 0)
+                        # v2.1: Унифицированное извлечение через error_normalizer
+                        book_word = self.normalize(get_original_word(e))
+                        said_word = self.normalize(get_transcript_word(e))
+                        time_sec = get_time_seconds(e)
                         self.golden_list.append({
                             'chapter': i,
                             'book': book_word,
@@ -180,7 +221,8 @@ class DatabasePopulator:
         print(f"[OK] Загружено {len(self.golden_list)} Golden ошибок")
 
     def is_golden(self, chapter: int, original: str, transcript: str, time_sec: float) -> bool:
-        """Проверка на Golden ошибку по времени + совпадению слов.
+        """
+        Проверка на Golden ошибку по времени + совпадению слов.
 
         Логика:
         1. Ищем golden ошибки в пределах ±15 секунд
@@ -233,16 +275,19 @@ class DatabasePopulator:
         В БД храним:
         - wrong = transcript (что распознано/сказано)
         - correct = original (что в книге)
+
+        v2.1: Использует error_normalizer для унификации полей.
         """
+        # v2.1: Унифицированное извлечение через error_normalizer
         # original = книга, transcript = распознано
-        original_word = error.get('original', '').lower()
-        transcript_word = error.get('transcript', '').lower()
+        original_word = get_original_word(error)  # original/correct/from_book
+        transcript_word = get_transcript_word(error)  # transcript/wrong/word
 
         # В БД: wrong = сказано, correct = книга
         wrong = transcript_word
         correct = original_word
-        error_type = error.get('type', 'substitution')
-        time_sec = error.get('time', 0)
+        error_type = get_error_type(error)  # type/error_type
+        time_sec = get_time_seconds(error)  # time/time_seconds
 
         # Морфология
         lemma_w = self.morph.get_lemma(wrong) if wrong else ''
@@ -300,8 +345,38 @@ class DatabasePopulator:
         }
 
     def insert_error(self, data: Dict):
-        """Вставка ошибки в БД"""
+        """Вставка ошибки в БД с отслеживанием изменений (v2.2)"""
         try:
+            # v2.2: Сначала проверяем существующую запись
+            cur = self.conn.execute('''
+                SELECT id, is_filtered, filter_reason
+                FROM errors
+                WHERE chapter = :chapter
+                AND time_seconds = :time_seconds
+                AND wrong = :wrong
+                AND correct = :correct
+            ''', data)
+            existing = cur.fetchone()
+
+            if existing:
+                # Запись существует — проверяем изменения
+                error_id = existing['id']
+                old_is_filtered = existing['is_filtered']
+                old_filter_reason = existing['filter_reason']
+
+                new_is_filtered = data['is_filtered']
+                new_filter_reason = data['filter_reason']
+
+                # Записываем изменения в историю
+                if old_is_filtered != new_is_filtered:
+                    self._log_change(error_id, 'is_filtered',
+                                     str(old_is_filtered), str(new_is_filtered))
+
+                if old_filter_reason != new_filter_reason:
+                    self._log_change(error_id, 'filter_reason',
+                                     old_filter_reason or '', new_filter_reason or '')
+
+            # Вставляем/обновляем запись
             self.conn.execute('''
                 INSERT OR REPLACE INTO errors (
                     wrong, correct, error_type, chapter, time_seconds, time_label, context,
@@ -320,15 +395,26 @@ class DatabasePopulator:
         except Exception as e:
             print(f"[WARN] Ошибка вставки: {e}")
 
+    def _log_change(self, error_id: int, field: str, old_val: str, new_val: str):
+        """v2.2: Записывает изменение в таблицу истории"""
+        try:
+            self.conn.execute('''
+                INSERT INTO error_history (error_id, field_changed, old_value, new_value, changed_at, version)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (error_id, field, old_val, new_val, datetime.now().isoformat(), PROJECT_VERSION))
+        except Exception as e:
+            print(f"[WARN] Ошибка записи истории: {e}")
+
     def populate(self, reset: bool = False):
         """Основной метод заполнения БД.
 
-        ВАЖНО: Читаем compared.json и прогоняем через filter_errors(),
-        чтобы гарантировать консистентность с filtered.json.
-        Это единственный источник правды о фильтрации.
-        """
-        from filters.engine import filter_errors
+        v14.3.0: Читаем ГОТОВЫЕ данные из filtered.json — единственный источник правды.
+        Это гарантирует 100% синхронизацию БД и filtered файлов.
 
+        Структура filtered.json:
+        - errors: реальные ошибки (не отфильтрованные)
+        - filtered_errors_detail: отфильтрованные FP с filter_reason
+        """
         self.connect()
         self.create_schema(reset=reset)
         self.load_golden()
@@ -337,25 +423,21 @@ class DatabasePopulator:
         golden_count = 0
         filtered_count = 0
 
-        # Обрабатываем каждую главу
-        for i in range(1, 5):
+        # Обрабатываем каждую главу (1-5)
+        for i in range(1, 6):
             chapter_dir = RESULTS_DIR / f'0{i}'
-            compared_path = chapter_dir / f'0{i}_compared.json'
+            filtered_path = chapter_dir / f'0{i}_filtered.json'
 
-            if not compared_path.exists():
-                print(f"[SKIP] Нет файла: {compared_path}")
+            if not filtered_path.exists():
+                print(f"[SKIP] Нет файла: {filtered_path}")
                 continue
 
-            with open(compared_path, 'r', encoding='utf-8') as f:
+            with open(filtered_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
-            errors = data.get('errors', [])
-
-            # Прогоняем через ТОТЖЕ filter_errors что и pipeline!
-            remaining, filtered_list, stats = filter_errors(errors)
-
-            # remaining — ошибки БЕЗ флага filtered
-            # filtered_list — ошибки С флагом filtered и filter_reason
+            # v14.3.0: Читаем готовые данные из filtered.json
+            remaining = data.get('errors', [])  # Реальные ошибки
+            filtered_list = data.get('filtered_errors_detail', [])  # FP с filter_reason
 
             all_errors = remaining + filtered_list
             print(f"\n[Глава {i}] Обрабатываю {len(all_errors)} ошибок (filtered: {len(filtered_list)}, remaining: {len(remaining)})...")
@@ -478,17 +560,122 @@ class DatabasePopulator:
         cat5 = cur.fetchone()[0]
         print(f"  insertions/deletions: {cat5}")
 
+        # v2.2: История изменений
+        self._show_history_stats()
+
+    def _show_history_stats(self):
+        """v2.2: Показывает статистику истории изменений"""
+        try:
+            cur = self.conn.execute('SELECT COUNT(*) FROM error_history')
+            total_changes = cur.fetchone()[0]
+
+            if total_changes == 0:
+                return
+
+            print(f"\n--- История изменений (v2.2) ---")
+            print(f"  Всего изменений: {total_changes}")
+
+            # По версиям
+            cur = self.conn.execute('''
+                SELECT version, COUNT(*) as cnt
+                FROM error_history
+                GROUP BY version
+                ORDER BY changed_at DESC
+                LIMIT 5
+            ''')
+            rows = cur.fetchall()
+            if rows:
+                print(f"\n  По версиям (последние 5):")
+                for row in rows:
+                    print(f"    {row['version']}: {row['cnt']} изменений")
+
+            # Последние изменения
+            cur = self.conn.execute('''
+                SELECT h.changed_at, h.field_changed, h.old_value, h.new_value,
+                       e.wrong, e.correct, e.chapter
+                FROM error_history h
+                JOIN errors e ON h.error_id = e.id
+                ORDER BY h.changed_at DESC
+                LIMIT 5
+            ''')
+            rows = cur.fetchall()
+            if rows:
+                print(f"\n  Последние 5 изменений:")
+                for row in rows:
+                    ts = row['changed_at'][:16] if row['changed_at'] else '?'
+                    print(f"    [{ts}] Гл.{row['chapter']}: {row['wrong']}→{row['correct']}")
+                    print(f"           {row['field_changed']}: '{row['old_value']}' → '{row['new_value']}'")
+        except Exception as e:
+            # Таблица может не существовать в старых БД
+            pass
+
+    def show_history(self, limit: int = 20):
+        """v2.2: Показывает подробную историю изменений"""
+        try:
+            cur = self.conn.execute('''
+                SELECT h.changed_at, h.field_changed, h.old_value, h.new_value, h.version,
+                       e.wrong, e.correct, e.chapter, e.time_label
+                FROM error_history h
+                JOIN errors e ON h.error_id = e.id
+                ORDER BY h.changed_at DESC
+                LIMIT ?
+            ''', (limit,))
+
+            rows = cur.fetchall()
+            if not rows:
+                print("История изменений пуста.")
+                return
+
+            print(f"\n{'='*70}")
+            print(f"ИСТОРИЯ ИЗМЕНЕНИЙ (последние {len(rows)})")
+            print(f"{'='*70}")
+
+            current_version = None
+            for row in rows:
+                version = row['version'] or 'unknown'
+                if version != current_version:
+                    print(f"\n--- Версия {version} ---")
+                    current_version = version
+
+                ts = row['changed_at'][:16] if row['changed_at'] else '?'
+                time_label = row['time_label'] or '??:??'
+                field = row['field_changed']
+                old_val = row['old_value'] or '(пусто)'
+                new_val = row['new_value'] or '(пусто)'
+
+                # Форматируем изменение
+                if field == 'is_filtered':
+                    old_status = 'FP' if old_val == '0' else 'отфильтровано'
+                    new_status = 'FP' if new_val == '0' else 'отфильтровано'
+                    change_desc = f"{old_status} → {new_status}"
+                else:
+                    change_desc = f"'{old_val}' → '{new_val}'"
+
+                print(f"  [{ts}] Гл.{row['chapter']} {time_label}: {row['wrong']} → {row['correct']}")
+                print(f"           {field}: {change_desc}")
+
+        except Exception as e:
+            print(f"Ошибка чтения истории: {e}")
+
 
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='Заполнение БД ошибок')
     parser.add_argument('--reset', action='store_true', help='Сбросить и пересоздать БД')
     parser.add_argument('--stats', action='store_true', help='Показать статистику')
+    parser.add_argument('--history', action='store_true', help='Показать историю изменений')
+    parser.add_argument('--history-full', type=int, metavar='N', help='Показать N последних изменений')
     args = parser.parse_args()
 
     pop = DatabasePopulator()
 
-    if args.stats:
+    if args.history:
+        pop.connect()
+        pop._show_history_stats()
+    elif args.history_full:
+        pop.connect()
+        pop.show_history(args.history_full)
+    elif args.stats:
         pop.show_stats()
     else:
         pop.populate(reset=args.reset)

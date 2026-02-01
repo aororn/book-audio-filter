@@ -1,5 +1,10 @@
 """
-SmartFilter v3.0 — Интеграция всех модулей Smart фильтрации.
+SmartFilter v3.1 — Интеграция всех модулей Smart фильтрации.
+
+СТАТУС: STANDBY (готов к использованию, отключён в config.py)
+    - Включить: config.py → use_smart_filter = True
+    - Закомментирован в engine.py (уровень 11)
+    - Экспортируется через __init__.py для rebuild_smart_data.py
 
 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ v3.0:
     Одинаковая лемма НЕ означает "ложная ошибка"!
@@ -23,8 +28,8 @@ SmartFilter v3.0 — Интеграция всех модулей Smart филь
     5. Sliding Window: артефакты (-100)
     6. Семантика: оговорки (+30)
 
-Версия: 3.0.0
-Дата: 2026-01-30
+v3.1.0 (2026-01-31): Документация статуса STANDBY
+v3.0.0 (2026-01-30): Исправленная морфология
 """
 
 from typing import Dict, Any, Optional, List, Tuple
@@ -47,7 +52,9 @@ from .sliding_window import (
 _semantic_manager = None
 _morph = None
 
-VERSION = '3.0.0'
+VERSION = '3.1.0'
+VERSION_DATE = '2026-01-31'
+STATUS = 'STANDBY'  # Готов к использованию, отключён в config.py
 VERSION_DATE = '2026-01-30'
 
 

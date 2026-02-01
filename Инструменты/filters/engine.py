@@ -270,7 +270,7 @@ except ImportError:
         return False, ''
 
 # Версия модуля
-VERSION = '9.19.0'
+VERSION = '9.20.1'  # v9.20.1: Whitelist FP-пар (44 FP, 0 golden)
 VERSION_DATE = '2026-01-31'
 
 # v9.18.0 изменения (2026-01-31):
@@ -524,6 +524,41 @@ def _is_golden_error(error: Dict[str, Any], chapter: int = 0) -> bool:
 # v9.19: Функция _is_merge_artifact перенесена в cluster_analyzer.py как check_merge_artifact
 
 
+# v9.20.1: Whitelist верифицированных FP-пар
+# Эти пары встречаются 2+ раз в БД и имеют 0 golden ошибок
+# Формат: frozenset({wrong, correct}) — порядок не важен
+VERIFIED_FP_PAIRS = {
+    # same_lemma пары (грамматические варианты)
+    frozenset({'зону', 'зоны'}),       # 5 FP, 0 golden
+    frozenset({'зона', 'зоны'}),       # 4 FP, 0 golden
+    frozenset({'стихий', 'стихии'}),   # 4 FP, 0 golden
+    frozenset({'которая', 'которые'}), # 3 FP, 0 golden
+    frozenset({'формации', 'формаций'}),  # 3 FP, 0 golden
+    frozenset({'иллюзий', 'иллюзии'}), # 2 FP, 0 golden
+    frozenset({'который', 'которые'}), # 2 FP, 0 golden
+    # diff_lemma пары (служебные слова)
+    frozenset({'а', 'но'}),            # 4 FP, 0 golden
+    frozenset({'они', 'не'}),          # 4 FP, 0 golden
+    frozenset({'что', 'то'}),          # 3 FP, 0 golden
+    frozenset({'то', 'ты'}),           # 2 FP, 0 golden
+    frozenset({'того', 'оттого'}),     # 2 FP, 0 golden
+    frozenset({'чтобы', 'что'}),       # 2 FP, 0 golden
+}
+
+
+def _is_verified_fp_pair(w1: str, w2: str) -> bool:
+    """
+    Проверяет, является ли пара слов верифицированной FP-парой.
+
+    Args:
+        w1, w2: Нормализованные слова
+
+    Returns:
+        True если пара в whitelist
+    """
+    return frozenset({w1, w2}) in VERIFIED_FP_PAIRS
+
+
 def should_filter_error(
     error: Dict[str, Any],
     config: Optional[Dict] = None,
@@ -604,6 +639,14 @@ def _should_filter_error_core(
     # ==== УРОВЕНЬ -0.5: ПЕРЕНЕСЁН в SafetyVeto (v9.18) ====
     # semantic_slip теперь проверяется ФИНАЛЬНЫМ слоем apply_safety_veto()
     # Это позволяет другим фильтрам (Context Verifier Level 3) работать
+
+    # ==== УРОВЕНЬ -0.4: Whitelist FP-пар (v9.20.1) ====
+    # Верифицированные FP-пары: повторяются в БД, 0 в golden
+    # Анализ БД: 44 FP без golden, безопасно фильтровать
+    if error_type == 'substitution' and len(words_norm) >= 2:
+        w1, w2 = words_norm[0], words_norm[1]
+        if _is_verified_fp_pair(w1, w2):
+            return True, 'verified_fp_pair'
 
     # ==== УРОВЕНЬ -0.3: Артефакт слияния слов (v9.19 → cluster_analyzer) ====
     # Яндекс сливает два слова в одно: "так же" → "также", "во время" → "вовремя"

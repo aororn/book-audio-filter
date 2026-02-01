@@ -1,0 +1,2724 @@
+{
+  "filtered_errors": [
+    {
+      "type": "substitution",
+      "transcript_word": "оранви",
+      "original_word": "аранви",
+      "position": 3,
+      "context_before": "глава вас ждут",
+      "context_after": "и старейшина рагедон",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "старейший",
+      "original_word": "старейшина",
+      "position": 5,
+      "context_before": "ждут аранви и",
+      "context_after": "рагедон я оглядел",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "наргидон",
+      "original_word": "рагедон",
+      "position": 6,
+      "context_before": "аранви и старейшина",
+      "context_after": "я оглядел склонившегося",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "верной",
+      "original_word": "верный",
+      "position": 41,
+      "context_before": "всех рядовых орденцев",
+      "context_after": "новой семье и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "верному",
+      "original_word": "верный",
+      "position": 45,
+      "context_before": "новой семье и",
+      "context_after": "ордену бывший и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "комптур",
+      "original_word": "комтур",
+      "position": 50,
+      "context_before": "бывший и будущий",
+      "context_after": "надеюсь итогом всех",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "комптуры",
+      "original_word": "комтуры",
+      "position": 73,
+      "context_before": "ниже рангом чем",
+      "context_after": "и утаивание большей",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "не",
+      "original_word": "неидеальное",
+      "position": 87,
+      "context_before": "рангом чем попечитель",
+      "context_after": "решение но время",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "признания",
+      "original_word": "признаний",
+      "position": 91,
+      "context_before": "решение но время",
+      "context_after": "еще не пришло",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "императора",
+      "original_word": "империи",
+      "position": 186,
+      "context_before": "многих тонкостей жизни",
+      "context_after": "как по мне",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "стражам",
+      "original_word": "стражем",
+      "position": 217,
+      "context_before": "но жесткая проверка",
+      "context_after": "который на пустом",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "какие",
+      "original_word": "какието",
+      "position": 232,
+      "context_before": "втоптал в грязь",
+      "context_after": "прежние договоренности наглядно",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "в",
+      "original_word": "с",
+      "position": 253,
+      "context_before": "часть орденцев остались",
+      "context_after": "кунг и решили",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "скунг",
+      "original_word": "кунг",
+      "position": 254,
+      "context_before": "орденцев остались с",
+      "context_after": "и решили продолжить",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "прощения",
+      "original_word": "прощение",
+      "position": 305,
+      "context_before": "что можно заслужить",
+      "context_after": "императора другим способом",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "раллера",
+      "original_word": "ралера",
+      "position": 311,
+      "context_before": "способом отыскав тело",
+      "context_after": "звучало безумно спустя",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "годи",
+      "original_word": "годий",
+      "position": 357,
+      "context_before": "беспомощными и неопасными",
+      "context_after": "уже отчитался перед",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сложнее",
+      "original_word": "сложней",
+      "position": 368,
+      "context_before": "с ним было",
+      "context_after": "те кому доносил",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "все",
+      "original_word": "те",
+      "position": 369,
+      "context_before": "ним было сложней",
+      "context_after": "кому доносил он",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сильнее",
+      "original_word": "сильней",
+      "position": 472,
+      "context_before": "него донесения все",
+      "context_after": "и сильней теряет",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сильнее",
+      "original_word": "сильней",
+      "position": 474,
+      "context_before": "все сильней и",
+      "context_after": "теряет терпение я",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рамвелор",
+      "original_word": "рам",
+      "position": 483,
+      "context_before": "верил что это",
+      "context_after": "вилор как не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "вилор",
+      "position": 484,
+      "context_before": "что это рам",
+      "context_after": "как не верил",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рамвелор",
+      "original_word": "рам",
+      "position": 582,
+      "context_before": "верю сейчас что",
+      "context_after": "вилор мог разорить",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "вилор",
+      "position": 583,
+      "context_before": "сейчас что рам",
+      "context_after": "мог разорить соседей",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рамвелор",
+      "original_word": "рам",
+      "position": 619,
+      "context_before": "в самом деле",
+      "context_after": "вилор как по",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "вилор",
+      "position": 620,
+      "context_before": "самом деле рам",
+      "context_after": "как по мне",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "и",
+      "original_word": "эрзум",
+      "position": 642,
+      "context_before": "на ослабевшем ордене",
+      "context_after": "и прочие кого",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "велор",
+      "original_word": "вилор",
+      "position": 664,
+      "context_before": "и конечно же",
+      "context_after": "клан императора наделенные",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "райлера",
+      "original_word": "ралера",
+      "position": 691,
+      "context_before": "заподозрить в предательстве",
+      "context_after": "его братьев и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "велорцы",
+      "original_word": "вилорцы",
+      "position": 702,
+      "context_before": "на самом деле",
+      "context_after": "и кому мог",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "морщинистый",
+      "original_word": "морщинистный",
+      "position": 707,
+      "context_before": "кому мог служить",
+      "context_after": "затем матерей всех",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рамвелора",
+      "original_word": "рама",
+      "position": 723,
+      "context_before": "их сын любимец",
+      "context_after": "вилора после на",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "вилора",
+      "position": 724,
+      "context_before": "сын любимец рама",
+      "context_after": "после на подозрении",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "подозрение",
+      "original_word": "подозрении",
+      "position": 727,
+      "context_before": "вилора после на",
+      "context_after": "все их слуги",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "когда",
+      "original_word": "когдато",
+      "position": 793,
+      "context_before": "забава которую я",
+      "context_after": "испытал на своей",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ратли",
+      "original_word": "рад",
+      "position": 859,
+      "context_before": "боялись главу деревни",
+      "context_after": "ли был сам",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "ли",
+      "position": 860,
+      "context_before": "главу деревни рад",
+      "context_after": "был сам кардо",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "карду",
+      "original_word": "кардо",
+      "position": 863,
+      "context_before": "ли был сам",
+      "context_after": "моим страданиям да",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "занимался",
+      "original_word": "занимается",
+      "position": 878,
+      "context_before": "никчемного сынка который",
+      "context_after": "глупостями шпыняя меня",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "карду",
+      "original_word": "кардо",
+      "position": 907,
+      "context_before": "менее сильная чем",
+      "context_after": "а потому опасная",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "формации",
+      "original_word": "формаций",
+      "position": 935,
+      "context_before": "тщательно сберегаемые секреты",
+      "context_after": "составные техники методики",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "этапов",
+      "original_word": "этапа",
+      "position": 955,
+      "context_before": "были опасны бойцы",
+      "context_after": "предводителя и властелина",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "одержали",
+      "original_word": "держали",
+      "position": 967,
+      "context_before": "формации которые они",
+      "context_after": "наготове все это",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "на",
+      "original_word": "наготове",
+      "position": 968,
+      "context_before": "которые они держали",
+      "context_after": "все это ничто",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "получится",
+      "original_word": "получилось",
+      "position": 995,
+      "context_before": "у нас все",
+      "context_after": "мы достоверно разыграли",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пятиветров",
+      "original_word": "пяти",
+      "position": 1028,
+      "context_before": "события в городе",
+      "context_after": "ветров во всяком",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "ветров",
+      "position": 1029,
+      "context_before": "в городе пяти",
+      "context_after": "во всяком случае",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "седова",
+      "original_word": "седого",
+      "position": 1059,
+      "context_before": "и добрался до",
+      "context_after": "и прочих он",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "извивок",
+      "original_word": "извивы",
+      "position": 1080,
+      "context_before": "принялся чертить палочкой",
+      "context_after": "каменного лабиринта да",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "седуба",
+      "original_word": "седого",
+      "position": 1187,
+      "context_before": "вот здесь палочка",
+      "context_after": "указала на кружок",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "мурлан",
+      "original_word": "морлан",
+      "position": 1201,
+      "context_before": "становились лагерем люди",
+      "context_after": "неплохое место с",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "неблохое",
+      "original_word": "неплохое",
+      "position": 1202,
+      "context_before": "лагерем люди морлан",
+      "context_after": "место с водой",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сохранившейся",
+      "original_word": "сохранившихся",
+      "position": 1209,
+      "context_before": "укрытиями в виде",
+      "context_after": "поместий зелени и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "поместья",
+      "original_word": "поместий",
+      "position": 1210,
+      "context_before": "в виде сохранившихся",
+      "context_after": "зелени и прочего",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "смирив",
+      "original_word": "смерив",
+      "position": 1214,
+      "context_before": "зелени и прочего",
+      "context_after": "меня взглядом седой",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ввел",
+      "original_word": "вел",
+      "position": 1309,
+      "context_before": "должны были пройти",
+      "context_after": "нас через плоскогорье",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "расщелен",
+      "original_word": "расщелин",
+      "position": 1322,
+      "context_before": "и извилистых ходов",
+      "context_after": "в нем к",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "всей",
+      "original_word": "все",
+      "position": 1381,
+      "context_before": "морлан должны были",
+      "context_after": "силы кинуть на",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "силой",
+      "original_word": "силы",
+      "position": 1382,
+      "context_before": "должны были все",
+      "context_after": "кинуть на штурм",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "я",
+      "original_word": "вместо",
+      "position": 1403,
+      "context_before": "потребовал объяснения почему",
+      "context_after": "седого ответил рагедон",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "взял",
+      "original_word": "седого",
+      "position": 1404,
+      "context_before": "объяснения почему вместо",
+      "context_after": "ответил рагедон подхватил",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "ответил",
+      "position": 1405,
+      "context_before": "почему вместо седого",
+      "context_after": "рагедон подхватил с",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "рагедон",
+      "position": 1406,
+      "context_before": "вместо седого ответил",
+      "context_after": "подхватил с песка",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "подхватил",
+      "position": 1407,
+      "context_before": "седого ответил рагедон",
+      "context_after": "с песка палочку",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "с",
+      "position": 1408,
+      "context_before": "ответил рагедон подхватил",
+      "context_after": "песка палочку которую",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "песка",
+      "position": 1409,
+      "context_before": "рагедон подхватил с",
+      "context_after": "палочку которую тот",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "к",
+      "original_word": "карты",
+      "position": 1443,
+      "context_before": "прямо в гору",
+      "context_after": "древних и чуть",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "шестизвездной",
+      "original_word": "шести",
+      "position": 1508,
+      "context_before": "что хватит и",
+      "context_after": "звездной фракции я",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "звездной",
+      "position": 1509,
+      "context_before": "хватит и шести",
+      "context_after": "фракции я усомнился",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рагидон",
+      "original_word": "рагедон",
+      "position": 1546,
+      "context_before": "раньше ответил мне",
+      "context_after": "отклонение истинного положения",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "нагляднее",
+      "original_word": "наглядней",
+      "position": 1565,
+      "context_before": "чтобы вам было",
+      "context_after": "видно глава седой",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "мурлан",
+      "original_word": "морлан",
+      "position": 1603,
+      "context_before": "пытались это сделать",
+      "context_after": "они даже не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рагидон",
+      "original_word": "рагедон",
+      "position": 1649,
+      "context_before": "теперь вопрос задал",
+      "context_after": "глава вы все",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "с",
+      "position": 1681,
+      "context_before": "проще всего оказалось",
+      "context_after": "мечом старшего тизиора",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "тезиора",
+      "original_word": "тизиора",
+      "position": 1684,
+      "context_before": "с мечом старшего",
+      "context_after": "его я получил",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "артефактур",
+      "original_word": "артефактор",
+      "position": 1700,
+      "context_before": "два облика большего",
+      "context_after": "моей семьи в",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "то",
+      "position": 1712,
+      "context_before": "сумел этим наконец",
+      "context_after": "уверив меня что",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "этими",
+      "original_word": "этим",
+      "position": 1846,
+      "context_before": "подозрителен со всеми",
+      "context_after": "разговорами последних дней",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ожиданиями",
+      "original_word": "ожидания",
+      "position": 1851,
+      "context_before": "последних дней и",
+      "context_after": "нападения может быть",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "зон",
+      "original_word": "зоны",
+      "position": 1856,
+      "context_before": "может быть создав",
+      "context_after": "запретов как защиту",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "не",
+      "original_word": "ненамного",
+      "position": 1910,
+      "context_before": "улыбкой добавил но",
+      "context_after": "лучше чуть крепче",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "поновее",
+      "original_word": "поновей",
+      "position": 1922,
+      "context_before": "из средоточий чуть",
+      "context_after": "не более не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "подходит",
+      "original_word": "подходят",
+      "position": 1930,
+      "context_before": "уж много материалов",
+      "context_after": "под броню для",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "разговаривались",
+      "original_word": "сговорились",
+      "position": 2057,
+      "context_before": "седой и келлер",
+      "context_after": "надеть на меня",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "клотир",
+      "original_word": "клатир",
+      "position": 2158,
+      "context_before": "клинка но и",
+      "context_after": "не просто прохожий",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "и",
+      "original_word": "изогнулся",
+      "position": 2272,
+      "context_before": "разросся стал ярче",
+      "context_after": "превращаясь почти в",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "нужно",
+      "position": 2287,
+      "context_before": "зеленорукому с которым",
+      "context_after": "обязательно поговорить я",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "также",
+      "original_word": "так",
+      "position": 2312,
+      "context_before": "еще один огонек",
+      "context_after": "же изгибается начиная",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "же",
+      "position": 2313,
+      "context_before": "один огонек так",
+      "context_after": "изгибается начиная вырисовывать",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "чурись",
+      "original_word": "щурясь",
+      "position": 2343,
+      "context_before": "интересно молодой глава",
+      "context_after": "произнес келлер ни",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "проводит",
+      "original_word": "проходит",
+      "position": 2369,
+      "context_before": "седой он одновременно",
+      "context_after": "два этапа возвышения",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "проводить",
+      "original_word": "проходить",
+      "position": 2373,
+      "context_before": "два этапа возвышения",
+      "context_after": "он может сколько",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "давайте",
+      "original_word": "дайте",
+      "position": 2417,
+      "context_before": "попросил молодой глава",
+      "context_after": "я сброшу привязку",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пятизвездам",
+      "original_word": "пяти",
+      "position": 2444,
+      "context_before": "чтото близкое к",
+      "context_after": "звездам властелина и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "звездам",
+      "position": 2445,
+      "context_before": "близкое к пяти",
+      "context_after": "властелина и снова",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "властелина",
+      "original_word": "властелином",
+      "position": 2475,
+      "context_before": "вот другой доспех",
+      "context_after": "меня считать отказался",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "а",
+      "original_word": "на",
+      "position": 2497,
+      "context_before": "которая оценивает возвышение",
+      "context_after": "что ты намекаешь",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сил",
+      "original_word": "силы",
+      "position": 2527,
+      "context_before": "меридианов на вратах",
+      "context_after": "и прочее думаю",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "и",
+      "position": 2539,
+      "context_before": "огромное будущее как",
+      "context_after": "у всех нас",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "той",
+      "position": 2574,
+      "context_before": "хотя бы по",
+      "context_after": "простой причине что",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "властелину",
+      "original_word": "властелины",
+      "position": 2584,
+      "context_before": "дополнительная мощь которую",
+      "context_after": "духа вливают в",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "технике",
+      "original_word": "техники",
+      "position": 2588,
+      "context_before": "духа вливают в",
+      "context_after": "с помощью эссенции",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "зеленорукова",
+      "original_word": "зеленорукого",
+      "position": 2602,
+      "context_before": "теле седого и",
+      "context_after": "во время изучения",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "седова",
+      "original_word": "седого",
+      "position": 2759,
+      "context_before": "означало бы расстроить",
+      "context_after": "хотя я смерил",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "смелил",
+      "original_word": "смерил",
+      "position": 2762,
+      "context_before": "седого хотя я",
+      "context_after": "его взглядом заставив",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "скинуть",
+      "original_word": "вскинуть",
+      "position": 2766,
+      "context_before": "его взглядом заставив",
+      "context_after": "брови в немом",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рассуждение",
+      "original_word": "рассуждения",
+      "position": 2800,
+      "context_before": "могу могу отбросить",
+      "context_after": "об оплетке и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "зеленорукова",
+      "original_word": "зеленорукого",
+      "position": 2844,
+      "context_before": "как начал лечить",
+      "context_after": "но внутри изменился",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "растяжение",
+      "original_word": "растяжения",
+      "position": 2872,
+      "context_before": "залечивая рубцы и",
+      "context_after": "меридианов сначала суета",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "дни",
+      "original_word": "дней",
+      "position": 2876,
+      "context_before": "меридианов сначала суета",
+      "context_after": "в городе пяти",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пятиветров",
+      "original_word": "пяти",
+      "position": 2879,
+      "context_before": "дней в городе",
+      "context_after": "ветров когда на",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "ветров",
+      "position": 2880,
+      "context_before": "в городе пяти",
+      "context_after": "когда на меня",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "заявили",
+      "original_word": "заявились",
+      "position": 2931,
+      "context_before": "которому бывшие орденцы",
+      "context_after": "всей толпой что",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "навстречу",
+      "original_word": "на",
+      "position": 2962,
+      "context_before": "просто глазели набивались",
+      "context_after": "встречу мучали вопросами",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "встречу",
+      "position": 2963,
+      "context_before": "глазели набивались на",
+      "context_after": "мучали вопросами наглели",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "завуалированно",
+      "original_word": "завуалировано",
+      "position": 2967,
+      "context_before": "мучали вопросами наглели",
+      "context_after": "оскорбляли и нащупывали",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "в",
+      "original_word": "у",
+      "position": 2989,
+      "context_before": "седого и пересмешника",
+      "context_after": "большей части из",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "шанса",
+      "original_word": "шансов",
+      "position": 3042,
+      "context_before": "силы тоже добавят",
+      "context_after": "семье сломанного клинка",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "велорцев",
+      "original_word": "вилорцев",
+      "position": 3050,
+      "context_before": "внимание имперских чиновников",
+      "context_after": "и прочих пока",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "не",
+      "original_word": "неправ",
+      "position": 3083,
+      "context_before": "мысль что я",
+      "context_after": "в своих рассуждениях",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "их",
+      "original_word": "и",
+      "position": 3091,
+      "context_before": "шакалов и это",
+      "context_after": "впрямь приказ императора",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "прям",
+      "original_word": "впрямь",
+      "position": 3092,
+      "context_before": "и это и",
+      "context_after": "приказ императора орден",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "страдать",
+      "position": 3097,
+      "context_before": "императора орден должен",
+      "context_after": "и страдать как",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "не",
+      "original_word": "неправ",
+      "position": 3211,
+      "context_before": "в чем озман",
+      "context_after": "я не вставал",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "комтором",
+      "original_word": "комтуром",
+      "position": 3218,
+      "context_before": "на колени перед",
+      "context_after": "ордена морозной гряды",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пратьем",
+      "original_word": "пратием",
+      "position": 3222,
+      "context_before": "ордена морозной гряды",
+      "context_after": "не вставал на",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "велитель",
+      "original_word": "повелитель",
+      "position": 3259,
+      "context_before": "не встречал идущих",
+      "context_after": "стихии древний дух",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рамвелор",
+      "original_word": "рам",
+      "position": 3301,
+      "context_before": "человеком как и",
+      "context_after": "вилор взять ту",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "вилор",
+      "position": 3302,
+      "context_before": "как и рам",
+      "context_after": "взять ту же",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сукулаю",
+      "original_word": "суку",
+      "position": 3307,
+      "context_before": "ту же бессердечную",
+      "context_after": "лаю которую я",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "лаю",
+      "position": 3308,
+      "context_before": "же бессердечную суку",
+      "context_after": "которую я вместе",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пеатрия",
+      "original_word": "пиатрия",
+      "position": 3318,
+      "context_before": "наказал служением семье",
+      "context_after": "уверен расскажи я",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рамвелор",
+      "original_word": "рам",
+      "position": 3352,
+      "context_before": "уже половину столетия",
+      "context_after": "вилор мог и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "вилор",
+      "position": 3353,
+      "context_before": "половину столетия рам",
+      "context_after": "мог и хотел",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "по",
+      "original_word": "подругому",
+      "position": 3403,
+      "context_before": "возможно повернулось бы",
+      "context_after": "мы и пробуем",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "настоящие",
+      "original_word": "настоящей",
+      "position": 3460,
+      "context_before": "бы в схватке",
+      "context_after": "а в не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "в",
+      "position": 3462,
+      "context_before": "схватке настоящей а",
+      "context_after": "не в тренировке",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "настоящие",
+      "original_word": "в",
+      "position": 3466,
+      "context_before": "не в тренировке",
+      "context_after": "настоящей а не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "настоящей",
+      "position": 3467,
+      "context_before": "в тренировке в",
+      "context_after": "а не в",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "средоточье",
+      "original_word": "средоточия",
+      "position": 3498,
+      "context_before": "среднее зелье ростка",
+      "context_after": "уже закончило свое",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "зона",
+      "original_word": "зоны",
+      "position": 3520,
+      "context_before": "могу год посещать",
+      "context_after": "запрета я не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "зона",
+      "original_word": "зоны",
+      "position": 3537,
+      "context_before": "хотел потому что",
+      "context_after": "запрета заставляют меня",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "заставляет",
+      "original_word": "заставляют",
+      "position": 3539,
+      "context_before": "что зоны запрета",
+      "context_after": "меня отложить не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "зелья",
+      "original_word": "зелье",
+      "position": 3544,
+      "context_before": "отложить не только",
+      "context_after": "древних но и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сил",
+      "original_word": "силы",
+      "position": 3568,
+      "context_before": "проведу циркуляции сколько",
+      "context_after": "я смогу влить",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пребоя",
+      "original_word": "прибоя",
+      "position": 3574,
+      "context_before": "влить в барьер",
+      "context_after": "с ними сумею",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "действует",
+      "original_word": "действуют",
+      "position": 3597,
+      "context_before": "методики закалки души",
+      "context_after": "ли они на",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "она",
+      "original_word": "они",
+      "position": 3599,
+      "context_before": "души действуют ли",
+      "context_after": "на истинных мастеров",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "талантам",
+      "original_word": "талантом",
+      "position": 3608,
+      "context_before": "то что дано",
+      "context_after": "и родителями сильная",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "улучшено",
+      "original_word": "улучшена",
+      "position": 3616,
+      "context_before": "не может быть",
+      "context_after": "до предела с",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "огромное",
+      "original_word": "огромные",
+      "position": 3733,
+      "context_before": "зоны запретов превратив",
+      "context_after": "пространства поясов в",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пространство",
+      "original_word": "пространства",
+      "position": 3734,
+      "context_before": "запретов превратив огромные",
+      "context_after": "поясов в сотни",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сотню",
+      "original_word": "сотни",
+      "position": 3737,
+      "context_before": "пространства поясов в",
+      "context_after": "лабиринтов набитых големами",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пройдя",
+      "original_word": "пройди",
+      "position": 3744,
+      "context_before": "и прочими опасностями",
+      "context_after": "один такой до",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "формацией",
+      "original_word": "формации",
+      "position": 3788,
+      "context_before": "зоны запрета жизни",
+      "context_after": "где в действие",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "поместья",
+      "original_word": "поместий",
+      "position": 3817,
+      "context_before": "погибших владельцев городов",
+      "context_after": "и прочего они",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "секта",
+      "original_word": "секты",
+      "position": 3849,
+      "context_before": "смерть успех ждал",
+      "context_after": "лишь на части",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "смокалось",
+      "original_word": "смыкалось",
+      "position": 3901,
+      "context_before": "в границу где",
+      "context_after": "небо и земля",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "выселись",
+      "original_word": "высились",
+      "position": 3906,
+      "context_before": "и земля где",
+      "context_after": "далекие горы к",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "седова",
+      "original_word": "седого",
+      "position": 3921,
+      "context_before": "верить недавнему рассказу",
+      "context_after": "в чьем опыте",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "чем",
+      "original_word": "чьем",
+      "position": 3923,
+      "context_before": "рассказу седого в",
+      "context_after": "опыте я не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "небо",
+      "original_word": "небу",
+      "position": 4072,
+      "context_before": "лейла задав его",
+      "context_after": "но она точно",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "както",
+      "position": 4117,
+      "context_before": "или поздно могла",
+      "context_after": "эту дорогу упростить",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "кривую",
+      "original_word": "кривой",
+      "position": 4137,
+      "context_before": "непослушные губы в",
+      "context_after": "ухмылке не переоцениваю",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "но",
+      "original_word": "ну",
+      "position": 4155,
+      "context_before": "вопрос небо молчало",
+      "context_after": "так я и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "я",
+      "position": 4157,
+      "context_before": "молчало ну так",
+      "context_after": "и не говорящий",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "молний",
+      "original_word": "молнии",
+      "position": 4174,
+      "context_before": "грома ни вспышки",
+      "context_after": "ни путеводного луча",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "через",
+      "position": 4180,
+      "context_before": "луча солнца пробившегося",
+      "context_after": "облака и указавшего",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рогедону",
+      "original_word": "рагедону",
+      "position": 4198,
+      "context_before": "я обернулся к",
+      "context_after": "тот резко кивнул",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рогедона",
+      "original_word": "рагедона",
+      "position": 4227,
+      "context_before": "старейшины включая самого",
+      "context_after": "на людей которого",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "возмущаться",
+      "position": 4279,
+      "context_before": "я не стал",
+      "context_after": "устал за эти",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "иди",
+      "original_word": "веди",
+      "position": 4287,
+      "context_before": "просто коротко приказал",
+      "context_after": "наемников оказалось больше",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "чтоб",
+      "original_word": "что",
+      "position": 4306,
+      "context_before": "с последними понятно",
+      "context_after": "приказали командиры то",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "командира",
+      "original_word": "командиры",
+      "position": 4308,
+      "context_before": "понятно что приказали",
+      "context_after": "то они и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "аниматель",
+      "original_word": "наниматель",
+      "position": 4329,
+      "context_before": "силы резко заявил",
+      "context_after": "мы о таком",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "изонул",
+      "original_word": "резанул",
+      "position": 4353,
+      "context_before": "поприветствовал главу тартакал",
+      "context_after": "седого злым взглядом",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "аниматель",
+      "original_word": "наниматель",
+      "position": 4369,
+      "context_before": "оспаривать приказ старшего",
+      "context_after": "приветствую вас выпрямившись",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "аниматель",
+      "original_word": "наниматель",
+      "position": 4429,
+      "context_before": "ты начал беспокоиться",
+      "context_after": "изумился в ответ",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "безопасное",
+      "original_word": "безопасные",
+      "position": 4441,
+      "context_before": "одно дело давно",
+      "context_after": "пространства вокруг главного",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пространство",
+      "original_word": "пространства",
+      "position": 4442,
+      "context_before": "дело давно безопасные",
+      "context_after": "вокруг главного города",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "мурлан",
+      "original_word": "морлан",
+      "position": 4446,
+      "context_before": "вокруг главного города",
+      "context_after": "совсем другое каменный",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "окраина",
+      "original_word": "окраины",
+      "position": 4494,
+      "context_before": "что одно дело",
+      "context_after": "лабиринта где все",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "мурлан",
+      "original_word": "морлан",
+      "position": 4503,
+      "context_before": "же истоптано идущими",
+      "context_after": "как и в",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "значатся",
+      "original_word": "значится",
+      "position": 4528,
+      "context_before": "в вашем контракте",
+      "context_after": "охрана семьи от",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "прочей",
+      "original_word": "прочие",
+      "position": 4535,
+      "context_before": "людей зверей и",
+      "context_after": "мелочи никто не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рагидоном",
+      "original_word": "рагедоном",
+      "position": 4657,
+      "context_before": "семьи вместе с",
+      "context_after": "добравшись неспешно оглядел",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "рагидон",
+      "original_word": "рагедон",
+      "position": 4676,
+      "context_before": "негромко сказал двинули",
+      "context_after": "тут же повторил",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "проворачивала",
+      "original_word": "проворачивал",
+      "position": 4722,
+      "context_before": "что я когдато",
+      "context_after": "в городе тысячи",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "вглубь",
+      "original_word": "в",
+      "position": 4808,
+      "context_before": "увести всех людей",
+      "context_after": "глубь зон запретов",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "глубь",
+      "position": 4809,
+      "context_before": "всех людей в",
+      "context_after": "зон запретов и",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ни",
+      "original_word": "не",
+      "position": 4828,
+      "context_before": "уверяли что они",
+      "context_after": "раз не два",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ни",
+      "original_word": "не",
+      "position": 4830,
+      "context_before": "они не раз",
+      "context_after": "два и даже",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "линии",
+      "original_word": "линией",
+      "position": 4877,
+      "context_before": "мечи замерли следующей",
+      "context_after": "защиты третьей линией",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "линии",
+      "original_word": "линией",
+      "position": 4880,
+      "context_before": "линией защиты третьей",
+      "context_after": "стояли мелкие наемные",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "нарушение",
+      "original_word": "нарушении",
+      "position": 4924,
+      "context_before": "обвинить меня в",
+      "context_after": "контракта и бросить",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ноги",
+      "original_word": "многие",
+      "position": 5038,
+      "context_before": "все равно бледнеют",
+      "context_after": "мы бредем загребая",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "извилам",
+      "original_word": "извивам",
+      "position": 5059,
+      "context_before": "тысяч шагов по",
+      "context_after": "этой гигантской трещины",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "все",
+      "original_word": "те",
+      "position": 5068,
+      "context_before": "самом деле нет",
+      "context_after": "кого мы охраняем",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "кто",
+      "original_word": "что",
+      "position": 5093,
+      "context_before": "идущие из тех",
+      "context_after": "послабей и кто",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "послабее",
+      "original_word": "послабей",
+      "position": 5094,
+      "context_before": "из тех что",
+      "context_after": "и кто даже",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "и",
+      "position": 5095,
+      "context_before": "тех что послабей",
+      "context_after": "кто даже не",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "полное",
+      "original_word": "полные",
+      "position": 5105,
+      "context_before": "поле битвы завели",
+      "context_after": "пустого бахвальства разговоры",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "пустое",
+      "original_word": "пустого",
+      "position": 5106,
+      "context_before": "битвы завели полные",
+      "context_after": "бахвальства разговоры но",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "обохвальство",
+      "original_word": "бахвальства",
+      "position": 5107,
+      "context_before": "завели полные пустого",
+      "context_after": "разговоры но впереди",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "с",
+      "position": 5121,
+      "context_before": "высотой с человека",
+      "context_after": "зеленым полотнищем которое",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "творением",
+      "original_word": "творениям",
+      "position": 5167,
+      "context_before": "им ни их",
+      "context_after": "запреты не писаны",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "расщеленно",
+      "original_word": "расщелина",
+      "position": 5212,
+      "context_before": "и справа словно",
+      "context_after": "прыгнула на нас",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "прыгнуло",
+      "original_word": "прыгнула",
+      "position": 5213,
+      "context_before": "справа словно расщелина",
+      "context_after": "на нас заглатывая",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "расщелены",
+      "original_word": "расщелины",
+      "position": 5234,
+      "context_before": "каждым шагом стены",
+      "context_after": "вздымаются все выше",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "быстрее",
+      "original_word": "быстрей",
+      "position": 5241,
+      "context_before": "и выше гораздо",
+      "context_after": "чем это должно",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "тысячи",
+      "original_word": "тысяча",
+      "position": 5249,
+      "context_before": "на самом деле",
+      "context_after": "шагов и они",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "закрывающих",
+      "original_word": "закрывают",
+      "position": 5260,
+      "context_before": "из небесных исполинов",
+      "context_after": "небо и солнце",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "искажают",
+      "original_word": "искажает",
+      "position": 5305,
+      "context_before": "вот расслабленные лица",
+      "context_after": "гримаса удивления и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "комптерами",
+      "original_word": "комтурами",
+      "position": 5402,
+      "context_before": "старейшины бывшие когдато",
+      "context_after": "ордена не могли",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "уздрагивали",
+      "original_word": "вздрагивали",
+      "position": 5443,
+      "context_before": "не ограничились гримасами",
+      "context_after": "ругались дергались сбивались",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "искателей",
+      "original_word": "искатели",
+      "position": 5474,
+      "context_before": "вернее вторые первых",
+      "context_after": "семьи уже выбили",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "посильнее",
+      "original_word": "посильней",
+      "position": 5497,
+      "context_before": "вздохнув постарался растянуть",
+      "context_after": "сферу восприятия сто",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "шагов",
+      "original_word": "шаг",
+      "position": 5511,
+      "context_before": "ничего две тысячи",
+      "context_after": "в прохладный ветер",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "вплялась",
+      "original_word": "вплелась",
+      "position": 5515,
+      "context_before": "в прохладный ветер",
+      "context_after": "теплая едва уловимая",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "седова",
+      "original_word": "седого",
+      "position": 5527,
+      "context_before": "обращая взгляд на",
+      "context_after": "тот кивает и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ряпкает",
+      "original_word": "рявкает",
+      "position": 5531,
+      "context_before": "тот кивает и",
+      "context_after": "приготовились големы не",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "под",
+      "original_word": "подтоком",
+      "position": 5612,
+      "context_before": "лапы шаг вперед",
+      "context_after": "по пасти отводя",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сильнее",
+      "original_word": "сильней",
+      "position": 5627,
+      "context_before": "сторону как можно",
+      "context_after": "как можно дальше",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "быстрее",
+      "original_word": "быстрей",
+      "position": 5664,
+      "context_before": "убивать проще убивать",
+      "context_after": "но если мы",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "делаю",
+      "original_word": "делая",
+      "position": 5709,
+      "context_before": "седой хорошо хоть",
+      "context_after": "это лишь наедине",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "муслиречью",
+      "original_word": "мыслеречью",
+      "position": 5714,
+      "context_before": "лишь наедине и",
+      "context_after": "впрочем я его",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "ключ",
+      "original_word": "ключа",
+      "position": 5783,
+      "context_before": "и своего подобия",
+      "context_after": "без портала но",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "этого",
+      "original_word": "него",
+      "position": 5789,
+      "context_before": "но и без",
+      "context_after": "это был очень",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "соседу",
+      "original_word": "соседа",
+      "position": 5824,
+      "context_before": "щелкнув по носу",
+      "context_after": "у которого такого",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "не",
+      "original_word": "неторопливо",
+      "position": 5854,
+      "context_before": "вперед методично и",
+      "context_after": "превращая нападающих големов",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "коллег",
+      "original_word": "калек",
+      "position": 5859,
+      "context_before": "нападающих големов в",
+      "context_after": "чем меньше повреждений",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "внимание",
+      "original_word": "внимания",
+      "position": 5964,
+      "context_before": "я не обратил",
+      "context_after": "на эту странность",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "считая",
+      "original_word": "считай",
+      "position": 5970,
+      "context_before": "странность раньше еще",
+      "context_after": "год назад когда",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "поместью",
+      "original_word": "помесью",
+      "position": 5995,
+      "context_before": "лапу голему притворяющемуся",
+      "context_after": "тигра мада и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "лишний",
+      "original_word": "лишь",
+      "position": 6001,
+      "context_before": "и пантеры оставляет",
+      "context_after": "неглубокий разрез в",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "глубокий",
+      "original_word": "неглубокий",
+      "position": 6002,
+      "context_before": "пантеры оставляет лишь",
+      "context_after": "разрез в камне",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "порвало",
+      "original_word": "проволокло",
+      "position": 6067,
+      "context_before": "в разные стороны",
+      "context_after": "по песку силой",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "силы",
+      "original_word": "силой",
+      "position": 6070,
+      "context_before": "проволокло по песку",
+      "context_after": "удара напоминая что",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "лезвией",
+      "original_word": "лезвие",
+      "position": 6088,
+      "context_before": "в длинном выпаде",
+      "context_after": "чиркнув голема по",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "черкнув",
+      "original_word": "чиркнув",
+      "position": 6089,
+      "context_before": "длинном выпаде лезвие",
+      "context_after": "голема по брюху",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "звездные",
+      "original_word": "звездное",
+      "position": 6110,
+      "context_before": "используя если не",
+      "context_after": "лезвие то технику",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "лезвия",
+      "original_word": "лезвие",
+      "position": 6111,
+      "context_before": "если не звездное",
+      "context_after": "то технику раскола",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "какого",
+      "original_word": "когдато",
+      "position": 6134,
+      "context_before": "вздох стражника семьи",
+      "context_after": "орденца мельком скользнул",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "за",
+      "position": 6175,
+      "context_before": "кого он считал",
+      "context_after": "сектантов прыгая на",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "коллег",
+      "original_word": "калек",
+      "position": 6191,
+      "context_before": "каждому из таких",
+      "context_after": "беглецов хватало хорошего",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "надорвущимся",
+      "original_word": "надо",
+      "position": 6384,
+      "context_before": "памяти слабость возникшая",
+      "context_after": "рвущимся ко мне",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "к",
+      "original_word": "рвущимся",
+      "position": 6385,
+      "context_before": "слабость возникшая надо",
+      "context_after": "ко мне големом",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "камне",
+      "original_word": "ко",
+      "position": 6386,
+      "context_before": "возникшая надо рвущимся",
+      "context_after": "мне големом печать",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "големам",
+      "original_word": "мне",
+      "position": 6387,
+      "context_before": "надо рвущимся ко",
+      "context_after": "големом печать подействовала",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "големом",
+      "position": 6388,
+      "context_before": "рвущимся ко мне",
+      "context_after": "печать подействовала безотказно",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "калеки",
+      "original_word": "калеке",
+      "position": 6426,
+      "context_before": "в полете силы",
+      "context_after": "уже не могли",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "и",
+      "position": 6454,
+      "context_before": "хотя я никогда",
+      "context_after": "не считал себя",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "а",
+      "position": 6636,
+      "context_before": "не на что",
+      "context_after": "этот вывод уже",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "любят",
+      "original_word": "любит",
+      "position": 6707,
+      "context_before": "глазах которые так",
+      "context_after": "поглощать призрак а",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "умеют",
+      "original_word": "умеет",
+      "position": 6712,
+      "context_before": "призрак а седой",
+      "context_after": "использовать для превращения",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "напередив",
+      "original_word": "опередив",
+      "position": 6744,
+      "context_before": "сам прыгнув вперед",
+      "context_after": "его прыжок ударив",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "могут",
+      "original_word": "молот",
+      "position": 6763,
+      "context_before": "моих руках не",
+      "context_after": "монстров созданный чтобы",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "созданные",
+      "original_word": "созданный",
+      "position": 6765,
+      "context_before": "не молот монстров",
+      "context_after": "чтобы слабые идущие",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "неравные",
+      "original_word": "неравных",
+      "position": 6795,
+      "context_before": "его на две",
+      "context_after": "части переднюю и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сектанскую",
+      "original_word": "сектантскую",
+      "position": 6937,
+      "context_before": "ту формацию за",
+      "context_after": "но теперь теперь",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "deletion",
+      "transcript_word": "",
+      "original_word": "древних",
+      "position": 6990,
+      "context_before": "уже защитные формации",
+      "context_after": "выплескивают волны големов",
+      "filtered": true,
+      "filter_reason": "alignment_start_artifact"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "дар",
+      "original_word": "дарс",
+      "position": 7049,
+      "context_before": "мертвых древних что",
+      "context_after": "меня побери становится",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "когда",
+      "original_word": "когдато",
+      "position": 7092,
+      "context_before": "разделившиеся но бывшие",
+      "context_after": "едиными пять изначальных",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "древних",
+      "original_word": "древними",
+      "position": 7139,
+      "context_before": "что в големах",
+      "context_after": "использован какойто заменитель",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "неду",
+      "original_word": "недодуша",
+      "position": 7144,
+      "context_before": "какойто заменитель обманка",
+      "context_after": "которую я смог",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "маоруса",
+      "original_word": "маорса",
+      "position": 7167,
+      "context_before": "поджал губы вспомнив",
+      "context_after": "изарда с его",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "риол",
+      "original_word": "реол",
+      "position": 7196,
+      "context_before": "семьи кавиот гранд",
+      "context_after": "стражей что значит",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "подобные",
+      "original_word": "подобной",
+      "position": 7204,
+      "context_before": "как создают духов",
+      "context_after": "силы которые совершенно",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "совершеннее",
+      "original_word": "совершенней",
+      "position": 7213,
+      "context_before": "человека которые намного",
+      "context_after": "любого известного мне",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "различные",
+      "original_word": "различны",
+      "position": 7221,
+      "context_before": "так ли уж",
+      "context_after": "пути альянса и",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    },
+    {
+      "type": "substitution",
+      "transcript_word": "сотню",
+      "original_word": "сотни",
+      "position": 7304,
+      "context_before": "встретил его спустя",
+      "context_after": "лет после тяжелой",
+      "filtered": true,
+      "filter_reason": "morpho_identical"
+    }
+  ]
+}

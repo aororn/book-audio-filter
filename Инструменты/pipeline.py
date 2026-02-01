@@ -26,7 +26,7 @@ Changelog:
         - Автоматическая ротация логов
     v2.0 (2026-01-24): Полная интеграция с config.py
         - YandexCloudConfig для folder_id и API ключей
-        - RESULTS_DIR, DICTIONARIES_DIR, PROTECTED_WORDS, READER_ERRORS
+        - RESULTS_DIR, DICTIONARIES_DIR, READER_ERRORS
         - FileNaming для всех выходных файлов
         - SmartCompareConfig для threshold/phantom
         - check_file_exists() + флаг --force
@@ -67,7 +67,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 try:
     from config import (
         PROJECT_DIR, RESULTS_DIR, DICTIONARIES_DIR,
-        PROTECTED_WORDS, READER_ERRORS, NAMES_DICT,
+        READER_ERRORS, NAMES_DICT,
         FileNaming, YandexCloudConfig, SmartCompareConfig,
         check_file_exists, validate_file_correspondence,
         setup_logging, get_logger, cleanup_old_logs, log_exception
@@ -81,7 +81,6 @@ except ImportError:
     PROJECT_DIR = SCRIPT_DIR.parent
     RESULTS_DIR = PROJECT_DIR / 'Результаты проверки'
     DICTIONARIES_DIR = PROJECT_DIR / 'Словари'
-    PROTECTED_WORDS = DICTIONARIES_DIR / 'защищенные_слова.txt'
     READER_ERRORS = DICTIONARIES_DIR / 'ошибки_чтеца.json'
     NAMES_DICT = DICTIONARIES_DIR / 'Словарь_имён_персонажей.txt'
 
@@ -426,44 +425,6 @@ def step_transcribe(audio_path, output_dir, api_key=None, folder_id=None):
     return str(output_path)
 
 
-def step_extract_names(text_path, output_dir):
-    """Шаг 3a: Извлечение имён собственных из текста"""
-    try:
-        from proper_names_extractor import extract_names_from_file, save_names_to_protected
-
-        text_path = Path(text_path)
-
-        # Извлекаем имена
-        names = extract_names_from_file(str(text_path), use_morph=True)
-
-        if names:
-            print(f"  Найдено имён собственных: {len(names)}")
-
-            # Сохраняем в файл в output_dir
-            names_file = Path(output_dir) / 'extracted_names.txt'
-            with open(names_file, 'w', encoding='utf-8') as f:
-                for name in sorted(names):
-                    f.write(f'{name}\n')
-
-            # Добавляем в глобальный файл защищённых слов
-            if PROTECTED_WORDS.exists():
-                added = save_names_to_protected(names, str(PROTECTED_WORDS), append=True)
-                if added:
-                    print(f"  Добавлено в защищённые слова: {added}")
-
-            return str(names_file)
-        else:
-            print(f"  Имена собственные не найдены")
-            return None
-
-    except ImportError:
-        print(f"  ⚠ Модуль proper_names_extractor недоступен")
-        return None
-    except Exception as e:
-        print(f"  ⚠ Ошибка извлечения имён: {e}")
-        return None
-
-
 def step_normalize_text(text_path, output_dir):
     """Шаг 3: Нормализация оригинального текста"""
     from text_normalizer import normalize_file
@@ -541,13 +502,11 @@ def step_golden_filter(report_path, output_dir, config=None):
 
     # Перезагружаем модуль для актуальных словарей
     importlib.reload(golden_filter)
-    from golden_filter import filter_report, load_reader_errors, load_protected_words
+    from golden_filter import filter_report, load_reader_errors
 
     # Загружаем словари из централизованных путей
     if READER_ERRORS.exists():
         load_reader_errors(str(READER_ERRORS))
-    if PROTECTED_WORDS.exists():
-        load_protected_words(str(PROTECTED_WORDS))
 
     report_path = Path(report_path)
 
@@ -837,9 +796,6 @@ def run_pipeline(audio_path, text_path, output_dir=None,
         step_validate_correspondence,
         results['transcript'], str(text_path)
     )
-
-    # Шаг 3a: Извлечение имён собственных (автоматически добавляет в защищённые слова)
-    results['extracted_names'] = step_extract_names(str(text_path), str(output_dir))
 
     # Шаг 3: Нормализация текста
     results['normalized_text'] = run_step(

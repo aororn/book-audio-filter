@@ -58,8 +58,8 @@ Changelog:
 """
 
 # Версия модуля
-VERSION = '10.6.0'
-VERSION_DATE = '2026-01-30'
+VERSION = '10.8.0'  # v10.8: transcript_context для всех типов ошибок
+VERSION_DATE = '2026-01-31'
 
 import argparse
 import json
@@ -929,6 +929,7 @@ class Error:
     type: str  # substitution, insertion, deletion
     time: float
     time_end: float = 0.0
+    time_seconds: int = -1  # v10.7.1: для совместимости с golden тестами
     original: str = ""
     transcript: str = ""
     context: str = ""  # контекст из оригинала (основной)
@@ -938,6 +939,12 @@ class Error:
     is_yandex_error: bool = False
     similarity: float = 0.0
     phonetic_similarity: float = 0.0
+    merged_from_ins_del: bool = False  # v10.7.2: метка что substitution создана из ins+del
+
+    def __post_init__(self):
+        """Автоматически заполняем time_seconds из time"""
+        if self.time_seconds == -1:
+            self.time_seconds = int(self.time)
 
 
 # =============================================================================
@@ -1484,6 +1491,116 @@ def fix_misaligned_errors(errors: List[Error]) -> List[Error]:
     return fixed_errors
 
 
+def merge_adjacent_ins_del(errors: List[Error], time_threshold: float = 1.0) -> List[Error]:
+    """
+    Объединяет соседние insertion + deletion в substitution (v10.7).
+
+    Проблема: SequenceMatcher может разбить замену слова на:
+      - insertion "новое_слово"
+      - deletion "старое_слово"
+    вместо substitution "новое_слово" → "старое_слово"
+
+    Это особенно часто происходит когда слова совсем не похожи:
+      - "огонь" → "костер" (similarity 0.18)
+      - "и" → "а" (оба короткие)
+
+    Алгоритм:
+    1. Сортируем ошибки по времени
+    2. Для каждой insertion ищем deletion в пределах time_threshold
+    3. Если нашли пару — объединяем в substitution
+
+    Args:
+        errors: список ошибок
+        time_threshold: максимальное расстояние по времени между ins и del (сек)
+
+    Returns:
+        Исправленный список ошибок
+    """
+    if not errors:
+        return errors
+
+    # Разделяем на типы
+    insertions = [(i, e) for i, e in enumerate(errors) if e.type == 'insertion']
+    deletions = [(i, e) for i, e in enumerate(errors) if e.type == 'deletion']
+    others = [e for e in errors if e.type not in ('insertion', 'deletion')]
+
+    if not insertions or not deletions:
+        return errors
+
+    merged = []
+    used_ins = set()
+    used_del = set()
+
+    # Для каждой insertion ищем ближайшую deletion
+    for ins_idx, ins_err in insertions:
+        if ins_idx in used_ins:
+            continue
+
+        best_del = None
+        best_del_idx = None
+        best_time_diff = float('inf')
+
+        for del_idx, del_err in deletions:
+            if del_idx in used_del:
+                continue
+
+            time_diff = abs(ins_err.time - del_err.time)
+            if time_diff <= time_threshold and time_diff < best_time_diff:
+                best_del = del_err
+                best_del_idx = del_idx
+                best_time_diff = time_diff
+
+        if best_del is not None:
+            # Нашли пару! Объединяем в substitution
+            # transcript = что сказал Яндекс (insertion)
+            # original = что было в книге (deletion)
+
+            # Вычисляем similarity
+            trans_word = ins_err.transcript.lower()
+            orig_word = best_del.original.lower()
+
+            try:
+                from difflib import SequenceMatcher
+                sim = SequenceMatcher(None, trans_word, orig_word).ratio()
+            except:
+                sim = 0.0
+
+            merged.append(Error(
+                type='substitution',
+                time=min(ins_err.time, best_del.time),
+                time_end=getattr(ins_err, 'time_end', ins_err.time),
+                original=best_del.original,  # что в книге
+                transcript=ins_err.transcript,  # что услышал Яндекс
+                context=best_del.context,  # контекст из оригинала
+                transcript_context=getattr(ins_err, 'transcript_context', ''),
+                marker_pos=best_del.marker_pos,
+                similarity=sim,
+                phonetic_similarity=sim,
+                is_yandex_error=False,
+                merged_from_ins_del=True  # v10.7.2: метка что это слияние ins+del
+            ))
+
+            used_ins.add(ins_idx)
+            used_del.add(best_del_idx)
+
+    # Добавляем неиспользованные insertion и deletion
+    for ins_idx, ins_err in insertions:
+        if ins_idx not in used_ins:
+            merged.append(ins_err)
+
+    for del_idx, del_err in deletions:
+        if del_idx not in used_del:
+            merged.append(del_err)
+
+    # Добавляем остальные ошибки
+    merged.extend(others)
+
+    # Сортируем по времени
+    merged.sort(key=lambda e: e.time)
+
+    return merged
+
+
 # =============================================================================
 # ПОСЕГМЕНТНОЕ СРАВНЕНИЕ (v9.2)
 # =============================================================================
@@ -1902,6 +2019,7 @@ def smart_compare(transcript_path: str, original_path: str,
                         original=orig_word.text,
                         transcript=trans_word.text,
                         context=context,
+                        transcript_context=get_context_from_transcript(transcript, trans_idx),
                         marker_pos=marker_pos,
                         similarity=sim,
                         phonetic_similarity=phon_sim,
@@ -1915,11 +2033,14 @@ def smart_compare(transcript_path: str, original_path: str,
                     elif del_time == 0 and j1 > 0:
                         del_time = transcript[j1 - 1].time_end
                     context, marker_pos = get_context(original, orig_idx)
+                    # Для deletion: контекст транскрипции из ближайшей позиции
+                    trans_context_pos = min(j1, len(transcript) - 1) if transcript else 0
                     all_errors.append(Error(
                         type='deletion',
                         time=del_time,
                         original=orig_word.text,
                         context=context,
+                        transcript_context=get_context_from_transcript(transcript, trans_context_pos) if transcript else '',
                         marker_pos=marker_pos
                     ))
                 elif trans_word and not orig_word:
@@ -1953,6 +2074,9 @@ def smart_compare(transcript_path: str, original_path: str,
                 # Fallback: берём время последнего слова транскрипции
                 time_estimate = transcript[-1].time_end
 
+            # Позиция в транскрипции для контекста deletion
+            trans_context_pos = min(j1, len(transcript) - 1) if transcript else 0
+
             for k in range(i1, i2):
                 context, marker_pos = get_context(original, k)
                 all_errors.append(Error(
@@ -1960,6 +2084,7 @@ def smart_compare(transcript_path: str, original_path: str,
                     time=time_estimate,
                     original=original[k].text,
                     context=context,
+                    transcript_context=get_context_from_transcript(transcript, trans_context_pos) if transcript else '',
                     marker_pos=marker_pos
                 ))
 
@@ -1983,6 +2108,10 @@ def smart_compare(transcript_path: str, original_path: str,
     # Пост-обработка: исправляем неправильные сопоставления SequenceMatcher
     # Например: "рагидон"→"и" + deletion "рагедон" → deletion "и" + substitution "рагидон"→"рагедон"
     all_errors = fix_misaligned_errors(all_errors)
+
+    # v10.7: Объединяем соседние insertion+deletion в substitution
+    # Например: insertion "огонь" + deletion "костер" → substitution "огонь"→"костер"
+    all_errors = merge_adjacent_ins_del(all_errors, time_threshold=1.0)
 
     # Разделяем на типы
     yandex_errors = [e for e in all_errors if e.is_yandex_error]

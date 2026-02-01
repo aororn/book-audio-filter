@@ -1,0 +1,56 @@
+{
+    "algorithm": {
+        "command": null,
+        "id": 4,
+        "name": "Gensim Continuous Bag-of-Words",
+        "tool": "Gensim",
+        "url": "https://github.com/RaRe-Technologies/gensim",
+        "version": "3.6"
+    },
+    "contents": [
+        {
+            "filename": "model.txt",
+            "format": "text"
+        },
+        {
+            "filename": "model.bin",
+            "format": "data"
+        },
+        {
+            "filename": "meta.json",
+            "format": "json"
+        }
+    ],
+    "corpus": [
+        {
+            "NER": true,
+            "case preserved": false,
+            "description": "Russian National Corpus",
+            "id": 87,
+            "language": "rus",
+            "lemmatized": true,
+            "public": false,
+            "stop words removal": "functional PoS",
+            "tagger": "UDPipe 1.2",
+            "tagset": "UPoS",
+            "tokens": 270000000,
+            "url": "http://ruscorpora.ru/"
+        }
+    ],
+    "creators": [
+        {
+            "email": "andreku@ifi.uio.no",
+            "name": "Andrey Kutuzov"
+        }
+    ],
+    "dimensions": 300,
+    "documentation": [
+        "https://rusvectores.org"
+    ],
+    "external_id": "ruscorpora_upos_cbow_300_20_2019",
+    "handle": "http://vectors.nlpl.eu/repository/20/180.zip",
+    "id": 180,
+    "iterations": 10,
+    "vocabulary size": 189193,
+    "window": 20
+}

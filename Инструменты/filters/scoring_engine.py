@@ -1,5 +1,5 @@
 """
-ScoringEngine v1.0 — Система адаптивных штрафов для фильтрации.
+ScoringEngine v1.3 — Система адаптивных штрафов для фильтрации.
 
 Логика:
 1. Имена персонажей получают высокий штраф (+100) — не фильтруем
@@ -7,6 +7,7 @@ ScoringEngine v1.0 — Система адаптивных штрафов для
 3. Hard Negatives — известные пары путаницы, штраф +80
 4. Адаптивный порог на основе confidence от Яндекса
 
+v1.3 (2026-01-31): Унификация импортов — используем .comparison вместо ..morphology
 v1.2 (2026-01-29): Очищено HARD_NEGATIVES — только имена персонажей (3 пары)
     - Убраны костыли (сотни/сотня, получится/получилось и т.д.)
     - Грамматические различия должен ловить morpho_rules
@@ -14,35 +15,18 @@ v1.1 (2026-01-29): [ОТКАЧЕНО] Расширено HARD_NEGATIVES — бы
 v1.0 (2026-01-29): Начальная версия
 """
 
-VERSION = '1.2.0'
-VERSION_DATE = '2026-01-29'
+VERSION = '1.3.0'
+VERSION_DATE = '2026-01-31'
 
 from typing import Dict, Tuple, Optional, List
 from dataclasses import dataclass
 
-# Импорт CharacterGuard
-try:
-    from .character_guard import get_character_guard, is_character_name, get_word_penalty
-    HAS_CHARACTER_GUARD = True
-except ImportError:
-    try:
-        from character_guard import get_character_guard, is_character_name, get_word_penalty
-        HAS_CHARACTER_GUARD = True
-    except ImportError:
-        HAS_CHARACTER_GUARD = False
-        is_character_name = lambda x: False
-        get_word_penalty = lambda x: 0
+# v1.3: Прямой импорт CharacterGuard (без fallback)
+from .character_guard import get_character_guard, is_character_name, get_word_penalty
+HAS_CHARACTER_GUARD = True
 
-# Импорт морфологии
-try:
-    from ..morphology import get_lemma, get_pos, HAS_PYMORPHY
-except ImportError:
-    try:
-        from morphology import get_lemma, get_pos, HAS_PYMORPHY
-    except ImportError:
-        HAS_PYMORPHY = False
-        get_lemma = lambda x: x.lower()
-        get_pos = lambda x: None
+# v1.3: Импорт из comparison.py — единый источник морфологии для filters/
+from .comparison import get_lemma, get_pos, HAS_PYMORPHY
 
 
 # =============================================================================
@@ -352,16 +336,5 @@ def test_scoring_engine():
 
 
 if __name__ == '__main__':
-    # Для тестирования: добавляем путь к родительской папке
-    import sys
-    from pathlib import Path
-    parent = Path(__file__).parent.parent
-    if str(parent) not in sys.path:
-        sys.path.insert(0, str(parent))
-
-    # Перезагружаем модуль для корректных импортов
-    import importlib
-    import filters.scoring_engine as se
-    importlib.reload(se)
-
-    se.test_scoring_engine()
+    # v1.3: Запуск через python -m filters.scoring_engine из Инструменты/
+    test_scoring_engine()

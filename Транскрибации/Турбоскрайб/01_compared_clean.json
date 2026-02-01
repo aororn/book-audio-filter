@@ -1,0 +1,281 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "timestamp": "2026-01-30T14:52:32.220745",
+    "transcript_file": "01_normalized_clean.txt",
+    "original_file": "original_01_normalized.txt",
+    "transcript_words": 7960,
+    "original_words": 8003,
+    "note": "Phantoms removed"
+  },
+  "summary": {
+    "total_errors": 535,
+    "filtered_errors": 492,
+    "remaining_errors": 43,
+    "by_type": {
+      "insertion": 43
+    },
+    "wer_raw": 6.68,
+    "wer_filtered": 0.54
+  },
+  "errors": [
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 162
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "сказать",
+      "position": 302
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "гад",
+      "position": 530
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "опасная",
+      "position": 1177
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "мы",
+      "position": 1323
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речи",
+      "position": 1434
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "мечей",
+      "position": 1570
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "там",
+      "position": 1570
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "две",
+      "position": 1570
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "сотни",
+      "position": 1570
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "что",
+      "position": 2022
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "показ",
+      "position": 2414
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "то",
+      "position": 2751
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "дешевый",
+      "position": 2935
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "богата",
+      "position": 2939
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "что",
+      "position": 2968
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речь",
+      "position": 3233
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "я",
+      "position": 3390
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "теперь",
+      "position": 3390
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "мне",
+      "position": 3390
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "интересно",
+      "position": 3390
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "сегодняшнему",
+      "position": 3398
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "дню",
+      "position": 3398
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "кого",
+      "position": 3398
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "угадать",
+      "position": 3424
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "их",
+      "position": 3491
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "взглядом",
+      "position": 3491
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "законами",
+      "position": 3537
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "а",
+      "position": 3537
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "слива",
+      "position": 4260
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "проворот",
+      "position": 4296
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "сходу",
+      "position": 4461
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "может",
+      "position": 4461
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "спеться",
+      "position": 4461
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 4869
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "купите",
+      "position": 4869
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "фиор",
+      "position": 5915
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "речи",
+      "position": 6281
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 6723
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 6764
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "в",
+      "position": 7574
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "сжал",
+      "position": 7579
+    },
+    {
+      "type": "insertion",
+      "original_word": "",
+      "transcript_word": "и",
+      "position": 7735
+    }
+  ]
+}

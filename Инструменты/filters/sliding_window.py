@@ -1,5 +1,5 @@
 """
-SlidingWindow v1.0 — Фонетическое сравнение без пробелов.
+SlidingWindow v1.1 — Фонетическое сравнение без пробелов.
 
 Дополняет WindowVerifier. Выявляет артефакты выравнивания когда
 слова правильные, но границы съехали из-за пробелов.
@@ -20,20 +20,23 @@ SlidingWindow v1.0 — Фонетическое сравнение без про
     - Если склеенные версии совпадают — это артефакт, а не ошибка
     - Добавляет -100 в скоринг (обнуляет)
 
-Версия: 1.0.0
-Дата: 2026-01-30
+v1.1.0 (2026-01-31): Пороги из config.py
+v1.0.0 (2026-01-30): Начальная версия
 """
 
 import re
 from typing import Optional, List, Tuple
 from dataclasses import dataclass
 
-VERSION = '1.0.0'
-VERSION_DATE = '2026-01-30'
+VERSION = '1.1.0'
+VERSION_DATE = '2026-01-31'
 
-# Порог схожести для детекции артефакта
-PHONETIC_MATCH_THRESHOLD = 95  # fuzz.ratio >= 95%
-SUBSTRING_MATCH_THRESHOLD = 90  # для подстрок
+# v1.1: Пороги из config.py
+from .config import get_phonetic_match_threshold, get_substring_match_threshold
+
+# Алиасы для обратной совместимости
+PHONETIC_MATCH_THRESHOLD = 95  # Используй get_phonetic_match_threshold()
+SUBSTRING_MATCH_THRESHOLD = 90  # Используй get_substring_match_threshold()
 
 # Размер окна контекста (слова слева + справа)
 DEFAULT_WINDOW_SIZE = 2
@@ -157,7 +160,7 @@ class SlidingWindow:
 
         # 2. Fuzzy match
         ratio = self._get_fuzz_ratio(orig_concat, trans_concat)
-        if ratio >= PHONETIC_MATCH_THRESHOLD:
+        if ratio >= get_phonetic_match_threshold():
             return SlidingResult(
                 is_artifact=True,
                 match_type='fuzzy',
@@ -189,7 +192,7 @@ class SlidingWindow:
         # Оригинал содержит транскрипт
         if trans in orig:
             coverage = len(trans) / len(orig) * 100
-            if coverage >= SUBSTRING_MATCH_THRESHOLD:
+            if coverage >= get_substring_match_threshold():
                 return SlidingResult(
                     is_artifact=True,
                     match_type='substring',
@@ -202,7 +205,7 @@ class SlidingWindow:
         # Транскрипт содержит оригинал
         if orig in trans:
             coverage = len(orig) / len(trans) * 100
-            if coverage >= SUBSTRING_MATCH_THRESHOLD:
+            if coverage >= get_substring_match_threshold():
                 return SlidingResult(
                     is_artifact=True,
                     match_type='substring',
@@ -284,7 +287,7 @@ def check_phonetic_match(
         return (True, 100)
 
     ratio = sw._get_fuzz_ratio(orig_clean, trans_clean)
-    return (ratio >= PHONETIC_MATCH_THRESHOLD, ratio)
+    return (ratio >= get_phonetic_match_threshold(), ratio)
 
 
 # =============================================================================

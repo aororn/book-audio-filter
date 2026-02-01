@@ -1,0 +1,210 @@
+{
+  "_comment": "Золотой стандарт ошибок главы 3. Эти ошибки ДОЛЖНЫ находиться при любой проверке.",
+  "chapter": "Глава 3",
+  "audio": "03.mp3",
+  "total_errors": 20,
+  "errors": [
+    {
+      "time": "0:28",
+      "time_seconds": 28,
+      "type": "substitution",
+      "wrong": "верному",
+      "correct": "верный",
+      "context": "для всех рядовых орденцев верный новой семье и верный Ордену бывший и будущий комтур",
+      "transcript": "верному",
+      "original": "верный"
+    },
+    {
+      "time": "1:30",
+      "time_seconds": 90,
+      "type": "substitution",
+      "wrong": "императора",
+      "correct": "империи",
+      "context": "их руках я всё равно не знаю многих тонкостей жизни Империи",
+      "transcript": "императора",
+      "original": "империи"
+    },
+    {
+      "time": "3:55",
+      "time_seconds": 235,
+      "type": "insertion",
+      "wrong": "и",
+      "correct": "",
+      "context": "мама читала мне в детстве в Нулевом И всё же всё же",
+      "transcript": "и",
+      "original": ""
+    },
+    {
+      "time": "6:57",
+      "time_seconds": 417,
+      "type": "substitution",
+      "wrong": "получится",
+      "correct": "получилось",
+      "context": "Живы и целы Значит у нас всё получилось мы достоверно разыграли очередной раскол",
+      "transcript": "получится",
+      "original": "получилось"
+    },
+    {
+      "time": "12:55",
+      "time_seconds": 775,
+      "type": "insertion",
+      "wrong": "и",
+      "correct": "",
+      "context": "Я заинтересовался А что есть доспехи Древних для зон запретов",
+      "transcript": "и",
+      "original": ""
+    },
+    {
+      "time": "16:52",
+      "time_seconds": 1012,
+      "type": "substitution",
+      "wrong": "проводит",
+      "correct": "проходит",
+      "context": "сравнится в таланте с молодым главой отрезал Седой Он одновременно проходит два этапа Возвышения",
+      "transcript": "проводит",
+      "original": "проходит"
+    },
+    {
+      "time": "17:16",
+      "time_seconds": 1036,
+      "type": "substitution",
+      "wrong": "давайте",
+      "correct": "дайте",
+      "context": "криво усмехнулся Нет Келлер потёр переносицу и попросил Молодой глава дайте я сброшу привязку",
+      "transcript": "давайте",
+      "original": "дайте"
+    },
+    {
+      "time": "18:29",
+      "time_seconds": 1109,
+      "type": "deletion",
+      "wrong": "",
+      "correct": "той",
+      "context": "качества эссенции и прочем что назвал Келлер Хотя бы по той простой причине",
+      "transcript": "",
+      "original": "той"
+    },
+    {
+      "time": "25:21",
+      "time_seconds": 1521,
+      "type": "substitution",
+      "wrong": "она",
+      "correct": "они",
+      "context": "тренировки Помогут ли мне орденские методики закалки души Действуют ли они на истинных мастеров Указов",
+      "transcript": "она",
+      "original": "они"
+    },
+    {
+      "time": "29:00",
+      "time_seconds": 1740,
+      "type": "substitution",
+      "wrong": "и",
+      "correct": "я",
+      "context": "Небо молчало ну так я и не говорящий с Небом",
+      "transcript": "и",
+      "original": "я"
+    },
+    {
+      "time": "30:46",
+      "time_seconds": 1846,
+      "type": "insertion",
+      "wrong": "он",
+      "correct": "",
+      "context": "старшего Наниматель приветствую вас выпрямившись всё так же громко рыкнул Не было о таком речи",
+      "transcript": "он",
+      "original": ""
+    },
+    {
+      "time": "35:40",
+      "time_seconds": 2140,
+      "type": "substitution",
+      "wrong": "кто",
+      "correct": "что",
+      "context": "храбрость и выскочить за кольцо охраны Мечей идущие из тех что послабей",
+      "transcript": "кто",
+      "original": "что"
+    },
+    {
+      "time": "36:53",
+      "time_seconds": 2213,
+      "type": "substitution",
+      "wrong": "закрывающих",
+      "correct": "закрывают",
+      "context": "шагов и они высотой уже выше любого из Небесных Исполинов закрывают небо и солнце",
+      "transcript": "закрывающих",
+      "original": "закрывают"
+    },
+    {
+      "time": "37:08",
+      "time_seconds": 2228,
+      "type": "insertion",
+      "wrong": "и",
+      "correct": "",
+      "context": "какого-то Опасного громадного непобедимого",
+      "transcript": "и",
+      "original": ""
+    },
+    {
+      "time": "40:50",
+      "time_seconds": 2450,
+      "type": "substitution",
+      "wrong": "ключ",
+      "correct": "ключа",
+      "context": "крохотного Поля Битвы внутри большого Поля Битвы и своего подобия Ключа",
+      "transcript": "ключ",
+      "original": "ключа"
+    },
+    {
+      "time": "40:53",
+      "time_seconds": 2453,
+      "type": "substitution",
+      "wrong": "этого",
+      "correct": "него",
+      "context": "Битвы и своего подобия Ключа Без портала но и без него это был очень жирный куш",
+      "transcript": "этого",
+      "original": "него"
+    },
+    {
+      "time": "43:16",
+      "time_seconds": 2596,
+      "type": "substitution",
+      "wrong": "какого",
+      "correct": "когда",
+      "context": "оружейных техник уловив справа от себя облегчённый вздох стражника семьи когда-то орденца",
+      "transcript": "какого",
+      "original": "когда"
+    },
+    {
+      "time": "46:49",
+      "time_seconds": 2809,
+      "type": "insertion",
+      "wrong": "своих",
+      "correct": "",
+      "context": "сектантами всё понятно они убивают идущих используя их тела для пилюль",
+      "transcript": "своих",
+      "original": ""
+    },
+    {
+      "time": "48:58",
+      "time_seconds": 2937,
+      "type": "insertion",
+      "wrong": "и",
+      "correct": "",
+      "context": "Как знакомо правда Точно так же как на Внешних Полях Битв",
+      "transcript": "и",
+      "original": ""
+    },
+    {
+      "time": "50:07",
+      "time_seconds": 3007,
+      "type": "substitution",
+      "wrong": "древних",
+      "correct": "древними",
+      "context": "считать что в големах Древними использован какой-то заменитель обманка",
+      "transcript": "древних",
+      "original": "древними"
+    }
+  ],
+  "_format_version": "2.0",
+  "_normalized": true
+}

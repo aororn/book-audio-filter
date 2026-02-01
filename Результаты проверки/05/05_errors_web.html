@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибки Глава 5 — Яндекс Спич v14.15.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e; 
+            color: #eee; 
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 30px;
+        }
+        .header h1 { color: #00d4ff; font-size: 2em; }
+        .header .stats { color: #888; margin-top: 10px; }
+        .stats span { 
+            background: #2d2d44; 
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            margin: 0 5px;
+            display: inline-block;
+        }
+        .error-list { max-width: 1000px; margin: 0 auto; }
+        .error {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e94560;
+            transition: transform 0.2s;
+        }
+        .error:hover { transform: translateX(5px); }
+        .error-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .time {
+            background: #0f3460;
+            color: #00d4ff;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .type {
+            background: #e94560;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        .words {
+            font-size: 1.3em;
+            margin: 10px 0;
+        }
+        .original { color: #4ade80; }
+        .arrow { color: #666; margin: 0 10px; }
+        .transcript { color: #f87171; }
+        .context {
+            background: #0f3460;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        .context mark {
+            background: #e94560;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            border-top: 1px solid #333;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎧 Ошибки — Глава 5</h1>
+        <div class="stats">
+            <span>📊 Всего: 91</span>
+            <span>✅ Golden: 34/34</span>
+            <span>📅 2026-02-01</span>
+        </div>
+    </div>
+    <div class="error-list">
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 0:24</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">хватило</span><span class="arrow">→</span><span class="transcript">хватит</span></div>
+            <div class="context">недолго будешь молчать, ведь даже убить себя у тебя не <mark>хватило</mark> смелости. Пойманный принялся пучить глаза, явно несогласный с тем, что...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 0:27</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">несогласный</span><span class="arrow">→</span><span class="transcript">согласный</span></div>
+            <div class="context">у тебя не хватило смелости. Пойманный принялся пучить глаза, явно <mark>несогласный</mark> с тем, что услышал, но кто бы дал ему возможность...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 1:21</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">какой</span><span class="arrow">→</span><span class="transcript">как</span></div>
+            <div class="context">рассыпаться. Глава, можно спрашивать. Я отмахнулся от какого-то умника. Какой спрашивать, если с каждым разом силы нужно всё больше, а...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 3:29</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">едва</span><span class="arrow">→</span><span class="transcript">хитлая</span></div>
+            <div class="context">не помешали бы закалки души. Не установлен срок! Не установлен! <mark>едва</mark> он перестал сдерживаться, как ему полегчало и дальше он уже...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 3:57</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">долговым</span><span class="arrow">→</span><span class="transcript">долговом</span></div>
+            <div class="context">а затем перевёл взгляд с Бахара на меня. Делай его <mark>долговым</mark> слугой, молодой глава, буквально приказал Седой, и отправляй к Пересмешнику....</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 4:00</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">отправляй</span><span class="arrow">→</span><span class="transcript">отправляя</span></div>
+            <div class="context">Делай его долговым слугой, молодой глава, буквально приказал Седой, и <mark>отправляй</mark> к Пересмешнику. Где двое, там и трое. Глядишь, через год...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 4:41</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">соглядатаю</span><span class="arrow">→</span><span class="transcript">соглядатую</span></div>
+            <div class="context">можно и до Преграды допрыгаться. Я опустил взгляд к самому <mark>соглядатаю</mark> и глухо предложил: У тебя два пути, собрат идущий. Первый...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 6:21</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-время</span></div>
+            <div class="context">нужно было этот разговор провести раньше, но что-то всё <mark>время</mark> мешало. То дела, то другие разговоры, то… Моя нерешительность. Всё...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 6:36</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">а</span><span class="arrow">→</span><span class="transcript">и</span></div>
+            <div class="context">к<mark>а</mark>ждый день было с ним дело и время для р<mark>а</mark>зговоров, <mark>а</mark> я дотянул до последнего дня. Не доходя до Зеленорукого и...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 8:12</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">лекаря</span><span class="arrow">→</span><span class="transcript">лекарей</span></div>
+            <div class="context">теле. Это не самостоятельный талант, а его грань, соединение дара <mark>лекаря</mark> и высокого познания своей стихии. У этой возможности есть как...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 9:55</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+на</span></div>
+            <div class="context">Наш уход мы не скрывали и не собирались скрывать. Поэтому назавтра то, что я называл площадью в этих засыпанных песком полуруинах,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 10:09</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">стражи</span><span class="arrow">→</span><span class="transcript">стражей</span></div>
+            <div class="context">орденцы, члены внутренней части семьи. Все, кто был свободен от <mark>стражи</mark> и дозора. Были здесь и все старейшины семьи, обиженный Пересмешник...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 11:06</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">за</span><span class="arrow">→</span><span class="transcript">заключенных</span></div>
+            <div class="context">так знают, что им делать. Я и искатели семьи уходят <mark>за</mark> Ключом. Это <mark>за</mark>ймёт не день и не два, но я...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 11:07</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-ключом</span></div>
+            <div class="context">знают, что им делать. Я и искатели семьи уходят за Ключом. Это займёт не день и не два, но я хочу,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 11:44</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">величия</span><span class="arrow">→</span><span class="transcript">увеличение</span></div>
+            <div class="context">год за годом потеть на жаре в этих руинах былого <mark>величия</mark>. Седой рыкнул: Возможности, которые сами вы добыть не в состоянии!...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 11:46</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">рыкнул</span><span class="arrow">→</span><span class="transcript">икнула</span></div>
+            <div class="context">годом потеть на жаре в этих руинах былого величия. Седой <mark>рыкнул</mark>: Возможности, которые сами вы добыть не в состоянии! Я вскинул...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 11:49</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">добыть</span><span class="arrow">→</span><span class="transcript">добывать</span></div>
+            <div class="context">этих руинах былого величия. Седой рыкнул: Возможности, которые сами вы <mark>добыть</mark> не в состоянии! Я вскинул руку, не давая разгореться ссоре...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 12:27</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+то</span></div>
+            <div class="context">переживай, наёмник Тартакал, на первой звезде моя фракция не задержится. Тартакал много чего повидал в жизни, знал когда нужно прикусить язык...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 15:07</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">продолжить</span><span class="arrow">→</span><span class="transcript">продолжил</span></div>
+            <div class="context">Под взглядами всего лишь Предводителей, Зеленорукий заставил себя выпрямиться и <mark>продолжить</mark> путь. Ещё и возмутиться сумел: Я думал, будет давление силы...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 15:32</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">морлан</span><span class="arrow">→</span><span class="transcript">морлана</span></div>
+            <div class="context">достать Озман, с этой стороны нельзя было зайти с земель Морлан или можно, но потеряв долгие недели на окружной путь через...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 15:49</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">големы</span><span class="arrow">→</span><span class="transcript">големову</span></div>
+            <div class="context">опытный старейшина стражи, он догадается вынести сюда дозор, а затем <mark>големы</mark> восстановятся. Сначала сузилась иллюзия долины, делая вид, что она закончи...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 16:04</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">его</span><span class="arrow">→</span><span class="transcript">ее</span></div>
+            <div class="context">поглотил Каменный Лабиринт, а нам теперь предстояло отыскать путь к <mark>его</mark> центру. Это, кстати, оказалось более сложно, чем я думал. И...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 16:40</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">непрозрачная</span><span class="arrow">→</span><span class="transcript">непрозрачно</span></div>
+            <div class="context">стены барьерных формаций, то сверху она тоже есть и почти <mark>непрозрачная</mark> для солнечных лучей? Нет, после того как в этой части...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 16:45</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">создали</span><span class="arrow">→</span><span class="transcript">создал</span></div>
+            <div class="context">Нет, после того как в этой части Поля Битвы формации <mark>создали</mark> ложное каменное плато, иссечённое тысячами извилистых ходов, <mark>создали</mark> даже иллюзии...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 16:47</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">иссеченное</span><span class="arrow">→</span><span class="transcript">иссеченные</span></div>
+            <div class="context">в этой части Поля Битвы формации создали ложное каменное плато, иссечённое тысячами извилистых ходов, создали даже иллюзии далёких гор, скрыв их...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 18:51</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">даже</span><span class="arrow">→</span><span class="transcript">давно</span></div>
+            <div class="context">обнаружив, что он присел на корточки, перебирая пальцами песок. Уже <mark>даже</mark> привычный жест за последние дни, который, скорее всего, означал, что...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 19:01</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">затем</span><span class="arrow">→</span><span class="transcript">он</span></div>
+            <div class="context">разомнёмся. Впереди идущий выпрямился и коротко подтвердил догадку: Песчаные Черви, <mark>затем</mark> добавил. Много. Большие. Рутгош тут же приказал: Двое, вперё...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 19:24</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">бусины</span><span class="arrow">→</span><span class="transcript">бусину</span></div>
+            <div class="context">выше середины. Но правила выхода есть правила выхода. Он перекинул <mark>бусины</mark> назад, явно сделав запись в жетоне, и нам оставалось лишь...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 20:00</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">врассыпную</span><span class="arrow">→</span><span class="transcript">рассыпную</span></div>
+            <div class="context">в записях семьи Морлан. Разумеется, понял это не только я. Врассыпную! рявкнул Рутгош. Сетью! Бирам выхватил из кисета ножи с лентами...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 20:31</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">моего</span><span class="arrow">→</span><span class="transcript">его</span></div>
+            <div class="context">Я довольно улыбнулся, кажется, наконец-то нашлась достойная цель для <mark>моего</mark> Пронзателя, Молота Монстров. Рявкнул: Первый мой! Никто не посмел оспорить,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 20:43</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-да</span></div>
+            <div class="context">влево и назад, оставляя меня на острие этого края «сети», <mark>да</mark> и судя по всё новым и новым бурунам в песке,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 20:49</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">приближащегося</span><span class="arrow">→</span><span class="transcript">приближающегося</span></div>
+            <div class="context">бурунам в песке, врагов хватит на всех. Впившись взглядом в <mark>приближащегося</mark> врага, я выжидал. Едва клинообразную башку расколола крохотная трещина откр...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 22:44</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-все</span></div>
+            <div class="context">другой, третий, с каждым разом проваливаясь ногой в сплошной камень всё глубже и глубже. Затем ткнул туда копьём, выгребая песок, а...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:04</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">случается</span><span class="arrow">→</span><span class="transcript">случаются</span></div>
+            <div class="context">камня. Под его шорох Рутгош решил поделиться опытом. Очень вовремя. Случается, такие необычные места становятся ловушками: барьер перекрывает вход спу...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:31</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">принимает</span><span class="arrow">→</span><span class="transcript">принимают</span></div>
+            <div class="context">были особые, тренированные для сражений животные и часть формаций защиты <mark>принимает</mark> современных Зверей за них. Есть даже рассуждение о том, что...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:34</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+и</span></div>
+            <div class="context">и часть формаций защиты принимает современных Зверей за них. Есть даже рассуждение о том, что вторая часть ловушек, где не с...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:47</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">формации</span><span class="arrow">→</span><span class="transcript">формация</span></div>
+            <div class="context">потомства, а попавшие туда новые Звери не подходят по виду, <mark>формации</mark> их не учитывают, и поэтому это теперь просто ловушки-тюрьмы....</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:50</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">ловушки</span><span class="arrow">→</span><span class="transcript">ловушка</span></div>
+            <div class="context">виду, формации их не учитывают, и поэтому это теперь просто <mark>ловушки</mark>-тюрьмы. Попавшие в них идущие могут ждать открытия выхода и...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:51</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">тюрьмы</span><span class="arrow">→</span><span class="transcript">тюрьма</span></div>
+            <div class="context">формации их не учитывают, и поэтому это теперь просто ловушки-<mark>тюрьмы</mark>. в них идущие могут ждать открытия выхода и месяц,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 23:55</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">месяц</span><span class="arrow">→</span><span class="transcript">месяцы</span></div>
+            <div class="context">ловушки-тюрьмы. Попавшие в них идущие могут ждать открытия выхода и <mark>месяц</mark>, и год, и даже годы. Я кивнул. Седой делился неприятными...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 25:09</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+и</span></div>
+            <div class="context">жизни для пролома барьера. Даже Великого? уточнил я. С ним ещё проще, усмехнулся Седой, богу секты достаточно открыться Небу и вызвать...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 26:10</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+лет</span></div>
+            <div class="context">было два таких случая, сколько такого случилось за последние пятьдесят… Рутгош поправил: Да уже можно считать шестьдесят. Седой тяжело вздохнул: Как...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 26:11</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">поправил</span><span class="arrow">→</span><span class="transcript">поправился</span></div>
+            <div class="context">два таких случая, сколько такого случилось за последние пятьдесят… Рутгош <mark>поправил</mark>: Да уже можно считать шестьдесят. Седой тяжело вздохнул: Как летит...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 26:16</span>
+                <span class="type">transposition</span>
+            </div>
+            <div class="words"><span class="original">-летит время</span></div>
+            <div class="context">поправил: Да уже можно считать шестьдесят. Седой тяжело вздохнул: Как <mark>летит время</mark>… На какие уступки сектам за эти десятилетия Эрзум уговорили...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 26:57</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">рутгош</span><span class="arrow">→</span><span class="transcript">тот</span></div>
+            <div class="context">для возмещения ущерба понадобятся годы работы Шахт всех окрестных фракций. Рутгош подхватил: Что самое неприятное, так это то, что с идущим...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 27:01</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">идущим</span><span class="arrow">→</span><span class="transcript">идущими</span></div>
+            <div class="context">Рутгош подхватил: Что самое неприятное, так это то, что с <mark>идущим</mark> Империи Испытание может закончиться либо успехом, либо провалом, либо тяжёлой...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 28:18</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">зала</span><span class="arrow">→</span><span class="transcript">залы</span></div>
+            <div class="context">ними в битве один на один. Я вспомнил внутренний двор Зала Стражи в землях Ян, где дух сошёлся в битве с...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 29:16</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+что</span></div>
+            <div class="context">путь змеился и петлял так сильно, что иногда мне казалось, мы топчемся на месте, буквально петлями ходим на пять ли вперёд,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 29:37</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">выбрался</span><span class="arrow">→</span><span class="transcript">выбился</span></div>
+            <div class="context">на Поле Битвы редко ведёт к успеху. Тем временем Карай <mark>выбрался</mark> из ямы, отряхнулся от песка и подскочил для доклада. Глава,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 30:20</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">орденцев</span><span class="arrow">→</span><span class="transcript">ордена</span></div>
+            <div class="context">так много значит с системой обучения, что была у остатков <mark>орденцев</mark>. С определённого уровня силы они там учили все, передавая знания...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 30:36</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">образцу</span><span class="arrow">→</span><span class="transcript">образу</span></div>
+            <div class="context">выходом проверил его верностью в три цвета и печатью по <mark>образцу</mark> сектантов. Он безусловно верен семье и Ордену. Рутгош покосился на...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 32:17</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">нетронутый</span><span class="arrow">→</span><span class="transcript">нетронутой</span></div>
+            <div class="context">за пределами рыхлого песчаного пятна лежал густой ковёр из травы, <mark>нетронутый</mark> Червями, а впереди и вовсе возвышались деревья. Уступая место следом...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 32:21</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">следом</span><span class="arrow">→</span><span class="transcript">следующим</span></div>
+            <div class="context">нетронутый Червями, а впереди и вовсе возвышались деревья. Уступая место <mark>следом</mark> идущим вновь двинулся вперёд, на ходу оглянулся с этой стороны...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 32:53</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">создатели</span><span class="arrow">→</span><span class="transcript">создателей</span></div>
+            <div class="context">и нужно, чтобы Каменный Лабиринт существовал, но никаких подсказок его <mark>создатели</mark> даже для Стража в ранге шаула не предусмотрели. Не посчитали...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 32:55</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">стража</span><span class="arrow">→</span><span class="transcript">стражи</span></div>
+            <div class="context">Каменный Лабиринт существовал, но никаких подсказок его создатели даже для Стража в ранге шаула не предусмотрели. Не посчитали нужными, опасались, не...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 32:58</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">нужными</span><span class="arrow">→</span><span class="transcript">нужным</span></div>
+            <div class="context">даже для Стража в ранге шаула не предусмотрели. Не посчитали <mark>нужными</mark>, опасались, не успели? Повёл взглядом в поисках Рутгоша. Отыскал его...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 34:05</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+и</span></div>
+            <div class="context">обычного соотношения, то это достойно считаться ещё одной тайной Древних, наряду с зельями, формациями Указов и прочим. Зеленорукий недовольно буркнул...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 35:09</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">собирателей</span><span class="arrow">→</span><span class="transcript">собирателя</span></div>
+            <div class="context">поняли, то есть подробно. Я не упустил случая: Словно для <mark>собирателей</mark> камней и… Рутгош вскинул руку и не дал мне договорить:...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 35:39</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">лабиринта</span><span class="arrow">→</span><span class="transcript">лабиринтов</span></div>
+            <div class="context">рядовых защитных. Именно поэтому я определил время, необходимое для преодоления Лабиринта в четыре месяца. Я разделил площадь Лабиринта на предельное ...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 35:45</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">него</span><span class="arrow">→</span><span class="transcript">нем</span></div>
+            <div class="context">разделил площадь Лабиринта на предельное число ходов, которое может в <mark>него</mark> уместиться. Я так привык и в этом ошибся. В то,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 35:49</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">то</span><span class="arrow">→</span><span class="transcript">том</span></div>
+            <div class="context">него уместиться. Я так привык и в э<mark>то</mark>м ошибся. В <mark>то</mark>, ч<mark>то</mark> ты ошибся, Аранви намекнул тебе ещё неделю назад. Я...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 37:06</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">старейшина</span><span class="arrow">→</span><span class="transcript">старейшины</span></div>
+            <div class="context">меня: Для кого? Для Древних? Какие ещё Древние, с-с-<mark>старейшина</mark>? показалось, Рутгош с трудом удержался, чтобы не назвать Зеленорукого...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 37:08</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">рутгош</span><span class="arrow">→</span><span class="transcript">род</span></div>
+            <div class="context">Для Древних? Какие ещё Древние, с-с-старейшина? мне показалось, Рутгош с трудом удержался, чтобы не назвать Зеленорукого придурком или того...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 38:03</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">покинув</span><span class="arrow">→</span><span class="transcript">покинул</span></div>
+            <div class="context">осталась на его землях, на внешней его части, на время <mark>покинув</mark> внутреннюю, запертую магистром. Это были лекари, алхимики, мастера формаций и...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 39:05</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">маурт</span><span class="arrow">→</span><span class="transcript">маур</span></div>
+            <div class="context">на земле, что больше им не принадлежала. Эрзум, Ваурс, Уш, Маурт, десятки многих других и даже вилорцы, которые с видом хозяев...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 39:22</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-что</span></div>
+            <div class="context">и мастерских спорили, кому из них они теперь принадлежат. Шакалы, <mark>что</mark> рвали ещё живого мада. Некоторые из мастеров приняли предложения фракций,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 39:23</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">мада</span><span class="arrow">→</span><span class="transcript">мага</span></div>
+            <div class="context">из них они теперь принадлежат. Шакалы, что рвали ещё живого <mark>мада</mark>. Некоторые из мастеров приняли предложения фракций, перейдя под их покровительство....</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 39:27</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-перейдя</span></div>
+            <div class="context">рвали ещё живого мада. Некоторые из мастеров приняли предложения фракций, <mark>перейдя</mark> под их покровительство. Кто-то в гневе сражался за свои...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 40:08</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">как</span><span class="arrow">→</span><span class="transcript">никак</span></div>
+            <div class="context">другого выхода. Хотя лично я не принял их поступка. Ни <mark>как</mark> Леград из безвестной деревушки Нулевого, ни <mark>как</mark> Леград магистр их...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 40:38</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">фракции</span><span class="arrow">→</span><span class="transcript">фракцией</span></div>
+            <div class="context">всего, скитались из одного Пояса в другой, служили то одной <mark>фракции</mark>, то второй, то третьей. Да, я бы выбрал встать на...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 41:20</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">рутгош</span><span class="arrow">→</span><span class="transcript">рот</span></div>
+            <div class="context">мастеров Ордена убили себя, чтобы их секреты не покинули Орден. Рутгош сделал над собой усилие, возвращая на лицо пусть и безжизненную,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 41:39</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">но</span><span class="arrow">→</span><span class="transcript">а</span></div>
+            <div class="context"><mark>но</mark>вые знания и <mark>но</mark>вую силу. Зеле<mark>но</mark>рукий покивал: Да, да, <mark>но</mark>, скорее, кропотливое изучение этих твоих <mark>но</mark>вых формаций может дать всего...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 41:50</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+и</span></div>
+            <div class="context">лучшем случае, если за них возьмётся великий талант, а лучше гений. Рутгош набычился: Брат Цалиш, ты пытаешься уязвить меня? Я поспешил...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 41:52</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">набычился</span><span class="arrow">→</span><span class="transcript">набылся</span></div>
+            <div class="context">если за них возьмётся великий талант, а лучше гений. Рутгош <mark>набычился</mark>: Брат Цалиш, ты пытаешься уязвить меня? Я поспешил вмешаться, пока...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 42:22</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">которые</span><span class="arrow">→</span><span class="transcript">которую</span></div>
+            <div class="context">со здешними формациями, пока что я вижу только кучу проблем, <mark>которые</mark> они нам принесут. Если плотность здешних ходов настолько велика, то...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 43:51</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">чувствует</span><span class="arrow">→</span><span class="transcript">чувствуют</span></div>
+            <div class="context">лишь хмыкнул себе под нос. Да, Зеленорукий не очень уютно <mark>чувствует</mark> себя в зонах запретов. Пусть в этом солнечном месте к...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 45:48</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+эва</span></div>
+            <div class="context">десяти сильнейших фракций Империи. Скажи, что не нарочно добивался подобного. Я упрямо буркнул: Не нарочно. Значит, радуйся своей удаче и учись,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 45:50</span>
+                <span class="type">пропуск</span>
+            </div>
+            <div class="words"><span class="original">-я</span></div>
+            <div class="context">дес<mark>я</mark>ти сильнейших фракций Империи. Скажи, что не нарочно добивалс<mark>я</mark> подобного. Я упр<mark>я</mark>мо буркнул: Не нарочно. Значит, радуйс<mark>я</mark> своей удаче и учись,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 46:23</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">империи</span><span class="arrow">→</span><span class="transcript">империй</span></div>
+            <div class="context">эти попытки Седого вбить в меня странные тонкости общения сильных Империи… Не сказать, что они проходят впустую, я всё запоминаю и...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 48:09</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">искателями</span><span class="arrow">→</span><span class="transcript">искателям</span></div>
+            <div class="context">недели на то, чтобы проложить сюда дорогу, то любым другим <mark>искателями</mark>, даже если они из Эрзум, понадобится два месяца, не меньше....</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 48:17</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">простейшие</span><span class="arrow">→</span><span class="transcript">простейшее</span></div>
+            <div class="context">Сюда? я поднял руку и запустил с неё в небо <mark>простейшие</mark> Лезвия. Сюда? Разве не вы убеждали меня, что лагерь нужно...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 49:22</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">костер</span><span class="arrow">→</span><span class="transcript">огонь</span></div>
+            <div class="context">очередного лесочка. Кто-то уже успел натаскать валежника и развести костёр, устроившись у живого огня, кто-то медитировал, а в отдалении...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 49:50</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">глава</span><span class="arrow">→</span><span class="transcript">баба</span></div>
+            <div class="context">шагов, займусь тренировкой. Могу быть немного шумным, предупреди старших. Понял, <mark>глава</mark>. Если уж выпала возможность пользоваться техниками, то почему б...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 50:41</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">притом</span><span class="arrow">→</span><span class="transcript">том</span></div>
+            <div class="context">будет очень сложно. Сравнивали меня с весами, которые нужно уравновесить, <mark>притом</mark> что в одной чаше пятьдесят мер груза, а в другой...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 51:05</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">духовная</span><span class="arrow">→</span><span class="transcript">духовные</span></div>
+            <div class="context">весов и какой в них должна быть разница. Всё же <mark>духовная</mark> сила и стихия гораздо сложней, чем камни и их вес....</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 51:06</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">сила</span><span class="arrow">→</span><span class="transcript">силы</span></div>
+            <div class="context">и какой в них должна быть разница. Всё же духовная <mark>сила</mark> и стихия гораздо сложней, чем камни и их вес. В...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 52:03</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">которым</span><span class="arrow">→</span><span class="transcript">котором</span></div>
+            <div class="context">мне Властелинов. Старейшины говорили, что видят три пути. Первый путь, <mark>которым</mark> я шёл с зельями Древних увеличить первое средоточие до пределов,...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 52:18</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">изменится</span><span class="arrow">→</span><span class="transcript">изменит</span></div>
+            <div class="context">этого точно не хватит и ничего, словно в сказке, не <mark>изменится</mark> в тот миг, когда Большое Зелье Ростка закончит своё действие....</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 52:38</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">создает</span><span class="arrow">→</span><span class="transcript">сдает</span></div>
+            <div class="context">что моё тело это равновесие уже давно нашло и прекрасно создаёт эссенцию, а вот я, несмотря на все свои опыты и...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 52:47</span>
+                <span class="type">вставка</span>
+            </div>
+            <div class="words"><span class="transcript">+до</span></div>
+            <div class="context">попытки, никак не могу этот баланс нащупать и осознать. НедоВластелин, у которого нет того, из чего можно создать третье средоточие. Третий...</div>
+        </div>
+
+        <div class="error">
+            <div class="error-header">
+                <span class="time">⏱ 52:47</span>
+                <span class="type">замена</span>
+            </div>
+            <div class="words"><span class="original">недовластелин</span><span class="arrow">→</span><span class="transcript">властелина</span></div>
+            <div class="context">и попытки, никак не могу этот баланс нащупать и осознать. НедоВластелин, у которого нет того, из чего можно создать третье средоточие....</div>
+        </div>
+
+    </div>
+    <div class="footer">
+        Яндекс Спич v14.15.0 | Golden 127/127 | Всего ошибок: 388
+    </div>
+</body>
+</html>
